@@ -1,0 +1,102 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{bussproofs}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\title{Introduction to dependent type theory}
+\author{Ali Caglayan}
+
+%
+%   Plan for writing this document
+%  
+%   1. Complete bibliography and use
+%   2. Introduce simply typed lambda calculus (similar in style to the way John wrote it for his course notes)
+%   3. Lay out general outline of how new types are added
+%   4. Talk about different ways to introduce dependent types
+%   5. introduce universes
+%   6. Prefer the type families/univereses approach
+%   7. Talk about type families
+%   8. Introduce Pi types
+%   9. Examples of Pi types
+%   10. Introduce Sigma types
+%   11. Examples of Sigma types
+%   12. How they interact together
+%   13. Relationship with logic
+%   14. Curry-Howard correspondance
+%   15. Inductive types
+%   16. Examples, uses, general syntax, implementation (W-types)
+%   17. Identity types
+%   18. Discuss the induction principle on the identity type and axiom K etc.
+%   19. Consider no restriction of axiom K
+%   20. Give Identity type as inductive definition
+%   21. Say that what we have now is Martin-Lof intensional type theory, reference all these papers about its semantics
+% ~ ~ ~ ~ ~ Experimental territory / Could be a masters? ~ ~ ~ ~ ~
+%   22. Consider functional extensionality
+%   23. Consider univalence with examples
+%   24. Introduce higher inductive types
+%   25. Examples of HITs with reference to semantics by Schulman-Lumsdaine
+%   26. Discuss HoTT, what has been done (in algebraic topology etc.) its usefulness as a language for mathematics
+%   27. Category theory in HoTT
+%   28. Survey of snythetic homotopy theory
+%   the list goes on...
+
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+Roughly a \textit{type system} is a set of loosely organised rules outlining how ``atomic sentences'' called \textit{judgements} can be derived from each other in a given context. A \textit{context} can simply be thought of as a list of terms. 
+
+\subsection{Lambda calculus}
+We recall that there are 3 kinds of expressions in lambda calculus: variables, abstractions and applications. These are defined inductively on themselves. A variable is simply a string of characters from an alphabet. A lambda abstraction looks like $\lambda x.y$ where $x$ is some variable and $y$ is some expression. There are alternate ways of writing this, allowing us to drop the need for naming $x$, for example de Brujin indicies. Finally an application is simply the concatenation $ab$ of two expressions $a$ and $b$. We will assume that  This fully describes the syntax of this type theory. We will now introduce some rules that tell us which expressions we can derive from other expressions. Firstly we have $\beta$-reduction which tells us if we have an expression of the form $(\lambda x . y)z$ this can be reduced to an expression where all occurances of $x$ in $y$ are replaced with the expression $z$. We also have $\alpha$-conversion which I would argue isn't really a rule as naming of variables can be completely avoided in the first place using de Brujin indicies or even combinators.
+
+\subsection{Contexts}
+In mathematics we work with contexts implicitly. That is there is always an ambient knowledge of what has been defined. Mostly due to the nature of how we read matheamtical papers. We can make this explicit using contexts. We will not however, use contexts in our discussion of type theory but we will provide a formal exposition in the appendix.
+
+\newpage
+
+\section{A formal simply typed lambda calculus}
+Our judgements:
+\begin{center}
+    \begin{tabular}{c | c}
+        $\Gamma\ \mathrm{ctx}$ &  $\Gamma$ is a well-formed context. \\
+        $\Gamma \vdash A\ \mathrm{Type}$ & $A$ is a type in context $\Gamma$. \\
+        $\Gamma \vdash x : A$ & $x$ is a term of type $A$ in context $\Gamma$. \\
+%        $\Gamma \vdash x \equiv y : A$ & the terms $x$ and $y$ of type $A$ are definitionally equal in context $\Gamma$
+    \end{tabular}
+\end{center}
+
+Type theory ``will be about'' deriving judgements from other judgements. Which can be concisely sumarised in the form of an inference rule
+
+$$\frac{A_1\quad A_2 \quad \cdots \quad A_n}{B}$$
+
+which says that given the judgements $A_1,\dots,A_n$ we can derive the judgement $B$.
+
+\subsection{Structural rules}
+We now look at the rules that govern contexts and the structure of our type system.
+
+We begin with a rule stating that the empty context (which as contexts are sets or lists is well-defined) is well-formed. Which is another way of stating that the context was grown in a specified way and is not just an arbitrary list or set of variables.
+
+\begin{prooftree}
+    \AxiomC{}
+    \RightLabel{empty-ctx}
+    \UnaryInfC{$\varnothing$ ctx}
+    \singleLine
+\end{prooftree}
+
+We also want the concatenation of two well-formed contexts to be well-formed.
+
+\begin{prooftree}
+    \AxiomC{$\Gamma$ ctx}
+    \AxiomC{$\Delta$ ctx}
+    \BinaryInfC{$\Gamma,\Delta$ ctx}
+\end{prooftree}
+
+We omit rules about repeating or removing repeated elements and ordering lists (think of them as finite sets).
+
+A variable is a statement of the form $x : A$ where $x$ is known as the term and $A$ its type.
+
+\end{document}
