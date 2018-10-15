@@ -3,6 +3,8 @@
 \usepackage{bussproofs}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{natbib}
+\usepackage{url}
 
 \title{Introduction to dependent type theory}
 \author{Ali Caglayan}
@@ -46,57 +48,17 @@
 
 \maketitle
 
-\section{Introduction}
+%\section{Introduction}
 
-Roughly a \textit{type system} is a set of loosely organised rules outlining how ``atomic sentences'' called \textit{judgements} can be derived from each other in a given context. A \textit{context} can simply be thought of as a list of terms. 
+%Roughly a \textit{type system} is a set of loosely organised rules outlining how ``atomic sentences'' called \textit{judgements} can be derived from each other in a given context. A \textit{context} can simply be thought of as a list of terms. 
 
-\subsection{Lambda calculus}
-We recall that there are 3 kinds of expressions in lambda calculus: variables, abstractions and applications. These are defined inductively on themselves. A variable is simply a string of characters from an alphabet. A lambda abstraction looks like $\lambda x.y$ where $x$ is some variable and $y$ is some expression. There are alternate ways of writing this, allowing us to drop the need for naming $x$, for example de Brujin indicies. Finally an application is simply the concatenation $ab$ of two expressions $a$ and $b$. We will assume that  This fully describes the syntax of this type theory. We will now introduce some rules that tell us which expressions we can derive from other expressions. Firstly we have $\beta$-reduction which tells us if we have an expression of the form $(\lambda x . y)z$ this can be reduced to an expression where all occurances of $x$ in $y$ are replaced with the expression $z$. We also have $\alpha$-conversion which I would argue isn't really a rule as naming of variables can be completely avoided in the first place using de Brujin indicies or even combinators.
+\cite{hottbook}
+\input{stlc.tex}
 
-\subsection{Contexts}
-In mathematics we work with contexts implicitly. That is there is always an ambient knowledge of what has been defined. Mostly due to the nature of how we read matheamtical papers. We can make this explicit using contexts. We will not however, use contexts in our discussion of type theory but we will provide a formal exposition in the appendix.
 
-\newpage
+\bibliographystyle{agsm} 
+\bibliography{uthesis}
 
-\section{A formal simply typed lambda calculus}
-Our judgements:
-\begin{center}
-    \begin{tabular}{c | c}
-        $\Gamma\ \mathrm{ctx}$ &  $\Gamma$ is a well-formed context. \\
-        $\Gamma \vdash A\ \mathrm{Type}$ & $A$ is a type in context $\Gamma$. \\
-        $\Gamma \vdash x : A$ & $x$ is a term of type $A$ in context $\Gamma$. \\
-%        $\Gamma \vdash x \equiv y : A$ & the terms $x$ and $y$ of type $A$ are definitionally equal in context $\Gamma$
-    \end{tabular}
-\end{center}
-
-Type theory ``will be about'' deriving judgements from other judgements. Which can be concisely sumarised in the form of an inference rule
-
-$$\frac{A_1\quad A_2 \quad \cdots \quad A_n}{B}$$
-
-which says that given the judgements $A_1,\dots,A_n$ we can derive the judgement $B$.
-
-\subsection{Structural rules}
-We now look at the rules that govern contexts and the structure of our type system.
-
-We begin with a rule stating that the empty context (which as contexts are sets or lists is well-defined) is well-formed. Which is another way of stating that the context was grown in a specified way and is not just an arbitrary list or set of variables.
-
-\begin{prooftree}
-    \AxiomC{}
-    \RightLabel{empty-ctx}
-    \UnaryInfC{$\varnothing$ ctx}
-    \singleLine
-\end{prooftree}
-
-We also want the concatenation of two well-formed contexts to be well-formed.
-
-\begin{prooftree}
-    \AxiomC{$\Gamma$ ctx}
-    \AxiomC{$\Delta$ ctx}
-    \BinaryInfC{$\Gamma,\Delta$ ctx}
-\end{prooftree}
-
-We omit rules about repeating or removing repeated elements and ordering lists (think of them as finite sets).
-
-A variable is a statement of the form $x : A$ where $x$ is known as the term and $A$ its type.
 
 \end{document}
+
