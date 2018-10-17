@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+find -name '*.tex' -exec aspell -t -c {} \;
+
