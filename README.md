@@ -3,6 +3,7 @@
 
 ### How to Use
 
+* `bash start` start workflow - pulls from master, compiles and opens pdf
 * `bash clean` clean directory
 * `bash mk` build latex
 * `bash spell` check spelling

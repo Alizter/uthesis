@@ -66,8 +66,22 @@ We now need a rule for producing terms of this new type. We introduce the introd
 
 \begin{prooftree}
     \RightLabel{$(\to)$-intro}
-    \AxiomC{$\Gamma \vdash A \to B$}
+    \AxiomC{$\Gamma, x : A \vdash y : B$}
     \UnaryInfC{$\Gamma \vdash (\lambda x . y) : A \to B$}
 \end{prooftree}
 
-We will sometimes call this lambda abstraction. We next introduce a way to apply these functions. We introduce our elimination rule for the function type.
+We will sometimes call this lambda abstraction. We next introduce a way to apply these functions to terms in their domains. We introduce our elimination rule for the function type.
+
+\begin{prooftree}
+    \RightLabel{$(\to)$-elim}
+    \AxiomC{$\Gamma \vdash f : A \to B$}
+    \AxiomC{$\Gamma \vdash a : A$}
+    \BinaryInfC{$\Gamma \vdash f(a) : B$}
+\end{prooftree}
+
+This is essentially usless unless we have a way to compute (or reduce) this expression. This is where our computation rule comes in. The computation rule will tell us how our elimination rule and introduction rule interact.
+\begin{prooftree}
+    \RightLabel{$(\to)$-comp}
+    \AxiomC{$\Gamma, x : A, y : B, (\lambda x . y) : A \to B, a : A \vdash (\lambda x . y) (a) : B$}
+\end{prooftree}
+

@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+git pull
+gedit *.tex uthesis.bib &
+bash mk
+xdg-open main.pdf
