@@ -1,8 +1,6 @@
 # uthesis
 ## Undergraduate thesis
 
----
-
 ### How to Use
 
 * `bash clean` clean directory
