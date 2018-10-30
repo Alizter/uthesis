@@ -1,1 +1,41 @@
 % General type theory stuff
+
+\section{Syntax}
+
+\section{Rules}
+
+\section{Symantics}
+
+\begin{defin}
+	Let $C$ be a small category. The {\bf category of elements} $\el(F)$ of a functor 
+	$F : C \to \Set$ is the following pullback in \Cat:
+	
+	\begin{equation}
+		\begin{tikzcd}
+			%	\el(F) \arrow[rr, "\rho_F"] & & \Set
+			\el(F) \arrow[dd, "\pi_F"'] \arrow[rr, "\rho_F"] &  & \Set_* \arrow[dd, "U"] \\
+			&  &  \\
+			C \arrow[rr, "F"] &  & \Set
+		\end{tikzcd}
+	\end{equation}
+
+	where $U$ is the forgetful functor from the category of pointed sets 
+	$\Set_*$ to the category of sets $\Set$.
+\end{defin}
+Thus $\el : [C, \Set] \to \Cat$ is a functor. TODO: Prove this.
+
+
+\begin{defin}
+	A {\bf category with families (CwF)} consists of:
+	\begin{itemize}
+		\item A small category $C$
+		\item A terminal object $1 \in C$
+		\item Two presheaves $\Tm, \Ty \in [C^\op, \Set]$
+		\item A morphism of presheaves $\of : \Tm \to \Ty$
+		\item An algebraic representation of the map $\of$ or in other words
+		a right adjoint to $\el(\of) : \el(\Tm) \to \el(\Ty)$ (TODO: Don't link 
+		this definition so much need rephrasing).
+	\end{itemize}
+\end{defin}
+
+

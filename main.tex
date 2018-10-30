@@ -3,12 +3,31 @@
 \usepackage{bussproofs}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{amsthm}
 \usepackage{natbib}
 \usepackage{url}
 \usepackage{dirtytalk}
+\usepackage{pst-node}
+\usepackage{tikz-cd} 
 
 \title{Introduction to dependent type theory}
 \author{Ali Caglayan}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lem}{Lemma}
+
+\theoremstyle{definition}
+\newtheorem{defin}{Definition}
+
+
+\newcommand{\catname}[1]{{\normalfont\textbf{#1}}}
+\newcommand{\Set}{\catname{Set}}
+\newcommand{\Cat}{\catname{Cat}}
+\newcommand{\el}{\mathrm{el}}
+\newcommand{\op}{\mathbf{op}}
+\newcommand{\Ty}{\mathbf{Ty}}
+\newcommand{\Tm}{\mathbf{Tm}}
+\newcommand{\of}{\mathbf{of}}
 
 %
 %   Plan for writing this document
@@ -52,6 +71,8 @@
 \input{intro.tex}
 
 \input{stlc.tex}
+
+\input{tt.tex}
 
 
 \bibliographystyle{plain} 
