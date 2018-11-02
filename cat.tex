@@ -1,0 +1,62 @@
+% Category theory
+
+
+\section{Category theory}
+
+We will introduce basic category theory. Good references are: \cite{MacLaneSaunders1998Cftw,rotman2008introduction}
+
+
+% Definition of category
+\begin{defin}
+	A {\bf category} $\mathcal{C}$ consists of:
+	\begin{itemize}
+		\item A class $\mathrm{Ob}(\mathcal{C})$ (usually simply denoted $\mathcal{C}$ without ambiguity) of {\bf objects}.
+		\item For each object $A,B \in \mathcal{C}$ a set $\hom_{\mathcal{C}}(A,B)$ of {\bf morphisms} called a {\bf homset}. (Sometimes written $\hom$ when the context is clear). When writing $f \in \hom(A,B)$ we usually denote this $f : A \to B$.
+		\item For each object $A \in \mathcal{C}$ a morphism $1_A : A \to A$ called the {\bf identity}.
+		\item For each object $A,B,C \in \mathcal{C}$, and for each $f : A \to B$ and $g : B \to C$ there is a function (written infix or sometimes simply omitted ($fg \equiv f \circ g$)
+		
+		$$
+			- \circ - : \hom(B,C) \times \hom(A,B) \to \hom(A,C)
+		$$
+		
+		called {\bf composition}.
+	\end{itemize}
+	
+	Such that the following hold:
+	
+	\begin{itemize}
+		\item (Identity) For each $A,B \in \mathcal{C}$ and $f : A \to B$ we have $f \circ 1_A = f$ and $1_B \circ f = f$.
+		\item (Associativity) For all $A,B,C,D \in \mathcal{C}$ and $f : A \to B$, $g : B \to C$, $h : C \to D$. We have: $h \circ (g \circ f) = (h \circ g) \circ f$.
+	\end{itemize}
+\end{defin}
+
+We now give some examples:
+
+\begin{example}
+	The category $\Set$ is called the {\bf category of sets} and has objects as sets. And morphisms and functions between these sets. The identity morphisms are simply the identity function. Composition is the obvious composition of functions.
+\end{example}
+
+\begin{example}
+	For any category $\mathcal{C}$ we can get another category called the {\bf opposite category} $\mathcal{C}^\op$ whose objects are the same as $\mathcal{C}$ however the homsets are defined as follows: $\hom_{\mathcal{C}^\op}(x,y):=\hom_{\mathcal{C}}(y,x)$. Composition remains unchanged.
+\end{example}
+
+\begin{defin}
+	We call a category {\bf small} if its class of objects is really a set.
+\end{defin}
+
+\begin{defin}
+	Let $\mathcal{C},\mathcal{D}$ be categories. A {\bf functor} $F$ from $\mathcal{C}$ to $\mathcal{D}$ consists of:
+	
+	\begin{itemize}
+		\item An object $F(A)\in \mathcal{D}$, for all $A \in \mathcal{C}$ (also denoted $FA$).
+		\item For each $A,B \in \mathcal{C}$, a function $F_{A,B} : \hom_{\mathcal{C}}(A,B) \to \hom_{\mathcal{D}}(FA,FB)$ (also denoted $F$).
+		\item For each $A \in \mathcal{C}$, $F(1_A) = 1_{FA}$.
+		\item For each $A,B,C \in \mathcal{C}$, $f : A \to B$, $g : B \to C$, we have $$F(g \circ f) = F(g)\circ F(f)$$
+	\end{itemize}
+\end{defin}
+
+Now that we have 'morphisms' of categories we can define another category:
+
+\begin{example}
+	The 
+\end{example}

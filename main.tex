@@ -13,21 +13,22 @@
 \title{Introduction to dependent type theory}
 \author{Ali Caglayan}
 
-\newtheorem{theorem}{Theorem}
-\newtheorem{lem}{Lemma}
-
 \theoremstyle{definition}
-\newtheorem{defin}{Definition}
+\newtheorem{defin}{Definition}[section]
+\newtheorem{example}[defin]{Example}
+\newtheorem{theorem}{Theorem}[section]
 
 
 \newcommand{\catname}[1]{{\normalfont\textbf{#1}}}
 \newcommand{\Set}{\catname{Set}}
 \newcommand{\Cat}{\catname{Cat}}
 \newcommand{\el}{\mathrm{el}}
-\newcommand{\op}{\mathbf{op}}
+\newcommand{\op}{\mathrm{op}}
 \newcommand{\Ty}{\mathbf{Ty}}
 \newcommand{\Tm}{\mathbf{Tm}}
 \newcommand{\of}{\mathbf{of}}
+
+\newcommand{\Id}{\mathrm{Id}}
 
 %
 %   Plan for writing this document
@@ -73,6 +74,8 @@
 \input{stlc.tex}
 
 \input{tt.tex}
+
+\input{cat.tex}
 
 
 \bibliographystyle{plain} 
