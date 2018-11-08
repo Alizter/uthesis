@@ -82,6 +82,9 @@ We will sometimes call this lambda abstraction. We next introduce a way to apply
 This is essentially useless unless we have a way to compute (or reduce) this expression. This is where our computation rule comes in. The computation rule will tell us how our elimination rule and introduction rule interact.
 \begin{prooftree}
     \RightLabel{$(\to)$-comp}
+    \AxiomC{$(\lambda x . y) : A \to B$}
+    \AxiomC{$\Gamma, a : A \vdash (\lambda x.y)a : B$}
     \AxiomC{$\Gamma, x : A, y : B, (\lambda x . y) : A \to B, a : A \vdash (\lambda x . y) (a) : B$}
+    \UnaryInfC{$\Gamma \vdash y[x / a] : B$}
 \end{prooftree}
 
