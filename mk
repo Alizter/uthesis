@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-bash clean
+#bash clean
 
 echo -n "First pass with pdflatex..."
 pdflatex -interaction=nonstopmode main &> out.log
