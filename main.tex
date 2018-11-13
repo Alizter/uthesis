@@ -20,17 +20,40 @@
 \newtheorem{example}[defin]{Example}
 \newtheorem{theorem}{Theorem}[section]
 
+\newcommand{\N}{\mathbbb{N}} %% Need to say NN has 0
 
 \newcommand{\catname}[1]{{\normalfont\textbf{#1}}}
 \newcommand{\Set}{\catname{Set}}
 \newcommand{\Cat}{\catname{Cat}}
+
 \newcommand{\el}{\mathrm{el}}
 \newcommand{\op}{\mathrm{op}}
 \newcommand{\Ty}{\mathbf{Ty}}
 \newcommand{\Tm}{\mathbf{Tm}}
 \newcommand{\of}{\mathbf{of}}
 
+
 \newcommand{\Id}{\mathrm{Id}}
+
+
+\begin{document}
+
+\maketitle
+
+%\input{intro.tex}
+
+\input{stlc.tex}
+
+%\input{tt.tex}
+
+%\input{cat.tex}
+
+
+\bibliographystyle{plain} 
+\bibliography{uthesis}
+
+
+\end{document}
 
 %
 %   Plan for writing this document
@@ -67,22 +90,4 @@
 %   the list goes on...
 
 
-\begin{document}
-
-\maketitle
-
-%\input{intro.tex}
-
-\input{stlc.tex}
-
-%\input{tt.tex}
-
-%\input{cat.tex}
-
-
-\bibliographystyle{plain} 
-\bibliography{uthesis}
-
-
-\end{document}
 

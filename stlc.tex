@@ -91,15 +91,21 @@ This is essentially useless unless we have a way to compute (or reduce) this exp
 %%%%%%%%%%%%%%%%%%%%
 \newpage
 
-We will describe a general class of simple type theories as outlined in \cite{JacobsCLTT}. Firstly we introduce the notion of a {\it signature}.
+We will describe a general class of simple type theories as outlined in \cite{JacobsCLTT}. Firstly we introduce the notion of a {\it signature}. 
+
+\begin{defin}
+	A {\bf many-typed signature} is a pair $(T, \mathcal{F})$ where $T$ is a countable set (most probably finite?) of {\bf basic} (or {\bf atomic}) {\bf types}. And a functor $\mathcal{F} : T^\star \times T \to \Set$. Where $T^\star$ is the Kleene-Star operation on a set (or the free monoid over $T$), defined as $T^\star := \bigcup_{n\in \N} T^n$ whose elements are finite tuples of elements of $T$. We have $\mathbf{Set}$ for the category of finite sets. Note that the sets in the domain of the functor are realised as discrete categories.
+\end{defin}
+
+We will usually write a signature as $\Sigma := (T, \mathcal{F})$, denote $|\Sigma|:=T$ and write $F: \sigma_1,\dots,\sigma_n\to\sigma_{n+1}$ when $F \in \mathcal{F}(\langle \sigma_1,\dots,\sigma_n \rangle, \sigma_{n+1})$.
+
+\begin{example}
+	Groups, monoids, natural numbers?
+\end{example}
 
 \begin{defin}
 	
 \end{defin}
-
-
-
-
 
 
 
