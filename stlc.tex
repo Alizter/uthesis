@@ -91,21 +91,40 @@ This is essentially useless unless we have a way to compute (or reduce) this exp
 %%%%%%%%%%%%%%%%%%%%
 \newpage
 
-We will describe a general class of simple type theories as outlined in \cite{JacobsCLTT}. Firstly we introduce the notion of a {\it signature}. 
+We will describe what is known as a simply typed lambda calculus. There is a lot of literature on type theory, and it doesn't seem that there are many authors in agreement of ways to present it.
+
+In \cite{BarendregtHenk2013Lcwt} a more type theoretic approach, analysing the type theory mostly in the synctactic world. This gives us a good starting point for how we want our type theory to be presented however it may not be so easy to keep an eye on how the categorical semantics (the ways we model types in mathematics) behave. In order to do this we will use references such as \cite{CroleRoyL1993Cft, JacobsCLTT, LambekJ1986Itho}. This will be from the more categorical logic school of thought, which will study type theory that is "generated" by certain categories in interest.
+
+We start by describing a general class of simple type theories as outlined in \cite{JacobsCLTT}. Firstly we introduce the notion of a {\it signature}. Similar accounts can be found in \cite{CroleRoyL1993Cft}. This will essentially consist of "generating" a category from some signature (which can be thought of as a stripped down type theory syntax), and then studying the functors from that category into other categories. This allows nice properties from the second category to be "pulled back" onto our type theory giving it features we desire.
 
 \begin{defin}
-	A {\bf many-typed signature} is a pair $(T, \mathcal{F})$ where $T$ is a countable set (most probably finite?) of {\bf basic} (or {\bf atomic}) {\bf types}. And a functor $\mathcal{F} : T^\star \times T \to \Set$. Where $T^\star$ is the Kleene-Star operation on a set (or the free monoid over $T$), defined as $T^\star := \bigcup_{n\in \N} T^n$ whose elements are finite tuples of elements of $T$. We have $\mathbf{Set}$ for the category of finite sets. Note that the sets in the domain of the functor are realised as discrete categories.
+	A {\bf signature} is a pair $(\Typ, \mathcal{F})$ where $\Typ$ is a finite set of {\bf basic} (or {\bf atomic}) {\bf types}. And a functor $\mathcal{F} : \Typ^\star \times \Typ \to \Set$. Where $\Typ^\star$ is the Kleene-Star operation on a set (or the free monoid over $\Typ$), defined as $X^\star := \bigcup_{n\in \N} X^n$ whose elements are finite tuples of elements of $X$ for a set $X$. We have $\mathbf{Set}$ for the category of finite sets. Note that the sets in the domain of the functor are realised as discrete categories.
 \end{defin}
 
-We will usually write a signature as $\Sigma := (T, \mathcal{F})$, denote $|\Sigma|:=T$ and write $F: \sigma_1,\dots,\sigma_n\to\sigma_{n+1}$ when $F \in \mathcal{F}(\langle \sigma_1,\dots,\sigma_n \rangle, \sigma_{n+1})$.
-
-\begin{example}
-	Groups, monoids, natural numbers?
-\end{example}
+We will usually write a signature as $\Sigma := (\Typ, \mathcal{F})$, denote $|\Sigma|:=\Typ$ and write $F: \sigma_1,\dots,\sigma_n\to\sigma_{n+1}$ when $F \in \mathcal{F}(( \sigma_1,\dots,\sigma_n ), \sigma_{n+1})$.
 
 \begin{defin}
-	A variable decleration is a pair $(x, \sigma)$
+    Let $\Var$ be a countable set. Elements $x\in \Var$ are called {\bf variables}.
 \end{defin}
+
+Note this style of variables is essentially de Brujin indices. But allows us to have a set of names for our variables, which allows future annoyances like $\alpha$-equivalence to be sorted out easily due to the plentiful existence of bijections from $\Var \to \Var$.
+
+\begin{defin}
+	A {\bf variable declaration} is a pair $(x, \sigma) \in \Var \times \Typ$ usually written as $x : \sigma$. This can be read as "the variable $x$ has type $\sigma$. We will define $\Dec:=\Var \times \Typ$.
+\end{defin}
+
+\begin{defin}
+    A {\bf context} $\Gamma$ is an element of $\Con:=\Dec^\star$. In other words, a context is a finite list of variable declarations. We will usually write a context $\Gamma$ as $v_1 : \sigma_1, \dots ,v_n : \sigma_n$. Note that the Kleene-Star has a monoid structure with operation $","$. We can thus give $\Con$ a monoid structure and write, for contexts $\Gamma$ and $\Delta$ another context $\Gamma,\Delta$ which is the concatenation of two contexts. The notation here allows the "expanded version" to coincide, as in $\Gamma,\Delta$ can be written as $v_1 : \sigma_1, \dots ,v_n : \sigma_n, w_1 : \tau_1, \dots, w_m, \tau_m$.
+\end{defin}
+
+We also note that there is a canonical inclusion $\Dec \hookrightarrow \Con$ given that $\Dec$ freely generates the monoid $\Con$. This will allow us to write $\Gamma, x:\tau$ for $v_1 : \sigma_1, \dots ,v_n : \sigma_n, x:\tau$.
+
+We now denote the basic statements of our language. These statements are called {\bf judgements} and we will derive
+
+%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+
 
 
 
