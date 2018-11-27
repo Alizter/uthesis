@@ -1,0 +1,19 @@
+Let $\Sigma$ be a signature with $\Typ=|\Sigma|$ as its underlying set of types.
+
+Let $\Var$ be a countable set, elements of which will be called (term) variables.
+
+A variable declaration is a pair $(x, t) \in \Var \times \Typ$ usually written $x:t$.
+
+Given that $\Var$ is countable there is a function $v : \N \to \Var$. Therefore when we write $v_n$ we are specifying the $n$th element of $\Var$. A context is then a sequence of types $\Typ^*$, whose elements $\Gamma = (t_1,\dots, t_n)$, we write like this $\Gamma = v_1:t_1, \dots, v_n:t_n$. Now if we have another context $\Delta =v_1:u_1, \dots, v_m:u_m$, we can concatenate them like this: $\Gamma,\Delta = v_1:t_1,\dots, v_n:t_n, v_{n+1}:u_1,\dots,v_{n+m}: u_m$. So a context is really just a sequence of types, but the index of the sequence also refers to the variable. The set of contexts is called $\Con$.
+
+Judgements are the basic statements or assertions of our theory. We will have starting judgements (perhaps called axioms) whereby we derive other judgements according to rules.
+
+One judgement in this simply typed lambda calculus can be defined as a triple $(\Gamma, t, T) \in \Con \times \Var \times \Typ$. 
+
+Another is a well-formed context, which 
+
+We may also add other kinds of judgements so we will accumulate those in a set called $\Jud$.
+
+An inference rule is a function $\Jud^* \to \Jud$. We will pick these carefully as they will essentially "generate" our type theory.
+
+For simply typed lambda calculus

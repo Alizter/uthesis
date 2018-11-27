@@ -1,14 +1,22 @@
 \documentclass{article}
+
+\usepackage[english]{babel}
+
 \usepackage[utf8]{inputenc}
 \usepackage{bussproofs}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
+
+
+
 \usepackage{natbib}
 \usepackage{url}
 \usepackage{dirtytalk}
 \usepackage{pst-node}
-\usepackage{tikz-cd} 
+\usepackage{tikz-cd}
+\usepackage{enumerate}
+
 
 \title{Introduction to dependent type theory}
 \author{Ali Caglayan}
@@ -18,9 +26,10 @@
 \theoremstyle{definition}
 \newtheorem{defin}{Definition}[section]
 \newtheorem{example}[defin]{Example}
-\newtheorem{theorem}{Theorem}[section]
+\newtheorem{theorem}[defin]{Theorem}
+\newtheorem{remark}[defin]{Remark}
 
-\newcommand{\N}{\mathbbb{N}} %% Need to say NN has 0
+\newcommand{\N}{\mathbb{N}} %% Need to say NN has 0
 
 \newcommand{\catname}[1]{{\normalfont\textbf{#1}}}
 \newcommand{\Set}{\catname{Set}}
@@ -32,27 +41,39 @@
 \newcommand{\Tm}{\mathbf{Tm}}
 \newcommand{\of}{\mathbf{of}}
 
+\newcommand{\FV}{\mathrm{FV}}
+
 \newcommand{\Var}{\mathbf{Var}}
 \newcommand{\Dec}{\mathbf{Dec}}
 \newcommand{\Con}{\mathbf{Con}}
 \newcommand{\Typ}{\mathbf{Typ}}
+\newcommand{\Jud}{\mathbf{Jud}}
 
 
 \newcommand{\Id}{\mathrm{Id}}
 
+\newcommand{\stcu}{${\boldsymbol \lambda}_\to^{\mathrm{Cu}}$} % simply typed curry 
+\newcommand{\stch}{${\boldsymbol \lambda}_\to^{\mathrm{Ch}}$} % simply typed church
+\newcommand{\stdb}{${\boldsymbol \lambda}_\to^{\mathrm{dB}}$} % simply typed de brujin
+\newcommand{\utbe}{${\boldsymbol {\lambda \beta \eta}}$ } % untyped beta eta
 
 \begin{document}
 
 \maketitle
 
+ 
+
 %\input{intro.tex}
 
-\input{stlc.tex}
+%\input{stlc.tex}
 
 %\input{tt.tex}
 
 %\input{cat.tex}
 
+%\input{simply.tex}
+
+\input{barendregt.tex}
 
 \bibliographystyle{plain} 
 \bibliography{uthesis}

@@ -1,0 +1,113 @@
+% Barendregt Simply typed lambda calculus
+
+Barendregt \cite{BarendregtHenk2013Lcwt} (or B for short) introduces {\it simply typed lambda calculus} by introducing three versions \stcu, \stch, \stdb.
+
+\section{Type theory}
+
+\subsection{Untyped lambda calculus}
+
+\begin{defin}
+
+    Let $\Var$ (what B calls $\mathsf{V}$) be a set of variables perhaps defined as $\Var := \{x, x', x'', \dots\}$. We will use B's inductive notation and write this as $$\Var::= x \mid \Var '$$
+    which is read: elements of $\Var$ are of the form $x$ or an element of $\Var$ with a $'$.
+
+\end{defin}
+
+We then define a set $\Tm$ (what B calls $\Lambda$) of terms (what B calls lambda terms). 
+
+\begin{defin}
+
+    Elements of $\Tm$ are defined as follows $$\Tm ::= \Var \mid \lambda\ \Var\ \Tm \mid \Tm\ \Tm$$
+    where a {\bf term} is either a {\bf variable}, a {\bf lambda term} (usually of the form $\lambda x.t$) or an {\bf application} of two terms.
+
+\end{defin}
+
+B goes ahead and eases the notation slightly, which we also do. This is for readability mostly.
+
+
+\begin{remark}
+   
+    We introduce the following notation:
+
+    \begin{enumerate}[(i)]
+        \item Letting $x,y,z, \dots, x_0,y_0,z_0, \dots, x_1,y_1,z_1,\dots$ denote arbitrary variables.
+        \item $M,N,L,\dots$ denote arbitrary lambda terms (elements of $\Tm$).
+        \item Application of terms is left-associative i.e. $A(B(C\cdots)) \equiv ABC\cdots$
+        \item Lambda terms are right-associative i.e. $\lambda x_1.(\cdots (\lambda x_n.M) \cdots ) \equiv \lambda x_1 \cdots x_n.M$
+    \end{enumerate}
+
+\end{remark}
+
+If we were to choose not to introduce these notational simplifications, it would be very tedious to write all the brackets and not very helpful to the reader.
+
+We will now introduce the notion of a {\bf free variable}.
+
+\begin{defin}
+
+    Let $M \in \Tm$.
+    
+    \begin{enumerate}[(i)]
+        \item The set of {\bf free variables} of $M$, written $\FV(M)$. Variables that are not free are called {\bf bound}.
+        \item If $\FV(M) = \varnothing$, then $M$ is called {\bf closed} or a {\bf combinator}. The set of combinators can be written as $$\Tm^\varnothing = \{ M \in \Tm \mid \FV(M) = \varnothing\}$$
+    \end{enumeate}
+    We can define $\FV : \Tm \to P(\Var)$ by induction on $M$ which we can do due to the inductive definition of $\Tm$. So we have three cases:
+    $$
+        \begin{aligned}    
+                &M \equiv x ,  &\FV(M) &:= \{x\} \\
+                &M \equiv \lambda x . N,  &\FV(M)&:= \FV(N) - \{ x \} \\
+                &M \equiv N L,  &\FV(M) &:= \FV(N) \cup \FV(L)
+        \end{aligned}
+    $$
+\end{defin}
+
+\begin{example}
+Some well known combinators are $\mathbf{I} :\equiv \lambda x . x$, $\mathbf{K} :\equiv \lambda x y .y$ and $\mathbf{S}:\equiv \lambda x y z . xz(yz)$. These are well studied however we will not discuss them much here. For a comprehensive study of various combinators and their uses see \cite{smullyan2012mock}.
+\end{example}
+
+We now define (untyped) lambda calculus. B does this by defining what they call an equational theory on $\Tm$. This is where the calculus has a notion of equality. We will simply say that this equality is an equality from the metatheory (the logic used to define the calculus). For all intents and purposes our logic is first order logic with ZFC. Although it is very unlikely we will use choice anywhere.
+
+\begin{defin}
+    The symbol $\equiv$ denotes the equality in the metatheory. This will have all the usual properties of an equivalence relation and also play nicely with our terms. For example $M \equiv N \implies \lambda x . M \equiv \lambda x . N$.
+\end{defin}
+
+This means that we will not have to define properties like reflexivity and transitivity as they essentially come for free from our metatheory. This also has the advantage that we can comfotably add equalities (forcing two things to be equal) without having to define it in our calculus.
+
+We go onto define \utbe  as the terms $\Tm$ modulo the equivalence relation of the equality in our metatheory. To which we will add the following equalities:
+
+\[(\lambda x . M) N &\equiv M[x := N]\tag{$\boldsymbol \beta$-rule}\]
+\[\lambda x . M x &\equiv M\tag{$\boldsymbol \eta$-rule}\]
+
+Note that when we write terms from now on we are really talking about the representative of the equivalence class of terms in the set of terms modulo our definitional equality. B talks about reductive theories where we have essentially inference rules giving 
+
+\begin{prooftree}
+    \RightLabel{($\boldsymbol \beta$)}
+    \AxiomC{$(\lambda x . M) N$}
+    \UnaryInfC{$ M[x := N]$}
+\end{prooftree}
+
+\begin{prooftree}
+    \RightLabel{($\boldsymbol \eta$)}
+    \AxiomC{$\lambda x . M x$}
+    \UnaryInfC{$ M$}
+\end{prooftree}
+
+\begin{remark}
+It is here that B talks about $\alpha$-equivalence. We will go ahead and do the same by adding in equalities for $\alpha$-conversion of terms. Thus our terms modulo definitional equality will be up to $\alpha$-equivalence too.
+\end{remark}
+
+\begin{remark}
+B also talks about properties of the reduction defined such as satisfaction of the Church-Rosser theorem. This is not entirely relevent here but may be important that it holds.
+\end{remark}
+
+\subsection{Simple types}
+
+So far we have been working in untyped lambda calculus, which in itself has been the basis of many functional programming languages. However for our purposes we could argue it is uninteresting.
+
+We will now try to classify our terms in such a way that we assign a type to them. Then we will restrict our lambda terms' applicability by checking the type. This may seem restrictive but it is a very useful notion that will be prevelent in the theory to come.
+
+\begin{defin}
+
+
+\end{defin}
+
+
