@@ -8,7 +8,7 @@
 \usepackage{amssymb}
 \usepackage{amsthm}
 
-
+\usepackage{framed}
 
 \usepackage{natbib}
 \usepackage{url}
@@ -24,7 +24,7 @@
 \bibliographystyle{bath.bst}
 
 \theoremstyle{definition}
-\newtheorem{defin}{Definition}[section]
+\newtheorem{defin}{Definition}[subsection]
 \newtheorem{example}[defin]{Example}
 \newtheorem{theorem}[defin]{Theorem}
 \newtheorem{remark}[defin]{Remark}
@@ -38,30 +38,49 @@
 \newcommand{\el}{\mathrm{el}}
 \newcommand{\op}{\mathrm{op}}
 \newcommand{\Ty}{\mathbf{Ty}}
-\newcommand{\Tm}{\mathbf{Tm}}
+
 \newcommand{\of}{\mathbf{of}}
 
+%%
+%   Common variables
+%%
+
 \newcommand{\FV}{\mathrm{FV}}
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\T}{\mathsf{T}}
 
 \newcommand{\Var}{\mathbf{Var}}
 \newcommand{\Dec}{\mathbf{Dec}}
 \newcommand{\Con}{\mathbf{Con}}
-\newcommand{\Typ}{\mathbf{Typ}}
+\newcommand{\Typ}{\mathbf{Type}} %%
+\newcommand{\Tm}{\mathbf{Term}} %%%
 \newcommand{\Jud}{\mathbf{Jud}}
 
 
 \newcommand{\Id}{\mathrm{Id}}
+
+%%
+%   Type theories
+%%
 
 \newcommand{\stcu}{${\boldsymbol \lambda}_\to^{\mathrm{Cu}}$} % simply typed curry 
 \newcommand{\stch}{${\boldsymbol \lambda}_\to^{\mathrm{Ch}}$} % simply typed church
 \newcommand{\stdb}{${\boldsymbol \lambda}_\to^{\mathrm{dB}}$} % simply typed de brujin
 \newcommand{\utbe}{${\boldsymbol {\lambda \beta \eta}}$ } % untyped beta eta
 
+%%
+%   Turn styles
+%%
+
+\newcommand{\vdashstcu}{\vdash_{\boldsymbol \lambda_\to}^{\mathrm{Cu}}} % vdash for curry
+\newcommand{\vdashstcu}{\vdash_{\boldsymbol \lambda_\to}^{\mathrm{Ch}}} % vdash for church
+\newcommand{\vdashstcu}{\vdash_{\boldsymbol \lambda_\to}^{\mathrm{dB}}} % vdash for de Brujin
+
 \begin{document}
 
 \maketitle
 
- 
+\tableofcontents
 
 %\input{intro.tex}
 
