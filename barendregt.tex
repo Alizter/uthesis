@@ -68,10 +68,10 @@ We now define (untyped) lambda calculus. B does this by defining what they call 
     The symbol $\equiv$ denotes the equality in the metatheory. This will have all the usual properties of an equivalence relation and also play nicely with our terms. For example $M \equiv N \implies \lambda x . M \equiv \lambda x . N$.
 \end{defin}
 
-This means that we will not have to define properties like reflexivity and transitivity as they essentially come for free from our metatheory. This also has the advantage that we can comfotably add equalities (forcing two things to be equal) without having to define it in our calculus.
+This means that we will not have to define properties like reflexivity and transitivity as they essentially come for free from our metatheory. This also has the advantage that we can comfortably add equality's (forcing two things to be equal) without having to define it in our calculus.
 
 \begin{defin}(Term substitution)
-    We define term substituion by induction on $\Term$. Let $a,b \in \Var$ and $M,N,K \in \Tm$
+    We define term substitution by induction on $\Term$. Let $a,b \in \Var$ and $M,N,K \in \Tm$
     \[\begin{aligned}
         a[a := M] &:\equiv M \\
         b[a := M] &:\equiv b, \qquad b \not\equiv a \\
@@ -82,7 +82,7 @@ This means that we will not have to define properties like reflexivity and trans
     Note in the last case if $M$ is not a variable and replaces $x$ we may get a nonsense term. We will explicitly disallow this but it doesn't matter too much.
 \end{defin}
 
-We go onto define \utbe  as the terms $\Tm$ modulo the equivalence relation of the equality in our metatheory. To which we will add the following equalities:
+We go onto define \utbe  as the terms $\Tm$ modulo the equivalence relation of the equality in our metatheory. To which we will add the following equality's:
 
 \[(\lambda x . M) N \equiv M[x := N]\tag{$\boldsymbol \beta$-rule}\]
 \[\lambda x . M x \equiv M, \quad x \not\in \FV(M)\tag{$\boldsymbol \eta$-rule}\]
@@ -101,23 +101,23 @@ Note that when we write terms from now on we are really talking about the repres
 \end{prooftree}
 
 \begin{remark}
-It is here that B talks about $\alpha$-equivalence. We will go ahead and do the same by adding in equalities for $\alpha$-conversion of terms. Thus our terms modulo definitional equality will be up to $\alpha$-equivalence too.
+It is here that B talks about $\alpha$-equivalence. We will go ahead and do the same by adding in equality's for $\alpha$-conversion of terms. Thus our terms modulo definitional equality will be up to $\alpha$-equivalence too.
 \end{remark}
 
 \begin{remark}
-B also talks about properties of the reduction defined such as satisfaction of the Church-Rosser theorem. This is not entirely relevent here but may be important that it holds.
+B also talks about properties of the reduction defined such as satisfaction of the Church-Rosser theorem. This is not entirely relevant here but may be important that it holds.
 \end{remark}
 
 [TODO: REMOVE]
 \begin{remark} 
-    We used the notation $M[x:= N]$ which means take all (free) occurances of the variable $x$ inside the term $M$ and replace it with the term $N$. Note it isn't clear what $(\lambda x . t)[x := N]$ should do when $N$ is a term, however we will try to restrict it's use for free variables only. We also note that in other literature this is written $M[x/N]$ and perhaps sometimes confusingly $M[N/x]$. We will occasionally use the former, but never the latter. It should be read: ``replace every free occurance of $x$ with the term $N$". [TODO: Perhaps make this a definition?? There are many problems with this as it stands, I would hardly think this is a remark.]
+    We used the notation $M[x:= N]$ which means take all (free) occurrences of the variable $x$ inside the term $M$ and replace it with the term $N$. Note it isn't clear what $(\lambda x . t)[x := N]$ should do when $N$ is a term, however we will try to restrict it's use for free variables only. We also note that in other literature this is written $M[x/N]$ and perhaps sometimes confusingly $M[N/x]$. We will occasionally use the former, but never the latter. It should be read: ``replace every free occurrence of $x$ with the term $N$". [TODO: Perhaps make this a definition?? There are many problems with this as it stands, I would hardly think this is a remark.]
 \end{remark}
 
 \subsection{Simple types}
 
 So far we have been working in untyped lambda calculus, which in itself has been the basis of many functional programming languages. However for our purposes we could argue it is uninteresting.
 
-We will now try to classify our terms in such a way that we assign a type to them. Then we will restrict our lambda terms' applicability by checking the type. This may seem restrictive but it is a very useful notion that will be prevelent in the theory to come.
+We will now try to classify our terms in such a way that we assign a type to them. Then we will restrict our lambda terms' applicability by checking the type. This may seem restrictive but it is a very useful notion that will be prevalent in the theory to come.
 
 \begin{defin}
 
@@ -127,14 +127,14 @@ Let $\A$ be a set. An element of $\A$ is called an {\bf type atom}. The set of {
 \Typ ::= \A \mid \Typ \to \Typ
 \]
 
-that is a simple type is either an atomic type or a {\bf function type} between two atomic types. We define $\to$ to be an operator in the definition. It can be said that $\Typ$ is a tree, with leaves type atoms and braches the operator $\to$ pointing to its arguments. The operator $\to$ will be right-associative, i.e. $A \to (B \to C)\equiv A \to B \to C$.
+that is a simple type is either an atomic type or a {\bf function type} between two atomic types. We define $\to$ to be an operator in the definition. It can be said that $\Typ$ is a tree, with leaves type atoms and branches the operator $\to$ pointing to its arguments. The operator $\to$ will be right-associative, i.e. $A \to (B \to C)\equiv A \to B \to C$.
 \end{defin}
 
 
 \begin{example}
     We give the following examples of type atoms:
     \begin{enumerate}[(i)]
-        \item Let $\A_0:=\{\T\}$. Then the set of simple types $\Typ$ over $\A_0$  consiststs of the following elements: 
+        \item Let $\A_0:=\{\T\}$. Then the set of simple types $\Typ$ over $\A_0$  consists of the following elements: 
         $$\Typ = \{ \T,\ \T \to \T,\ \T \to \T \to \T,\ (\T \to \T) \to \T,\ \dots \}$$
         
         \item Let $\A_\infty:=\{\T_1, \T_2, \T_3, \dots\}$ be a countable set. Then the set of simple types over $\A_\infty$ is also countable. Note for any natural number $n$ we can count trees with depth $n$. Then we take the union of all these sets of trees. Giving us a countably indexed union of countable sets, hence countable. This may be a useful fact if we are to iterate over types in the future. [TODO: Rephrase this argument]
@@ -144,7 +144,7 @@ that is a simple type is either an atomic type or a {\bf function type} between 
 \end{example}
 
 \begin{remark}
-    We will usually reference types as upper case variables and perhaps greek letters for type atoms. And terms as lower case variables. It should be clear from the context which is which. When we write $\A$ we mean a generic set of type atoms.
+    We will usually reference types as upper case variables and perhaps Greek letters for type atoms. And terms as lower case variables. It should be clear from the context which is which. When we write $\A$ we mean a generic set of type atoms.
 \end{remark}
 
 \begin{defin}
@@ -167,11 +167,11 @@ We now explore three different versions of simply typed lambda calculus, \stcu, 
 \begin{defin}
     We now define \stcu
     \begin{enumerate}[(i)]
-        \item A {\bf(type assignment) statement} is of the form $a : A$ with $a \in \Tm$ and $A \in \Typ$. The type $A$ is called the {\bf predicate} and the term $a$ is called the subect of the statement.
+        \item A {\bf(type assignment) statement} is of the form $a : A$ with $a \in \Tm$ and $A \in \Typ$. The type $A$ is called the {\bf predicate} and the term $a$ is called the subject of the statement.
         
-        \item A {\bf(typing) decleration} is a statement with subject a term variable.
+        \item A {\bf(typing) declaration} is a statement with subject a term variable.
         
-        \item A {\bf basis} [context/well-formed context?] is a set of declerations with {\it distinct} variables as subjects.
+        \item A {\bf basis} [context/well-formed context?] is a set of declarations with {\it distinct} variables as subjects.
         
         \item A statement $a:A$ is {\bf derivable} from a basis $\Gamma$, written $$\Gamma \vdashstcu a:A $$ (usually just $\vdash$ when it is obvious) if $\Gamma \vdash a : A$ can be produced by the inference rules listed in Figure \ref{fig:curryrules}. Note $\Gamma , x:A$ denotes concatenation which will be defined later.
     \end{enumerate}

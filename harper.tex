@@ -1,0 +1,31 @@
+% harper
+
+\section{Type theory}
+
+We will follow the structure of syntax outlined in Harper \cite{harper_2016}. There are several reasons for this. Firstly, for example in Barendregt \cite{BarendregtHenk2013Lcwt} we have notions of substitution left to the reader under the assumption that they can be fixed. Generally Barendregt's style is like this and even when there is much formalism, it is done in a way that we find peculiar. We will follow Harper as an up to date, reputable and modern source.
+
+In other type theory books such as \cite{LambekJ1986Itho, CroleRoyL1993Cft} not much attention is given to the syntax. For example notions like substitution are defined directly on terms of a lambda calculus, which we disagree with wholeheartedly.
+
+
+\subsection{Syntax}
+
+We begin by outlining what exactly syntax is, and how to work with it. This will be important later on if we want to prove things about our "type theories" as we will essentially have good data structures to work with.
+
+We will begin with the notion of an {\it abstract syntax tree}. Which can be what is informally known as syntax, thus formal statements about the syntax are referring to its manifestation as an abstract syntax tree.
+
+%% Sort
+\begin{defin}
+    Let $\mathcal{S}$ be a finite set, which we will call \textbf{sorts}. An element of $\mathcal{S}$ is called a \textbf {sort}.
+\end{defin}
+
+A sort could be a term, a type, a kind or even an expression. It should be thought of an abstract notion of the kind of syntactic element we have. Examples will follow making this clear.
+
+%% Arity
+\begin{defin}
+    An \textbf{arity} is an element $((s_1,\dots,s_n),s)$ of the set of \textbf{arities} $\mathcal{Q}:=\mathcal{S}^\star \times \mathcal{S}$ where $\mathcal{S}^\star$ is the Kleene-star operation on the set $\mathcal{S}$ (a.k.a the free monoid on $\mathcal{S}$ or set of finite tuples of elements of $\mathcal{S}$). An arity is typically written as $(s_1,\dots,s_n)s$. 
+\end{defin}
+
+%% Operator
+\begin{defin}
+    Let $\mathcal{O} :=\{ \mathcal{O}_\alpha \}_{\alpha \in \mathcal{Q}}$ be an $\mathcal{Q}$-indexed (arity-indexed) family of (disjoint) sets of \textbf{operators} for each arity. An element $o \in \mathcal{O}_\alpha$ is called an \textbf{operator} of arity $\alpha$. If $o$ is an operator of arity $(s_1,\dots,s_n)s$ then we say $o$ has \textbf{sort} $s$ and that $o$ has $n$ \textbf{arguments} of sorts $s_1,\dots,s_n$ respectively.
+\end{defin}
