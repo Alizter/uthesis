@@ -2,14 +2,30 @@
 
 \section{Type theory}
 
-\subsection{Introduction}
-
-We will follow the structure of syntax outlined in Harper \cite{harper_2016}. There are several reasons for this. Firstly, for example in Barendregt \cite{BarendregtHenk2013Lcwt} we have notions of substitution left to the reader under the assumption that they can be fixed. Generally Barendregt's style is like this and even when there is much formalism, it is done in a way that we find peculiar. We will follow Harper as an up to date, reputable and modern source.
-
-In other type theory books such as \cite{CroleRoyL1993Cft, LambekJ1986Itho} not much attention is given to the syntax. For example notions like substitution are defined directly on terms of a lambda calculus, which we disagree with wholeheartedly. We think it is important to have a well-defined and well-understood notion of syntax before defining any type theories for a few reasons, firstly the structures we use are well understood and studied by other computer scientists in areas such as compilers [REF], and secondly, it will give us good notions of variables, bound variables and substituion. Also, our chosen structure will allow us to derive the semantics of our type theories in a much easier way, whereas if we hadn't paid attention to syntax we would have trouble keeping things well defined.
-
-
 \subsection{Syntax}
+
+
+We will follow the structure of syntax outlined in Harper \cite{harper_2016}. There are several reasons for this. 
+
+Firstly, for example in Barendregt et. al. \cite{BarendregtHenk2013Lcwt} we have notions of substitution left to the reader under the assumption that they can be fixed. Generally Barendregt's style is like this and even when there is much formalism, it is done in a way that we find peculiar.
+
+In Crole's book \cite{CroleRoyL1993Cft}, syntax is derived from an \textit{algebraic signature} which comes directly from categorical semantics. We want to give an independent view of type theory. The syntax only has types as well, meaning that only terms can be posed in this syntax. Operations on types themselves would have to be handled separately. This will also make it difficult to work with \textit{bound variables}.
+
+In Lambek and Scott's book \cite{LambekJ1986Itho}, very little attention is given to syntax and categorical semantics and deriving type theory from categories for study is in the forefront of their focus.
+
+In Jacob's book \cite{JacobsCLTT}, we again have much reliance on categorical machinery. A variant of algebraic signature called a \mathit{many-typed signature} is given, which has its roots in mathematical logic. Here it is discussed that classically in logic the idea of a sort and a type were synonymous, and they go onto preferring to call them types. This still has the problems identified before as terms and types being treated separately, when it comes to syntax.
+
+In Barendregt's older book \cite{barendregt1984lambda}, there are models of the syntax of (untyped) lambda calculus, using Scott topologies on complete lattices. We acknowledge that this is a working model of the lambda calculus but we believe it to be overly complex for the task at hand. It introduces a lot of mostly irrelevant mathematics for studying the lambda calculus. And we doubt very much that these models will hold up to much modification of the calculus. Typing seems impossible.
+
+In S{\o}rensen and Urzyczyn's book \cite{Sorensen:2006:LCI:1197021} a more classical unstructured approach to syntax is taken. This is very similar to the approaches that Church, Curry and de Brujin gave early on. The difficulty with this approach is that it is very hard to prove things about the syntax. There are many exceptional cases to be weary of (for example if a variable is bound etc.). It can also mean that the syntax is vulnerable to mistakes. We acknowledge it's correctness in this case, however we prefer to use a safer approach.
+
+We will finally look at one more point of view, that of mathematical logic. We look at Troelstra and Schwichtenberg's book \cite{troelstra_schwichtenberg_2000} which studies proof theory. This is essentially the previous style but done to a greater extent, for they use that kind of handling of syntax to argue about more general logics. As before, we do not choose this approach.
+
+We have seen books from either end of the spectrum, on one hand Barendregt's type theoretic camp, and on the other, the more categorical logically oriented camp. We have argued that the categorical logically oriented texts do not do a good job of explaining and defining syntax, their only interest is in their categories. The type theoretic texts also seem to be on mathematically shaky ground, sometimes much is left to the reader and finer details are overlooked.
+
+Harper's seems more sturdy and correct in our opinion. Harper doesn't concern himself with abstraction for the sake of abstraction but rather when it will benefit the way of thinking about something. The framework for working with syntax also seems ideal to work with, when it comes to adding features to a theory (be it a type theory or otherwise).
+
+\subsubsection{Syntax}
 
 We begin by outlining what exactly syntax is, and how to work with it. This will be important later on if we want to prove things about our syntax as we will essentially have good data structures to work with.
 
@@ -51,7 +67,8 @@ Fix an $\mathcal{Q}$-indexed family $\mathcal{O}$ of sets of operators of each a
     The notation $\mathcal{X},x$ is ambiguous because the sort $s$ associated to $x$ is not written. But this can be remedied by being clear from the context what the sort of $x$ should be.
 \end{remark}
 
-\begin{defin}[Abstract syntax tree]
+%% Abstract syntax trees
+\begin{defin}[Abstract syntax trees]
     The family $\mathcal{A}[\mathcal{X}]=\{ \mathcal{A}[\mathcal{X}]_s \}_{s \in \mathcal{S}}$ of \textbf{abstract syntax trees} (or asts), of \textbf{sort} $s$, is the smallest family satisfying the following properties:
     
     \begin{enumerate}
@@ -63,20 +80,63 @@ Fix an $\mathcal{Q}$-indexed family $\mathcal{O}$ of sets of operators of each a
 
 [Draw a picture here]
 
+%% Remark about inductively generated sets
 \begin{remark}
     The idea of a smallest family satisfying certain properties is that of structural induction. So another way to say this would be a family of sets inductively generated by the following constructors.
 \end{remark}
 
+%% Remark about asts being trees
 \begin{remark}
-    An ast can be thought of as a tree whose leaf nodes are variables and brach nodes are operators. 
+    An ast can be thought of as a tree whose leaf nodes are variables and branch nodes are operators. 
 \end{remark}
 
+%% Remark about proving things by structural induction on asts
 \begin{remark}
     When we prove properties $\mathcal{P}(a)$ of an ast $a$ we can do so by structural induction on the cases above.
 \end{remark}
 
+%% Plenty of examples of asts with examples of sorts, operators and variables
+[Examples of sorts, operators, variables and how they fit together in asts]
+
+%% Lemma about subsets of variables
 \begin{lemma}
-    We have $\mathcal{A}[\mathcal{X}] \subseteq \mathcal{A}[\mathcal{Y}]$ if and only if $\mathcal{X} \subseteq \mathcal{Y}$.
+    If we have $\mathcal{X} \subseteq \mathcal{Y}$ then, $\mathcal{A}[\mathcal{X}] \subseteq \mathcal{A}[\mathcal{Y}]$.
 \end{lemma}
+\begin{proof}
+    Suppose $\mathcal{X} \subseteq \mathcal{Y}$ and $a \in \mathcal{A}[\mathcal{X}]$, now by structural induction on $a$:
+    
+    \begin{enumerate}
+        \item If $a$ is in $\mathcal{X}$ then it is obviously also in $\mathcal{Y}$.
+        \item If $a := o(a_1;\dots;a_n) \in \mathcal{A}[\mathcal{X}]$ we have $a_1, \dots, a_n\in \mathcal{A}[\mathcal{X}]$ also. By induction we can assume these to be in $\mathcal{A}[\mathcal{Y}]$ hence giving us $a \in \mathcal{A}[\mathcal{Y}]$.
+    \end{enumerate}
+    
+    Hence by induction we have shown that $\mathcal{A}[\mathcal{X}] \subseteq \mathcal{A}[\mathcal{Y}]$.
+\end{proof}
+
+%% Substitution
+\begin{defin}[Substitution]
+    If $a \in \mathcal{A}[\mathcal{X},x]_{s'}$, and $b \in \mathcal{A}[\mathcal{X}]_s$, then $[b/x]a \in \mathcal{A}[\mathcal{X}]_{s'}$ is the result of \textbf{substituting} $b$ for every occurrence of $x$ in $a$. The ast $a$ is called the \textbf{target}, the variable $x$ is called the \textbf{subject} of the \textbf{substitution}. We define substitution on an ast $a$ by induction:
+    \begin{enumerate}
+        \item $[b/x]x = b$ and $[b/x]y = y$ if $x\ne y$.
+        \item $[b/x]o(a_1;\dots;a_n)=o([b/x]a_1;\dots;[b/x]a_n)$
+    \end{enumerate}
+\end{defin}
+
+%% Examples of substitution
+[Examples of substitution]
+
+\begin{theorem}
+    If $a \in \mathcal{A}[\mathcal{X},x]$, then for every $b \in \mathcal{A}[\mathcal{X}]$ there exists a unique $c \in \mathcal{A}[\mathcal{X}]$ such that $[b/x]a = c$.
+\end{theorem}
+\begin{proof}
+    By structural induction on $a$, we have three cases: $a := x$, $a:=y$ where $y \ne x$ and $a := o(a_1; \dots; a_n)$. In the first we have $[b/x]x=b=c$ by definition. In the second we have $[b/x]y=y=c$ by definition. In both cases $c \in \mathcal{A}[\mathcal{X}]$ and are uniquely determined. Finally, when $a := o(a_1; \dots; a_n)$, we have by induction unique $c_1,\dots, c_n$ such that $c_i:=[b/x]a_i$ for $1 \le i \le n$. Hence we have a unique $c=o(c_1,\dots,c_n) \in \mathcal{A}[\mathcal{X}]$.
+
+\end{proof}
+
+
+
+
+
+
 
 
