@@ -1,8 +1,8 @@
 % harper
 
-\section{Type theory}
+\section{Syntax}
 
-\subsection{Syntax}
+\subsection{Introduction}
 
 
 We will follow the structure of syntax outlined in Harper \cite{harper_2016}. There are several reasons for this. 
@@ -25,7 +25,7 @@ We have seen books from either end of the spectrum, on one hand Barendregt's typ
 
 Harper's seems more sturdy and correct in our opinion. Harper doesn't concern himself with abstraction for the sake of abstraction but rather when it will benefit the way of thinking about something. The framework for working with syntax also seems ideal to work with, when it comes to adding features to a theory (be it a type theory or otherwise).
 
-\subsubsection{Syntax}
+\subsection{Abstract Syntax Trees}
 
 We begin by outlining what exactly syntax is, and how to work with it. This will be important later on if we want to prove things about our syntax as we will essentially have good data structures to work with.
 
@@ -36,21 +36,17 @@ We begin by outlining what exactly syntax is, and how to work with it. This will
     Let $\mathcal{S}$ be a finite set, which we will call \textbf{sorts}. An element of $\mathcal{S}$ is called a \textbf {sort}.
 \end{defin}
 
-A sort could be a term, a type, a kind or even an expression. It should be thought of an abstract notion of the kind of syntactic element we have. Examples will follow making this clear. Let us fix a set $\mathcal S$.
+A sort could be a term, a type, a kind or even an expression. It should be thought of an abstract notion of the kind of syntactic element we have. Examples will follow making this clear.
 
 %% Arity
 \begin{defin}[Arities]
     An \textbf{arity} is an element $((s_1,\dots,s_n),s)$ of the set of \textbf{arities} $\mathcal{Q}:=\mathcal{S}^\star \times \mathcal{S}$ where $\mathcal{S}^\star$ is the Kleene-star operation on the set $\mathcal{S}$ (a.k.a the free monoid on $\mathcal{S}$ or set of finite tuples of elements of $\mathcal{S}$). An arity is typically written as $(s_1,\dots,s_n)s$. 
 \end{defin}
 
-Similarly to before, we fix a set $\mathcal{Q}$ of arities.
-
 %% Operator
 \begin{defin}[Operators]
     Let $\mathcal{O} :=\{ \mathcal{O}_\alpha \}_{\alpha \in \mathcal{Q}}$ be an $\mathcal{Q}$-indexed (arity-indexed) family of disjoint sets of \textbf{operators} for each arity. An element $o \in \mathcal{O}_\alpha$ is called an \textbf{operator} of arity $\alpha$. If $o$ is an operator of arity $(s_1,\dots,s_n)s$ then we say $o$ has \textbf{sort} $s$ and that $o$ has $n$ \textbf{arguments} of sorts $s_1,\dots,s_n$ respectively.
 \end{defin}
-
-Fix an $\mathcal{Q}$-indexed family $\mathcal{O}$ of sets of operators of each arity in $\mathcal{Q}$.
 
 %% Variables
 \begin{defin}[Variables]
@@ -72,9 +68,9 @@ Fix an $\mathcal{Q}$-indexed family $\mathcal{O}$ of sets of operators of each a
     The family $\mathcal{A}[\mathcal{X}]=\{ \mathcal{A}[\mathcal{X}]_s \}_{s \in \mathcal{S}}$ of \textbf{abstract syntax trees} (or asts), of \textbf{sort} $s$, is the smallest family satisfying the following properties:
     
     \begin{enumerate}
-        \item A variable $x$ of sort $s$ is an ast of sort $s$: if $x \in X_s$, then $x \in \mathcal{A}[\mathcal{X}]_s$.
+        \item A variable $x$ of sort $s$ is an ast of sort $s$: if $x \in \mathcal{X}_s$, then $x \in \mathcal{A}[\mathcal{X}]_s$.
         
-        \item Operators combine asts: If $o$ is an operator of arity $(s_1, \dots, s_n)s$, and if $a_1 \in \mathcal{A}[\mathcal{X}]_{s_1}, \dots, a_n \in \mathcal{A}[\mathcal{X}]_{s_n}$, then the ast $o(a_1;\dots; a_n) \in \mathcal{A}[\mathcal{X}]_s$.
+        \item Operators combine asts: If $o$ is an operator of arity $(s_1, \dots, s_n)s$, and if $a_1 \in \mathcal{A}[\mathcal{X}]_{s_1}, \dots, a_n \in \mathcal{A}[\mathcal{X}]_{s_n}$, then $o(a_1;\dots; a_n) \in \mathcal{A}[\mathcal{X}]_s$.
     \end{enumerate}
 \end{defin}
 
@@ -95,8 +91,10 @@ Fix an $\mathcal{Q}$-indexed family $\mathcal{O}$ of sets of operators of each a
     When we prove properties $\mathcal{P}(a)$ of an ast $a$ we can do so by structural induction on the cases above.
 \end{remark}
 
+[Some more notes on structural induction, perhaps this can be defined and discussed with trees in the section before?]
+
 %% Plenty of examples of asts with examples of sorts, operators and variables
-[Examples of sorts, operators, variables and how they fit together in asts]
+[add examples of sorts, operators, variables and how they fit together in asts]
 
 %% Lemma about subsets of variables
 \begin{lemma}

@@ -1,0 +1,53 @@
+% induction in set theory
+
+\section{Induction}
+
+We begin by preparing the tools we will use later on. One of these tools will be structural induction. We will instead prove[state?] a vastly more general theorem[principle?] of set theory called the \textit{well-founded induction principal}.
+
+\subsection{Well-founded induction}
+
+This is a standard theorem in set theory [cite set theory books]. For definitions of well-foundedness that have been treated carefully we follow \cite[\S 8]{2018arXiv180805204S}.
+
+\begin{defin}\ 
+    \begin{enumerate}[(i)]
+        \item A \textbf{graph} is a set $X$, whose elements are called \textbf{nodes}, equipped with a binary relation $\prec$.
+        \item If $x \prec y$ then we say $x$ is a \textbf{child} of $y$.
+        \item We call a graph \textbf{pointed} if it has a distinguished node $\star$ called the \textbf{root}.
+        \item A pointed graph is \textbf{accessible}, if for every $x \in X$, there exists a path $x = x_n \prec \cdots \prec x_0 = \star$.
+        \item For any node $x$ of $X$ we write $X/x$ to denote the graph whose nodes are nodes of $X$ that admit a path to $x$. This is naturally pointed by $x$. The relation is the same, simply restricted to the subset $X/x$ of $X$.
+    \end{enumerate}
+\end{defin}
+
+\begin{remark}
+    Note that the definition of accessible relies on a definition of natural numbers. If one was to carry out this construction in a setting more general than sets we would need what is called a \textit{Natural Numbers Object (NNO)}.
+\end{remark}
+
+We now make sure that subsets of graphs bring the nodes' parents.
+
+\begin{defin}
+    A subset $S$ of a graph $X$ is \textbf{inductive} if for any node $x$ in $X$, when all the children of $x$ are in $S$, $x$ is also in $S$.
+\end{defin}
+
+\begin{defin}
+    A graph $X$ is \textbf{well-founded} if any inductive subset of $X$ is equal to all of $X$.
+\end{defin}
+
+\begin{remark}
+    This is slightly weaker than classical versions of well-foundedness in logic, in which a graph would be well-founded if every inhabited subset has a $\prec$-minimal element. In fact such a definition would imply the law of excluded middle.
+\end{remark}
+
+\begin{lemma}\label{sswfg}
+    Any subset of a well-founded graph is a well-founded graph with the induced relation.
+\end{lemma}
+
+We will follow the proof outlined in \cite{winskel1993formal}. This has been the simplest proof to understand. Other proofs can be found in for example \cite{johnstone1987notes} and \cite[Chapter 7]{barwise1982handbook}. However we found these proof too technical and verbose for simple use.
+
+\begin{theorem}[Principle of well-founded induction]
+    Let $X$ be a well-founded graph and $P$ be a property of nodes of $X$.
+    We have that $$\forall x \in X, P(x) \Leftrightarrow \forall x \in X,((\forall y \prec x, P(y)) \Rightarrow P(x)).$$
+\end{theorem}
+
+\begin{proof}
+    The proof in the forward direction is an easy tautology. For the converse, we assume  $ \forall x \in X,((\forall y \prec x, P(y)) \Rightarrow P(x))$ and produce a contradiction by supposing $\neg P(x)$ for some $x \in X$. Hence we have a subset $\{y \in X \mid \neg P(y) \} $ which is well-founded by Lemma \ref{sswfg}. [FINISH PROOF]
+\end{proof}
+
