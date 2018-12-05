@@ -88,7 +88,7 @@ A sort could be a term, a type, a kind or even an expression. It should be thoug
 \begin{example}[Syntax of lambda calculus]
     The (untyped) lambda calculus has one sort $\Term$, so $\mathcal{S} = \{ \Term \} $. We have an operator $\App$ of application whose arity is $(\Term, \Term)\Term$ and an family of operators $\{\lambda_x \}_{x \in \Var}$ which is the lambda abstraction with bound variable $x$, so $\mathcal{O} = \{ \lambda_x \} \cup \{ \App \} $. The arity of each $\lambda_x$ for some $x \in \Var$ is simply $(\Term) \Term$.
     
-    Take the term $$\lambda x . (\lambda y . x y)  z$$
+    Consider the term $$\lambda x . (\lambda y . x y)  z$$
 
     We can consider this the \textit{sugared} version of our syntax. If we were to \textit{desugar} our term to write it as an ast it would look like this:
 
@@ -96,17 +96,16 @@ A sort could be a term, a type, a kind or even an expression. It should be thoug
         \lambda_x(\App(\lambda_y(\App(x ; y)); z) )
     $$
 
-    Sugaring allows for long-winded terms to be written more succiently and clearly. Most readers would agree that the former is easier to read. We have mentioned the tree structure of asts so we will illustrate with this example:
+    Sugaring allows for long-winded terms to be written more succinctly and clearly. Most readers would agree that the former is easier to read. We have mentioned the tree structure of asts so we will illustrate with the following equivalent examples. We present two to allow for use of both styles.
     
     \input{fig1.tex}
     
 \end{example}
 
+%% Remark about asts not caring about binding
 \begin{remark}
     Note that later we will enrich our notion of abstract syntax tree that takes into account binding and scope of variables but for now this is purely structural.
 \end{remark}
-
-[ Examples and pictures]
 
 
 %% Remark about proving things by structural induction on asts
