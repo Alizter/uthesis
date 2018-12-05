@@ -1,0 +1,9 @@
+# Ignore logs
+*.log
+*.blg
+
+# Ignore latex files
+*.aux
+*.bak
+*.bbl
+*.toc
