@@ -1,0 +1,49 @@
+    \begin{figure}[h]
+        \begin{framed}
+            \centering
+            \begin{minipage}{0.45\textwidth}
+                \centering
+                \begin{forest}
+                    for tree = {
+                        %grow = 2,
+                        inner sep = 0.1em,
+                        l = 0,
+                        l sep = 0.7em
+                    }
+                    [$\lambda_x$ 
+                        [$\App$
+                            [$\lambda_y$
+                                [$\App$
+                                    [$x$] 
+                                    [$y$]
+                                ]
+                            ]
+                            [$z$]
+                        ]
+                    ]
+                \end{forest}
+                \caption{Vertically oriented tree representing the lambda term}
+            \end{minipage}
+            \hfill
+            \begin{minipage}{0.45\textwidth}
+                \centering
+                \begin{forest}
+                    for tree = {
+                        grow = 0,
+                        inner sep = 0.1em,
+                        l sep = 1em
+                    }
+                    [$\lambda_x$ 
+                        [$\App$
+                            [$\lambda_y$
+                                [$\App$ [$x$] [$y$]
+                                ]
+                            ]
+                            [$z$]
+                        ]
+                    ]
+                \end{forest}
+                \caption{Horizontally oriented tree representing the lambda term}
+            \end{minipage}
+        \end{framed}
+    \end{figure}
