@@ -110,8 +110,14 @@ A sort could be a term, a type, a kind or even an expression. It should be thoug
 
 %% Remark about proving things by structural induction on asts
 \begin{remark}
-    When we prove properties $\mathcal{P}(a)$ of an ast $a$ we can do so by structural induction on the cases above.
+    When we prove properties $\mathcal{P}(a)$ of an ast $a$ we can do so by structural induction on the cases above. We will define structural induction as a special case of well-founded induction. But for this we will need to define a relation on asts.
 \end{remark}
+
+\begin{defin}
+    Suppose $\mathcal{X} \subseteq \mathcal{Y}$. An ast $a \in \mathcal{A}[\mathcal{X}]$ is a \textbf{subtree} of an ast $b \in \mathcal{A}[\mathcal{Y}]$ [This part is giving me a headache. How can I define subtree if I can't do it by induction? To do it by induction I would have to define subtree.]
+\end{defin}
+
+
 
 [Some more notes on structural induction, perhaps this can be defined and discussed with trees in the section before?]
 
@@ -134,7 +140,7 @@ A sort could be a term, a type, a kind or even an expression. It should be thoug
 \end{proof}
 
 %% Substitution
-\begin{defin}[Substitution]
+\begin{defin}[Substitution]\label{sub}
     If $a \in \mathcal{A}[\mathcal{X},x]_{s'}$, and $b \in \mathcal{A}[\mathcal{X}]_s$, then $[b/x]a \in \mathcal{A}[\mathcal{X}]_{s'}$ is the result of \textbf{substituting} $b$ for every occurrence of $x$ in $a$. The ast $a$ is called the \textbf{target}, the variable $x$ is called the \textbf{subject} of the \textbf{substitution}. We define substitution on an ast $a$ by induction:
     \begin{enumerate}
         \item $[b/x]x = b$ and $[b/x]y = y$ if $x\ne y$.
@@ -145,14 +151,16 @@ A sort could be a term, a type, a kind or even an expression. It should be thoug
 %% Examples of substitution
 [Examples of substitution]
 
-\begin{theorem}
+\begin{cor}\label{subcheck}
     If $a \in \mathcal{A}[\mathcal{X},x]$, then for every $b \in \mathcal{A}[\mathcal{X}]$ there exists a unique $c \in \mathcal{A}[\mathcal{X}]$ such that $[b/x]a = c$.
-\end{theorem}
+\end{cor}
 \begin{proof}
     By structural induction on $a$, we have three cases: $a := x$, $a:=y$ where $y \ne x$ and $a := o(a_1; \dots; a_n)$. In the first we have $[b/x]x=b=c$ by definition. In the second we have $[b/x]y=y=c$ by definition. In both cases $c \in \mathcal{A}[\mathcal{X}]$ and are uniquely determined. Finally, when $a := o(a_1; \dots; a_n)$, we have by induction unique $c_1,\dots, c_n$ such that $c_i:=[b/x]a_i$ for $1 \le i \le n$. Hence we have a unique $c=o(c_1,\dots,c_n) \in \mathcal{A}[\mathcal{X}]$.
-
 \end{proof}
 
+\begin{remark}
+    Note that \ref{subcheck} was simply about checking Definition \ref{sub}. We have written out a use of the definition here so we won't have to again in the future.
+\end{remark}
 
 
 

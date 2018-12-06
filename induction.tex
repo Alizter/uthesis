@@ -2,9 +2,12 @@
 
 \section{Induction}
 
+
+\begin{comment}
+
 We begin by preparing the tools we will use later on. One of these tools will be structural induction. We will instead prove[state?] a vastly more general theorem[principle?] of set theory called the \textit{well-founded induction principal}.
 
-\subsection{Well-founded induction}
+
 
 This is a standard theorem in set theory [cite set theory books]. For definitions of well-foundedness that have been treated carefully we follow \cite[\S 8]{2018arXiv180805204S}.
 
@@ -40,7 +43,7 @@ We now make sure that subsets of graphs bring the nodes' parents.
     Any subset of a well-founded graph is a well-founded graph with the induced relation.
 \end{lemma}
 
-We will follow the proof outlined in \cite{winskel1993formal}. This has been the simplest proof to understand. Other proofs can be found in for example \cite{johnstone1987notes} and \cite[Chapter 7]{barwise1982handbook}. However we found these proof too technical and verbose for simple use.
+We will follow the proof outlined in \cite[Chapter 3]{winskel1993formal}. This has been the simplest proof to understand. Other proofs can be found in for example \cite{johnstone1987notes} and \cite[Chapter 7]{barwise1982handbook}. However we found these proof too technical and verbose for simple use.
 
 \begin{theorem}[Principle of well-founded induction]
     Let $X$ be a well-founded graph and $P$ be a property of nodes of $X$.
@@ -48,7 +51,34 @@ We will follow the proof outlined in \cite{winskel1993formal}. This has been the
 \end{theorem}
 
 \begin{proof}
-    The proof in the forward direction is an easy tautology. For the converse, we assume  $ \forall x \in X,((\forall y \prec x, P(y)) \Rightarrow P(x))$ [FINISH PROOF, just a matter of applying the definitions]
+    The proof in the forward direction is an easy tautology. For the converse, we assume  $ \forall x \in X,((\forall y \prec x, P(y)) \Rightarrow P(x))$. Clearly, the set of all such $y$ as we have described $\{y \prec x | P(y)\}$ is a subset of $X$, and hence a well-founded graph by \ref{sswfg} but not inductive as a subset of $X$. [FINISH PROOF, just a matter of applying the definitions]
 \end{proof}
 
 [Then here we will talk about structural induction as a special case of well-founded induction. Inductively defined sets and whatnot. This should cover all uses later on.]
+
+\end{comment}
+
+\subsection{Well-founded induction}
+
+The notion of well-founded induction is a standard theorem of set theory. The classical proof of which usually uses the law of excluded middle \cite[p. 62]{johnstone1987notes}, \cite[Ch. 7]{barwise1982handbook}. It's use in the formal semantics of programming languages is not much different either \cite[Ch. 3]{winskel1993formal}. There are however more constructive notions of well-foundedness \cite[\S 8]{2018arXiv180805204S} with more careful use of excluded middle. We will follow \cite{10.2307/2275781}, as this is the simplest to understand, and we won't be using this material much other than an initial justification for induction in classical mathematics.
+
+\begin{defin}
+    Let $X$ be a set and $\prec$ a binary relation on $X$. A subset $Y \subseteq X$ is called \textbf{$\prec$-inductive} if
+    $$
+        \forall x \in X, \quad (\forall y \prec x,\ y \in Y) \Rightarrow x \in Y.
+    $$
+\end{defin}
+
+\begin{defin}\label{wf}
+    The relation $\prec$ is \textbf{well-founded} if the only $\prec$-inductive subset of $X$ is $X$ itself. A set $X$ equipped with a well-founded relation is called a \textit{well-founded set}.
+\end{defin}
+
+\begin{theorem}[Well-founded induction principle]
+    Let $X$ be a well-founded set and $P$ a property of the elements of $X$ (a proposition). Then
+    $$
+        \forall x \in X, P(x) \Leftrightarrow \forall x \in X,\quad (\forall y \prec x, P(y)) \Rightarrow P(x).
+    $$
+\end{theorem}
+\begin{proof}
+    The forward direction is clearly true. For the converse, assume $\forall x \in X,((\forall y \prec x, P(y)) \Rightarrow P(x))$. Note that $P(y) \Leftrightarrow x \in Y := \{ x \in X \mid P(x)\} $ which means our assumption is equivalent to $\forall x \in X,\ (\forall y \prec x,\ y \in Y) \Rightarrow x \in Y$ which means $Y$ is $\prec$-inductive by definition. Hence by \ref{wf} $Y=X$ giving us $ \forall x \in X, P(x)$.
+\end{proof}
