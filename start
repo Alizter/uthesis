@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 
 git pull
-gedit *.tex uthesis.bib &
+#gedit *.tex uthesis.bib &
+gedit main.tex &
+gedit induction.tex
+gedit harper.tex
+
+
 bash mk
 xdg-open main.pdf
