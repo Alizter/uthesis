@@ -58,6 +58,13 @@ A sort could be a term, a type, a kind or even an expression. It should be thoug
     We say that $x$ is \textbf{fresh} for $\mathcal{X}$ if $x \not\in \mathcal{X}_s$ for any sort $s\in \mathcal{S}$. Given an $x$ and a sort $s\in \mathcal{S}$ we can form the family $\mathcal{X},x$ of variables by adding $x$ to $\mathcal{X}_s$. 
 \end{defin}
 
+
+[[ Wording here may be confusing]]
+%% Fresh variable sets
+\begin{defin}[Fresh sets of variables]
+    Let $V=\{ v_1 ,\dots, v_n\}$ be a finite set of variables (which all have sorts implicitly assigned so really a family of variables $\{V_s\}_{s\in\mathcal{S}}$ indexed by sorts, where each $V_s$ is finite). We say $V$ is fresh for $\mathcal{X}$ by induction on $V$. Suppose $V=\varnothing$, then $V$ is \mathbf{fresh} for $X$. Suppose $V = \{v \} \cup W$ where $W$ is a finite set, $v$ is fresh for $W$ and $W$ is fresh for $\mathcal{X}$. Then $V$ is fresh for $\mathcal{X}$ if $v$ is fresh for $\mathcal{X}$. By induction we have defined a finite set being fresh for a set $\mathcal{X}$. Write $\mathcal{X},V$ for the union (which is disjoint) of $\mathcal{X}$ and $V$. This gives us a new set of variables with obious indexing.
+\end{defin}
+
 %% Remark about notation for adding variables
 \begin{remark}
     The notation $\mathcal{X},x$ is ambiguous because the sort $s$ associated to $x$ is not written. But this can be remedied by being clear from the context what the sort of $x$ should be.
@@ -162,9 +169,70 @@ A sort could be a term, a type, a kind or even an expression. It should be thoug
     Note that \ref{subcheck} was simply about checking Definition \ref{sub}. We have written out a use of the definition here so we won't have to again in the future.
 \end{remark}
 
+Abstract syntax trees are our starting point for a well-defined notion of syntax. We will modify this notion, as the author of \cite{harper_2016} does, with slight modifications that are used in \cite{nlab:initiality_project, nlab:initiality_project_-_raw_syntax}, the Initiality Project. This is a collaborative project for showing initiality of dependent type theory (the idea that some categorical model is initial in the category of such models). It is a useful reference because it has brought many mathematicians together to discuss the intricate details of type theory. The definitions here have spawned from these discussions on the nlab and the nforum.
+
+We want to modify the notion of abstract syntax tree to include features such as binding and scoping. This is a feature used by many type theories (and even the lambda calculus). It is usually added on later by keeping track of bound and free variables. [CITE]. We will avoid this approach as it makes inducting over syntax more difficult.
 
 
 
+%% Generalize arity
+\begin{defin}[Generalized arities]
+    A \textbf{generalized arity} (or signature) is a tuple consisting of the following data:
+    
+    \begin{enumerate}
+        \itemsep -0.5 \parsep
+        \item A sort $s \in \mathcal{S}$.
+        
+        \item A list of sorts of length $n$ called the \textbf{argument sorts}, where $n$ is called the \textbf{argument arity}.
+        
+        \item A list of sorts of length $m$ called the \textbf{binding sorts}, where $m$ is called the \textbf{binding arity}.
+        
+%        \item A natural number $n \in \N$ called the \textbf{argument arity}.
+%        \item A function $\mathrm{soa} : [n] \to \mathcal{S}$ choosing the sorts of the $n$ arguments. Where $\mathrm{soa}$ means \textbf{sort of argument}.
+%        \item A natural number $m \in \N$ called the \textbf{binding arity} (or number of bound variables).
+%        \item A function $\mathrm{sov} : [m] \to \mathcal{S}$ choosing the sorts of the $m$ bound variables. Where $\mathrm{sov}$ means \textbf{sort of variable}.
+        \item A decidable relation $\scope$ between $[n]$ and $[m]$ called \textbf{scoping}. Where $j \scope k$ means the $j$th argument is in scope of the $k$th bound variable.
+    \end{enumerate}
+    
+    The set of generalized arities $\mathbf{GA}$ could therefore be defined as $\mathcal{S} \times \mathcal{S}^\star  \times \mathcal{S}^\star$ equipped with some appropriate relation $\scope$.
+\end{defin}
 
+\begin{remark}
+    In \cite{harper_2016} there is no relation but a function. And each argument has bound variables assigned to it. But as argued in \cite{nlab:initiality_project_-_raw_syntax} this means arguments can have different variables bound even if they are really the same variable. To fix this, bound variables belong to the whole signature. Which coincdently makes it simpler to understand too.
+    
+    This definition is more general than the definition given in \cite{nlab:initiality_project_-_raw_syntax} due to bound variables having sorts chosen for them rather than being defaulted to the sort $\mathrm{tm}$. It is mentioned there however that it can be generalised to this form (but would have little utility there).
+\end{remark}
+
+We will now redefine the notion of operator, taking note that generalized arities are a superset of arities defined previously.
+
+%% Operator
+\begin{defin}[Operators (with generalized arity)]
+    Let $\mathcal{O}:=\{ \mathcal{O}_\alpha\}_{\alpha \in \mathbf{GA}}$ be a $\mathbf{GA}$-indexed family of dsjoint sets of \textbf{operators} for each generalized arity $\alpha$. An element $o \in \mathcal{O}_{\alpha \in \mathbf{GA}}$ is called an \mathbf{operator} of (generalized) \textbf{arity} $\alpha$. If $\alpha$ has sort $s$ then $o$ has \textbf{sort} $s$. If $\alpha$ has argument sorts $(s_1,\dots,s_n)$ then we say that $o$ has \textbf{argument arity} $n$, with the $j$th argument having \textbf{sort} $s_j$. If $\alpha$ has binding sorts $(t_1,\dots,t_m)$ then we say that $o$ has \textbf{binding arity} $m$, with the $k$th bound variable having \textbf{sort} $s_k$. If the the scoping relation of $\alpha$ has $j \scope k$ then we say that the $j$th argument of $o$ is in \textbf{scope} of the $k$th bound variable of $o$. 
+\end{defin}
+
+\begin{remark}
+    We overload the definitions of arity and operator to mean generalized operator and operator with generalized arity respectively.
+\end{remark}
+
+Now that we can equip our operators with the datum of binding and scoping we can go ahead and define abstract binding trees.
+
+[[ Lots of concepts for asts have been redefined for abts,
+perhaps its worth making note of that back in the asts definitions ]]
+
+%% Abstract binding trees
+\begin{defin}[Abstract binding trees]\label{abt}
+    The family $\mathcal{B}[\mathcal{X}] = \{ \mathcal{B}[\mathcal{X}]_s \}_{s \in \mathcal{S}}$ of \textbf{abstract binding trees} (or abts), of \textbf{sort} $s$, is the smallest family satisfying the following properties:
+    
+    \begin{enumerate}
+        \item A variable $x$ of sort $s$ is an abt of sort $s$: if $x \in \mathcal{X}_s$, then $x \in \mathcal{B}[\mathcal{X}]_s$.
+        \item Suppose $\mathtt{G}$ is an operator of sort $s$, argument arity $n$ and binding arity $m$. Suppose $V$ is some finite set of length $m$ which is fresh for $\mathcal{X}$. These will be called our \textbf{bound variables}. Label the elments of $V$ as $V= \{ v_1, \dots, v_m\}$. For $j\in [n]$, let $X_j:=\{ v_k \in V \mid j \scope k\}$ be the set of bound variables that the $j$th argument is in scope of. Now suppose for each $j \in [n]$, $M_j \in \mathcal{B}[\mathcal{X},V]_{s_j}$ where $s_j$ is the sort of the $j$th argument of $\mathtt{G}$. Then $\mathtt{G}(X;M_1,\dots, M_n) \in \mathcal{B}[\mathcal{X}]_s$.
+    \end{enumerate}
+\end{defin}
+
+\begin{remark}
+    There is a lot going on in the second constructor of Definition \ref{abt}. It simply allows for bound variables to be constructed in syntax in a well-defined way that avoids variable capture. This will be useful when defining notions like substitution on abts as we will have the avoidance of variable capture built-in.
+\end{remark}
+
+[[What is variable caputre talk about this and reference this stuff because lots of cleverer people have thought about this too you know.]]
 
 

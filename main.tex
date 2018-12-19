@@ -1,5 +1,7 @@
 \documentclass{article}
 
+\usepackage[left=1in, right=1in]{geometry}
+ 
 \usepackage[english]{babel}
 
 \usepackage[utf8]{inputenc}
@@ -20,7 +22,6 @@
 \usepackage{forest}
 \usepackage{mwe}
 \usepackage{verbatim}
-
 
 
 %\bibliographystyle{bath.bst}
@@ -86,7 +87,9 @@
 
 \newcommand{\Term}{\mathbf{Term}}
 \newcommand{\App}{\mathrm{App}}
-
+\newcommand{\scope}{\triangleleft}
+\newcommand{\soa}{\mathrm{soa}}
+\newcommand{\sov}{\mathrm{sov}}
 
 \title{Introduction to dependent type theory}
 \author{Ali Caglayan}
@@ -97,7 +100,7 @@
 
 \tableofcontents
 
-\newpage
+%\newpage
 
 %\input{intro.tex}
 
