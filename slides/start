@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+git pull
+#gedit *.tex uthesis.bib &
+gedit slides.tex &
+
+bash mk
+xdg-open slides.pdf
