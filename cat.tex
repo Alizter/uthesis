@@ -3,6 +3,14 @@
 
 \section{Category theory}
 
+\subsection{Introduction}
+
+%Category theory has a pervasive influence throughout mathematics. It is used as an organisational tools, allowing thoughts and ideas about structure and preservation to be expressed in clear, familiar terms. But it is much more than that. Category theory 
+
+%We wish to model dependent types using category theory. In order to do this we will introduce some important category theory, give examples and illustrate how one might go about modelling depenent types. A model is a loose term used to describe the process of finding a mathematical structure, studying how it acts and using this to reason about your desired thing to study. This process can be made much more rigourous than described here, and discussion of the process is really an escipade of mathematical philosophy which we will gloss over for the sake of clarity.
+
+ 
+
 We will introduce basic category theory. Good references are: \cite{MacLaneSaunders1998Cftw,rotman2008introduction}
 
 
@@ -11,7 +19,7 @@ We will introduce basic category theory. Good references are: \cite{MacLaneSaund
 	A {\bf category} $\mathcal{C}$ consists of:
 	\begin{itemize}
 		\item A class $\mathrm{Ob}(\mathcal{C})$ (usually simply denoted $\mathcal{C}$ without ambiguity) of {\bf objects}.
-		\item For each object $A,B \in \mathcal{C}$ a set $\hom_{\mathcal{C}}(A,B)$ of {\bf morphisms} called a {\bf homset}. (Sometimes written $\hom$ when the context is clear). When writing $f \in \hom(A,B)$ we usually denote this $f : A \to B$.
+		\item For each object $A,B \in \mathcal{C}$ a set $\hom_{\mathcal{C}}(A,B)$ of {\bf morphisms} called a {\bf homset} (written $\hom$ when the context is clear). When writing $f \in \hom(A,B)$ we usually denote this $f : A \to B$.
 		\item For each object $A \in \mathcal{C}$ a morphism $1_A : A \to A$ called the {\bf identity}.
 		\item For each object $A,B,C \in \mathcal{C}$, and for each $f : A \to B$ and $g : B \to C$ there is a function (written infix or sometimes simply omitted ($fg \equiv f \circ g$)
 		
@@ -33,11 +41,13 @@ We will introduce basic category theory. Good references are: \cite{MacLaneSaund
 We now give some examples:
 
 \begin{example}
-	The category $\Set$ is called the {\bf category of sets} and has objects as sets. And morphisms and functions between these sets. The identity morphisms are simply the identity function. Composition is the obvious composition of functions.
+	The \textbf{category of sets} denoted $\Set$ is the category whose objects are small\footnote{due to Russellian paradoxes we must distinguish between "all sets" and "enough sets". See appendix for details. } sets and morphisms are functions between sets. Composition is given by composition of functions. This is a very important category in category theory for reasons we shall come across later.
 \end{example}
 
+Choosing the direction in which our arrows point was arbitrary, but it does also mean that if we had chosen the other way we would also get a category. So every category we make canonically comes with a friend.
+
 \begin{example}
-	For any category $\mathcal{C}$ we can get another category called the {\bf opposite category} $\mathcal{C}^\op$ whose objects are the same as $\mathcal{C}$ however the homsets are defined as follows: $\hom_{\mathcal{C}^\op}(x,y):=\hom_{\mathcal{C}}(y,x)$. Composition remains unchanged.
+	For any category $\mathcal{C}$, there is another category called the {\bf opposite category} $\mathcal{C}^\op$ whose objects are the same as $\mathcal{C}$ however the homsets are defined as follows: $\hom_{\mathcal{C}^\op}(x,y):=\hom_{\mathcal{C}}(y,x)$. Composition is defined using the composition from the original category.
 \end{example}
 
 \begin{defin}
@@ -45,7 +55,7 @@ We now give some examples:
 \end{defin}
 
 \begin{defin}
-	Let $\mathcal{C},\mathcal{D}$ be categories. A {\bf functor} $F$ from $\mathcal{C}$ to $\mathcal{D}$ consists of:
+	Let $\mathcal{C},\mathcal{D}$ be categories. A {\bf functor} $F$ from $\mathcal{C}$ to $\mathcal{D}$ (written $F : C \to D$) consists of:
 	
 	\begin{itemize}
 		\item An object $F(A)\in \mathcal{D}$, for all $A \in \mathcal{C}$ (also denoted $FA$).
@@ -55,8 +65,32 @@ We now give some examples:
 	\end{itemize}
 \end{defin}
 
-Now that we have 'morphisms' of categories we can define another category:
+\begin{remark}
+    Historically in category theory, one would define covariant, as defined above, and contravariant functors. Contravariant functors mean to swap the order of composition when the functor is applied. In modern category theory texts, this is completely dropped as a contravariant functor from $\mathcal{C}$ to $\mathcal{D}$ is simply a covaraint functor from $\mathcal{C}^\op$ to $\mathcal{D}$. Henceforth, we shall not mention co(tra)variance of functors and refer to them simply a functors.
+\end{remark}
+
+\begin{remark}
+    Given two functors $F : \mathcal{C} \to \mathcal{D}$ and $G : \mathcal{D} \to \mathcal{E}$ we can make a new functor $G \circ F$ by first applying $F$ then applying $G$. It is simple to check that this is indeed a functor. 
+\end{remark}
+
+Now that we have 'morphisms' between categories we can define another category:
 
 \begin{example}
-	The 
+	The category of small categories $\Cat$ has objects small categories and morphisms functors. Composition is given by composition of functors.
 \end{example}
+
+%% Talk about natural transformations
+
+%% Talk about functor categories
+
+%% Define presheaves
+
+%% Prove yoneda lemma
+
+
+
+
+
+
+
+
