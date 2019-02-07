@@ -7,19 +7,20 @@
 
 %Category theory has a pervasive influence throughout mathematics. It is used as an organisational tools, allowing thoughts and ideas about structure and preservation to be expressed in clear, familiar terms. But it is much more than that. Category theory 
 
-%We wish to model dependent types using category theory. In order to do this we will introduce some important category theory, give examples and illustrate how one might go about modelling depenent types. A model is a loose term used to describe the process of finding a mathematical structure, studying how it acts and using this to reason about your desired thing to study. This process can be made much more rigourous than described here, and discussion of the process is really an escipade of mathematical philosophy which we will gloss over for the sake of clarity.
+%We wish to model dependent types using category theory. In order to do this we will introduce some important category theory, give examples and illustrate how one might go about modelling dependent types. A model is a loose term used to describe the process of finding a mathematical structure, studying how it acts and using this to reason about your desired thing to study. This process can be made much more rigorous than described here, and discussion of the process is really an escapade of mathematical philosophy which we will gloss over for the sake of clarity.
 
  
 
-We will introduce basic category theory. Good references are: \cite{MacLaneSaunders1998Cftw,rotman2008introduction}
+We will introduce basic category theory. Good references are: \cite{category, BarrWellsCTCS, MacLaneSaunders1998Cftw,rotman2008introduction}
 
+Category theory will allow us to model the desired behaviour of dependent types. 
 
 % Definition of category
 \begin{defin}
 	A {\bf category} $\mathcal{C}$ consists of:
 	\begin{itemize}
 		\item A class $\mathrm{Ob}(\mathcal{C})$ (usually simply denoted $\mathcal{C}$ without ambiguity) of {\bf objects}.
-		\item For each object $A,B \in \mathcal{C}$ a set $\hom_{\mathcal{C}}(A,B)$ of {\bf morphisms} called a {\bf homset} (written $\hom$ when the context is clear). When writing $f \in \hom(A,B)$ we usually denote this $f : A \to B$.
+		\item For each object $A,B \in \mathcal{C}$ a set $\hom_{\mathcal{C}}(A,B)$ of \textbf{morphisms} or \textbf{arrows} called a \textbf{hom-set} (written $\hom$ when the context is clear). When writing $f \in \hom(A,B)$ we usually denote this $f : A \to B$.
 		\item For each object $A \in \mathcal{C}$ a morphism $1_A : A \to A$ called the {\bf identity}.
 		\item For each object $A,B,C \in \mathcal{C}$, and for each $f : A \to B$ and $g : B \to C$ there is a function (written infix or sometimes simply omitted ($fg \equiv f \circ g$)
 		
@@ -38,17 +39,36 @@ We will introduce basic category theory. Good references are: \cite{MacLaneSaund
 	\end{itemize}
 \end{defin}
 
+\begin{defin}
+    A \textbf{category} $\mathcal{C}$ consists of:
+    \begin{itemize}
+        \item A class of objects $\mathrm{Ob}(\mathcal{C})$
+        \item For each $x, y \in \mathrm{Ob}(\mathcal{C})$ a set of \textbf{morphisms} $\hom_{\mathcal{C}}(x,y)$ called the \textbf{hom-set} or set of \textbf{arrows}. 
+    \end{itemize}
+\end{defin}
+
+
+\begin{remark}
+    There are many similar and mostly equivalent definitions of category in mathematics. The mostly fall into two main camps: how they treat their collection of morphisms. The two definitions are equivalent in the usual foundations of mathematics but each has their own advantages. In books such as \cite{riehl2017category} a collection of morphisms is used. This approach lends itself more naturally to the notion of an \textit{internal category} which will be an important concept later on. The other definition uses a family of collections of morphisms which lends itself to easily generalise to the notion of an \textit{enriched category}, the definitive reference for which is \cite{kelly1982basic}.
+
+    The reason it cannot be swept under the rug so easily is because the issue of size is fundamental in category theory. Depending on what definition we chose, it will effect how we can talk about it. For an introduction to category theory, these ideas would mostly confuse the reader, hence we will simply point to \cite{2008arXiv0810.1279S} for a survey on how size issues are treated in category theory. From here on 
+\end{remark}
+
 We now give some examples:
 
+% Category of sets
 \begin{example}
 	The \textbf{category of sets} denoted $\Set$ is the category whose objects are small\footnote{due to Russellian paradoxes we must distinguish between "all sets" and "enough sets". See appendix for details. } sets and morphisms are functions between sets. Composition is given by composition of functions. This is a very important category in category theory for reasons we shall come across later.
 \end{example}
 
 Choosing the direction in which our arrows point was arbitrary, but it does also mean that if we had chosen the other way we would also get a category. So every category we make canonically comes with a friend.
 
+% Opposite category
 \begin{example}
 	For any category $\mathcal{C}$, there is another category called the {\bf opposite category} $\mathcal{C}^\op$ whose objects are the same as $\mathcal{C}$ however the homsets are defined as follows: $\hom_{\mathcal{C}^\op}(x,y):=\hom_{\mathcal{C}}(y,x)$. Composition is defined using the composition from the original category.
 \end{example}
+
+Size is a common issue in category theory with many similar ways of dealing with it. It can however cause much confusion and hoop-jumping to be correct. This is the nature of how things are done in set theory however. Later we will investigate other logical frameworks and 
 
 \begin{defin}
 	We call a category {\bf small} if its class of objects is really a set.
@@ -78,6 +98,8 @@ Now that we have 'morphisms' between categories we can define another category:
 \begin{example}
 	The category of small categories $\Cat$ has objects small categories and morphisms functors. Composition is given by composition of functors.
 \end{example}
+
+
 
 %% Talk about natural transformations
 
