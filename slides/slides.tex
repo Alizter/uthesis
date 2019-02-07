@@ -1,18 +1,237 @@
-\documentclass{beamer}
+\documentclass[usenames,dvipsnames]{beamer}
 \usetheme{Boadilla}
 
+\makeatother
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.4\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\insertshortauthor
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.6\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertshorttitle\hspace*{3em}
+    \insertframenumber{} / \inserttotalframenumber\hspace*{1ex}
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\makeatletter
+\setbeamertemplate{navigation symbols}{}
+
 \usepackage[utf8]{inputenc}
+\usepackage[usenames,dvipsnames]{xcolor}
 
 \title{Dependent types}
 \author{Ali Caglayan}
 \institute{University of Bath}
 
+\newcommand{\blu}[1]{\textcolor{blue}{#1}}
+\newcommand{\gre}[1]{\textcolor{ForestGreen}{#1}}
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\yel}[1]{\textcolor{violet}{#1}}
+
 \begin{document}
-    \frame{\titlepage}
+    %\frame{\titlepage}
     
-    \begin{frame}
-        \frametitle{Foobar}
-        Foo \pause
-        Bar
+    
+    %% So my second marker is Guy McKusker which will mean I can brush over lambda calculus quicker
+    
+    % applications of which
+    
+    % extensions of lambda calculus
+    % lambda calculus
+    
+    % Alessio says these things are important
+    % rationale
+    % state of the art
+    % results
+    % the future
+    
+    \begin{frame}{Lambda calculus}
+        \begin{itemize}
+            \item Lambda calculus is a formal system.
+            \item We can restrict some functions from being applied to others.
+            \item This is known as typing.
+            \item The system we get is called simply typed lambda calculus.
+            \item We only have function types, but we can have more...
+        \end{itemize}
     \end{frame}
+    
+    \begin{frame}{Extending typed lambda calculus}
+        When adding a new type we must write down rules to define how it will behave.
+        Usually these are sorted into 4 kinds of rules:
+        \begin{itemize}
+            \item \blu{Introduction rules} (how to make the type)
+            \item \gre{Constructors} (how to make terms of the type)
+            \item \red{Eliminators} (how to break terms of the type)
+            \item \yel{Computation rules} (how a function coming out of the type computes)
+        \end{itemize}
+        \textbf{Note}: Computation rules can usually be derived from the other rules, and therefore can be omitted.
+    \end{frame}
+
+    \begin{frame}{Product types}
+        \begin{block}{\blu{Introduction}}
+            $$\frac{\Gamma \vdash A\ \text{Type}\qquad \Gamma \vdash B\ \text{Type} }{\Gamma \vdash A \times B\ \text{Type}}$$
+        \end{block}
+        
+        \begin{block}{\gre{Constructors}}
+            $$\frac{\Gamma \vdash a : A\qquad \Gamma \vdash b : B}{\Gamma\vdash (a,b) : A\times B}$$
+        \end{block}
+        
+        \begin{block}{\red{Eliminators}}
+            $$\frac{\Gamma \vdash t : A \times B}{\Gamma\vdash\text{fst}(t) : A} \qquad\qquad
+              \frac{\Gamma \vdash t : A \times B}{\Gamma\vdash\text{snd}(t) : B}$$
+        \end{block}
+        
+        \begin{block}{\yel{Computation rules}}
+            $$(\text{fst}(t), \text{snd}(t)) \equiv t$$
+        \end{block}
+    \end{frame}    
+    
+    \begin{frame}{Sum types}
+        \begin{block}{\blu{Introduction}}
+            $$\frac{\Gamma \vdash A\ \text{Type}\qquad \Gamma \vdash B\ \text{Type} }{\Gamma \vdash A + B\ \text{Type}}$$
+        \end{block}
+        
+        \begin{block}{\gre{Constructors}}
+            $$\frac{\Gamma \vdash a : A}{\Gamma \vdash \text{inl}(a) : A + B} \qquad\qquad
+              \frac{\Gamma \vdash b : B}{\Gamma \vdash \text{inr}(b) : A + B}$$
+        \end{block}
+        
+        \begin{block}{\red{Eliminators}}
+            $$\frac
+                {\Gamma \vdash f : A \to C \qquad \Gamma \vdash g : B \to C}
+                {\Gamma \vdash \text{ind}_{A+B}(f, g) : A + B \to C}$$
+        \end{block}
+        
+    \end{frame}
+    
+    % Probably can get rid of this
+    \begin{frame}{Motivation}
+        \begin{itemize}
+            \item Programming languages
+            \begin{itemize}
+                \item Haskell
+                \item ML
+                \item basically every other typed functional programming language
+            \end{itemize}
+        \end{itemize}
+    \end{frame}
+    
+    \begin{frame}{Mathematical motivation - Curry-Howard correspondance}
+        There is a correspondance between propositional logic and type theory. Types are propositions, and terms are proofs.
+        \begin{table}
+            \begin{tabular}{c || c}
+                \textbf{Propositional logic} & \textbf{Type theory} \\
+                \hline\hline
+                proposition $A$         & $A\ \text{Type}$          \\
+                proof of $A$            & term of $A$               \\
+                and $A \land B$         & product type $A \times B$ \\
+                or $A \lor B$           & sum type $A + B$          \\
+                implies $A \implies B$  & function type $A \to B$   \\
+                true                    & unit type $\mathbf{1}$    \\
+                false                   & empty type $\mathbf{0}$   \\
+                not $¬A$                & $A \to \mathbf{0}$        \\
+            \end{tabular}
+        \end{table}
+        
+        This is the begining of using type theory to encode mathematics.
+        This is how proof assistants work.
+    \end{frame}
+    
+    % 
+    \begin{frame}{What are dependent types?}
+        \begin{itemize}
+            \item Functions allow terms to depend on other terms
+            \item Polymorphism allows types to depend on other types
+            \item Terms already depend on types
+            \item Dependent types allow types to depend on terms
+        \end{itemize}
+        What problems can dependent types solve?
+        \begin{itemize}
+            %\item Generalising polymorphism.
+            % the type theory behind ML is clunky for example`
+            \item Encoding hard to encode data types such as lists (or vectors) of fixed length.
+            \item It is equivalent to first-order logic in some suitable sense.
+        \end{itemize}
+    \end{frame}
+    
+    \begin{frame}{Pi types}
+        What if the target of a function type could change depending on the input?
+        % intros, constructos, eliminos
+    \end{frame}
+    
+    \begin{frame}{Sigma types}
+        Some times product types are not enough. Especially when we need a family.
+    \end{frame}
+    
+    \begin{frame}{(Dependent) Curry-Howard}
+        \begin{table}
+            \begin{tabular}{c || c}
+                \textbf{Propositional logic} & \textbf{Type theory} \\
+                \hline\hline
+                $\forall a \in A, P(a)$ & pi type $\prod_{(a : A)}P(a)$     \\
+                $\exists a \in A, P(a)$ & sigma type $\sum_{(a:A)}P(a)$     \\
+                proposition $A$         & $A\ \text{Type}$                  \\
+                proof of $A$            & term of $A$                       \\
+                and $A \land B$         & product type $A \times B$         \\
+                or $A \lor B$           & sum type $A + B$                  \\
+                implies $A \implies B$  & function type $A \to B$           \\
+                true                    & unit type $\mathbf{1}$            \\
+                false                   & empty type $\mathbf{0}$           \\
+                not $¬A$                & $A \to \mathbf{0}$                \\
+            \end{tabular}
+        \end{table}
+    \end{frame}
+    
+    \begin{frame}{How can we model type theories?}
+        \begin{block}{Answer:}
+            Categorical semantics.
+        \end{block}
+        This allows us to use category theory to reason about the metatheory of our type theory.
+        
+        \begin{block}{But theres more...}
+            When modelling ``type theories'' in mathematics it was found that there is really a two way correspondance.
+            
+            $$\text{Type theory} \rightleftharpoons \text{Category theory}$$
+            
+            Type theory can be used to reason about a category. Lots of people have investigated this, notably Topos theorists.
+        \end{block}
+        
+    \end{frame}
+    
+    % general type theory
+    % models of type theory CCCs
+    
+    % example sum type, product type
+    % show intros, eliminators, constructors and computation when relevent
+    % talk about curry-howard
+    
+    % what about quantities that "depend" on others?
+    % example the type of vectors
+    % introduce pi tpyes
+    % introduce sigma types
+    % show this extends curry-howard to a first-order logic without LEM
+    
+    % this gives a very expressive language
+    % example include encoding mathematics
+    % e.g. coq, agda, lean
+    % these are also programming languages
+    % example of a dependent data type:
+    % trees, vectors, 
+    
+    % obviously lambda calculi + some stuff are turing complete
+    % examples: haskell
+    
+    % but dependent types allow easier expression of dependent ideas
+    % they have nice type theoretic properties, initiality, canonicity, normalising
+    % how are these modelled?
+    % comprehension categories, categories with families, natural model style
+    % I investigate the relatively new natural model style
+    % currently being used to prove an initiality theorem
+    % which means the model is "freely generated" by the typing rules
+    % important for meta theoretic arguments
+    % categorical models alllow for the tools of category theory to be applied in type theoretic settings
+    
+    
 \end{document}
