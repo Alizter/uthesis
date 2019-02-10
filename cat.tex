@@ -19,13 +19,13 @@ Category theory will allow us to model the desired behaviour of dependent types.
 \begin{defin}
 	A {\bf category} $\mathcal{C}$ consists of:
 	\begin{itemize}
-		\item A class $\mathrm{Ob}(\mathcal{C})$ (usually simply denoted $\mathcal{C}$ without ambiguity) of {\bf objects}.
-		\item For each object $A,B \in \mathcal{C}$ a set $\hom_{\mathcal{C}}(A,B)$ of \textbf{morphisms} or \textbf{arrows} called a \textbf{hom-set} (written $\hom$ when the context is clear). When writing $f \in \hom(A,B)$ we usually denote this $f : A \to B$.
+		\item A class $\text{Ob}(\mathcal{C})$ (usually simply denoted $\mathcal{C}$ without ambiguity) of {\bf objects}.
+		\item For each object $A,B \in \mathcal{C}$, a set $\mathcal{C}(A,B)$ of \textbf{morphisms} or \textbf{arrows} called a \textbf{homset}. When writing $f \in \mathcal{C}(A,B)$ we usually denote this $f : A \to B$.
 		\item For each object $A \in \mathcal{C}$ a morphism $1_A : A \to A$ called the {\bf identity}.
-		\item For each object $A,B,C \in \mathcal{C}$, and for each $f : A \to B$ and $g : B \to C$ there is a function (written infix or sometimes simply omitted ($fg \equiv f \circ g$)
+		\item For each object $A,B,C \in \mathcal{C}$, and for each $f : A \to B$ and $g : B \to C$ there is a function (written infix or sometimes simply omitted ($gf \equiv g \circ f$)
 		
 		$$
-			- \circ - : \hom(B,C) \times \hom(A,B) \to \hom(A,C)
+			- \circ - : \mathcal{C}(B,C) \times \mathcal{C}(A,B) \to \mathcal{C}(A,C)
 		$$
 		
 		called {\bf composition}.
@@ -39,15 +39,7 @@ Category theory will allow us to model the desired behaviour of dependent types.
 	\end{itemize}
 \end{defin}
 
-\begin{defin}
-    A \textbf{category} $\mathcal{C}$ consists of:
-    \begin{itemize}
-        \item A class of objects $\mathrm{Ob}(\mathcal{C})$
-        \item For each $x, y \in \mathrm{Ob}(\mathcal{C})$ a set of \textbf{morphisms} $\hom_{\mathcal{C}}(x,y)$ called the \textbf{hom-set} or set of \textbf{arrows}. 
-    \end{itemize}
-\end{defin}
-
-
+%% remark about collections of morphisms
 \begin{remark}
     There are many similar and mostly equivalent definitions of category in mathematics. The mostly fall into two main camps: how they treat their collection of morphisms. The two definitions are equivalent in the usual foundations of mathematics but each has their own advantages. In books such as \cite{riehl2017category} a collection of morphisms is used. This approach lends itself more naturally to the notion of an \textit{internal category} which will be an important concept later on. The other definition uses a family of collections of morphisms which lends itself to easily generalise to the notion of an \textit{enriched category}, the definitive reference for which is \cite{kelly1982basic}.
 
@@ -61,14 +53,16 @@ We now give some examples:
 	The \textbf{category of sets} denoted $\Set$ is the category whose objects are small\footnote{due to Russellian paradoxes we must distinguish between "all sets" and "enough sets". See appendix for details. } sets and morphisms are functions between sets. Composition is given by composition of functions. This is a very important category in category theory for reasons we shall come across later.
 \end{example}
 
-Choosing the direction in which our arrows point was arbitrary, but it does also mean that if we had chosen the other way we would also get a category. So every category we make canonically comes with a friend.
+Choosing the direction in which our arrows point was arbitrary, but it does also mean that if we had chosen the other way we would also get a category. So every category we make canonically comes with a "friend".
 
 % Opposite category
 \begin{example}
-	For any category $\mathcal{C}$, there is another category called the {\bf opposite category} $\mathcal{C}^\op$ whose objects are the same as $\mathcal{C}$ however the homsets are defined as follows: $\hom_{\mathcal{C}^\op}(x,y):=\hom_{\mathcal{C}}(y,x)$. Composition is defined using the composition from the original category.
+	For any category $\mathcal{C}$, there is another category called the {\bf opposite category} $\mathcal{C}^\op$ whose objects are the same as $\mathcal{C}$ however the homsets are defined as follows: $\mathcal{C}^\op(x,y):=\mathcal{C}(y,x)$. Composition is defined using the composition from the original category.
 \end{example}
 
-Size is a common issue in category theory with many similar ways of dealing with it. It can however cause much confusion and hoop-jumping to be correct. This is the nature of how things are done in set theory however. Later we will investigate other logical frameworks and 
+%% Reword this
+[NEEDS REWORDING]
+Size is a common issue in category theory with many similar ways of dealing with it. It can however cause much confusion and hoop-jumping to be correct. For our purposes we will safely ignore these issues. A formal treatment can be found in the appendix. [TODO: Add formal treatment of size].
 
 \begin{defin}
 	We call a category {\bf small} if its class of objects is really a set.
@@ -79,18 +73,18 @@ Size is a common issue in category theory with many similar ways of dealing with
 	
 	\begin{itemize}
 		\item An object $F(A)\in \mathcal{D}$, for all $A \in \mathcal{C}$ (also denoted $FA$).
-		\item For each $A,B \in \mathcal{C}$, a function $F_{A,B} : \hom_{\mathcal{C}}(A,B) \to \hom_{\mathcal{D}}(FA,FB)$ (also denoted $F$).
+		\item For each $A,B \in \mathcal{C}$, a function $F_{A,B} : \mathcal{C}}(A,B) \to \mathcal{D}(FA,FB)$ (also denoted $F$).
 		\item For each $A \in \mathcal{C}$, $F(1_A) = 1_{FA}$.
 		\item For each $A,B,C \in \mathcal{C}$, $f : A \to B$, $g : B \to C$, we have $$F(g \circ f) = F(g)\circ F(f)$$
 	\end{itemize}
 \end{defin}
 
 \begin{remark}
-    Historically in category theory, one would define covariant, as defined above, and contravariant functors. Contravariant functors mean to swap the order of composition when the functor is applied. In modern category theory texts, this is completely dropped as a contravariant functor from $\mathcal{C}$ to $\mathcal{D}$ is simply a covaraint functor from $\mathcal{C}^\op$ to $\mathcal{D}$. Henceforth, we shall not mention co(tra)variance of functors and refer to them simply a functors.
+    Historically in category theory, one would define covariant, as defined above, and contravariant functors, as a result this terminology has crept into uses of category in certain fields [REFERNCE pretty much any homological algebra book before 80s]. Contravariant functors mean to swap the order of composition when the functor is applied. In modern category theory texts, this is completely dropped as a contravariant functor from $\mathcal{C}$ to $\mathcal{D}$ is simply a covaraint functor from $\mathcal{C}^\op$ to $\mathcal{D}$. Henceforth, we shall not mention co(tra)variance of functors and refer to them simply a functors.
 \end{remark}
 
 \begin{remark}
-    Given two functors $F : \mathcal{C} \to \mathcal{D}$ and $G : \mathcal{D} \to \mathcal{E}$ we can make a new functor $G \circ F$ by first applying $F$ then applying $G$. It is simple to check that this is indeed a functor. 
+    Given two functors $F : \mathcal{C} \to \mathcal{D}$ and $G : \mathcal{D} \to \mathcal{E}$ we can make a new functor $G \circ F$ called its \textbf{composite}, by first applying $F$ then applying $G$ on objects or morphisms. It is simple to check that this is indeed a functor. 
 \end{remark}
 
 Now that we have 'morphisms' between categories we can define another category:
@@ -99,20 +93,52 @@ Now that we have 'morphisms' between categories we can define another category:
 	The category of small categories $\Cat$ has objects small categories and morphisms functors. Composition is given by composition of functors.
 \end{example}
 
-
-
 %% Talk about natural transformations
+\begin{defin}
+    [Definition of natural transformation]
+\end{defin}
 
 %% Talk about functor categories
+\begin{example}
+    Given two categories $\mathcal{C}$ and $\mathcal{D}$ we can from a category $[\mathcal{C}, \mathcal{D}]$ called the functor category between $\mathcal{C}$ and $\mathcal{D}$. It's objects are functors $\mathcal{C} \to \mathcal{D}$ and morphisms are natural transformations between functors.
+\end{example}
 
-%% Define presheaves
+Special cases of this example include:
+
+\begin{example}
+    A functor $\mathcal{C}^\op \to \Set$ is typically called a \textbf{presheaf} in geometry and logic. They live in the functor category $[\mathcal{C}^\op, \Set]$ which we will call the \textbf{category of presheaves}. This is an interesting construction as it acts like the category $\mathcal{C}$ in some ways with some nice properties from $\Set$.
+\end{example}
+
+% Co(ntra)variant hom-functors
 
 %% Prove yoneda lemma
+[CHECK THIS] One of the first theorems that is proven in category theory is the \textbf{Yoneda lemma}. It says if an object acts like a certain object in every possible way, then it must be isomorphic to that object. Akin to how particles are discovered in particle accerlators by observing how they interact when bombarded with differnt particles.
 
+\begin{lemma}
+    Let $\mathcal{C}$ be a category. There is an embedding $\mathbf{y} : \mathcal{C} \to [\mathcal{C}^\op, \Set]$. 
+    Where $\mathbf{y}(A) := \mathcal{C}( A, - )$, maps each object to its contravariant hom functor. 
+    Presheaves that arise this way are called \textbf{representable presheaves}.
+\end{lemma}
 
+\begin{remark}
+    ![WHAT IS A FULL AND FAITHFUL FUNCTOR?]
+    An embedding is a functor that is full and faithful. We haven't actually proven that the "yoneda embedding" is an embedding however this is a corollary of the yoneda lemma which will prove now.
+\end{remark}
 
+[PICTURES]
 
+\begin{theorem}
+    Let $\mathcal{C}$ be a category. For all $X \in [\mathcal{C}^\op, \Set]$, there is a natural isomorphism between the following functors $\mathcal{C} \to \Set$:
+        $$[\mathcal{C}^\op, \Set](\mathbf{y}(-), X) \cong X(-)$$
+\end{theorem}
 
+\begin{remark}
+    The set of natural transformations between $\mathbf{y}(A)$ and a presheaf $X$ is bijective to the sections of $X$ at $A$.
+\end{remark}
 
+%   There are 3 main corollaries of the yoneda lemma
+%   1. The yoneda embedding is an embedding
+%   2. Representable objects are unique
+%   3. Being a representable object is a universal construction
 
 

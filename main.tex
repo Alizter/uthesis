@@ -6,9 +6,6 @@
 
 \usepackage[utf8]{inputenc}
 \usepackage{bussproofs}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{amsthm}
 
 \usepackage{framed}
 
@@ -22,6 +19,11 @@
 \usepackage{forest}
 \usepackage{mwe}
 \usepackage{verbatim}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{ stmaryrd }
 
 
 %\bibliographystyle{bath.bst}
@@ -40,9 +42,9 @@
 \newcommand{\Set}{\catname{Set}}
 \newcommand{\Cat}{\catname{Cat}}
 
-\newcommand{\el}{\mathrm{el}}
-\newcommand{\op}{\mathrm{op}}
-\newcommand{\Ty}{\mathbf{Ty}}
+\newcommand{\el}{\text{el}}
+\newcommand{\op}{\text{op}}
+\newcommand{\Ty}{\text{Ty}}
 
 \newcommand{\of}{\mathbf{of}}
 
@@ -62,34 +64,34 @@
 \newcommand{\Jud}{\mathbf{Jud}}
 
 
-\newcommand{\Id}{\mathrm{Id}}
+\newcommand{\Id}{\text{Id}}
 
 %%
 %   Type theories
 %%
 
-\newcommand{\stcu}{${\boldsymbol \lambda}_\to^{\mathrm{Cu}}$} % simply typed curry 
-\newcommand{\stch}{${\boldsymbol \lambda}_\to^{\mathrm{Ch}}$} % simply typed church
-\newcommand{\stdb}{${\boldsymbol \lambda}_\to^{\mathrm{dB}}$} % simply typed de brujin
+\newcommand{\stcu}{${\boldsymbol \lambda}_\to^{\text{Cu}}$} % simply typed curry 
+\newcommand{\stch}{${\boldsymbol \lambda}_\to^{\text{Ch}}$} % simply typed church
+\newcommand{\stdb}{${\boldsymbol \lambda}_\to^{\text{dB}}$} % simply typed de brujin
 \newcommand{\utbe}{${\boldsymbol {\lambda \beta \eta}}$ } % untyped beta eta
 
 %%
 %   Turn styles
 %%
 
-\newcommand{\vdashstcu}{\vdash_{\boldsymbol \lambda_\to}^{\mathrm{Cu}}} % vdash for curry
-\newcommand{\vdashstcu}{\vdash_{\boldsymbol \lambda_\to}^{\mathrm{Ch}}} % vdash for church
-\newcommand{\vdashstcu}{\vdash_{\boldsymbol \lambda_\to}^{\mathrm{dB}}} % vdash for de Brujin
+\newcommand{\vdashstcu}{\vdash_{\boldsymbol \lambda_\to}^{\text{Cu}}} % vdash for curry
+\newcommand{\vdashstcu}{\vdash_{\boldsymbol \lambda_\to}^{\text{Ch}}} % vdash for church
+\newcommand{\vdashstcu}{\vdash_{\boldsymbol \lambda_\to}^{\text{dB}}} % vdash for de Brujin
 
 %%
 %   Harper notations
 %%
 
 \newcommand{\Term}{\mathbf{Term}}
-\newcommand{\App}{\mathrm{App}}
+\newcommand{\App}{\text{App}}
 \newcommand{\scope}{\triangleleft}
-\newcommand{\soa}{\mathrm{soa}}
-\newcommand{\sov}{\mathrm{sov}}
+\newcommand{\soa}{\text{soa}}
+\newcommand{\sov}{\text{sov}}
 
 \title{Introduction to dependent type theory}
 \author{Ali Caglayan}
@@ -100,7 +102,9 @@
 
 %%\tableofcontents
 
-\input{cat.tex}
+%\input{cat.tex}
+
+\input{semantics.tex}
 
 %%\input{induction.tex}
 
@@ -111,6 +115,25 @@
 
 
 \end{document}
+
+%   Second plan for writing this documentclass
+%
+%   1. Introduce type theories
+%   2. Add different types comment on uses
+%   3. Talk about what dependent types should be
+%   4. Define dependent types
+%   5. Introduce pi and sigma types 
+%   6. Introduce uses and applications of dependent types
+%   7. Detail categorical semantics of type theories
+%   8. Survey categorical semantics for dependent types
+%   9. Derive steve awodeys natural model of dependent types
+%   10. Should interweave category theory
+%
+%
+%
+%
+
+
 
 %
 %   Plan for writing this document

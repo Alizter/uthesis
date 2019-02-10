@@ -47,17 +47,35 @@
     % results
     % the future
     
-    \begin{frame}{Lambda calculus}
+    %% Modify this
+    \begin{frame}{Simply typed lambda calculus}
         \begin{itemize}
-            \item Lambda calculus is a formal system.
-            \item We can restrict some functions from being applied to others.
-            \item This is known as typing.
-            \item The system we get is called simply typed lambda calculus.
-            \item We only have function types, but we can have more...
+            \item Simply typed lambda calculus is a formal system.
+            \item We start with some "atomic" types
+            \item We can make new types out of "type constructors" known as introduction rules
+            \item Usually we only have function types, but we can have more...
         \end{itemize}
     \end{frame}
     
     \begin{frame}{Extending typed lambda calculus}
+        When adding a new type we must write down rules to define how it will behave.
+        Usually these are sorted into 4 kinds of rules:
+        \begin{itemize}
+            \item \blu{Introduction rules} (how to make the type)
+            \item \gre{Constructors} (how to make terms of the type)
+            \item \red{Eliminators} (how to break terms of the type)
+            \item \yel{Computation rules} (how a function coming out of the type computes)
+        \end{itemize}
+        \textbf{Note}: Computation rules can usually be derived from the other rules, and therefore can be omitted.
+    \end{frame}
+
+    \begin{frame}{Simply typed lambda calculus}
+        \begin{itemize}
+            \item Simply typed lambda calculus is a formal system.
+            \item We start with some "atomic" types
+            \item We can make new types out of "type constructors" known as introduction rules
+            \item Usually we only have function types, but we can have more...
+        \end{itemize}
         When adding a new type we must write down rules to define how it will behave.
         Usually these are sorted into 4 kinds of rules:
         \begin{itemize}
