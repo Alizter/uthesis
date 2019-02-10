@@ -1,0 +1,73 @@
+\section{Theories and models}
+
+[NOTE: This is a rough outline of what the document ought to look like, not even worthy of being a draft]
+
+[TODO: Find references for these]
+\begin{defin}
+    A theory asserts data and axioms.
+    A model is a particular example of a theory.
+\end{defin}
+
+For example a model of "the theory of groups" in the category of sets is simply a group. A model of "the theory of groups" in the category of topological spaces is a topological group. A model of "the theory of groups" in a the category of manifolds is a Lie group.
+
+Categorical semantics is a general procedure to go from "a theory" to the notion of an internal object in some category.
+
+The internal objects of itnerest is a model of the theory in a cateagory.
+
+Then anything we prove formally about the theory is true for all models of the theory in any category.
+
+For each kind of "type theory" there is a corresponding kind of "structured category" in which we consider models.
+
+\begin{itemize}
+\item Lawvere theories $\leftrightarrow$ Category with finite products
+\item Simply typed lambda calculus $\leftrightarrow$ Cartesian closed category
+\item Dependent type theory $\leftrightarrow$ Locally CC category
+\end{itemize}
+
+A doctrine specifies:
+ - A collection of type constructors
+ - A categorical structure realizing these constructors as operations.
+
+Once we fix a doctrine $\mathbb{D}$, then a $\mathbb{D}$-theory specifies "generaing" or "axiomatic" types and terms.
+A $\mathbb{D}$-category is one pocessing the specified structure.
+A model of a $\mathcal{D}$-theory $T$ in a $\mathcal{D}$-category $C$ realizes the types and terms in $T$ as objects and morphisms of $C$.
+
+A finite-product theory is a type theory with unit and cartesian product as te only type constructors. Plus any number of axioms.
+
+Example:
+
+The theory of magmas has one axiomatic type M, and axiomatic terms $\vdash e : M$ and $x : M, y : M \vdash xy : M$. For monoids and groups we will need equality axioms.
+
+Let $T$ be a finite-product theory, $C$ a category with finite products
+
+A mdoel of $T$ in $C$ assigns:
+
+\begin{enumerate}
+\item To each type $A$ in $T$, an object $\llbracket A \rrbracket$ in $C$
+\item To each judgement derivable in $T$:
+    $$x_1 : A_1, \dots, x_n : A_n \vdash b : B$$
+    A morphism in $C$
+    $$\llbracket A_1 \rrbracket \times \dots \times \llbracket A_n \rrbracket \xrightarrow{\llbracket b \rrbracket} \llbracket B \rrbracket$$
+\item Such that $\llbracket A \times B \rrbracket = \llbracket A \rrbracket \times \llbracket B \rrbracket$ etc.
+\end{enumerate}
+
+To define a model of $T$ in $C$, it suffices to interpret the axioms, since they "freely generate" the model.
+
+%% Talk about doctrines
+
+Talk about doctrines
+
+Talk about type theory categries adjunction via syntactic category and complet category. (Syntax-semantics adjunction) Possible to set it up to be an equivalence but may not be needed.
+
+WHY Categorical semantics:
+\begin{enumerate}
+ \item Proving things in a D-theory means it is valid for models of that D-theory in all categories
+ \item We can use type theory to prove things about a category by working in its complete theory (internal language)
+ \item We can use category theory to prove things about a type theory by working in its syntactic category.
+\end{enumerate}
+
+
+
+
+
+
