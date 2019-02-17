@@ -31,7 +31,7 @@
 \newcommand{\yel}[1]{\textcolor{violet}{#1}}
 
 \begin{document}
-    %\frame{\titlepage}
+    \frame{\titlepage}
     
     
     %% So my second marker is Guy McKusker which will mean I can brush over lambda calculus quicker
@@ -48,26 +48,26 @@
     % the future
     
     %% Modify this
-    \begin{frame}{Simply typed lambda calculus}
-        \begin{itemize}
-            \item Simply typed lambda calculus is a formal system.
-            \item We start with some "atomic" types
-            \item We can make new types out of "type constructors" known as introduction rules
-            \item Usually we only have function types, but we can have more...
-        \end{itemize}
-    \end{frame}
+    %\begin{frame}{Simply typed lambda calculus}
+    %    \begin{itemize}
+    %        \item Simply typed lambda calculus is a formal system.
+    %        \item We start with some "atomic" types
+    %        \item We can make new types out of "type constructors" known as introduction rules
+    %        \item Usually we only have function types, but we can have more...
+    %    \end{itemize}
+    %\end{frame}
     
-    \begin{frame}{Extending typed lambda calculus}
-        When adding a new type we must write down rules to define how it will behave.
-        Usually these are sorted into 4 kinds of rules:
-        \begin{itemize}
-            \item \blu{Introduction rules} (how to make the type)
-            \item \gre{Constructors} (how to make terms of the type)
-            \item \red{Eliminators} (how to break terms of the type)
-            \item \yel{Computation rules} (how a function coming out of the type computes)
-        \end{itemize}
-        \textbf{Note}: Computation rules can usually be derived from the other rules, and therefore can be omitted.
-    \end{frame}
+    %\begin{frame}{Extending typed lambda calculus}
+    %    When adding a new type we must write down rules to define how it will behave.
+    %    Usually these are sorted into 4 kinds of rules:
+    %    \begin{itemize}
+    %        \item \blu{Introduction rules} (how to make the type)
+    %        \item \gre{Constructors} (how to make terms of the type)
+    %        \item \red{Eliminators} (how to break up terms of the type)
+    %        \item \yel{Computation rules} (how a function coming out of the type computes)
+    %    \end{itemize}
+    %    \textbf{Note}: Computation rules can usually be derived from the other rules, and therefore can be omitted.
+    %\end{frame}
 
     \begin{frame}{Simply typed lambda calculus}
         \begin{itemize}
@@ -79,16 +79,16 @@
         When adding a new type we must write down rules to define how it will behave.
         Usually these are sorted into 4 kinds of rules:
         \begin{itemize}
-            \item \blu{Introduction rules} (how to make the type)
+            \item \blu{Formation rules} (how to make the type)
             \item \gre{Constructors} (how to make terms of the type)
             \item \red{Eliminators} (how to break terms of the type)
             \item \yel{Computation rules} (how a function coming out of the type computes)
         \end{itemize}
-        \textbf{Note}: Computation rules can usually be derived from the other rules, and therefore can be omitted.
+        \textbf{Note}: Computation rules can usually be derived from the other rules for positive types, and therefore can be omitted.
     \end{frame}
 
     \begin{frame}{Product types}
-        \begin{block}{\blu{Introduction}}
+        \begin{block}{\blu{Formation}}
             $$\frac{\Gamma \vdash A\ \text{Type}\qquad \Gamma \vdash B\ \text{Type} }{\Gamma \vdash A \times B\ \text{Type}}$$
         \end{block}
         
@@ -107,7 +107,7 @@
     \end{frame}    
     
     \begin{frame}{Sum types}
-        \begin{block}{\blu{Introduction}}
+        \begin{block}{\blu{Formation}}
             $$\frac{\Gamma \vdash A\ \text{Type}\qquad \Gamma \vdash B\ \text{Type} }{\Gamma \vdash A + B\ \text{Type}}$$
         \end{block}
         
@@ -125,37 +125,37 @@
     \end{frame}
     
     % Probably can get rid of this
-    \begin{frame}{Motivation}
-        \begin{itemize}
-            \item Programming languages
-            \begin{itemize}
-                \item Haskell
-                \item ML
-                \item basically every other typed functional programming language
-            \end{itemize}
-        \end{itemize}
-    \end{frame}
+    %\begin{frame}{Motivation}
+    %    \begin{itemize}
+    %        \item Programming languages
+    %        \begin{itemize}
+    %            \item Haskell
+    %            \item ML
+    %            \item basically every other typed functional programming language
+    %        \end{itemize}
+    %    \end{itemize}
+    %\end{frame}
     
-    \begin{frame}{Mathematical motivation - Curry-Howard correspondance}
-        There is a correspondance between propositional logic and type theory. Types are propositions, and terms are proofs.
-        \begin{table}
-            \begin{tabular}{c || c}
-                \textbf{Propositional logic} & \textbf{Type theory} \\
-                \hline\hline
-                proposition $A$         & $A\ \text{Type}$          \\
-                proof of $A$            & term of $A$               \\
-                and $A \land B$         & product type $A \times B$ \\
-                or $A \lor B$           & sum type $A + B$          \\
-                implies $A \implies B$  & function type $A \to B$   \\
-                true                    & unit type $\mathbf{1}$    \\
-                false                   & empty type $\mathbf{0}$   \\
-                not $¬A$                & $A \to \mathbf{0}$        \\
-            \end{tabular}
-        \end{table}
-        
-        This is the begining of using type theory to encode mathematics.
-        This is how proof assistants work.
-    \end{frame}
+    %\begin{frame}{Mathematical motivation - Curry-Howard correspondance}
+    %    There is a correspondance between propositional logic and type theory. Types are propositions, and terms are proofs.
+    %    \begin{table}
+    %        \begin{tabular}{c || c}
+    %            \textbf{Propositional logic} & \textbf{Type theory} \\
+    %            \hline\hline
+    %            proposition $A$         & $A\ \text{Type}$          \\
+    %            proof of $A$            & term of $A$               \\
+    %            and $A \land B$         & product type $A \times B$ \\
+    %            or $A \lor B$           & sum type $A + B$          \\
+    %            implies $A \implies B$  & function type $A \to B$   \\
+    %            true                    & unit type $\mathbf{1}$    \\
+    %            false                   & empty type $\mathbf{0}$   \\
+    %            not $¬A$                & $A \to \mathbf{0}$        \\
+    %        \end{tabular}
+    %    \end{table}
+    %    
+    %    This is the begining of using type theory to encode mathematics.
+    %    This is what most proof assistants are based on.
+    %\end{frame}
     
     % 
     \begin{frame}{What are dependent types?}
@@ -170,18 +170,45 @@
             %\item Generalising polymorphism.
             % the type theory behind ML is clunky for example`
             \item Encoding hard to encode data types such as lists (or vectors) of fixed length.
-            \item It is equivalent to first-order logic in some suitable sense.
+            \item It is equivalent to first-order logic in some suitable sense. (Dependent Curry-Howard)
+            \item Generalises polymorphism, GADT, inductive types etc.
         \end{itemize}
     \end{frame}
     
+    % Might need to be cut due to time
     \begin{frame}{Pi types}
         What if the target of a function type could change depending on the input?
-        % intros, constructos, eliminos
+        \begin{block}{\blu{Introduction}}
+            $$\frac{\Gamma \vdash A\ \text{Text} \qquad \Gamma, x : A \vdash B\ \text{Type}}{\Gamma \vdash \prod_{(x:A)}B\ \text{Type}}$$
+        \end{block}
+        
+        \begin{block}{\gre{Constructors}}
+            $$\frac{\Gamma , x : A \vdash b : B}{\Gamma \vdash \lambda (x : A) . b : \prod_{(x:A)}B}$$
+        \end{block}
+        
+        \begin{block}{\red{Eliminators} and \yel{Computation rules}}
+            $$\frac{\Gamma \vdash f : \prod_{(x:A)}B \qquad \Gamma \vdash a : A}{\Gamma \vdash f(a) : B[a/x]}\qquad 
+              \frac{\Gamma , x : A \vdash b : B \quad \Gamma \vdash a : A}{\Gamma \vdash (\lambda(x:A).b)(a)\equiv b[a/x]:B[a/x]} $$
+        \end{block}
     \end{frame}
     
     \begin{frame}{Sigma types}
-        Some times product types are not enough. Especially when we need a family.
+        When making the type of dates, we could write
+        $$\text{Days} \times \text{Months} \times \text{Years}$$
+        However this would give us completely nonsense dates such as 31/02/2019.
+
+        Some times product types are not enough. In this case we need \textbf{sigma types}. 
+
+        $$\sum_{(y : \text{Years})} \sum_{(m : \text{Months})} \text{Days}(y, m)$$
+        
+        A term of which would look like $(2019; (01; 31))$ (the order doesn't really matter). We might call such a term a dependent pair.
+        Note: $\text{Days}$ is a family of types, i.e. a type depending on the given year and month.
+        \begin{itemize}
+        
+            \item Sigma types generalise product types.   
+        \end{itemize}
     \end{frame}
+     
     
     \begin{frame}{(Dependent) Curry-Howard}
         \begin{table}

@@ -3,9 +3,8 @@
 git pull
 #gedit *.tex uthesis.bib &
 gedit main.tex &
-gedit induction.tex
-gedit harper.tex
-
+gedit cat.tex
+gedit semantics.tex
 
 bash mk
 xdg-open main.pdf
