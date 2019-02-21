@@ -4,7 +4,6 @@
 
 \subsection{Introduction}
 
-
 We will follow the structure of syntax outlined in Harper \cite{harper_2016}. There are several reasons for this. 
 
 Firstly, for example in Barendregt et. al. \cite{BarendregtHenk2013Lcwt} we have notions of substitution left to the reader under the assumption that they can be fixed. Generally Barendregt's style is like this and even when there is much formalism, it is done in a way that we find peculiar.
@@ -92,7 +91,7 @@ A sort could be a term, a type, a kind or even an expression. It should be thoug
 [[ Wording here may be confusing]]
 %% Fresh variable sets
 \begin{defin}[Fresh sets of variables]
-    Let $V=\{ v_1 ,\dots, v_n\}$ be a finite set of variables (which all have sorts implicitly assigned so really a family of variables $\{V_s\}_{s\in\mathcal{S}}$ indexed by sorts, where each $V_s$ is finite). We say $V$ is fresh for $\mathcal{X}$ by induction on $V$. Suppose $V=\varnothing$, then $V$ is \mathbf{fresh} for $X$. Suppose $V = \{v \} \cup W$ where $W$ is a finite set, $v$ is fresh for $W$ and $W$ is fresh for $\mathcal{X}$. Then $V$ is fresh for $\mathcal{X}$ if $v$ is fresh for $\mathcal{X}$. By induction we have defined a finite set being fresh for a set $\mathcal{X}$. Write $\mathcal{X},V$ for the union (which is disjoint) of $\mathcal{X}$ and $V$. This gives us a new set of variables with obious indexing.
+    Let $V=\{ v_1 ,\dots, v_n\}$ be a finite set of variables (which all have sorts implicitly assigned so really a family of variables $\{V_s\}_{s\in\mathcal{S}}$ indexed by sorts, where each $V_s$ is finite). We say $V$ is fresh for $\mathcal{X}$ by induction on $V$. Suppose $V=\varnothing$, then $V$ is \mathbf{fresh} for $X$. Suppose $V = \{v \} \cup W$ where $W$ is a finite set, $v$ is fresh for $W$ and $W$ is fresh for $\mathcal{X}$. Then $V$ is fresh for $\mathcal{X}$ if $v$ is fresh for $\mathcal{X}$. By induction we have defined a finite set being fresh for a set $\mathcal{X}$. Write $\mathcal{X},V$ for the union (which is disjoint) of $\mathcal{X}$ and $V$. This gives us a new set of variables with obvious indexing.
 \end{defin}
 
 %% Remark about notation for adding variables
@@ -207,7 +206,7 @@ We want to modify the notion of abstract syntax tree to include features such as
 
 %% Generalize arity
 \begin{defin}[Generalized arities]
-    A \textbf{generalized arity} (or signature) is a tuple consisting of the following data:
+    A \textbf{generalised arity} (or signature) is a tuple consisting of the following data:
     
     \begin{enumerate}
         \itemsep -0.5 \parsep
@@ -224,24 +223,24 @@ We want to modify the notion of abstract syntax tree to include features such as
         \item A decidable relation $\scope$ between $[n]$ and $[m]$ called \textbf{scoping}. Where $j \scope k$ means the $j$th argument is in scope of the $k$th bound variable.
     \end{enumerate}
     
-    The set of generalized arities $\mathbf{GA}$ could therefore be defined as $\mathcal{S} \times \mathcal{S}^\star  \times \mathcal{S}^\star$ equipped with some appropriate relation $\scope$.
+    The set of generalised arities $\mathbf{GA}$ could therefore be defined as $\mathcal{S} \times \mathcal{S}^\star  \times \mathcal{S}^\star$ equipped with some appropriate relation $\scope$.
 \end{defin}
 
 \begin{remark}
-    In \cite{harper_2016} there is no relation but a function. And each argument has bound variables assigned to it. But as argued in \cite{nlab:initiality_project_-_raw_syntax} this means arguments can have different variables bound even if they are really the same variable. To fix this, bound variables belong to the whole signature. Which coincdently makes it simpler to understand too.
+    In \cite{harper_2016} there is no relation but a function. And each argument has bound variables assigned to it. But as argued in \cite{nlab:initiality_project_-_raw_syntax} this means arguments can have different variables bound even if they are really the same variable. To fix this, bound variables belong to the whole signature. Which confidently makes it simpler to understand too.
     
     This definition is more general than the definition given in \cite{nlab:initiality_project_-_raw_syntax} due to bound variables having sorts chosen for them rather than being defaulted to the sort $\mathrm{tm}$. It is mentioned there however that it can be generalised to this form (but would have little utility there).
 \end{remark}
 
-We will now redefine the notion of operator, taking note that generalized arities are a superset of arities defined previously.
+We will now redefine the notion of operator, taking note that generalised arities are a super-set of arities defined previously.
 
 %% Operator
 \begin{defin}[Operators (with generalized arity)]
-    Let $\mathcal{O}:=\{ \mathcal{O}_\alpha\}_{\alpha \in \mathbf{GA}}$ be a $\mathbf{GA}$-indexed family of dsjoint sets of \textbf{operators} for each generalized arity $\alpha$. An element $o \in \mathcal{O}_{\alpha \in \mathbf{GA}}$ is called an \mathbf{operator} of (generalized) \textbf{arity} $\alpha$. If $\alpha$ has sort $s$ then $o$ has \textbf{sort} $s$. If $\alpha$ has argument sorts $(s_1,\dots,s_n)$ then we say that $o$ has \textbf{argument arity} $n$, with the $j$th argument having \textbf{sort} $s_j$. If $\alpha$ has binding sorts $(t_1,\dots,t_m)$ then we say that $o$ has \textbf{binding arity} $m$, with the $k$th bound variable having \textbf{sort} $s_k$. If the the scoping relation of $\alpha$ has $j \scope k$ then we say that the $j$th argument of $o$ is in \textbf{scope} of the $k$th bound variable of $o$. 
+    Let $\mathcal{O}:=\{ \mathcal{O}_\alpha\}_{\alpha \in \mathbf{GA}}$ be a $\mathbf{GA}$-indexed family of disjoint sets of \textbf{operators} for each generalised arity $\alpha$. An element $o \in \mathcal{O}_{\alpha \in \mathbf{GA}}$ is called an \mathbf{operator} of (generalised) \textbf{arity} $\alpha$. If $\alpha$ has sort $s$ then $o$ has \textbf{sort} $s$. If $\alpha$ has argument sorts $(s_1,\dots,s_n)$ then we say that $o$ has \textbf{argument arity} $n$, with the $j$th argument having \textbf{sort} $s_j$. If $\alpha$ has binding sorts $(t_1,\dots,t_m)$ then we say that $o$ has \textbf{binding arity} $m$, with the $k$th bound variable having \textbf{sort} $s_k$. If the the scoping relation of $\alpha$ has $j \scope k$ then we say that the $j$th argument of $o$ is in \textbf{scope} of the $k$th bound variable of $o$. 
 \end{defin}
 
 \begin{remark}
-    We overload the definitions of arity and operator to mean generalized operator and operator with generalized arity respectively.
+    We overload the definitions of arity and operator to mean generalised operator and operator with generalised arity respectively.
 \end{remark}
 
 Now that we can equip our operators with the datum of binding and scoping we can go ahead and define abstract binding trees.
@@ -255,7 +254,7 @@ perhaps its worth making note of that back in the asts definitions ]]
     
     \begin{enumerate}
         \item A variable $x$ of sort $s$ is an abt of sort $s$: if $x \in \mathcal{X}_s$, then $x \in \mathcal{B}[\mathcal{X}]_s$.
-        \item Suppose $\mathtt{G}$ is an operator of sort $s$, argument arity $n$ and binding arity $m$. Suppose $V$ is some finite set of length $m$ which is fresh for $\mathcal{X}$. These will be called our \textbf{bound variables}. Label the elments of $V$ as $V= \{ v_1, \dots, v_m\}$. For $j\in [n]$, let $X_j:=\{ v_k \in V \mid j \scope k\}$ be the set of bound variables that the $j$th argument is in scope of. Now suppose for each $j \in [n]$, $M_j \in \mathcal{B}[\mathcal{X},V]_{s_j}$ where $s_j$ is the sort of the $j$th argument of $\mathtt{G}$. Then $\mathtt{G}(X;M_1,\dots, M_n) \in \mathcal{B}[\mathcal{X}]_s$.
+        \item Suppose $\mathtt{G}$ is an operator of sort $s$, argument arity $n$ and binding arity $m$. Suppose $V$ is some finite set of length $m$ which is fresh for $\mathcal{X}$. These will be called our \textbf{bound variables}. Label the elements of $V$ as $V= \{ v_1, \dots, v_m\}$. For $j\in [n]$, let $X_j:=\{ v_k \in V \mid j \scope k\}$ be the set of bound variables that the $j$th argument is in scope of. Now suppose for each $j \in [n]$, $M_j \in \mathcal{B}[\mathcal{X},V]_{s_j}$ where $s_j$ is the sort of the $j$th argument of $\mathtt{G}$. Then $\mathtt{G}(X;M_1,\dots, M_n) \in \mathcal{B}[\mathcal{X}]_s$.
     \end{enumerate}
 \end{defin}
 
@@ -263,6 +262,6 @@ perhaps its worth making note of that back in the asts definitions ]]
     There is a lot going on in the second constructor of Definition \ref{abt}. It simply allows for bound variables to be constructed in syntax in a well-defined way that avoids variable capture. This will be useful when defining notions like substitution on abts as we will have the avoidance of variable capture built-in.
 \end{remark}
 
-[[What is variable caputre talk about this and reference this stuff because lots of cleverer people have thought about this too you know.]]
+[[What is variable capture talk about this and reference this stuff because lots of cleverer people have thought about this too you know.]]
 
 
