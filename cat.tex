@@ -1,5 +1,6 @@
 % Category theory
-
+\newcommand{\Ob}[1]{\text{Ob}(#1)}
+\newcommand{\mc}[1]{\mathcal{#1}}
 
 \section{Category theory}
 
@@ -9,11 +10,112 @@
 
 %We wish to model dependent types using category theory. In order to do this we will introduce some important category theory, give examples and illustrate how one might go about modelling dependent types. A model is a loose term used to describe the process of finding a mathematical structure, studying how it acts and using this to reason about your desired thing to study. This process can be made much more rigorous than described here, and discussion of the process is really an escapade of mathematical philosophy which we will gloss over for the sake of clarity.
 
- 
+% TODO: Rewrite everything in terms of left adjoints 
+
+\subsection{Categories}
+
+We begin with the notion of a category. This can be thought of as a place mathematical objects live and interact with eachother.
+
+\begin{defin}
+    A \textit{category} $\mc{C}$ consists of:
+    \begin{itemize}
+       \item A set $\Ob {\mc C}$, elements of which are called \textit{objects} of $\mc C$.
+       \item For each $X,Y \in \Ob {\mc C}$, a set $\mc C(X,Y)$, called the \textit{homset} from $X$ to $Y$.
+       \item For each $X, Y, Z\in \Ob{\mc C}$, a function $\circ_{X,Y,Z} : \mc C(Y, Z) \times \mc C (X Y) \to \mc C(X, Z)$, called the \textit{composite function}.
+       \item For each $X \in \Ob{\mc C}$, an element $\iota_X \in \mc C(X,X)$, called the identity map, sometimes written $\iota_X : 1 \to \mc C(X, X)$.
+    \end{itemize}
+    Such that the following axioms hold:
+    \begin{itemize}
+        \item \textit{Associativity}: For every $f \in \mc C(X,Y)$, $g \in \mc C(Y,Z)$ and $h \in \mc C(Z, W)$, one has $(h \circ g ) \circ f = h \circ (g \circ f)$.
+        \item \texit{Identity}: For every $f \in \mc C(X, Y)$, one has $f \circ \iota_X = f = \iota_Y \circ f$.
+    \end{itemize}
+\end{defin}
+
+\begin{remark}
+    One typically writes composition as juxtaposition and omits the symbol $\circ$.
+\end{remark}
+
+% Category of sets
+\begin{example}
+	The \texit{category of sets} denoted $\Set$ is the category whose objects are small\footnote{due to Russellian paradoxes we must distinguish between "all sets" and "enough sets". See appendix for details. } sets and morphisms are functions between sets. Composition is given by composition of functions. 
+\end{example}
+
+Choosing the direction in which our arrows point was rather arbitrary. This suggests that if we had chosen the other way we would have also gotten a category. So any category we can come up with has an associated dual.
+
+% Opposite category
+\begin{example}
+	For any category $\mathcal{C}$, there is another category called the {\bf opposite category} $\mc{C}^\op$ whose objects are the same as $\mathcal{C}$ however the homsets are defined as follows: $\mc{C}^\op(x,y):=\mc{C}(y,x)$. Composition is defined using the composition from the original category.
+\end{example}
+
+\begin{remark}
+    It is a simple exercise to check that for any category $\mc C$
+\end{remark}
+
+[TODO: Note on commutative diagrams]
+
+\subsection{Functors}
+
+\begin{defin}
+    Given categories $\mc C$ and $\mc D$, a \textit{functor} $H$ from $\mc C$ to $\mc D$, written $H : \mc C \to \mc D$, consists of
+    \begin{itemize}
+        \item A function $\Ob H : \Ob {\mc C} \to \Ob {\mc D}$, with notation typically abbreivated to $H$
+        \item For each $X, Y \in \Ob{\mc C}$ a function $H_{X,Y} : \mc C(X, Y) \to \mc D(HX,HY)$
+    \end{itemize}
+    Such that the following diagrams commute in the category $\Set$:
+    \begin{itemize}
+        \item $H$ \textit{respects composition}:
+        \begin{center}
+            \begin{tikzcd}
+                {\mc C(Y,Z)\times \mc C(X,Y)} \arrow{d}[swap]{\circ} \arrow{r}{H \times H} & {\mc D(HY,HZ)\times \mc D(HX,HY)} \arrow{d}{\circ} \\
+                {\mc C(X,Z)} \arrow{r}{H} & {\mc D(HX,HZ)}
+            \end{tikzcd}
+        \end{center}
+        \item $H$ \textit{respects units}:
+        \begin{center}
+            \begin{tikzcd}
+                1 \arrow{r}{\iota_X} \arrow{rd}[swap]{\iota_{HX}} & \mc C(X, X) \arrow{d}{H} \\
+                & \mc D(HX,HX)
+            \end{tikzcd}
+        \end{center}
+    \end{itemize}
+\end{defin}
+
+\subsection{Natural transformations}
+
+\begin{defin}
+    Given categories $\mc C$ and $\mc D$ and functors $H, K : \mc C \to \mc D$, a \textit{natural transformation} $\alpha : H \to K$ consists of
+    \begin{itemize}
+        For each $X\in \Ob {\mc C}$, a map $\alpha_X : H X \to K X$.
+    \end{itemize}
+    Such that for each map $f : X \to Y$ in $\mc C$, the following diagram commutes:
+    \begin{center}
+        \begin{tikzcd}
+            H X \arrow{r}{\alpha_X} \arrow{d}[swap]{H f} & K X \arrow{d}{K f} \\
+            H Y \arrow{r}{\alpha_Y} & K Y
+        \end{tikzcd}
+    \end{center}
+\end{defin}
+
+\subsection{Having a left adjoint}
+
+This is arguably the most important definition we will study in category theory, we will see later on many concepts are special case of the following definition:
+
+\begin{defin}
+    A functor $U : \mc C \to \mc D$ \mathit{has a left adjoint} if for all $X \in \mc D$, there exists an $FX \in C$ and $\eta_X : X \to UFX$ in $\mc D$ such that for all $A \in \mc D$ and forall $f : X \to UA$, \there exists a \textbf{unique} map $g : FX \to A$ such that the following diagram commutes:
+    \begin{center}
+        \begin{tikzcd}
+            X \arrow{r}{\eta_X} \arrow{rd}[swap]{f} & UFX \arrow{d}{U g} \\ & UA
+        \end{tikzcd}
+    \end{center}
+\end{defin}
+
+\section{!!old stuff}
 
 We will introduce basic category theory. Good references are: \cite{category, BarrWellsCTCS, MacLaneSaunders1998Cftw,rotman2008introduction}
 
 Category theory will allow us to model the desired behaviour of dependent types. 
+
+\subsection{Categories}
 
 % Definition of category
 \begin{defin}
@@ -41,9 +143,9 @@ Category theory will allow us to model the desired behaviour of dependent types.
 
 %% remark about collections of morphisms
 \begin{remark}
-    There are many similar and mostly equivalent definitions of category in mathematics. The mostly fall into two main camps: how they treat their collection of morphisms. The two definitions are equivalent in the usual foundations of mathematics but each has their own advantages. In books such as \cite{riehl2017category} a collection of morphisms is used. This approach lends itself more naturally to the notion of an \textit{internal category} which will be an important concept later on. The other definition uses a family of collections of morphisms which lends itself to easily generalise to the notion of an \textit{enriched category}, the definitive reference for which is \cite{kelly1982basic}.
+    There are many similar and mostly equivalent definitions of category in mathematics. They mostly fall into two camps, differing by how they treat their collection of morphisms. The two sorts of definitions are equivalent in the usual foundations of mathematics but each has their own advantages. In books such as \cite{riehl2017category} a collection of morphisms is used. This approach lends itself more naturally to the notion of an \textit{internal category} which will be an important concept later on. The other definition uses a family of collections of morphisms which lends itself to easily generalise to the notion of an \textit{enriched category}, the definitive reference for which is \cite{kelly1982basic}.
 
-    The reason it cannot be swept under the rug so easily is because the issue of size is fundamental in category theory. Depending on what definition we chose, it will effect how we can talk about it. For an introduction to category theory, these ideas would mostly confuse the reader, hence we will simply point to \cite{2008arXiv0810.1279S} for a survey on how size issues are treated in category theory. From here on 
+    The reason we care is that it cannot be swept under the rug so easily. This is because the issue of size is of fundamental importance in category theory. Depending on what definition we chose, it will effect how easily we can talk about it. For an introduction to category theory, these ideas would mostly confuse the reader, hence we will simply point to \cite{2008arXiv0810.1279S} for a survey on how size issues are treated in category theory.  
 \end{remark}
 
 We now give some examples:
@@ -61,12 +163,14 @@ Choosing the direction in which our arrows point was arbitrary, but it does also
 \end{example}
 
 %% Reword this
-[NEEDS REWORDING]
+[NEEDS REWORDING AND REORGANISING]
 Size is a common issue in category theory with many similar ways of dealing with it. It can however cause much confusion and hoop-jumping to be correct. For our purposes we will safely ignore these issues. A formal treatment can be found in the appendix. [TODO: Add formal treatment of size].
 
 \begin{defin}
 	We call a category {\bf small} if its class of objects is really a set.
 \end{defin}
+
+\subsection{Functors and natural transformations}
 
 \begin{defin}
 	Let $\mathcal{C},\mathcal{D}$ be categories. A {\bf functor} $F$ from $\mathcal{C}$ to $\mathcal{D}$ (written $F : C \to D$) consists of:
@@ -86,6 +190,35 @@ Size is a common issue in category theory with many similar ways of dealing with
 \begin{remark}
     Given two functors $F : \mathcal{C} \to \mathcal{D}$ and $G : \mathcal{D} \to \mathcal{E}$ we can make a new functor $G \circ F$ called its \textbf{composite}, by first applying $F$ then applying $G$ on objects or morphisms. It is simple to check that this is indeed a functor. 
 \end{remark}
+
+\subsubsection{Properties of functors}
+
+Here we list a few properties a given functor may possess. We mostly include them here for reference and it will not be so essential to understand what they mean.
+
+[TODO: Do we even care about essentially surjective functors? Is it something category theory ought to study? Can't we get away with fully faithful upto equivalence of categories?]
+
+\begin{defin}
+    A functor $F : \mathcal{C} \to \mathcal{D}$ is
+    \begin{itemize}
+        \item \textbf{full} if for each $x, y\in \mathcal{C}$, the map $\mathcal{C}(x,y)\to \mathcal{D}(F x, F y)$ is surjective;
+        \item \textbf{faithful} if for each $x, y \in \mathcal{C}$. the map $\mathcal{C}(x,y) \to \mathcal{D}(F x, F y)$ is injective;
+        \item \textbf{essentially surjective} if for each object $y \in \mathcal{D}$, there exists an object $x \in \mathcal{C}$ and an isomorphism $F(x) \cong y$ in $\mathcal{D}$. ("Surjective on objects upto isomorphism").
+    \end{itemize}
+\end{defin}
+
+\begin{remark}
+    Being full or faithful are local conditions, this means that they don't hold globally. For example a functor that is full is not necesserily surjective on all morphisms and a faithful is not necesserily injective on all morphisms, this is because we know nothing of how the functor acts on objects. 
+\end{remark}
+
+\begin{defin}
+    A functor $F : \mathcal{C} \to \mathcal{D}$ is
+    \begin{itemize}
+        \item \textbf{fully faithful} if it is full and faithful.
+        \item an \textbf{embedding} if it is faithful and injective on objects.
+        \item a \text{full embedding} if it is full and an embedding.
+    \end{itemize}
+    The domain of a full embedding $F : \mathcal{C} \to \mathcal{D}$ defines a \textbf{full subcategory} $\mathcal{C}$ of $\mathcal{D}$.
+\end{defin}
 
 Now that we have 'morphisms' between categories we can define another category:
 
@@ -112,7 +245,7 @@ Special cases of this example include:
 % Co(ntra)variant hom-functors
 
 %% Prove yoneda lemma
-[CHECK THIS] One of the first theorems that is proven in category theory is the \textbf{Yoneda lemma}. It says if an object acts like a certain object in every possible way, then it must be isomorphic to that object. Akin to how particles are discovered in particle accelerators by observing how they interact when bombarded with different particles.
+[CHECK THIS] One of the first theorems that is proven in category theory is the \textbf{Yoneda lemma}. It says if an object acts like a certain object in every possible way, then it must be isomorphic to that object. Akin to how particles are discovered in particle accelerators by bombarding them with 
 
 \begin{lemma}
     Let $\mathcal{C}$ be a category. There is an embedding $\mathbf{y} : \mathcal{C} \to [\mathcal{C}^\op, \Set]$. 
@@ -121,8 +254,7 @@ Special cases of this example include:
 \end{lemma}
 
 \begin{remark}
-    ![WHAT IS A FULL AND FAITHFUL FUNCTOR?]
-    An embedding is a functor that is full and faithful. We haven't actually proven that the "Yoneda embedding" is an embedding however this is a corollary of the Yoneda lemma which will prove now.
+    We haven't actually proven that the "Yoneda embedding" is an embedding however this is a corollary of the Yoneda lemma which will prove now.
 \end{remark}
 
 [PICTURES]
@@ -131,6 +263,11 @@ Special cases of this example include:
     Let $\mathcal{C}$ be a category. For all $X \in [\mathcal{C}^\op, \Set]$, there is a natural isomorphism between the following functors:
         $$[\mathcal{C}^\op, \Set](\mathbf{y}(-), X) \cong X(-)$$
 \end{theorem}
+
+\begin{proof}
+    
+    
+\end{proof}
 
 \begin{remark}
     The set of natural transformations between $\mathbf{y}(A)$ and a presheaf $X$ is bijective to the sections of $X$ at $A$.
@@ -142,5 +279,19 @@ Special cases of this example include:
 %   1. The yoneda embedding is an embedding
 %   2. Representable objects are unique
 %   3. Being a representable object is a universal construction
+
+
+% We can talk about 
+
+
+
+
+
+
+
+
+
+
+
 
 
