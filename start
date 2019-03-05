@@ -2,9 +2,7 @@
 
 git pull
 #gedit *.tex uthesis.bib &
-gedit main.tex &
-gedit cat.tex
-gedit semantics.tex
+gedit main.tex cat.tex semantics.tex syntax.tex intro.tex &
 
 bash mk
 xdg-open main.pdf

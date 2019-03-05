@@ -1,17 +1,17 @@
 \BOOKMARK [1][-]{section.1}{Introduction}{}% 1
-\BOOKMARK [2][-]{subsection.1.1}{Mathematical logic}{section.1}% 2
-\BOOKMARK [2][-]{subsection.1.2}{Lambda calculus}{section.1}% 3
-\BOOKMARK [2][-]{subsection.1.3}{Recursive functions}{section.1}% 4
-\BOOKMARK [2][-]{subsection.1.4}{Turing machines}{section.1}% 5
-\BOOKMARK [2][-]{subsection.1.5}{Russells paradox}{section.1}% 6
-\BOOKMARK [2][-]{subsection.1.6}{The problem with lambda calculus as a logic}{section.1}% 7
-\BOOKMARK [2][-]{subsection.1.7}{Types to the rescue}{section.1}% 8
-\BOOKMARK [2][-]{subsection.1.8}{The theory of proof a la Gentzen}{section.1}% 9
-\BOOKMARK [2][-]{subsection.1.9}{Curry and Howard}{section.1}% 10
-\BOOKMARK [2][-]{subsection.1.10}{Propositions as types}{section.1}% 11
-\BOOKMARK [2][-]{subsection.1.11}{Predicates as types?}{section.1}% 12
-\BOOKMARK [1][-]{section.2}{Induction}{}% 13
-\BOOKMARK [2][-]{subsection.2.1}{Well-founded induction}{section.2}% 14
+\BOOKMARK [1][-]{section.2}{Curry-Howard correspondance}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Mathematical logic}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Lambda calculus}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.3}{Recursive functions}{section.2}% 5
+\BOOKMARK [2][-]{subsection.2.4}{Turing machines}{section.2}% 6
+\BOOKMARK [2][-]{subsection.2.5}{Russells paradox}{section.2}% 7
+\BOOKMARK [2][-]{subsection.2.6}{The problem with lambda calculus as a logic}{section.2}% 8
+\BOOKMARK [2][-]{subsection.2.7}{Types to the rescue}{section.2}% 9
+\BOOKMARK [2][-]{subsection.2.8}{The theory of proof a la Gentzen}{section.2}% 10
+\BOOKMARK [2][-]{subsection.2.9}{Curry and Howard}{section.2}% 11
+\BOOKMARK [2][-]{subsection.2.10}{Propositions as types}{section.2}% 12
+\BOOKMARK [2][-]{subsection.2.11}{Predicates [CHANGE] as types?}{section.2}% 13
+\BOOKMARK [2][-]{subsection.2.12}{Dependent types}{section.2}% 14
 \BOOKMARK [1][-]{section.3}{Syntax}{}% 15
 \BOOKMARK [2][-]{subsection.3.1}{Introduction}{section.3}% 16
 \BOOKMARK [2][-]{subsection.3.2}{Well-founded induction}{section.3}% 17
@@ -22,8 +22,4 @@
 \BOOKMARK [2][-]{subsection.4.3}{Functors}{section.4}% 22
 \BOOKMARK [2][-]{subsection.4.4}{Natural transformations}{section.4}% 23
 \BOOKMARK [2][-]{subsection.4.5}{Having a left adjoint}{section.4}% 24
-\BOOKMARK [1][-]{section.5}{!!old stuff}{}% 25
-\BOOKMARK [2][-]{subsection.5.1}{Categories}{section.5}% 26
-\BOOKMARK [2][-]{subsection.5.2}{Functors and natural transformations}{section.5}% 27
-\BOOKMARK [3][-]{subsubsection.5.2.1}{Properties of functors}{subsection.5.2}% 28
-\BOOKMARK [1][-]{section.6}{Theories and models}{}% 29
+\BOOKMARK [1][-]{section.5}{Theories and models}{}% 25
