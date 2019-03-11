@@ -1,37 +1,34 @@
 \documentclass{article}
 
-%\usepackage[left=1in, right=1in]{geometry}
- 
 \usepackage[english]{babel}
-
 \usepackage[utf8]{inputenc}
 \usepackage{bussproofs}
-
 \usepackage{framed}
 
+% Here we squish our bibliography up
 \usepackage{natbib}
-\setlength{\bibsep}{1pt} % or use whatever dimension you want
+\setlength{\bibsep}{1pt}
 \renewcommand{\bibfont}{\small} 
 
-
+% Todo purge useless packages
 \usepackage{url}
 \usepackage{dirtytalk}
 \usepackage{pst-node}
 \usepackage{tikz-cd}
 \usepackage{enumerate}
-
 \usepackage{forest}
 \usepackage{mwe}
 \usepackage{verbatim}
-
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
-\usepackage{ stmaryrd }
+\usepackage{stmaryrd}
 \usepackage[hidelinks]{hyperref}
 
+% Ommiting this because it looks terrible
 %\bibliographystyle{bath.bst}
 
+% Theorems, definitions etc.
 \theoremstyle{definition}
 \newtheorem{defin}{Definition}[subsection]
 \newtheorem{example}[defin]{Example}
@@ -42,6 +39,7 @@
 
 \newcommand{\N}{\mathbb{N}} %% Need to say NN has 0
 
+% Typical names of categories
 \newcommand{\catname}[1]{{\normalfont\textbf{#1}}}
 \newcommand{\Set}{\catname{Set}}
 \newcommand{\Cat}{\catname{Cat}}
@@ -106,12 +104,33 @@
 
 \tableofcontents
 
+% Introduction and direction of thesis
 \input{intro.tex}
 
+% History and implications of curry howard
+\input{curry.tex}
+
+% Demonstration of and usefulness of dependent types as a logic and programming language
+\input{deptypes.tex}
+
+% Rigourous treatement and analysis of syntax
 \input{syntax.tex}
 
+% Model simply typed lambda calculus using syntax machinary
+\input{stlc.tex}
+
+% Derive categorical semantics for stlc % talk about LCCC
+
+% Model dependently typed lambda calculus using syntax machinary
+
+% Now talk about the problems of coming up with a similar model for dependent types
+
+% Survey various ways of overcomming these obstacles
+
+% Category theory
 \input{cat.tex}
 
+% Notes from mikes talk, should really be integrated into the rest of the thesis
 \input{semantics.tex}
 
 \bibliographystyle{plain} 
@@ -119,6 +138,13 @@
 
 
 \end{document}
+
+
+
+
+
+
+
 
 %   Second plan for writing this documentclass
 %
