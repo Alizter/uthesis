@@ -2,7 +2,7 @@
 
 git pull
 #gedit *.tex uthesis.bib &
-gedit main.tex cat.tex semantics.tex syntax.tex intro.tex curry.tex deptypes.tex &
+gedit main.tex cat.tex semantics.tex syntax.tex intro.tex curry.tex deptypes.tex stlc.tex &
 
 bash mk
 xdg-open main.pdf

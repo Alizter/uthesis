@@ -1,0 +1,56 @@
+\section{Judgements}
+
+We will now describe simply typed lambda calculus using our developed way of working with syntax. We will first describe judgements and how to specify a type system. Then our first example will be the simply typed lambda calculus. We use the ideas developed in \cite{harper_2016} though these ideas are much older. [Probably tracable back to Gentzen].
+
+\begin{defin}
+    The notion of a \emph{judgement} or \emph{assertion} is a logical statement about an abt. The property or relation itself is called a \emph{judgement form}. The judgement that an object or objects have that property or stand in relation is said to be an \emph{instance} of that judgement form. A judgment form has also historically been called a \emph{predicate} and its instances called \emph{subjects}.
+\end{defin}
+
+\begin{remark}
+    Typically a judgement is denoted $\mathsf{J}$. We can write $a\ \mathsf{J}$, $\mathsf{J}\ a$ to denote the judgment asserting that the judgement form $\mathsf{J}$ holds for the abt $a$. For more abts this can also be written prefix, infix, etc. This will be done for readability. Typically for an unspecified judgement, that is an instance of some judgement form, we will write $J$.
+\end{remark}
+
+    $$\frac
+        {}
+        {}
+    $$
+
+
+\begin{defin}
+    An \emph{inductive definition} of a judgement form consists of a collection of rules of the form
+    
+    $$\frac
+        {J_1 \quad \cdots \quad J_k}
+        {J}
+    $$
+    
+    in which $J$ and $J_1, \dots , J_k$ are all judgements of the form being defined. THe judgements above the horizontal line are called the \emph{preimises} of the rules, and the judgement below the line is called its \emph{conclusion}. A rule with no premises is called an \emph{axiom}.
+\end{defin}
+
+\begin{remark}
+    An inference rule is read as starting that the premises are \emph{sufficient} for the conclusion: to show $J$, it is enough to show each of $J_1, \dots J_k$. Axioms hold unconditionally. If the conclusion of a rule holds it is not necesserily the case that the premises held, in that the conclusion could have been derived by another rule.
+\end{remark}
+
+\begin{example}
+    Consider the following judgement from $-\ \mathsf{nat}$, where $a\ \mathsf{nat}$ is read as ``$a$ is a natural number''. The following rules form an inductive definition of the judgement form $-\ \mathsf{nat}$:
+
+    $$\frac
+        {}
+        {\texttt{zero}\ \mathsf{nat}}
+      \qquad\qquad\qquad
+      \frac
+        {a\ \mathsf{nat}}
+        {\texttt{succ}(a)\ \mathsf{nat}}
+    $$
+
+    We can see that an abt $a$ is zero or is of the form $\texttt{succ}(a)$. We see this by induction on the abt, the set of such abts has an operator $\texttt{succ}$. Taking these rules to be exhaustive, it follows that $\textt{succ}(a)$ is a natural number if and only if $a$ is.
+\end{example}
+
+\begin{remark}
+    We used the word \emph{exhaustive} without really defining it. By this we mean necessary and sufficient. Which we will define now.
+\end{remark}
+
+\begin{defin}
+    A collection of rules is considered to define the \emph{strongest} judgement form that \emph{closed under} (or \emph{respects}) those rules. To be closed under the rules means that the rules are \emph{sufficient} to show the validity of a judgement: $J$ holds if there is a way to obtain it using the given rules. To be the \emph{strongest} judgement form closed under the rules means that 
+\end{defin}
+
