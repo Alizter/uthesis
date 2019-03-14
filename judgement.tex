@@ -1,6 +1,6 @@
 \section{Judgements}
 
-We will now describe simply typed lambda calculus using our developed way of working with syntax. We will first describe judgements and how to specify a type system. Then our first example will be the simply typed lambda calculus. We use the ideas developed in \cite{harper_2016} though these ideas are much older. [Probably tracable back to Gentzen].
+We will now develop the basic formal tools to describe how our programming languages work.  We will first describe judgements and how to specify a type system. Then our first example will be the simply typed lambda calculus. We use the ideas developed in \cite{harper_2016} though these ideas are much older. [Probably tracable back to Gentzen]. [There are many more references to be included here]
 
 \begin{defin}
     The notion of a \emph{judgement} or \emph{assertion} is a logical statement about an abt. The property or relation itself is called a \emph{judgement form}. The judgement that an object or objects have that property or stand in relation is said to be an \emph{instance} of that judgement form. A judgment form has also historically been called a \emph{predicate} and its instances called \emph{subjects}.
@@ -51,6 +51,88 @@ We will now describe simply typed lambda calculus using our developed way of wor
 \end{remark}
 
 \begin{defin}
-    A collection of rules is considered to define the \emph{strongest} judgement form that \emph{closed under} (or \emph{respects}) those rules. To be closed under the rules means that the rules are \emph{sufficient} to show the validity of a judgement: $J$ holds if there is a way to obtain it using the given rules. To be the \emph{strongest} judgement form closed under the rules means that 
+    A collection of rules is considered to define the \emph{strongest} judgement form that \emph{closed under} (or \emph{respects}) those rules. To be closed under the rules means that the rules are \emph{sufficient} to show the validity of a judgement: $J$ holds if there is a way to obtain it using the given rules. To be the \emph{strongest} judgement form closed under the rules means that the rules are also \emph{necessary}: $J$ holds \emph{only if} there is a way to obtain it by applying the rules.
 \end{defin}
+
+Let's add some more rules to our example, to get a richer structure.
+
+\begin{example}
+    The judgement form $a = b$ expresses the equality of two abts $a$ and $b$. We define it inductively on our abts as we did for $\mathsf{nat}$.
+    
+    $$\frac
+        {}
+        {\texttt{zero} = \texttt{zero}}
+      \qquad\qquad\qquad
+    \frac
+        {a = b}
+        {\texttt{succ}(a) = \texttt{succ}(b)}
+    $$
+    Our first rule is an axiom declaring that \texttt{zero} is equal to itself, and our second rule shows that abts of the form $\texttt{succ}$ are equal only if their arguments are. Observe that these are exhaustive rules in that they are necessary and sufficient for the formation of $=$.
+\end{example}
+
+\subsection{Derivations}
+
+To show that an inductively defined judgement holds, we need to exhibit a \emph{derivation} of it.
+
+\begin{defin}
+    A \emph{derivation} of a judgement is a finite composition of rules, starting with axioms and ending with the judgement. It is a tree in which each node is a rule and whose children are derivations of its premises. We sometimes say that a derivation of $J$ is evidence for the validity of an inductively defined judgement $J$.
+
+    Suppose we have a judgement $J$ and
+    $$\frac
+        {J_1\quad \cdots\quad J_k}
+        {J}
+    $$
+    is an inference rule. Suppose $\triangledown_1, \dots, \triangledown_k$ are derivations of its premises, then
+    $$\frac
+        {\triangledown_1\quad \cdots\quad \triangledown_k}
+        {J}
+    $$
+    is a derivation of its conclusion. Notice that if $k=0$ then the node has no children.
+\end{defin}
+
+Writing derivations as trees can be very enlightening to how the rules compose. Going back to our example with $\mathsf{nat}$ we can give an example of a derivation.
+
+\begin{example}
+    Here is a derivation of the judgement $\texttt{succ}(\texttt{succ}(\texttt{succ}(\texttt{zero})))\ \mathsf{nat}$:
+    
+    \begin{prooftree}
+        \AxiomC{}
+        \UnaryInfC{ $\texttt{zero}\ \mathsf{nat}$ }
+        \UnaryInfC{ $\texttt{succ}(\texttt{zero})\ \mathsf{nat}$ }
+        \UnaryInfC{ $\texttt{succ}(\texttt{succ}(\texttt{zero}))\ \mathsf{nat}$ }
+        \UnaryInfC{ $\texttt{succ}(\texttt{succ}(\texttt{succ}(\texttt{zero})))\ \mathsf{nat}$ }
+    \end{prooftree}
+\end{example}
+
+\begin{remark}
+    To show that a judgement is \emph{derivable} we need only give a derivation for it. There are two main methods for finding derivations:
+    \begin{itemize}
+        \item \emph{Forward chaining} or \emph{bottom-up construction}
+        \item \emph{Backward chaining} or \emph{top-down construction}
+    \end{itemize}
+    
+    Forward chaining starts with the axioms and works forward towards the desired conclusion. Backward chaining starts with the desired conclusion and works backwards towards the axioms.
+\end{remark}
+
+It is easy to observe the \emph{algorithmic} nature of these two processes. In fact this is an important point to think about, since it may become relevent in the future.
+
+\begin{lemma}
+    Given a derivable judgement $J$, there is an algorithm giving a derivation for $J$ by forward chaining.
+\end{lemma}
+
+\begin{proof}
+    This is not a difficult algorithm to descrive. We start with a set of rules $\mathcal{R} := \varnothing $ which we initially set to be empty. Now we consider all the rules that have premises in $\mathcal{R}$, initially this will be all the axioms. We add these rules to $\mathcal{R}$ and repeat this process until $J$ appears as a conclusion of one of the rules in $\mathcal{R}$. It is not difficult to see that this will necesserily give all derivations of all derivable judgements and since $J$ is derivable, it will eventually give a derivation for $J$.
+\end{proof}
+
+\begin{remark}
+    Notice how we had to specify that our judgement is derivable. Since if were not, then our process would not terminate, hence would not be an algorithm. It is also worth noting that this algorithm is very inefficient since the size of $\mathcal{R}$ will grow rapidly, especially when we have more rules available. This is sort of a brute force approach. What we will need is more clever picking of the rules we wish to add. This is nontrivial problem and is basically what a mathematician does.
+\end{remark}
+
+Forward chaining does not take into account any of the information given by the judgement $J$. The algorithm is in a sense blind. 
+
+
+
+
+
+
 
