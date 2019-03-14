@@ -54,7 +54,7 @@ The notion of well-founded induction is a standard theorem of set theory. The cl
 
 We now get onto some of the tools we will be using to model the syntax of our type theory. 
 
-\subsection{Abstract Syntax Trees}
+\subsection{Abstract syntax trees}
 
 We begin by outlining what exactly syntax is, and how to work with it. This will be important later on if we want to prove things about our syntax as we will essentially have good data structures to work with.
 
@@ -143,7 +143,6 @@ A sort could be a term, a type, a kind or even an expression. It should be thoug
     Note that later we will enrich our notion of abstract syntax tree that takes into account binding and scope of variables but for now this is purely structural.
 \end{remark}
 
-
 %% Remark about proving things by structural induction on asts
 \begin{remark}
     When we prove properties $\mathcal{P}(a)$ of an ast $a$ we can do so by structural induction on the cases above. We will define structural induction as a special case of well-founded induction. But for this we will need to define a relation on asts.
@@ -175,6 +174,8 @@ A sort could be a term, a type, a kind or even an expression. It should be thoug
     Hence by induction we have shown that $\mathcal{A}[\mathcal{X}] \subseteq \mathcal{A}[\mathcal{Y}]$.
 \end{proof}
 
+\subsection{Substitution in asts}
+
 %% Substitution
 \begin{defin}[Substitution]\label{sub}
     If $a \in \mathcal{A}[\mathcal{X},x]_{s'}$, and $b \in \mathcal{A}[\mathcal{X}]_s$, then $[b/x]a \in \mathcal{A}[\mathcal{X}]_{s'}$ is the result of \textbf{substituting} $b$ for every occurrence of $x$ in $a$. The ast $a$ is called the \textbf{target}, the variable $x$ is called the \textbf{subject} of the \textbf{substitution}. We define substitution on an ast $a$ by induction:
@@ -202,7 +203,7 @@ Abstract syntax trees are our starting point for a well-defined notion of syntax
 
 We want to modify the notion of abstract syntax tree to include features such as binding and scoping. This is a feature used by many type theories (and even the lambda calculus). It is usually added on later by keeping track of bound and free variables. [CITE]. We will avoid this approach as it makes inducting over syntax more difficult.
 
-
+\subsection{Abstract binding trees}
 
 %% Generalize arity
 \begin{defin}[Generalized arities]
@@ -263,5 +264,5 @@ perhaps its worth making note of that back in the asts definitions ]]
 \end{remark}
 
 [[What is variable capture talk about this and reference this stuff because lots of cleverer people have thought about this too you know.]]
-
+\subsection{Substitution in abts}
 

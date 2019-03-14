@@ -10,12 +10,6 @@ We will now develop the basic formal tools to describe how our programming langu
     Typically a judgement is denoted $\mathsf{J}$. We can write $a\ \mathsf{J}$, $\mathsf{J}\ a$ to denote the judgment asserting that the judgement form $\mathsf{J}$ holds for the abt $a$. For more abts this can also be written prefix, infix, etc. This will be done for readability. Typically for an unspecified judgement, that is an instance of some judgement form, we will write $J$.
 \end{remark}
 
-    $$\frac
-        {}
-        {}
-    $$
-
-
 \begin{defin}
     An \emph{inductive definition} of a judgement form consists of a collection of rules of the form
     
@@ -26,6 +20,8 @@ We will now develop the basic formal tools to describe how our programming langu
     
     in which $J$ and $J_1, \dots , J_k$ are all judgements of the form being defined. THe judgements above the horizontal line are called the \emph{preimises} of the rules, and the judgement below the line is called its \emph{conclusion}. A rule with no premises is called an \emph{axiom}.
 \end{defin}
+
+\subsection{Inference rules}
 
 \begin{remark}
     An inference rule is read as starting that the premises are \emph{sufficient} for the conclusion: to show $J$, it is enough to show each of $J_1, \dots J_k$. Axioms hold unconditionally. If the conclusion of a rule holds it is not necesserily the case that the premises held, in that the conclusion could have been derived by another rule.
@@ -208,5 +204,16 @@ Finally we can say our four rules correspond to Peano arithmetic!
 
 [[Now talk about how classically peano arithmetic requires many more axioms, we only have four rules and the notion of induction!]]
 [[Talk about what we have proven about peano arithematic is actually a meta statement, a statement in the metalanguage, later we will have richer logics where we can prove this internally]].
+
+[[References include Aczel 1977 who provides a thorough account of inductive definitions and judgement based logic is inspired by Martin-Lof's logic of judgements 1983, 1987]]
+
+\subsection{Hypothetical judgements}
+
+\subsubsection{Derivability}
+
+\subsubsection{Admissibility}
+
+\subsection{Hypothetical inductive definitions}
+
 
 
