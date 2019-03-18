@@ -25,17 +25,17 @@
 \BOOKMARK [2][-]{subsection.5.2}{Derivations}{section.5}% 25
 \BOOKMARK [2][-]{subsection.5.3}{Rule induction}{section.5}% 26
 \BOOKMARK [2][-]{subsection.5.4}{Hypothetical judgements}{section.5}% 27
-\BOOKMARK [3][-]{subsubsection.5.4.1}{Derivability}{subsection.5.4}% 28
-\BOOKMARK [3][-]{subsubsection.5.4.2}{Admissibility}{subsection.5.4}% 29
-\BOOKMARK [2][-]{subsection.5.5}{Hypothetical inductive definitions}{section.5}% 30
-\BOOKMARK [1][-]{section.6}{Simply typed lambda calculus}{}% 31
-\BOOKMARK [1][-]{section.7}{Categorical semantics of stlc}{}% 32
-\BOOKMARK [1][-]{section.8}{Rigourous treatment of dependent types}{}% 33
-\BOOKMARK [1][-]{section.9}{Problems with categorical semantics of dependent type theories}{}% 34
-\BOOKMARK [1][-]{section.10}{Look at the various models of depenent type theories, detail on how they work}{}% 35
-\BOOKMARK [1][-]{section.11}{Category theory}{}% 36
-\BOOKMARK [2][-]{subsection.11.1}{Introduction}{section.11}% 37
-\BOOKMARK [2][-]{subsection.11.2}{Categories}{section.11}% 38
-\BOOKMARK [2][-]{subsection.11.3}{Functors}{section.11}% 39
-\BOOKMARK [2][-]{subsection.11.4}{Natural transformations}{section.11}% 40
-\BOOKMARK [2][-]{subsection.11.5}{Having a left adjoint}{section.11}% 41
+\BOOKMARK [2][-]{subsection.5.5}{Hypothetical inductive definitions}{section.5}% 28
+\BOOKMARK [2][-]{subsection.5.6}{General judgements}{section.5}% 29
+\BOOKMARK [1][-]{section.6}{Simply typed lambda calculus}{}% 30
+\BOOKMARK [1][-]{section.7}{Categorical semantics of stlc}{}% 31
+\BOOKMARK [1][-]{section.8}{Rigourous treatment of dependent types}{}% 32
+\BOOKMARK [1][-]{section.9}{Problems with categorical semantics of dependent type theories}{}% 33
+\BOOKMARK [1][-]{section.10}{Look at the various models of depenent type theories, detail on how they work}{}% 34
+\BOOKMARK [1][-]{section.11}{Category theory}{}% 35
+\BOOKMARK [2][-]{subsection.11.1}{Introduction}{section.11}% 36
+\BOOKMARK [2][-]{subsection.11.2}{Categories}{section.11}% 37
+\BOOKMARK [2][-]{subsection.11.3}{Functors}{section.11}% 38
+\BOOKMARK [2][-]{subsection.11.4}{Natural transformations}{section.11}% 39
+\BOOKMARK [2][-]{subsection.11.5}{Having a left adjoint}{section.11}% 40
+\BOOKMARK [1][-]{section.12}{Theories and models}{}% 41

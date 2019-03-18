@@ -140,12 +140,68 @@ Forward chaining does not take into account any of the information given by the 
 
 \subsection{Rule induction}
 
-[[Write about proving properties about a derivable judgement it suffices to show the property is closed under the defining judgement form]]
+Conveniently our notion of inductive definition of a judgement form is actually an inductive definition. In that the set of derivable judgements forms a well-founded tree as defined earlier. This means we can apply our more general notion of well-founded induction when proving properties of a judgement.
 
-[[ We should also go back and consider the discussion on forward and backward chaining because I may have made some things up there. We will need to find some references about this]]
+\begin{defin}
+    We say that a property $\mathcal{P}$ is \emph{closed under} or \emph{respects} the rules defining a judgement form $\mathsf{J}$. A property $\mathcal{P}$ respects the rule
+    $$
+        \frac
+        {a_1\ \mathsf{J}\quad \cdots \quad a_k\ \mathsf{J}}
+        {a \ \mathsf{J}}
+    $$
+    if $\mathcal{P}(a)$ holds whenever $\mathcal{P}(a_1), \dots, \mathcal{P}(a_k)$ do.
+\end{defin}
 
-After we have rule induction, we can prove a few lemmas about our natural numbers example.
+\begin{remark}
+    This is nothing more than a rephrasing of well-founded trees which is classically more common. This style of inductive definition fits more closely with what is actually going on, and we would argue is easier to work with.
+\end{remark}
 
+
+We will now give some examples detailing how rule induction can be used.
+
+\begin{example}
+    Continuing our $\mathsf{nat}$ example, if we want to show $\mathcal{P}(a)$ for some $a\ \mathsf{nat}$ it is enough to show the following:
+    \begin{itemize}
+        \item $\mathcal{P}(\texttt{zero})$.
+        \item for all $a$, of $\mathcal{P}(a)$, then $\mathcal{P}(\texttt{succ}(a))$.
+    \end{itemize}
+    
+    This is the familiar notion of mathematical induction on the natural numbers.
+\end{example}
+
+Now for another example where we combine all the things we have just discussed.
+
+\begin{example}
+    Consider the judgement form $\mathsf{tree}$ defined inductively by the following rules:
+    $$
+        \frac
+        {}
+        {\texttt{empty}\ \mathsf{tree}}
+        \qquad \qquad
+        \frac
+        {a_1 \ \mathsf{tree} \quad a_2 \ \mathsf{tree}}
+        {\mathsf{node}(a_1;a_2)\ \mathsf{tree}}
+    $$
+    Here is a derivation of the judgement $\texttt{node}(\texttt{empty};\texttt{node}(\texttt{empty};\texttt{empty}))\ \mathsf{tree}$:
+    \begin{prooftree}
+        \AxiomC{}
+        \UnaryInfC{$\texttt{empty}\ \mathsf{tree}$}
+        \AxiomC{}
+        \UnaryInfC{$\texttt{empty}\ \mathsf{tree}$}
+        \AxiomC{}
+        \UnaryInfC{$\texttt{empty}\ \mathsf{tree}$}
+        \BinaryInfC{$\mathsf{node}(\texttt{empty};\texttt{empty})\ \mathsf{tree}$}
+        \BinaryInfC{$\texttt{node}(\texttt{empty};\texttt{node}(\texttt{empty};\texttt{empty}))\ \mathsf{tree}$}
+    \end{prooftree}
+    Now rule induction for the judgement form $\mathsf{tree}$ states that, to show $\mathcal{P}(a)$ it is enough to show the following:
+    \begin{itemize}
+        \item $\mathcal{P}(\texttt{empty})$.
+        \item for all $a_1$ and $a_2$, if both $\mathcal{P}(a_1)$ and $\mathcal{P}(a_2)$ then, $\mathcal{P}(\texttt{node}(a_1; a_2))$. 
+    \end{itemize}
+    This is the familar notion of tree induction.
+\end{example}
+
+Now that we have induction on our inductive definitions we can prove some results about our examples.
 
 \begin{lemma}
     If $\texttt{succ}(a)\ \mathsf{nat}$, then $a\ \mathsf{nat}$.
@@ -203,17 +259,114 @@ After we have rule induction, we can prove a few lemmas about our natural number
 Finally we can say our four rules correspond to Peano arithmetic!
 
 [[Now talk about how classically peano arithmetic requires many more axioms, we only have four rules and the notion of induction!]]
-[[Talk about what we have proven about peano arithematic is actually a meta statement, a statement in the metalanguage, later we will have richer logics where we can prove this internally]].
+[[Talk about what we have proven about peano arithematic is actually a meta statement, a statement in the metalanguage, later we will have richer logics where we can prove things like this internally]].
 
 [[References include Aczel 1977 who provides a thorough account of inductive definitions and judgement based logic is inspired by Martin-Lof's logic of judgements 1983, 1987]]
 
+[[Talk about iterated and simultaneous inductive definitions]]
+
 \subsection{Hypothetical judgements}
 
-\subsubsection{Derivability}
+A \emph{hypothetical judgement} expresses an entailment between one or more hypthesis and a conclusion. There are two main notions of entailment in logic: \emph{derivability} and \emph{admissibility}. We first begin by defining derivability.
 
-\subsubsection{Admissibility}
+\begin{defin}
+    Given a set $\mathcal{R}$ of rules, define the \emph{derivability} judgement, $J_1,\dots,J_k \vdash_{\mathcal{R}} K$ where each $J_i$ and $K$ are basic judgements, to mean that we may derive $K$ from the \emph{expansion} $\mathcal{R} \cup \{ J_1, \dots, J_k \}$ of the rules $\mathcal{R}$ with the axioms
+    $$
+        \frac{\qquad}{J_1} \quad \cdots \quad \frac{\qquad}{J_k}
+    $$
+    We treat the \emph{hypotheses} or \emph{antecedents} $J_1, \dots, J_k$ of the judgement $J_1,\dots,J_k \vdash_{\mathcal{R}} K$ as axioms and derive the \emph{conclusion} or \emph{consequent}, by composing rules in $\mathcal{R}$. Thus $J_1,\dots,J_k \vdash_{\mathcal{R}} K$ means the judgement $K$ is derivable from the expanded rules $\mathcal{R} \cup \{ J_1, \dots, J_k \}$.
+\end{defin}
+
+\begin{defin}
+    A list of basic judgements $J_1, \dots, J_k$ is called a \emph{context}. [Not sure this is exactly true]
+\end{defin}
+
+\begin{remark}
+    We will typically denote a context by a captial greek letter such as $\Gamma$ or $\Delta$. The expansion $\mathcal{R} \cup \{ J_1, \dots, J_k \}$ may also be written as $\mathcal{R} \cup \Gamma$ where $\Gamma := J_1, dots, J_k$. The judgement $\Gamma \vdash_{\mathcal{R}} K$ means $K$ is derivable from the rules $\mathcal{R} \cup \Gamma$, and the judgement $\vdash _{\mathcal{R}} \Gamma$ means that $\vdash _{\mathcal{R}} J$ for each $J$ in $\Gamma$. We may also extends contexts like this $\Gamma, J$ which would correspond to the context $J_1, \dots, J_k, J$, similarly for $J, \Gamma$. We can then concatenate two contexts in the obvious way, through list concatenation written $\Gamma, \Delta$. 
+\end{remark}
+
+\begin{example}
+    Let $\mathsf{Peano}$ be the set of four rules for our $\mathsf{nat}$ example. Consider the following derivability judgement:
+    $$a\ \mathsf{nat} \vdash_{\mathsf{Peano}} \texttt{succ}(\texttt{succ}(a))\ \mathsf{nat}$$
+    This can be shown to be true by exhibiting the following derivation:
+    \begin{prooftree}
+        \AxiomC{$a\ \mathsf{nat}$}
+        \UnaryInfC{$\texttt{succ}(a)\ \mathsf{nat}$}
+        \UnaryInfC{$\texttt{succ}(\texttt{succ}(a))\ \mathsf{nat}$}
+    \end{prooftree}
+\end{example}
+
+We now show that derivability doesn't get affected by expansion.
+
+\begin{lemma}[Stability]
+    If $\Gamma \vdash_{\mathcal{R}} J$, then $\Gamma \vdash_{\mathcal{R} \cup \mathcal{R'}} J$.
+\end{lemma}
+
+\begin{proof}
+    Any derivation if $J$ from $\mathcal{R} \cup \Gamma$ is also a derivation from $(\mathcal{R} \cup \mathcal{R}') \cup \Gamma$ since $\mathcal{R} \subseteq \mathcal{R}\cup \mathcal{R}'$.
+\end{proof}
+
+There are a number of structural properties that derivability satisfies:
+
+\begin{lemma}[Reflexivity]
+    Every judgement is a consequence of itself: $\Gamma, J\vdash_{\mathcal{R}} J$.
+\end{lemma}
+
+\begin{proof}
+    Since $J$ becomes an axiom, the proof is trivial.
+\end{proof}
+
+
+\begin{lemma}[Weakening]
+    If $\Gamma \vdash_{\mathcal{R}} J$, then $\Gamma, K \vdash_{\mathcal{R}} J$. Entailiment is not influenced by unused premises.
+\end{lemma}
+
+\begin{proof}
+    The proof is trivial.
+\end{proof}
+
+
+\begin{lemma}[Transitivity]\tag{derivability_transitivity}
+    If $\Gamma, K \vdash_{\mathcal{R}} J$ and $\Gamma \vdash_{\mathcal{R}} K$, then $\Gamma \vdash_{\mathcal{R}} J$. If we repalce an axiom by a derivation of it, the result is a derivation of the consequent without the hypothesis.
+\end{lemma}
+
+\begin{proof}
+    It is clear that if there is a derivation for $J$ from $\Gamma,K \cup \mathcal{R}$ and a derivation for $K$ from $\Gamma \cup \mathcal{R}$, then there is clearly a derivation for $J$ from $\Gamma \cup \mathcal{R}$. For the first case it is clear how to compose two derivations to give the desired derivation.
+\end{proof}
+
+\begin{defin}
+    Another form of entailment, \emph{admissibility}, written $\Gamma \vDash_{\mathcal{R}} J$, is a weaker form of hypothetical judgement stating that $\vdash_{\mathcal{R}} \Gamma$ implies $\vdash_{\mathcal{R}} J$. That is, the conclusion $J$ is derivable from the rules $\mathcal{R}$ when the assumptions are all derivable from the rules $\mathcal{R}$.
+\end{defin}
+
+\begin{remark}
+    In particular, if any of the hypotheses are \emph{not} derivable relative to $\mathcal{R}$, then the judgement is \empth{vacously} true.
+\end{remark}
+
+
+The admissibility judgement is \emph{not} stable under expansion of the rules.
+
+\begin{lemma}
+    If $\Gamma \vdash_{\mathcal{R}} J$, then $\Gamma \vDash_{\mathcal{R}} J$.
+\end{lemma}
+
+\begin{proof}
+    By definition of admissibility we need to show that $\vdash_{\mathcal{R}} \Gamma$ implies $\vdash_{\mathcal{R}} J$. It can be seen that repeated applciation of transitivity allows us to form a similar statement for when $K$ is a context in reference to \ref{derivability_transitivity}. This repeated transitivity gives us the desired result.
+\end{proof}
 
 \subsection{Hypothetical inductive definitions}
+
+
+
+\subsection{General judgements}
+
+
+
+
+
+
+
+
+
 
 
 
