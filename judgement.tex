@@ -277,12 +277,8 @@ A \emph{hypothetical judgement} expresses an entailment between one or more hypt
     We treat the \emph{hypotheses} or \emph{antecedents} $J_1, \dots, J_k$ of the judgement $J_1,\dots,J_k \vdash_{\mathcal{R}} K$ as axioms and derive the \emph{conclusion} or \emph{consequent}, by composing rules in $\mathcal{R}$. Thus $J_1,\dots,J_k \vdash_{\mathcal{R}} K$ means the judgement $K$ is derivable from the expanded rules $\mathcal{R} \cup \{ J_1, \dots, J_k \}$.
 \end{defin}
 
-\begin{defin}
-    A list of basic judgements $J_1, \dots, J_k$ is called a \emph{context}. [Not sure this is exactly true]
-\end{defin}
-
 \begin{remark}
-    We will typically denote a context by a captial greek letter such as $\Gamma$ or $\Delta$. The expansion $\mathcal{R} \cup \{ J_1, \dots, J_k \}$ may also be written as $\mathcal{R} \cup \Gamma$ where $\Gamma := J_1, dots, J_k$. The judgement $\Gamma \vdash_{\mathcal{R}} K$ means $K$ is derivable from the rules $\mathcal{R} \cup \Gamma$, and the judgement $\vdash _{\mathcal{R}} \Gamma$ means that $\vdash _{\mathcal{R}} J$ for each $J$ in $\Gamma$. We may also extends contexts like this $\Gamma, J$ which would correspond to the context $J_1, \dots, J_k, J$, similarly for $J, \Gamma$. We can then concatenate two contexts in the obvious way, through list concatenation written $\Gamma, \Delta$. 
+    We will typically denote a list of basic judgements by a captial greek letter such as $\Gamma$ or $\Delta$. The expansion $\mathcal{R} \cup \{ J_1, \dots, J_k \}$ may also be written as $\mathcal{R} \cup \Gamma$ where $\Gamma := J_1, dots, J_k$. The judgement $\Gamma \vdash_{\mathcal{R}} K$ means $K$ is derivable from the rules $\mathcal{R} \cup \Gamma$, and the judgement $\vdash _{\mathcal{R}} \Gamma$ means that $\vdash _{\mathcal{R}} J$ for each $J$ in $\Gamma$. We may also extend lists of basic judgements like this: $\Gamma, J$, which would correspond to the list of basic judgements $J_1, \dots, J_k, J$, similarly for $J, \Gamma$. We can then concatenate two lists of basic judgements in the obvious way, through list concatenation written $\Gamma, \Delta$. When the set of rules $\mathcal{R}$ is obvious we will omit it when writing $\vdash_{\mathcal{R}}$ and just write $\vdash$.
 \end{remark}
 
 \begin{example}
@@ -326,7 +322,7 @@ There are a number of structural properties that derivability satisfies:
 \end{proof}
 
 
-\begin{lemma}[Transitivity]\tag{derivability_transitivity}
+\begin{lemma}[Transitivity]\label{derivability_transitivity}
     If $\Gamma, K \vdash_{\mathcal{R}} J$ and $\Gamma \vdash_{\mathcal{R}} K$, then $\Gamma \vdash_{\mathcal{R}} J$. If we repalce an axiom by a derivation of it, the result is a derivation of the consequent without the hypothesis.
 \end{lemma}
 
@@ -350,10 +346,51 @@ The admissibility judgement is \emph{not} stable under expansion of the rules.
 \end{lemma}
 
 \begin{proof}
-    By definition of admissibility we need to show that $\vdash_{\mathcal{R}} \Gamma$ implies $\vdash_{\mathcal{R}} J$. It can be seen that repeated applciation of transitivity allows us to form a similar statement for when $K$ is a context in reference to \ref{derivability_transitivity}. This repeated transitivity gives us the desired result.
+    By definition of admissibility we need to show that $\vdash_{\mathcal{R}} \Gamma$ implies $\vdash_{\mathcal{R}} J$. It can be seen that repeated applciation of transitivity allows us to form a similar statement for when $K$ is a list of basic judgements in reference to \ref{derivability_transitivity}. This repeated transitivity gives us the desired result.
 \end{proof}
 
+We will now give an example of some inadmissible rules.
+
+\begin{example}
+    Consider the collection of rules $\mathsf{Parity}$ consisting of the rules in $\mathsf{Peano}$ and the following:
+    $$
+        \frac{}{\texttt{zero}\ \mathsf{even}} \qquad
+        \frac{b\ \mathsf{odd}}{\texttt{succ}(b)\ \mathsf{even}} \qquad
+        \frac{a\ \mathsf{even}}{\texttt{succ}(a)\ \mathsf{odd}}
+    $$
+    This is a similtaneous inductive definition. Clearly we have the following admissibility judgement
+    $$ \texttt{succ}(a)\ \mathsf{even} \vDash_{\mathsf{Parity}} a\ \mathsf{odd} $$
+    But by adding the following rule to $\mathsf{Parity}$, and calling it $\mathsf{Parity}'$
+    $$
+        \frac{}{\texttt{succ}(\texttt{zero}) \ \mathsf{even}}
+    $$
+    we see that the following is no longer true:
+    $$ \texttt{succ}(a)\ \mathsf{even} \vDash_{\mathsf{Parity'}} a\ \mathsf{odd} $$
+    since there is no composition of rules deriving $\texttt{zero}\ \mathsf{odd}$.
+    Hence admissibility is not stable under expansion.
+\end{example}
+
+
 \subsection{Hypothetical inductive definitions}
+
+Our inductive definitions give us a rich and expressive way to define and use rules. We wish to enrich it further by introducing rules whose premises and conclusions are derivability judgements.
+
+\begin{defin}
+    A \emph{hypothetical inductive definition} consists of a set of \emph{hypothetical rules} of the following form:
+    $$
+        \frac{\Gamma, \Gamma_1 \vdash J_1 \quad \cdots \quad \Gamma, \Gamma_n \vdash J_n}{\Gamma \vdash J}
+    $$
+    We call the hypotheses $\Gamma$, the \emph{global hypotheses} of the rule, and $\Gamma_i$ are called the local hypotheses of the $i$th premise of the rule.
+\end{defin}
+
+\begin{defin}
+    We will require that all rules in a hypothetical inductive definition be \emph{uniform} in the sense that they are applicable in \emph{all} global contexts. When we have uniformity, we can present the rule in an \emph{implicit} or \emph{local} form:
+    $$
+        \frac{\Gamma_1 \vdash J_1 \quad \cdots \quad \Gamma_n \vdash J_n}{J}
+    $$
+    with the understanding that the rule applies for any choice of global hypotheses.
+\end{defin}
+
 
 
 

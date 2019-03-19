@@ -43,9 +43,9 @@
 \newcommand{\catname}[1]{{\normalfont\textbf{#1}}}
 \newcommand{\Set}{\catname{Set}}
 \newcommand{\Cat}{\catname{Cat}}
+\newcommand{\op}{\text{op}}
 
 \newcommand{\el}{\text{el}}
-\newcommand{\op}{\text{op}}
 \newcommand{\Ty}{\text{Ty}}
 
 \newcommand{\of}{\mathbf{of}}
@@ -54,16 +54,20 @@
 %   Common variables
 %%
 
-\newcommand{\FV}{\mathrm{FV}}
-\newcommand{\A}{\mathbb{A}}
-\newcommand{\T}{\mathsf{T}}
+% Commands for barendregt.tex
+%\newcommand{\FV}{\mathrm{FV}}
+%\newcommand{\A}{\mathbb{A}}
+%\newcommand{\T}{\mathsf{T}}
 
 \newcommand{\Var}{\mathbf{Var}}
-\newcommand{\Dec}{\mathbf{Dec}}
-\newcommand{\Con}{\mathbf{Con}}
-\newcommand{\Typ}{\mathbf{Type}} %%
-\newcommand{\Tm}{\mathbf{Term}} %%%
-\newcommand{\Jud}{\mathbf{Jud}}
+
+% Simply typed
+%\newcommand{\Dec}{\mathbf{Dec}}
+%\newcommand{\Con}{\mathbf{Con}}
+
+%\newcommand{\Typ}{\mathbf{Type}} %%
+%\newcommand{\Tm}{\mathbf{Term}} %%%
+%\newcommand{\Jud}{\mathbf{Jud}}
 
 
 \newcommand{\Id}{\text{Id}}
@@ -107,13 +111,6 @@
 % Introduction and direction of thesis
 \input{intro.tex}
 
-% TODO Move
-% History and implications of curry howard
-\input{curry.tex}
-
-% Demonstration of and usefulness of dependent types as a logic and programming language
-%\input{deptypes.tex}
-
 % Rigourous treatement and analysis of syntax
 \input{syntax.tex}
 
@@ -123,20 +120,22 @@
 % Statics and dynamics of programming langauges
 \input{static.tex}
 
+% Discuss product types
+% Sum types
+% basic data types
+
+% TODO Move
+% History and implications of curry howard
+\input{curry.tex}
+
+% Design simply typed lambda calculus with these implications in mind
+
 % Model simply typed lambda calculus using syntax machinary
-\input{stlc.tex}
+%\input{stlc.tex}
 
-% Derive categorical semantics for stlc % talk about LCCC
-\section{Categorical semantics of stlc}
+% Notes on statics and dynamics
 
-% Model dependently typed lambda calculus using syntax machinary
-\section{Rigourous treatment of dependent types}
 
-% Now talk about the problems of coming up with a similar model for dependent types
-\section{Problems with categorical semantics of dependent type theories}
-
-% Survey various ways of overcomming these obstacles
-\section{Look at the various models of depenent type theories, detail on how they work}
 
 % Category theory
 \input{cat.tex}
@@ -150,6 +149,21 @@
 
 \end{document}
 
+
+% Demonstration of and usefulness of dependent types as a logic and programming language
+%\input{deptypes.tex}
+
+% Derive categorical semantics for stlc % talk about LCCC
+%\section{Categorical semantics of stlc}
+
+% Model dependently typed lambda calculus using syntax machinary
+%\section{Rigourous treatment of dependent types}
+
+% Now talk about the problems of coming up with a similar model for dependent types
+%\section{Problems with categorical semantics of dependent type theories}
+
+% Survey various ways of overcomming these obstacles
+%\section{Look at the various models of depenent type theories, detail on how they work}
 
 
 
