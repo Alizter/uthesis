@@ -1,5 +1,22 @@
 \section{Statics and Dynamics}
 
+How can we in general design programming languages to assertain certain behaviours. Static and dynamic typing for instance. Different constructs and data types such as products and sums. Later we will look at a deep correspondance between programming and logic which gives us an indication of what a programming language ought to have.
+
+Statics: Type checking
+Dynamics: Computation, equational rules, transition systems (reduction with betas and etas)
+
+We will introduce typing and think carefully about another structural rule: The exchange rule, we will see that it is inadmissible and infact not necesserily needed. Infact later when we think about dependent types we will see that it is in general "complete nonsense". HOWEVER it is essential for some models of STLC.
+
+We will end up with STLC. But we will also show how to add sum types.
+
+We will also model the semantics of such programming languages (at least the statics of) using categories.
+
+Later we will see that Curry-Howard is very suggestive about quantifiers, can we add these? YES!
+
+Then we can introduce our favorite dependent types. Show how useful they are for programmers and mathematicans
+
+We will now try to design programming languages that can have types, types allow us to restrict what terms we can apply functions to. Something take for granted very often in mathematics and to a lesser extent in programming. Programming langauges such as C don't really type check, which means functions that should be applied can be. There are different strengths to type checking, some check at compilation (which is arguably to most sensible) but others check during run time but this means a program cannot be garanteed to be safe.
+
+The ideas of types are very deep, so when combined with a flexibly expressible type system (dependent types) it leads to a powerful correctness tool.
 
 
-We will now try to design programming languages that can have types, types allow us 

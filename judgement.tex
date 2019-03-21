@@ -278,7 +278,7 @@ A \emph{hypothetical judgement} expresses an entailment between one or more hypt
 \end{defin}
 
 \begin{remark}
-    We will typically denote a list of basic judgements by a captial greek letter such as $\Gamma$ or $\Delta$. The expansion $\mathcal{R} \cup \{ J_1, \dots, J_k \}$ may also be written as $\mathcal{R} \cup \Gamma$ where $\Gamma := J_1, dots, J_k$. The judgement $\Gamma \vdash_{\mathcal{R}} K$ means $K$ is derivable from the rules $\mathcal{R} \cup \Gamma$, and the judgement $\vdash _{\mathcal{R}} \Gamma$ means that $\vdash _{\mathcal{R}} J$ for each $J$ in $\Gamma$. We may also extend lists of basic judgements like this: $\Gamma, J$, which would correspond to the list of basic judgements $J_1, \dots, J_k, J$, similarly for $J, \Gamma$. We can then concatenate two lists of basic judgements in the obvious way, through list concatenation written $\Gamma, \Delta$. When the set of rules $\mathcal{R}$ is obvious we will omit it when writing $\vdash_{\mathcal{R}}$ and just write $\vdash$.
+    We will typically denote a list of basic judgements by a captial greek letter such as $\Gamma$ or $\Delta$. The expansion $\mathcal{R} \cup \{ J_1, \dots, J_k \}$ may also be written as $\mathcal{R} \cup \Gamma$ where $\Gamma := J_1, dots, J_k$. The judgement $\Gamma \vdash_{\mathcal{R}} K$ means $K$ is derivable from the rules $\mathcal{R} \cup \Gamma$, and the judgement $\vdash _{\mathcal{R}} \Gamma$ means that $\vdash _{\mathcal{R}} J$ for each $J$ in $\Gamma$. We may also extend lists of basic judgements like this: $\Gamma, J$, which would correspond to the list of basic judgements $J_1, \dots, J_k, J$, similarly for $J, \Gamma$. We can then concatenate two lists of basic judgements in the obvious way, through list concatenation written $\Gamma, \Delta$.
 \end{remark}
 
 \begin{example}
@@ -370,6 +370,9 @@ We will now give an example of some inadmissible rules.
     Hence admissibility is not stable under expansion.
 \end{example}
 
+\begin{remark}
+    Admissibility is a useful property of a rule. It essentially checks whether we can get rid of a rules, knowing that we can derive it anyway. Hence by identifying inadmissible rules we can streamline our rule set.
+\end{remark}
 
 \subsection{Hypothetical inductive definitions}
 
@@ -380,23 +383,45 @@ Our inductive definitions give us a rich and expressive way to define and use ru
     $$
         \frac{\Gamma, \Gamma_1 \vdash J_1 \quad \cdots \quad \Gamma, \Gamma_n \vdash J_n}{\Gamma \vdash J}
     $$
-    We call the hypotheses $\Gamma$, the \emph{global hypotheses} of the rule, and $\Gamma_i$ are called the local hypotheses of the $i$th premise of the rule.
+    We call the hypotheses $\Gamma$, the \emph{global hypotheses} of the rule, and $\Gamma_i$ are called the local hypotheses of the $i$th premise of the rule. We will require that all rules in a hypothetical inductive definition be \emph{uniform} in the following sense.
 \end{defin}
 
 \begin{defin}
-    We will require that all rules in a hypothetical inductive definition be \emph{uniform} in the sense that they are applicable in \emph{all} global contexts. When we have uniformity, we can present the rule in an \emph{implicit} or \emph{local} form:
+    A hyptothetical rules is said to be \emph{uniform} if it holds for \emph{all} global contexts.
+\end{defin}
+
+\begin{remark}
+    When we have uniformity, we can present the rule in an \emph{implicit} or \emph{local} form:
     $$
         \frac{\Gamma_1 \vdash J_1 \quad \cdots \quad \Gamma_n \vdash J_n}{J}
     $$
     with the understanding that the rule applies for any choice of global hypotheses.
+\end{remark}
+
+\begin{remark}
+    A hypothetical inductive definition can be regarded as an ordinary inductive definition of a \emph{formal derivability judgement} $\Gamma \vdash J$ consisting of a list of basic judgements $\Gamma$ and a basic judgement $J$.
+\end{remark}
+
+\begin{defin}
+    A \emph{formal derivability judgement} $\Gamma \vdash J$ is closed under a set of hypothetical rules $\mathcal{R}$ and the judgement is \emph{structural} is that it is closed under the following rules
+    $$
+        \frac{}{\Gamma, J \vdash J} \qquad
+        \frac{\Gamma \vdash J}{\Gamma , K \vdash J} \qquad
+        \frac{\Gamma \vdash K \quad \Gamma , K \vdash J}{\Gamma \vdash J}
+    $$
+    These rules ensure that formal derivability behaves like a hyptothetical judgement. We write $\Gamma \vdash_{\mathcal{R}} J$ to denote that $\Gamma \vdash J$ is derivable from rules $\mathcal{R}$.
 \end{defin}
 
+[[ This bit is very confusing, and we abuse notation (with reason)]]
+\begin{remark}
+    This definition is perhaps quite confusing, this is because we have two layers of derivability. What a formal derivability judgement shows is that the judgement of being derivable is itself derivable. This also means that we do not have to define what hyptothetical induction on a hypothetical inductive definition is, since the formal derivability judgement is itself a judgement. So the principle of \emph{hypothetical rule induction} is just the principle of rule induction applied to the formal hypothetical rule induction.
+\end{remark}
 
-
+[[TODO: talk about admissibility of structural rules]]
 
 \subsection{General judgements}
 
-
+[[Talk about generic judgements and parametric judgements]]
 
 
 
