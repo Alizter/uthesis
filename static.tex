@@ -19,4 +19,93 @@ We will now try to design programming languages that can have types, types allow
 
 The ideas of types are very deep, so when combined with a flexibly expressible type system (dependent types) it leads to a powerful correctness tool.
 
+\subsection{Typing and Type systems}
+
+We will need to discuss the modern idea of bidirectional typechecking which has advantages over choosing a single one. This is closely related to the subtle difference between Church's lambda calculus and Curry's lambda calculus.
+
+
+Things to discuss:
+
+\begin{itemize}
+    \item Typing judgements
+    \item typing contexts
+    \item Type checking
+    \begin{itemize}
+        \item Different kinds of type checking (bidirectional?)
+        \item Program safety
+    \end{itemize}
+    \item Unicity of typing (every term has one type)
+    \item Inversion is a form of type inference fitting into the more general framework of bidirectional type checking
+    \item Exchange rule (discussion of and implications thereof)
+    \item Other structural properties including substitution, decomposition, weakening
+\end{itemize}
+
+\subsection{Dynamics}
+
+Thigns to discuss:
+
+\item Two formulations of dynamics in type theory:
+\begin{itemize}
+    \item Transition systems
+    \item Equational dynamics
+\end{itemize}
+
+Arguably the first is more reminiscent of what a programming language ought to do, and the second is more reminiscent of what a mathematician would want.
+
+\begin{itemize}
+    \item Judgemental equality has some issues, some terms that ought to be judgementally equal are only so for particular instances but not in general. There is a discussion of \emph{semantic} equivalence to solve this issue.
+    \item Should be based off of Plotkins work on structural semantics
+\end{itemize}
+
+Need a discussion of
+
+\begin{itemize}
+    \item structural dynamics
+    \item contextual dynamics
+\end{itemize}
+
+Which are basically the same thing.
+
+\subsection{Type safety}
+
+Type safety is the notion of being strongly typed. It is typically given as a theorem consisting of two parts: \emph{preservation} and \emph{progress}.
+
+\begin{defin}[Preservation]
+    If $e : \tau$ and $e \mapsto e'$, then $e' : \tau$.
+\end{defin}
+
+Evaluation preserves typing.
+
+Discuss canonical forms and canonicity of a type theory.
+
+\begin{defin}[Progress]
+    If $e : \tau$, then either $e\ \mathsf{val}$, or there exists $e'$ such that $e \mapsto e'$.
+\end{defin}
+
+A term is either evaluated or can be evaluated.
+
+\begin{defin}[Type safety]
+    A language is said to be \emph{safely typed} or \emph{strongly typed} if it satisfies preservation and progress.
+\end{defin}
+
+\subsection{Run time errors}
+
+Talk about division yielding an excpetional case when divding by zero. There are two solutions:
+
+\begin{enumerate}
+    \item Enhance the typing systems
+    \item Add dynamic checks
+\end{enumerate}
+
+Typically the second is more common, but we will argue the case for dependent types which essentially allows us to solve the first.
+
+\subsection{Evaluation dynamics}
+
+There can be a discussion of richer judgements of evaluation that also take into account of cost and such things, but these might be out of scope.
+
+They can be related back to structural dynamics. Evaluation dynamics are more expressive yet limited since now we cannot check type safety. But if we have run time errors we can get quite close. These ideas are developed when designing standard ML, Milner. Cost dynamics are used by Blelloch and Greiner in a study of parallel computation.
+
+
+
+
 
