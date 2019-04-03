@@ -37,10 +37,18 @@
 \BOOKMARK [2][-]{subsection.6.2}{Structural rules}{section.6}% 37
 \BOOKMARK [2][-]{subsection.6.3}{Mode-switching}{section.6}% 38
 \BOOKMARK [2][-]{subsection.6.4}{Equality rules}{section.6}% 39
-\BOOKMARK [1][-]{section.7}{Category theory}{}% 40
-\BOOKMARK [2][-]{subsection.7.1}{Introduction}{section.7}% 41
-\BOOKMARK [2][-]{subsection.7.2}{Categories}{section.7}% 42
-\BOOKMARK [2][-]{subsection.7.3}{Functors}{section.7}% 43
-\BOOKMARK [2][-]{subsection.7.4}{Natural transformations}{section.7}% 44
-\BOOKMARK [2][-]{subsection.7.5}{Having a left adjoint}{section.7}% 45
-\BOOKMARK [1][-]{section.8}{Theories and models}{}% 46
+\BOOKMARK [2][-]{subsection.6.5}{Type formers}{section.6}% 40
+\BOOKMARK [2][-]{subsection.6.6}{Inversion lemmas}{section.6}% 41
+\BOOKMARK [2][-]{subsection.6.7}{-types}{section.6}% 42
+\BOOKMARK [3][-]{subsubsection.6.7.1}{Formation rules}{subsection.6.7}% 43
+\BOOKMARK [3][-]{subsubsection.6.7.2}{Introduction rules}{subsection.6.7}% 44
+\BOOKMARK [3][-]{subsubsection.6.7.3}{Elimination rules}{subsection.6.7}% 45
+\BOOKMARK [3][-]{subsubsection.6.7.4}{Computation rules}{subsection.6.7}% 46
+\BOOKMARK [3][-]{subsubsection.6.7.5}{Congruence rules}{subsection.6.7}% 47
+\BOOKMARK [1][-]{section.7}{Category theory}{}% 48
+\BOOKMARK [2][-]{subsection.7.1}{Introduction}{section.7}% 49
+\BOOKMARK [2][-]{subsection.7.2}{Categories}{section.7}% 50
+\BOOKMARK [2][-]{subsection.7.3}{Functors}{section.7}% 51
+\BOOKMARK [2][-]{subsection.7.4}{Natural transformations}{section.7}% 52
+\BOOKMARK [2][-]{subsection.7.5}{Having a left adjoint}{section.7}% 53
+\BOOKMARK [1][-]{section.8}{Theories and models}{}% 54
