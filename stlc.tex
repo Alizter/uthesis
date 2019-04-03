@@ -6,9 +6,75 @@
 
 First develop the features needed. Discuss the arbitrary nature of such features, then use Curry-Howard as motivation for ``the language that ought to be''. Develop STLC, discuss in detail the implications, give categorical semantics. Discuss breifly the dynamics of simply typed lambda calculus. A big disadvantage of STLC over the untyped version (which we ought to discuss since we have the tools to) is that there is no recursion. There are many ways to fix this, see G\"odel for example. In order to fix this we will introduce dependent types.
 
-We begin by discussing the syntax of our type theory. We have a set of types $\mathbf{T}$
+We begin by discussing the syntax of our type theory. We have a set of types $\mathbf{T}::= $
+and a set of terms $\mathbf{T}::=$
+
+\subsection{Judgements}
 
 
+[[TODO: Clean up this whole paragraph(s)]]
+We begin with our basic judgements. Of which there will be 5. Our STLC will have bidirectional typechecking, in that we will distinguish between the direction of type checking. There are several advantages of this and historically the two main systems called STLC are Curry's and Church's which simply differ in the direction of type checking. By having both directions and a sort of ``mode-switching rule'' we have far greater control and ease when describing type checking properties. We will also need to have a notion of \emph{judgemental equality} since we wish to do some computation. There are variations of this theme discussed in the statics chapter that allow us to have transition systems instead but we will use an equational style since transition systems can be derived from this. This also has the advantage of STLC becomming what is known as an ``equational theory''. This will be a useful feature for when we want to derrive categorical semantics. 
+
+A context is a list of basic judgements. Our basic judgements are $x : A$. [[No it is not fix this]]
+
+There are 5 judgements that we have:
+
+\begin{itemize}
+    \item $\Gamma \vdash A\ \mathsf{type}$ - ``$A$ is a type in context $\Gamma$''.
+    \item $\Gamma \vdash T \Leftarrow A$ - ``$T$ can be checked to have type $A$ in context $\Gamma$''.
+    \item $\Gamma \vdash T \Rightarrow A$ - ``$T$ synthesises the type $A$ in context $\Gamma$''.
+    \item $\Gamma \vdash A \equiv B\ \mathsf{type}$ - ``$A$ and $B$ are jdugementally equal types in context $\Gamma$''.
+    \item $\Gamma \vdash S \equiv T : A$ - ``$S$ and $T$ are judgementally equal terms of type $A$ in context $\Gamma$''.
+\end{itemize}
+
+\subsection{Structural rules}
+
+Structural rules will dictate how our judgements interact with eachother, how different contexts can be formed and how substitution works. This is all roughly what a ``type theory'' ought to provide.
+
+We begin with the \emph{variable} rule, this says that if a term $x$ appears with a type $A$ as an element in a context $\Gamma$ then $x$ synthesises a type $A$ in context $\Gamma$. Or written more succiently as:
+
+$$
+    \frac{(x:A) \in \Gamma }{\Gamma \vdash x \Rightarrow A}
+$$
+
+Other structural rules: weakening, contraction and substitution are all admissible. [[What does it mean for a rule to be admissible? We have defined this previously but we need to carefully state these facts, and prove them too!]]
+
+\subsection{Mode-switching}
+
+One of the features of bidirectional type checking is that we can switch the mode we are in. This is expressed as the mode switching rule:
+
+\begin{prooftree}
+    \AxiomC{$\Gamma \vdash T \Rightarrow A$}
+    \AxiomC{$\Gamma \vdash A \equiv B \ \mathsf{type}$}
+    \BinaryInfC{$\Gamma \vdash T \Leftarrow B$}
+\end{prooftree}
+
+This rule has been specially set up in that it will be the \emph{only way} to derive $\Gamma \vdash T \Leftarrow B$. [[TODO: talk more about this]]
+
+In a unidirectional type system, the judgements $\Gamma \vdash T \Rightarrow A$ and $\Gamma \vdash T \Leftarrow B$ are collapsed into one: $\Gamma \vdash T : A$. And now the mode-switching rule may have a more familiar form:
+
+\begin{prooftree}
+    \AxiomC{$\Gamma \vdash T : A$}
+    \AxiomC{$\Gamma \vdash A \equiv B \ \mathsf{type}$}
+    \BinaryInfC{$\Gamma \vdash T : B$}
+\end{prooftree}
+
+Which shows that it is actually a rule about substituting along a judgemental equality! But this is a problem since a type checking algorithm will have to decide when to stop doing this. This is one of the big advantages that bidirectional type checking has over unidirectional type checking. The type checking algorithm will be simpler! [[TODO: Clean up and discuss type checking in more detail]]
+
+\subsection{Equality rules}
+Finally we have some structural rules for our two judgemental equality judgements. We wish for these to be an equivalence relation and that they are compatible with eachother.
+
+First we begin with the structural rules for the judgement form $- \equiv -\ \mathbf{type}$:
+
+We wish for our judgemental equality of types to be reflexive:
+$$
+    \frac{}{\Gamma \vdash A \equiv A\ \mathbf{type}} \, (\equiv_{\mathbf{type}}\text{-refl})
+$$
+
+We wish for our judgemental equality of types to be symmetric:
+$$
+    \frac{}{}
+$$
 
 \begin{comment}
 %\subsection{Lambda calculus}
