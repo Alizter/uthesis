@@ -67,14 +67,66 @@ Finally we have some structural rules for our two judgemental equality judgement
 First we begin with the structural rules for the judgement form $- \equiv -\ \mathbf{type}$:
 
 We wish for our judgemental equality of types to be reflexive:
-$$
-    \frac{}{\Gamma \vdash A \equiv A\ \mathbf{type}} \, (\equiv_{\mathbf{type}}\text{-refl})
-$$
+\begin{prooftree}
+    \AxiomC{}
+    \RightLabel{($\equiv_{\mathbf{type}}$-reflexivity)}
+    \UnaryInfC{$\Gamma \vdash A \equiv A\ \mathbf{type}$}
+\end{prooftree}
 
-We wish for our judgemental equality of types to be symmetric:
-$$
-    \frac{}{}
-$$
+We want our judgemental equality of types to be symmetric:
+\begin{prooftree}
+    \AxiomC{$\Gamma \vdash A \equiv B \ \mathbf{type}$}
+    \RightLabel{($\equiv_{\mathsf{type}}$-symmetry)}
+    \UnaryInfC{$\Gamma \vdash B \equiv A \ \mathbf{type}$}
+\end{prooftree}
+
+and our judgemental equality of types to be transitive:
+
+\begin{prooftree}
+    \AxiomC{$\Gamma \vdash B \ \mathsf{type}$}
+    \AxiomC{$\Gamma \vdash A \equiv B\ \mathsf{type}$}
+    \AxiomC{$\Gamma \vdash B \equiv C\ \mathsf{type}$}
+    \RightLabel{($\equiv_\mathsf{type}$-transitivity)}
+    \TrinaryInfC{$\Gamma \vdash A \equiv C\ \mathsf{type}$}
+\end{prooftree}
+
+Notice how the previous rule also checks that $B$ is a type. This is because if we did not do this, we could insert any symbol in. This is clearly undesirable. It also demonstrates how subtly sensitive rules are.
+
+Now we list the rules making the judgement form $- \equiv - : A$ into an equivalence relation:
+
+We wish for our judgemental equality of terms to be reflexive:
+\begin{prooftree}
+    \AxiomC{}
+    \RightLabel{($\equiv_{\mathsf{term}}$-reflexivity)}
+    \UnaryInfC{$\Gamma \vdash T \equiv T : A$}
+\end{prooftree}
+
+We want our judgemental equality of terms to be symmetric:
+\begin{prooftree}
+    \AxiomC{$\Gamma \vdash S \equiv T : A$}
+    \RightLabel{($\equiv_{\mathsf{term}}$-symmetry)}
+    \UnaryInfC{$\Gamma \vdash T \equiv S : A$}
+\end{prooftree}
+
+and our judgemental equality of terms to be transitive:
+\begin{prooftree}
+    \AxiomC{$\Gamma \vdash T \Leftarrow A $}
+    \AxiomC{$\Gamma \vdash S \equiv T : A$}
+    \AxiomC{$\Gamma \vdash T \equiv R : A$}
+    \RightLabel{($\equiv_{\mathsf{term}}$-transitivity)}
+    \TrinaryInfC{$\Gamma \vdash S \equiv R : A$}
+\end{prooftree}
+
+as we stated before for transitivity judgemental equality of types we need to also check that the middle term $T$ is actually a term.
+
+Finally we need a rule that will make  that judgemental equality of types and judgemental equality of terms interact the way we expect them to:
+\begin{prooftree}
+    \AxiomC{$\Gamma \vdash A \ \mathsf{type}$}
+    \AxiomC{$\Gamma \vdash S \equiv T : A$}
+    \AxiomC{$\Gamma \vdash A \equiv B\ \mathsf{type}$}
+    \RightLabel{($\equiv_{\mathsf{term}}$-$\equiv_{\mathsf{type}}$-compat)}
+    \TrinaryInfC{$\Gamma \vdash S \equiv T : B$}
+\end{prooftree}
 
 \begin{comment}
 %\subsection{Lambda calculus}
