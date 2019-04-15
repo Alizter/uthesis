@@ -1,54 +1,49 @@
 \BOOKMARK [1][-]{section.1}{Introduction}{}% 1
 \BOOKMARK [1][-]{section.2}{Syntax}{}% 2
-\BOOKMARK [2][-]{subsection.2.1}{Introduction}{section.2}% 3
-\BOOKMARK [2][-]{subsection.2.2}{Well-founded induction}{section.2}% 4
-\BOOKMARK [2][-]{subsection.2.3}{Abstract syntax trees}{section.2}% 5
-\BOOKMARK [2][-]{subsection.2.4}{Substitution in asts}{section.2}% 6
-\BOOKMARK [2][-]{subsection.2.5}{Abstract binding trees}{section.2}% 7
-\BOOKMARK [2][-]{subsection.2.6}{Substitution in abts}{section.2}% 8
-\BOOKMARK [1][-]{section.3}{Judgements}{}% 9
-\BOOKMARK [2][-]{subsection.3.1}{Inference rules}{section.3}% 10
-\BOOKMARK [2][-]{subsection.3.2}{Derivations}{section.3}% 11
-\BOOKMARK [2][-]{subsection.3.3}{Rule induction}{section.3}% 12
-\BOOKMARK [2][-]{subsection.3.4}{Hypothetical judgements}{section.3}% 13
-\BOOKMARK [2][-]{subsection.3.5}{Hypothetical inductive definitions}{section.3}% 14
-\BOOKMARK [2][-]{subsection.3.6}{General judgements}{section.3}% 15
-\BOOKMARK [1][-]{section.4}{Statics and Dynamics}{}% 16
-\BOOKMARK [2][-]{subsection.4.1}{Typing and Type systems}{section.4}% 17
-\BOOKMARK [2][-]{subsection.4.2}{Dynamics}{section.4}% 18
-\BOOKMARK [2][-]{subsection.4.3}{Type safety}{section.4}% 19
-\BOOKMARK [2][-]{subsection.4.4}{Run time errors}{section.4}% 20
-\BOOKMARK [2][-]{subsection.4.5}{Evaluation dynamics}{section.4}% 21
-\BOOKMARK [1][-]{section.5}{Curry-Howard correspondance}{}% 22
-\BOOKMARK [2][-]{subsection.5.1}{Mathematical logic}{section.5}% 23
-\BOOKMARK [2][-]{subsection.5.2}{Lambda calculus}{section.5}% 24
-\BOOKMARK [2][-]{subsection.5.3}{Recursive functions}{section.5}% 25
-\BOOKMARK [2][-]{subsection.5.4}{Turing machines}{section.5}% 26
-\BOOKMARK [2][-]{subsection.5.5}{Russells paradox}{section.5}% 27
-\BOOKMARK [2][-]{subsection.5.6}{The problem with lambda calculus as a logic}{section.5}% 28
-\BOOKMARK [2][-]{subsection.5.7}{Types to the rescue}{section.5}% 29
-\BOOKMARK [2][-]{subsection.5.8}{The theory of proof a la Gentzen}{section.5}% 30
-\BOOKMARK [2][-]{subsection.5.9}{Curry and Howard}{section.5}% 31
-\BOOKMARK [2][-]{subsection.5.10}{Propositions as types}{section.5}% 32
-\BOOKMARK [2][-]{subsection.5.11}{Predicates [CHANGE] as types?}{section.5}% 33
-\BOOKMARK [2][-]{subsection.5.12}{Dependent types}{section.5}% 34
-\BOOKMARK [1][-]{section.6}{Simply typed lambda calculus}{}% 35
-\BOOKMARK [2][-]{subsection.6.1}{Judgements}{section.6}% 36
-\BOOKMARK [2][-]{subsection.6.2}{Structural rules}{section.6}% 37
-\BOOKMARK [2][-]{subsection.6.3}{Mode-switching}{section.6}% 38
-\BOOKMARK [2][-]{subsection.6.4}{Equality rules}{section.6}% 39
-\BOOKMARK [2][-]{subsection.6.5}{Type formers}{section.6}% 40
-\BOOKMARK [2][-]{subsection.6.6}{Inversion lemmas}{section.6}% 41
-\BOOKMARK [2][-]{subsection.6.7}{-types}{section.6}% 42
-\BOOKMARK [3][-]{subsubsection.6.7.1}{Formation rules}{subsection.6.7}% 43
-\BOOKMARK [3][-]{subsubsection.6.7.2}{Introduction rules}{subsection.6.7}% 44
-\BOOKMARK [3][-]{subsubsection.6.7.3}{Elimination rules}{subsection.6.7}% 45
-\BOOKMARK [3][-]{subsubsection.6.7.4}{Computation rules}{subsection.6.7}% 46
-\BOOKMARK [3][-]{subsubsection.6.7.5}{Congruence rules}{subsection.6.7}% 47
-\BOOKMARK [1][-]{section.7}{Category theory}{}% 48
-\BOOKMARK [2][-]{subsection.7.1}{Introduction}{section.7}% 49
-\BOOKMARK [2][-]{subsection.7.2}{Categories}{section.7}% 50
-\BOOKMARK [2][-]{subsection.7.3}{Functors}{section.7}% 51
-\BOOKMARK [2][-]{subsection.7.4}{Natural transformations}{section.7}% 52
-\BOOKMARK [2][-]{subsection.7.5}{Having a left adjoint}{section.7}% 53
-\BOOKMARK [1][-]{section.8}{Theories and models}{}% 54
+\BOOKMARK [2][-]{subsection.2.1}{The difficulty with syntax}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Introduction}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.3}{Well-founded induction}{section.2}% 5
+\BOOKMARK [2][-]{subsection.2.4}{Abstract syntax trees}{section.2}% 6
+\BOOKMARK [2][-]{subsection.2.5}{Substitution in asts}{section.2}% 7
+\BOOKMARK [2][-]{subsection.2.6}{Abstract binding trees}{section.2}% 8
+\BOOKMARK [2][-]{subsection.2.7}{Substitution in abts}{section.2}% 9
+\BOOKMARK [1][-]{section.3}{Judgements}{}% 10
+\BOOKMARK [2][-]{subsection.3.1}{Inference rules}{section.3}% 11
+\BOOKMARK [2][-]{subsection.3.2}{Derivations}{section.3}% 12
+\BOOKMARK [2][-]{subsection.3.3}{Rule induction}{section.3}% 13
+\BOOKMARK [2][-]{subsection.3.4}{Hypothetical judgements}{section.3}% 14
+\BOOKMARK [2][-]{subsection.3.5}{Hypothetical inductive definitions}{section.3}% 15
+\BOOKMARK [2][-]{subsection.3.6}{General judgements}{section.3}% 16
+\BOOKMARK [1][-]{section.4}{Statics and Dynamics}{}% 17
+\BOOKMARK [2][-]{subsection.4.1}{Typing and Type systems}{section.4}% 18
+\BOOKMARK [2][-]{subsection.4.2}{Dynamics}{section.4}% 19
+\BOOKMARK [2][-]{subsection.4.3}{Type safety}{section.4}% 20
+\BOOKMARK [2][-]{subsection.4.4}{Run time errors}{section.4}% 21
+\BOOKMARK [2][-]{subsection.4.5}{Evaluation dynamics}{section.4}% 22
+\BOOKMARK [1][-]{section.5}{Curry-Howard correspondance}{}% 23
+\BOOKMARK [2][-]{subsection.5.1}{Mathematical logic}{section.5}% 24
+\BOOKMARK [2][-]{subsection.5.2}{Lambda calculus}{section.5}% 25
+\BOOKMARK [2][-]{subsection.5.3}{Recursive functions}{section.5}% 26
+\BOOKMARK [2][-]{subsection.5.4}{Turing machines}{section.5}% 27
+\BOOKMARK [2][-]{subsection.5.5}{Russells paradox}{section.5}% 28
+\BOOKMARK [2][-]{subsection.5.6}{The problem with lambda calculus as a logic}{section.5}% 29
+\BOOKMARK [2][-]{subsection.5.7}{Types to the rescue}{section.5}% 30
+\BOOKMARK [2][-]{subsection.5.8}{The theory of proof a la Gentzen}{section.5}% 31
+\BOOKMARK [2][-]{subsection.5.9}{Curry and Howard}{section.5}% 32
+\BOOKMARK [2][-]{subsection.5.10}{Propositions as types}{section.5}% 33
+\BOOKMARK [2][-]{subsection.5.11}{Predicates [CHANGE] as types?}{section.5}% 34
+\BOOKMARK [2][-]{subsection.5.12}{Dependent types}{section.5}% 35
+\BOOKMARK [1][-]{section.6}{Simply typed lambda calculus}{}% 36
+\BOOKMARK [2][-]{subsection.6.1}{Judgements}{section.6}% 37
+\BOOKMARK [2][-]{subsection.6.2}{Structural rules}{section.6}% 38
+\BOOKMARK [2][-]{subsection.6.3}{Mode-switching}{section.6}% 39
+\BOOKMARK [2][-]{subsection.6.4}{Equality rules}{section.6}% 40
+\BOOKMARK [2][-]{subsection.6.5}{Type formers}{section.6}% 41
+\BOOKMARK [2][-]{subsection.6.6}{Inversion lemmas}{section.6}% 42
+\BOOKMARK [1][-]{section.7}{Category theory}{}% 43
+\BOOKMARK [2][-]{subsection.7.1}{Introduction}{section.7}% 44
+\BOOKMARK [2][-]{subsection.7.2}{Categories}{section.7}% 45
+\BOOKMARK [2][-]{subsection.7.3}{Functors}{section.7}% 46
+\BOOKMARK [2][-]{subsection.7.4}{Natural transformations}{section.7}% 47
+\BOOKMARK [2][-]{subsection.7.5}{Having a left adjoint}{section.7}% 48
+\BOOKMARK [1][-]{section.8}{Theories and models}{}% 49
