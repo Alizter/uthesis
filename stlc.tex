@@ -1,3 +1,6 @@
+\newcommand{\tm}{\mathrm{tm}}
+\newcommand{\ty}{\mathrm{ty}}
+
 %
 % Simply typed lambda calculus
 %
@@ -6,8 +9,42 @@
 
 First develop the features needed. Discuss the arbitrary nature of such features, then use Curry-Howard as motivation for ``the language that ought to be''. Develop STLC, discuss in detail the implications, give categorical semantics. Discuss breifly the dynamics of simply typed lambda calculus. A big disadvantage of STLC over the untyped version (which we ought to discuss since we have the tools to) is that there is no recursion. There are many ways to fix this, see G\"odel for example. In order to fix this we will introduce dependent types.
 
-We begin by discussing the syntax of our type theory. We have a set of types $\mathbf{T}::= $
-and a set of terms $\mathbf{T}::=$
+We begin by discussing the syntax of our type theory. We will start by specifying the sorts $\mathcal{S}$ of our type theory.
+
+\begin{defin}
+    The sorts of simply typed lambda calculus are terms and types $\mathcal{S} := \{ \tm , \ty\}$.
+\end{defin}
+
+We now specify the operators (with generalized arities) that we defined in definition \ref{owga}. In remark \ref{opdata} we discussed the data needed to give an operator, therefore we will present all our operators in the following table.
+
+\begin{defin}
+    The operators in the syntax of simply typed lambda calculus are given by the following table:
+    \begin{center}
+        \begin{tabular}{ c|c|c|c|c|c|c }
+        Operator & Sort & Vars & Type args & Term args & Scoping & Sugared syntax \\
+        \hline
+        $\to$           & \ty &  --- & $A,B$ &  ---  &  ---  & $A \to B$       \\
+        $\times$        & \ty &  --- & $A,B$ &  ---  &  ---  & $A \times B$    \\
+        $(-,-)$         & \tm &  --- &  ---  & $x,y$ &  ---  & $(x,y)$  \\
+        $\lambda$       & \tm &  $x$ & $A,B$ &  ---  & $M$   & $\lambda (x : A).M$ \\
+        $\mathrm{App}$  & \tm &  --- & $A,B$ &  ---  & $M,N$ & $M N$
+        \end{tabular}
+    \end{center}
+\end{defin}
+
+\begin{remark}
+    Note that some of the sugared syntax loses information that was put in. The application is the main example of this. In practice if we know the type of $M$ and $N$ we can deduce the type of $M N$ just from the rules we will define later. The syntax is sugared or \emph{syntactic sugar} so we do not have to write so much. If done incorrectly it could be considered an abuse of notation. It should be possible to \emph{desugar} the syntax by adding an \emph{annotated} version of an operator. For example for application instead of $M N$ we could write $\mathrm{App}_{A,B}}(M;N)$. Having this information in the syntax will be useful when we want to induct over syntax, for example when proving an intiality theorem. But in practice we will save ourselves from having to write it out.
+\end{remark}
+
+\begin{defin}
+    We can now construct our raw terms and types as the collection of abts (see definition \ref{abt}) over the previously defined data $\mathrm{Term} := \mathcal{B}[\varnothing]_{\tm}$ and $\mathrm{Type} := \mathcal{B}[\varnothing]_{\ty}$.
+\end{defin}
+
+\begin{remark}
+    Note that we have no variables. This is because if we set the definition of abt up correctly we don't need any, but terms can have subterms (subtrees of the abt) which have variables. The sets $\mathrm{Term}$ and $\mathrm{Type}$ become \emph{all} the types and terms we ought to be able to write down from scratch.
+\end{remark}
+
+We now need to define judgements about our syntax and write down the rules to write them down. [[Make a note about substitution because afik we haven't defined it properly yet]]. 
 
 \subsection{Judgements}
 

@@ -17,14 +17,14 @@ Now suppose we have some sort of ``type theory''. It is still not a completely s
 
 \subsection{Introduction}
 
-\begin{enumerate}
-    \item $\alpha$-conversion is typically seen as an easy thing to handled
-    \item many authors as a result sweep it under the carpet
-    \item there are many examples of this in the mathematical and computer science literature
-    \item to our knowledge there is no fully adequate 
-\end{enumerate}
+%\begin{enumerate}
+%    \item $\alpha$-conversion is typically seen as an easy thing to handled
+%    \item many authors as a result sweep it under the carpet
+%    \item there are many examples of this in the mathematical and computer science literature
+%    \item to our knowledge there is no fully adequate 
+%\end{enumerate}
 
-The notion of correct syntax is a subtle and deceptive one. Many authors have previously tried to ``fix'' syntax by introducing various constructions: 
+%The notion of correct syntax is a subtle and deceptive one. Many authors have previously tried to ``fix'' syntax by introducing various constructions: 
 
 
 
@@ -260,12 +260,24 @@ We want to modify the notion of abstract syntax tree to include features such as
 We will now redefine the notion of operator, taking note that generalised arities are a super-set of arities defined previously.
 
 %% Operator
-\begin{defin}[Operators (with generalized arity)]
+\begin{defin}[Operators (with generalized arity)]\label{owga}
     Let $\mathcal{O}:=\{ \mathcal{O}_\alpha\}_{\alpha \in \mathbf{GA}}$ be a $\mathbf{GA}$-indexed family of disjoint sets of \textbf{operators} for each generalised arity $\alpha$. An element $o \in \mathcal{O}_{\alpha \in \mathbf{GA}}$ is called an \mathbf{operator} of (generalised) \textbf{arity} $\alpha$. If $\alpha$ has sort $s$ then $o$ has \textbf{sort} $s$. If $\alpha$ has argument sorts $(s_1,\dots,s_n)$ then we say that $o$ has \textbf{argument arity} $n$, with the $j$th argument having \textbf{sort} $s_j$. If $\alpha$ has binding sorts $(t_1,\dots,t_m)$ then we say that $o$ has \textbf{binding arity} $m$, with the $k$th bound variable having \textbf{sort} $s_k$. If the the scoping relation of $\alpha$ has $j \scope k$ then we say that the $j$th argument of $o$ is in \textbf{scope} of the $k$th bound variable of $o$. 
 \end{defin}
 
 \begin{remark}
     We overload the definitions of arity and operator to mean generalised operator and operator with generalised arity respectively.
+\end{remark}
+
+\begin{remark}\label{opdata}
+    When we wish to specify an operator we need only give the following data:
+    \begin{enumerate}
+        \item Name - what we wish to call the operator, for example $\to$ or $\times$.
+        \item Sort - what is the sort of the operator?
+        \item Variables - What are the variables of the operator?
+        \item Sorted arguments - What are the arguments and what are their sorts?
+        \item Scoping - Which arguments are in scope of which variables?
+        \item Sugared syntax - How do we write down the operator with all the variables and arguments together. By default we have been writing $\mathcal{O}(x$ 
+    \end{enumerate}
 \end{remark}
 
 Now that we can equip our operators with the datum of binding and scoping we can go ahead and define abstract binding trees.

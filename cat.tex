@@ -14,10 +14,10 @@
 
 \subsection{Categories}
 
-We begin with the notion of a category. This can be thought of as a place mathematical objects live and interact with eachother.
+We begin with the notion of a category. This can be thought of as a place mathematical objects live and interact with eachother. We have the eventual goal of deriving categorical semantics for simply typed lambda calculus.
 
 \begin{defin}
-    A \textit{category} $\mc{C}$ consists of:
+    A \emph{category} $\mc{C}$ consists of:
     \begin{itemize}
        \item A set $\Ob {\mc C}$, elements of which are called \textit{objects} of $\mc C$.
        \item For each $X,Y \in \Ob {\mc C}$, a set $\mc C(X,Y)$, called the \textit{homset} from $X$ to $Y$.
@@ -37,14 +37,14 @@ We begin with the notion of a category. This can be thought of as a place mathem
 
 % Category of sets
 \begin{example}
-	The \texit{category of sets} denoted $\Set$ is the category whose objects are small\footnote{due to Russellian paradoxes we must distinguish between ``all sets'' and ``enough sets''. See appendix for details. } sets and morphisms are functions between sets. Composition is given by composition of functions. 
+	The \emph{category of sets} denoted $\Set$ is the category whose objects are small\footnote{due to Russellian paradoxes we must distinguish between ``all sets'' and ``enough sets''. See appendix for details. } sets and morphisms are functions between sets. Composition is given by composition of functions. 
 \end{example}
 
 Choosing the direction in which our arrows point was rather arbitrary. This suggests that if we had chosen the other way we would have also gotten a category. So any category we can come up with has an associated dual.
 
 % Opposite category
 \begin{example}
-	For any category $\mathcal{C}$, there is another category called the {\bf opposite category} $\mc{C}^\op$ whose objects are the same as $\mathcal{C}$ however the homsets are defined as follows: $\mc{C}^\op(x,y):=\mc{C}(y,x)$. Composition is defined using the composition from the original category.
+	For any category $\mathcal{C}$, there is another category called the \emph{opposite category} $\mc{C}^\op$ whose objects are the same as $\mathcal{C}$ however the homsets are defined as follows: $\mc{C}^\op(x,y):=\mc{C}(y,x)$. Composition is defined using the composition from the original category.
 \end{example}
 
 \begin{remark}
@@ -56,7 +56,7 @@ Choosing the direction in which our arrows point was rather arbitrary. This sugg
 \subsection{Functors}
 
 \begin{defin}
-    Given categories $\mc C$ and $\mc D$, a \textit{functor} $H$ from $\mc C$ to $\mc D$, written $H : \mc C \to \mc D$, consists of
+    Given categories $\mc C$ and $\mc D$, a \emph{functor} $H$ from $\mc C$ to $\mc D$, written $H : \mc C \to \mc D$, consists of
     \begin{itemize}
         \item A function $\Ob H : \Ob {\mc C} \to \Ob {\mc D}$, with notation typically abbreivated to $H$
         \item For each $X, Y \in \Ob{\mc C}$ a function $H_{X,Y} : \mc C(X, Y) \to \mc D(HX,HY)$
@@ -83,7 +83,7 @@ Choosing the direction in which our arrows point was rather arbitrary. This sugg
 \subsection{Natural transformations}
 
 \begin{defin}
-    Given categories $\mc C$ and $\mc D$ and functors $H, K : \mc C \to \mc D$, a \textit{natural transformation} $\alpha : H \to K$ consists of
+    Given categories $\mc C$ and $\mc D$ and functors $H, K : \mc C \to \mc D$, a \emph{natural transformation} $\alpha : H \to K$ consists of
     \begin{itemize}
         For each $X\in \Ob {\mc C}$, a map $\alpha_X : H X \to K X$.
     \end{itemize}
@@ -96,18 +96,43 @@ Choosing the direction in which our arrows point was rather arbitrary. This sugg
     \end{center}
 \end{defin}
 
-\subsection{Having a left adjoint}
+\subsection{Having a left or right adjoint}
 
 This is arguably the most important definition we will study in category theory, we will see later on many concepts are special case of the following definition:
 
 \begin{defin}
-    A functor $U : \mc C \to \mc D$ \mathit{has a left adjoint} if for all $X \in \mc D$, there exists an $FX \in C$ and $\eta_X : X \to UFX$ in $\mc D$ such that for all $A \in \mc D$ and forall $f : X \to UA$, \there exists a \textbf{unique} map $g : FX \to A$ such that the following diagram commutes:
+    A functor $U : \mc C \to \mc D$ \emph{has a left adjoint} if for all $X \in \mc D$, there exists an $FX \in C$ and $\eta_X : X \to UFX$ in $\mc D$ such that for all $A \in \mc C$ and for all $f : X \to UA$, there exists a \emph{unique} map $g : FX \to A$ such that the following diagram commutes:
     \begin{center}
         \begin{tikzcd}
             X \arrow{r}{\eta_X} \arrow{rd}[swap]{f} & UFX \arrow{d}{U g} \\ & UA
         \end{tikzcd}
     \end{center}
 \end{defin}
+
+The definition of having a right adjoint is very similar, in fact it is a special case of being a left adjoint, however we will reproduce it here for simplicity:
+
+\begin{defin}
+    A functor $U : \mc C \to D$ \emph{has a right adjoint} if for all $X \in \mc D$, there exists an $R X \in C$ and $\epsilon_X : URX \to X$ in $\mc D$ such that for all $A \in \mc C$ and for all $h : UA \to X$, there exists a \emph{unique} map $k : A \to RX$ such that teh following diagram commutes:
+    \begin{center}
+        \begin{tikzcd}
+            UA \arrow{r}{U k} \arrow{rd}[swap]{h} & URX \arrow{d}{\epsilon_X} \\ & X
+        \end{tikzcd}
+    \end{center}
+\end{defin}
+
+\begin{defin}
+    These definitions are very minimalistic, in that there are not that many conditions to check. The notation we have used is very suggestive, for example greek letters 
+\end{defin}
+
+\subsection{Products, Terminal objects and Cartesian closedness}
+
+\begin{defin}
+    A terminal object in a category $\mc{C}$ is an object $T$ of $\mc{C}$ such that, for every object $X$ of $\mc{C}$, there is a unique map from $X$ to $T$.
+\end{defin}
+
+Here we see the utility a
+
+\subsection{Display object categories}
 
 \begin{comment}
 \section{!!old stuff}

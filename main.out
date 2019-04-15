@@ -45,5 +45,7 @@
 \BOOKMARK [2][-]{subsection.7.2}{Categories}{section.7}% 45
 \BOOKMARK [2][-]{subsection.7.3}{Functors}{section.7}% 46
 \BOOKMARK [2][-]{subsection.7.4}{Natural transformations}{section.7}% 47
-\BOOKMARK [2][-]{subsection.7.5}{Having a left adjoint}{section.7}% 48
-\BOOKMARK [1][-]{section.8}{Theories and models}{}% 49
+\BOOKMARK [2][-]{subsection.7.5}{Having a left or right adjoint}{section.7}% 48
+\BOOKMARK [2][-]{subsection.7.6}{Products, Terminal objects and Cartesian closedness}{section.7}% 49
+\BOOKMARK [2][-]{subsection.7.7}{Display object categories}{section.7}% 50
+\BOOKMARK [1][-]{section.8}{Theories and models}{}% 51
