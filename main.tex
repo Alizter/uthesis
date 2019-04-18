@@ -25,17 +25,20 @@
 \usepackage{stmaryrd}
 \usepackage[hidelinks]{hyperref}
 \usepackage{lscape}
+\usepackage[framemethod=tikz]{mdframed}
 % Ommiting this because it looks terrible
 %\bibliographystyle{bath.bst}
 
 % Theorems, definitions etc.
 \theoremstyle{definition}
-\newtheorem{defin}{Definition}[subsection]
-\newtheorem{example}[defin]{Example}
-\newtheorem{theorem}[defin]{Theorem}
-\newtheorem{remark}[defin]{Remark}
-\newtheorem{lemma}[defin]{Lemma}
-\newtheorem{cor}[defin]{Corollary}
+\newtheorem{defi}{Definition}[subsection]
+\newtheorem{example}[defi]{Example}
+\newtheorem{theorem}[defi]{Theorem}
+\newtheorem{remark}[defi]{Remark}
+\newtheorem{lemma}[defi]{Lemma}
+\newtheorem{cor}[defi]{Corollary}
+
+\newenvironment{defin}{\begin{mdframed}\begin{defi}}{\end{defi}\end{mdframed}}
 
 \newcommand{\N}{\mathbb{N}} %% Need to say NN has 0
 
@@ -130,25 +133,28 @@
 % Statics and dynamics of programming langauges
 \input{static.tex}
 
-% Discuss product types
-% Sum types
-% basic data types
-
-% TODO Move
 % History and implications of curry howard
 \input{curry.tex}
-
-% Design simply typed lambda calculus with these implications in mind
 
 % Model simply typed lambda calculus using syntax machinary
 \input{stlc.tex}
 
-% Notes on statics and dynamics
+% Examples of STLC
+\input{ex_stlc.tex}
 
+% Notes on statics and dynamics of STLC
 
 
 % Category theory
 \input{cat.tex}
+
+% Derive categorical semantics of STLC
+
+% Modify STLC to accomadate for dependent types with guidance from Curry-Howard
+
+% Sketch semantics of (essentially) LF
+
+% Talk about dependent products, dependent sums, Martin-lofs calculi etc
 
 % Notes from mikes talk, should really be integrated into the rest of the thesis
 \input{semantics.tex}

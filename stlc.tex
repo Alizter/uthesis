@@ -1,5 +1,7 @@
 \newcommand{\tm}{\mathrm{tm}}
 \newcommand{\ty}{\mathrm{ty}}
+\newcommand{\fst}{\mathrm{fst}}
+\newcommand{\snd}{\mathrm{snd}}
 
 %
 % Simply typed lambda calculus
@@ -21,19 +23,19 @@ We now specify the operators (with generalized arities) that we defined in defin
     The operators in the syntax of simply typed lambda calculus are given by the following table:
     \begin{center}
         \begin{tabular}{ c|c|c|c|c|c|c }
-        Operator & Sort & Vars & Type args & Term args & Scoping & Sugared syntax \\
+        Op & Sort & Vars & Type args & Term args & Scoping & Syntax \\
         \hline
-        $\to$           & \ty &  --- & $A,B$ &  ---  &  ---  & $A \to B$       \\
-        $\times$        & \ty &  --- & $A,B$ &  ---  &  ---  & $A \times B$    \\
-        $(-,-)$         & \tm &  --- &  ---  & $x,y$ &  ---  & $(x,y)$  \\
-        $\lambda$       & \tm &  $x$ & $A,B$ &  ---  & $M$   & $\lambda (x : A).M$ \\
+        $\to$           & \ty &  --- & $A,B$ &  ---  &  ---  & $A \to B$            \\
+        $\times$        & \ty &  --- & $A,B$ &  ---  &  ---  & $A \times B$         \\
+        $(-,-)$         & \tm &  --- &  ---  & $x,y$ &  ---  & $(x,y)$              \\
+        $\lambda$       & \tm &  $x$ & $A,B$ &  ---  &  $M$  & $\lambda (x : A).M$  \\
         $\mathrm{App}$  & \tm &  --- & $A,B$ &  ---  & $M,N$ & $M N$
         \end{tabular}
     \end{center}
 \end{defin}
 
 \begin{remark}
-    Note that some of the sugared syntax loses information that was put in. The application is the main example of this. In practice if we know the type of $M$ and $N$ we can deduce the type of $M N$ just from the rules we will define later. The syntax is sugared or \emph{syntactic sugar} so we do not have to write so much. If done incorrectly it could be considered an abuse of notation. It should be possible to \emph{desugar} the syntax by adding an \emph{annotated} version of an operator. For example for application instead of $M N$ we could write $\mathrm{App}_{A,B}}(M;N)$. Having this information in the syntax will be useful when we want to induct over syntax, for example when proving an intiality theorem. But in practice we will save ourselves from having to write it out.
+    Note that some of the syntax loses information that was put in. The application is the main example of this. In practice if we know the type of $M$ and $N$ we can deduce the type of $M N$ just from the rules we will define later. The syntax is sugared or \emph{syntactic sugar} so we do not have to write so much. If done incorrectly it could be considered an abuse of notation. It should be possible to \emph{desugar} the syntax by adding an \emph{annotated} version of an operator. For example for application instead of $M N$ we could write $\mathrm{App}_{A,B}}(M;N)$. Having this information in the syntax will be useful when we want to induct over syntax, for example when proving an intiality theorem. But in practice we will save ourselves from having to write it out.
 \end{remark}
 
 \begin{defin}
@@ -68,104 +70,131 @@ There are 5 judgements that we have:
 
 Structural rules will dictate how our judgements interact with eachother, how different contexts can be formed and how substitution works. This is all roughly what a ``type theory'' ought to provide.
 
-We begin with the \emph{variable} rule, this says that if a term $x$ appears with a type $A$ as an element in a context $\Gamma$ then $x$ synthesises a type $A$ in context $\Gamma$. Or written more succiently as:
+\begin{defin}
+    We begin with the \emph{variable} rule, this says that if a term $x$ appears with a type $A$ as an element in a context $\Gamma$ then $x$ synthesises a type $A$ in context $\Gamma$. Or written more succiently as:
 
-$$
-    \frac{(x:A) \in \Gamma }{\Gamma \vdash x \Rightarrow A}
-$$
+    % Variable rule
+    \begin{prooftree}
+        \AxiomC{$(x:A) \in \Gamma$}
+        \RightLabel{(var)}
+        \UnaryInfC{$\Gamma \vdash x \Rightarrow A$}
+    \end{prooftree}
+\end{defin}
 
 Other structural rules: weakening, contraction and substitution are all admissible. [[What does it mean for a rule to be admissible? We have defined this previously but we need to carefully state these facts, and prove them too!]]
 
-\subsection{Mode-switching}
+\end{defin}
+    One of the features of bidirectional type checking is that we can switch the mode we are in. This is expressed as the mode switching rule:
 
-One of the features of bidirectional type checking is that we can switch the mode we are in. This is expressed as the mode switching rule:
+    % Switch rule
+    \begin{prooftree}
+        \AxiomC{$\Gamma \vdash t \Rightarrow A$}
+        \AxiomC{$\Gamma \vdash A \equiv B \ \mathsf{type}$}
+        \RightLabel{(switch)}
+        \BinaryInfC{$\Gamma \vdash t \Leftarrow B$}
+    \end{prooftree}
+\end{defin}
 
-\begin{prooftree}
-    \AxiomC{$\Gamma \vdash T \Rightarrow A$}
-    \AxiomC{$\Gamma \vdash A \equiv B \ \mathsf{type}$}
-    \RightLabel{(switch)}
-    \BinaryInfC{$\Gamma \vdash T \Leftarrow B$}
-\end{prooftree}
+\begin{remark}
+    This rule has been specially set up in that it will be the \emph{only way} to derive $\Gamma \vdash T \Leftarrow B$. These are the kinds of properties we would like our syntax to have. A careful analysis will be done under the name of \emph{inversion lemma}. [[Link to inversion lemma?]]
 
-This rule has been specially set up in that it will be the \emph{only way} to derive $\Gamma \vdash T \Leftarrow B$. [[TODO: talk more about this]]
+    In a unidirectional type system, the judgements $\Gamma \vdash T \Rightarrow A$ and $\Gamma \vdash T \Leftarrow B$ are collapsed into one: $\Gamma \vdash T : A$. And now the mode-switching rule may have a more familiar form:
 
-In a unidirectional type system, the judgements $\Gamma \vdash T \Rightarrow A$ and $\Gamma \vdash T \Leftarrow B$ are collapsed into one: $\Gamma \vdash T : A$. And now the mode-switching rule may have a more familiar form:
+    \begin{prooftree}
+        \AxiomC{$\Gamma \vdash t : A$}
+        \AxiomC{$\Gamma \vdash A \equiv B \ \mathsf{type}$}
+        \BinaryInfC{$\Gamma \vdash t : B$}
+    \end{prooftree}
 
-\begin{prooftree}
-    \AxiomC{$\Gamma \vdash T : A$}
-    \AxiomC{$\Gamma \vdash A \equiv B \ \mathsf{type}$}
-    \BinaryInfC{$\Gamma \vdash T : B$}
-\end{prooftree}
+    Which shows that it is actually a rule about substituting along a judgemental equality! But this is a problem since a type checking algorithm will have to decide when to stop doing this. This is one of the big advantages that bidirectional type checking has over unidirectional type checking. The type checking algorithm will be simpler! [[TODO: Clean up and discuss type checking in more detail]]
+\end{remark}
 
-Which shows that it is actually a rule about substituting along a judgemental equality! But this is a problem since a type checking algorithm will have to decide when to stop doing this. This is one of the big advantages that bidirectional type checking has over unidirectional type checking. The type checking algorithm will be simpler! [[TODO: Clean up and discuss type checking in more detail]]
+\begin{remark}
+    Occasionally, we will simply mode-switch using reflexivity $\Gamma \vdash A \equiv A \ \mathsf{type}$, in which case we will abbreviate the rule as follows:
+    % compact switch
+    \begin{prooftree}
+        \AxiomC{$\Gamma \vdash t \Rightarrow A$}
+        \RightLabel{(switch)}
+        \UnaryInfC{$\Gamma \vdash t \Leftarrow A$}
+    \end{prooftree}
+\end{remark}
 
 \subsection{Equality rules}
 Finally we have some structural rules for our two judgemental equality judgements. We wish for these to be an equivalence relation and that they are compatible with eachother.
 
 First we begin with the structural rules for the judgement form $- \equiv -\ \mathsf{type}$:
 
-We wish for our judgemental equality of types to be reflexive:
-\begin{prooftree}
-    \AxiomC{}
-    \RightLabel{($\equiv_{\mathsf{type}}$-reflexivity)}
-    \UnaryInfC{$\Gamma \vdash A \equiv A\ \mathsf{type}$}
-\end{prooftree}
+\begin{defin}
 
-We want our judgemental equality of types to be symmetric:
-\begin{prooftree}
-    \AxiomC{$\Gamma \vdash A \equiv B \ \mathsf{type}$}
-    \RightLabel{($\equiv_{\mathsf{type}}$-symmetry)}
-    \UnaryInfC{$\Gamma \vdash B \equiv A \ \mathsf{type}$}
-\end{prooftree}
+    % Reflexivity of judgemental equality of types
+    We wish for our judgemental equality of types to be reflexive:
+    \begin{prooftree}
+        \AxiomC{\Gamma \vdash A \ \mathsf{type}}
+        \RightLabel{($\equiv_{\mathsf{type}}$-reflexivity)}
+        \UnaryInfC{$\Gamma \vdash A \equiv A\ \mathsf{type}$}
+    \end{prooftree}
 
-and our judgemental equality of types to be transitive:
+    % Symmetry of judgemental equality of types
+    We want our judgemental equality of types to be symmetric:
+    \begin{prooftree}
+        \AxiomC{$\Gamma \vdash A \equiv B \ \mathsf{type}$}
+        \RightLabel{($\equiv_{\mathsf{type}}$-symmetry)}
+        \UnaryInfC{$\Gamma \vdash B \equiv A \ \mathsf{type}$}
+    \end{prooftree}
 
-\begin{prooftree}
-    \AxiomC{$\Gamma \vdash B \ \mathsf{type}$}
-    \AxiomC{$\Gamma \vdash A \equiv B\ \mathsf{type}$}
-    \AxiomC{$\Gamma \vdash B \equiv C\ \mathsf{type}$}
-    \RightLabel{($\equiv_\mathsf{type}$-transitivity)}
-    \TrinaryInfC{$\Gamma \vdash A \equiv C\ \mathsf{type}$}
-\end{prooftree}
+    and our judgemental equality of types to be transitive:
 
-Notice how the previous rule also checks that $B$ is a type. This is because if we did not do this, we could insert any symbol in. This is clearly undesirable. It also demonstrates how subtly sensitive rules are.
+    % Transitivity of judgemental equality of types
+    \begin{prooftree}
+        \AxiomC{$\Gamma \vdash B \ \mathsf{type}$}
+        \AxiomC{$\Gamma \vdash A \equiv B\ \mathsf{type}$}
+        \AxiomC{$\Gamma \vdash B \equiv C\ \mathsf{type}$}
+        \RightLabel{($\equiv_\mathsf{type}$-transitivity)}
+        \TrinaryInfC{$\Gamma \vdash A \equiv C\ \mathsf{type}$}
+    \end{prooftree}
 
-Now we list the rules making the judgement form $- \equiv - : A$ into an equivalence relation:
+    Notice how the previous rule also checks that $B$ is a type. This is because if we did not do this, we could insert any symbol in. This is clearly undesirable. It also demonstrates how subtly sensitive rules are.
 
-We wish for our judgemental equality of terms to be reflexive:
-\begin{prooftree}
-    \AxiomC{}
-    \RightLabel{($\equiv_{\mathsf{term}}$-reflexivity)}
-    \UnaryInfC{$\Gamma \vdash T \equiv T : A$}
-\end{prooftree}
+    Now we list the rules making the judgement form $- \equiv - : A$ into an equivalence relation:
 
-We want our judgemental equality of terms to be symmetric:
-\begin{prooftree}
-    \AxiomC{$\Gamma \vdash S \equiv T : A$}
-    \RightLabel{($\equiv_{\mathsf{term}}$-symmetry)}
-    \UnaryInfC{$\Gamma \vdash T \equiv S : A$}
-\end{prooftree}
+    % Reflexivity of judgemental equality of terms
+    We wish for our judgemental equality of terms to be reflexive:
+    \begin{prooftree}
+        \AxiomC{$\Gamma \vdash t \Rightarrow A$}
+        \RightLabel{($\equiv_{\mathsf{term}}$-reflexivity)}
+        \UnaryInfC{$\Gamma \vdash t \equiv t : A$}
+    \end{prooftree}
 
-and our judgemental equality of terms to be transitive:
-\begin{prooftree}
-    \AxiomC{$\Gamma \vdash T \Leftarrow A $}
-    \AxiomC{$\Gamma \vdash S \equiv T : A$}
-    \AxiomC{$\Gamma \vdash T \equiv R : A$}
-    \RightLabel{($\equiv_{\mathsf{term}}$-transitivity)}
-    \TrinaryInfC{$\Gamma \vdash S \equiv R : A$}
-\end{prooftree}
+    % Symmetry of judgemental equality of terms
+    We want our judgemental equality of terms to be symmetric:
+    \begin{prooftree}
+        \AxiomC{$\Gamma \vdash s \equiv t : A$}
+        \RightLabel{($\equiv_{\mathsf{term}}$-symmetry)}
+        \UnaryInfC{$\Gamma \vdash t \equiv s : A$}
+    \end{prooftree}
 
-as we stated before for transitivity judgemental equality of types we need to also check that the middle term $T$ is actually a term.
+    % Transitivity of judgemental equality of terms
+    and our judgemental equality of terms to be transitive:
+    \begin{prooftree}
+        \AxiomC{$\Gamma \vdash t \Leftarrow A $}
+        \AxiomC{$\Gamma \vdash s \equiv t : A$}
+        \AxiomC{$\Gamma \vdash t \equiv r : A$}
+        \RightLabel{($\equiv_{\mathsf{term}}$-transitivity)}
+        \TrinaryInfC{$\Gamma \vdash s \equiv r : A$}
+    \end{prooftree}
 
-Finally we need a rule that will make  that judgemental equality of types and judgemental equality of terms interact the way we expect them to:
-\begin{prooftree}
-    \AxiomC{$\Gamma \vdash A \ \mathsf{type}$}
-    \AxiomC{$\Gamma \vdash S \equiv T : A$}
-    \AxiomC{$\Gamma \vdash A \equiv B\ \mathsf{type}$}
-    \RightLabel{($\equiv_{\mathsf{term}}$-$\equiv_{\mathsf{type}}$-compat)}
-    \TrinaryInfC{$\Gamma \vdash S \equiv T : B$}
-\end{prooftree}
+    as we stated before for transitivity judgemental equality of types we need to also check that the middle term $T$ is actually a term.
 
+    % judgemental equality of types - judgemental equality of terms - congruence
+    Finally we need a rule that will make  that judgemental equality of types and judgemental equality of terms interact the way we expect them to:
+    \begin{prooftree}
+        \AxiomC{$\Gamma \vdash A \ \mathsf{type}$}
+        \AxiomC{$\Gamma \vdash s \equiv t : A$}
+        \AxiomC{$\Gamma \vdash A \equiv B\ \mathsf{type}$}
+        \RightLabel{($\equiv_{\mathsf{term}}$-$\equiv_{\mathsf{type}}$-compat)}
+        \TrinaryInfC{$\Gamma \vdash s \equiv t : B$}
+    \end{prooftree}
+\end{defin}
 
 \subsection{Type formers}
 What we have constructed thusfar is essentially an ``empty type theory''. What we have included which other authors typcially gloss over is a clean way of constructing a typechecking algorithm: bidirectional typechecking and an account of judgemental equality. We now study what are known as type formers, typically when we wish to add a new type to a type theory we need to think about a collection of rules. These can roughly be sorted into 5 kinds of rules:
@@ -182,10 +211,11 @@ We make a note that although we will be providing all the rules, the congruence 
 
 Building on top of our ``empty type theory'' we introduce $\to$ the function type former:
 
-\begin{defin}[Formation rules]
+\begin{defin}
 
     Our formation rules tell us how to construct arrow types from other types:
     
+    % -> formation
     \begin{prooftree}
         \AxiomC{$\Gamma \vdash A\ \mathsf{type}$}
         \AxiomC{$\Gamma \vdash B\ \mathsf{type}$}
@@ -193,24 +223,18 @@ Building on top of our ``empty type theory'' we introduce $\to$ the function typ
         \BinaryInfC{$\Gamma \vdash A \to B \ \mathsf{type}$}
     \end{prooftree}
 
-\end{defin}
-
-\begin{defin}[Introduction rules]
-
     Our introduction rule tells us how to construct terms of our type. This is also known as $\lambda$-abstraction:
 
+    % -> introduction
     \begin{prooftree}
         \AxiomC{$\Gamma , x : A\vdash M \Leftarrow B$}
         \RightLabel{($\to$-intro)}
         \UnaryInfC{$\Gamma \vdash \lambda x . M \Rightarrow A \to B$}
     \end{prooftree}
 
-\end{defin}
-
-\begin{defin}[Elimination rules]
-
     Our elimination rule tells us how to use terms of this type. For function types this corresponds to application:
 
+    % -> elimination
     \begin{prooftree}
         \AxiomC{$\Gamma \vdash M \Leftarrow A \to B$}
         \AxiomC{$\Gamma \vdash N \Leftarrow A$}
@@ -218,33 +242,28 @@ Building on top of our ``empty type theory'' we introduce $\to$ the function typ
         \BinaryInfC{$\Gamma \vdash M N \Rightarrow B$}
     \end{prooftree}
 
-\end{defin}
-
-\begin{defin}[Computation rules]
-
     And finally we have computation rules which tell us how to compute our terms. We will later prove results about normalisation of the lambda calculus. We start with $\beta$-reduction which tells us how applicated functions compute:
 
+    % -> beta
     \begin{prooftree}
-        \AxiomC{$\Gamma , x : A \vdash y : B$}
-        \AxiomC{$\Gamma \vdash t : A$}
+        \AxiomC{$\Gamma , x : A \vdash y \Leftarrow B$}
+        \AxiomC{$\Gamma \vdash t \Leftarrow A$}
         \RightLabel{($\to$-$\beta$)}
         \BinaryInfC{$\Gamma \vdash (\lambda x . y) t \equiv y[t / x] : B$}
     \end{prooftree}
 
-    Then we introduce $\eta$-conversion which tells us if two functions applied to the same term and are judgementally equal then the functions are judgementally equal. This is ``functional extensionality'' for judgemental equality.
+    Then we introduce $\eta$-conversion which tells us if two functions applied to the same term and are judgementally equal then the functions are judgementally equal. This is ``function extensionality'' for judgemental equality.
 
+    % -> eta
     \begin{prooftree}
         \AxiomC{$\Gamma , y : A \vdash M y \equiv M' y : B$}
         \RightLabel{($\to$-$\eta$)}
         \UnaryInfC{$\Gamma \vdash M \equiv M' : A \to B$}
     \end{prooftree}
 
-\end{defin}
-
-\begin{defin}[{Congruence rules]
-
     Finally we have to make sure all our rules respect judgemental equality. This means showing that $\to$ respects judgemental equality of types and that $\lambda$-terms and applications respect judgemental equality of terms.
 
+    % -> formation congruence
     \begin{prooftree}
         \AxiomC{$\Gamma \vdash A \equiv A' \ \mathsf{type}$}
         \AxiomC{$\Gamma \vdash B \equiv B' \ \mathsf{type}$}
@@ -252,12 +271,14 @@ Building on top of our ``empty type theory'' we introduce $\to$ the function typ
         \BinaryInfC{$\Gamma \vdash A \to B \equiv A' \to B' \ \mathsf{type}$}
     \end{prooftree}
 
+    % -> introduction congruence
     \begin{prooftree}
         \AxiomC{$\Gamma , x : A \vdash M \equiv M' : B$}
         \RightLabel{($\to$-$\equiv_{\mathsf{term}}$-cong)}
         \UnaryInfC{$\Gamma \vdash \lambda x . M \equiv \lambda x . M' : A \to B$}
     \end{prooftree}
 
+    % -> elimination congruence
     \begin{prooftree}
         \AxiomC{$\Gamma \vdash M \equiv M' : A \to B$}
         \AxiomC{$\Gamma \vdash N \equiv N' : A$}
@@ -267,12 +288,17 @@ Building on top of our ``empty type theory'' we introduce $\to$ the function typ
 
 \end{defin}
 
+\begin{remark}
+    Notice that we don't ensure that types compute the same way. This is because the computation rules will not be used in the type checking process and are therefore irrelevant to the inversion lemmas. Later we will prove that ``fully reduced'' computations are in fact equal. This is known as the Church-Rosser theorem.
+\end{remark}
+
 We define the product type as follows.
 
 \begin{defin}[Product type]
     
     Given two types, we have their product type:
     
+    % Product formation
     \begin{prooftree}
         \AxiomC{$\Gamma \vdash A \ \mathsf{type}$}
         \AxiomC{$\Gamma \vdash B \ \mathsf{type}$}
@@ -282,6 +308,7 @@ We define the product type as follows.
     
     We define ordered pairs as taking a term of each type:
     
+    % Product introduction
     \begin{prooftree}
         \AxiomC{$\Gamma \vdash a \Leftarrow A$}
         \AxiomC{$\Gamma \vdash b \Leftarrow B$}
@@ -289,45 +316,53 @@ We define the product type as follows.
         \BinaryInfC{$\Gamma \vdash (a, b) \Rightarrow A \times B$}
     \end{prooftree}
     
-    We given an eliminator for the product type. Which is going to be uncurrying. This is equivalent to giving two ``accessor'' functions that project.
+    We give two eliminators for pairs, the first and second elements:
     
-    \begin{prooftree}
-        \AxiomC{$\Gamma \vdash f \Leftarrow A \to (B \to C)$}
-        \RightLabel{($\times$-elim)}
-        \UnaryInfC{$\Gamma \vdash \mathrm{ind}_{A \times B}(f) \Rightarrow A \times B \to C$}
-    \end{prooftree}
-
+    % Product eliminators
+    \begin{center}
+        \AxiomC{$\Gamma \vdash t \Leftarrow A \times B$}
+        \RightLabel{($\times$-elim${}_1$)}
+        \UnaryInfC{$\Gamma \vdash \fst(t) \Rightarrow A$}        
+        \DisplayProof
+        \hskip 1.5em
+        \AxiomC{$\Gamma \vdash t \Leftarrow A \times B$}
+        \RightLabel{($\times$-elim${}_2$)}
+        \UnaryInfC{$\Gamma \vdash \snd(t) \Rightarrow B$}
+        \DisplayProof
+    \end{center}
+    
     And we finally need to dictate how this is computed:
     
+    \begin{center}
+        \AxiomC{$\Gamma \vdash x \Leftarrow A$}
+        \AxiomC{$\Gamma \vdash y \Leftarrow B$}
+        \RightLabel{($\times$-$\beta_1$)}
+        \BinaryInfC{$\Gamma \vdash \fst(x,y)\equiv x : A$}
+        \DisplayProof
+        \hskip 1.5em
+        \AxiomC{$\Gamma \vdash x \Leftarrow A$}
+        \AxiomC{$\Gamma \vdash y \Leftarrow B$}
+        \RightLabel{($\times$-$\beta_2$)}
+        \BinaryInfC{$\Gamma \vdash \snd(x,y)\equiv y : B$}
+        \DisplayProof
+    \end{center}
+    
+    However we need to be careful since there is a nontrivial equality we must also add as a rule:
+    
     \begin{prooftree}
-        \AxiomC{$\Gamma \vdash a \Leftarrow A$}
-        \AxiomC{$\Gamma \vdash b \Leftarrow B$}
-        \AxiomC{$\Gamma \vdash f \Leftarrow A \to (B \to C)$}
-        \RightLabel{($\times$-$\beta$)}
-        \TrinaryInfC{$\Gamma \vdash \mathrm{ind}_{A\times B}(f) (a, b) \equiv f(a)(b) : C $}
+        \AxiomC{$\Gamma \vdash t \Rightarrow A \times B$}
+        \RightLabel{($\times$-$\eta$)}
+        \UnaryInfC{$\Gamma \vdash (\fst(t),\snd(t))\equiv t : A \times B$}
     \end{prooftree}
     
-    We will sometimes talk about the first and second elements of a pair, so it can be convenient to introduce the following functions with names. But we will not really consider this as part of the type theory, more rather a feature. There are various ways to formalise what we have done here, usually going by the name of a let statement or something.
-    
-    \begin{prooftree}
-        \AxiomC{}
-        \UnaryInfC{$\Gamma \vdash \mathrm{fst} \equiv \mathrm{ind}_{A \times B}(\lambda x . (\lambda y . x)) : A \times B \to C$} 
-    \end{prooftree}
-    
-    \begin{prooftree}
-        \AxiomC{}
-        \UnaryInfC{$\Gamma \vdash \mathrm{snd} \equiv \mathrm{ind}_{A \times B}(\lambda x . (\lambda y . y)) : A \times B \to C$}
-    \end{prooftree}
-    
-    It can be shown that $ a : A, b : B \vdash \mathrm{fst}(a, b)\equiv a : A$ and $a : A, b : B \vdash \mathrm{snd}(a, b)\equiv b : B$. [[However I am not so sure that $t : A \times B \vdash (\mathrm{fst}(t), \mathrm{snd}(t)) \equiv t : A \times B$... Maybe ($\times$-$\eta$) or something needs to be added]]
 \end{defin}
 
 We will also need to add a unit type. This will be the simplest type, with only one term.
 
 \begin{defin}[Unit type]
-
     We begin with the formation rules, essentially saying that the unit type exists.
 
+    % Unit formation
     \begin{prooftree}
         \AxiomC{}
         \RightLabel{($\mathbf{1}$-form)}
@@ -336,29 +371,17 @@ We will also need to add a unit type. This will be the simplest type, with only 
 
     We then say that the unit type has a term:
 
+    % Unit introduction
     \begin{prooftree}
         \AxiomC{}
         \RightLabel{($\mathbf{1}$-intro)}
         \UnaryInfC{$\Gamma \vdash * \Rightarrow \mathbf{1}$}
     \end{prooftree}
-    
-    Next we specifiy that in order to create a function out of the unit type, it suffices to give a term $a : A$. This function is then called $\mathrm{ind}_{\mathbf{1}}(a) : \mathbf{1} \to A$.
-    
-    \begin{prooftree}
-        \AxiomC{$\Gamma \vdash a : A$}
-        \RightLabel{($\mathbf{1}$-elim)}
-        \UnaryInfC{$\Gamma \vdash \mathrm{ind}_{\mathbf{1}}(a) \Rightarrow \mathbf{1} \to A$}
-    \end{prooftree}
-
-    Next we show how this function computes, which is that for any $x \Leftarrow \mathbf{1}$ (of which there are not many) we have it being judgementally equal to $a : A$.
-    
-    \begin{prooftree}
-        \AxiomC{$\Gamma vdash x \Leftarrow \mathbf{1}$}
-        \RightLabel{($\mathbf{1}$-comp)}
-        \UnaryInfC{$\Gamma \vdash \mathrm{ind}_{\mathbf{1}}(a) x \equiv a : A$}
-    \end{prooftree}
-
 \end{defin}
+
+\begin{remark}
+    We don't need to give any more rules since the unit type has all the properties we need. Our rules for $\to$ allow us to build constant functions anyway. And we note that all functions $\mathbf{1} \to A$ are constant functions!
+\end{remark}
 
 [[TODO: Clear up wording maybe?]]
 \begin{remark}
@@ -368,6 +391,24 @@ We will also need to add a unit type. This will be the simplest type, with only 
 \subsection{Inversion lemmas}
 Having listed all these rules we need some lemmas detailing how different terms can \emph{only} come from a set of specified rules. This is a crucial analysis if we wish to construct a type checking algorithm. An inversion lemma for a type theory is typically very difficult to state, and extremely tedious to prove. But nontheless is essential if we want to induct over terms.
 
+Luckily we set up syntax in such a way that we only need induct over the syntax. So we pick a syntactic form and the inversion lemma will tell us exactly how we can arrive at that conclusion. Let us list all term syntax we can create in STLC:
+
+\begin{itemize}
+    \item $x$ where $x$ is a variable.
+    \item $\lambda x . M$ where $M$ is a term.
+    \item $(x, y)$ where $x$ and $y$ are terms.
+    \item $\fst, \snd$ the eliminators of $\times$
+    \item $*$ the element of $\mathbf{1}$
+    \item $\mathrm{ind}_{\mathbf{1}}$ the inductor of $\mathbf{1}$
+\end{itemize}
+
+%Probably not true if we set things up correctly
+%We note that these inversion lemmas will only be applicable to judgement forms such as $\Gamma \vdash x \Rightarrow A$ and $\Gamma \vdash x \Leftrightarrow A$ as judgemental equality will be far too complicated (and perhaps even impossible) to decidably derive. In times where our judgemental equality 
+
+\begin{lemma}
+    
+\end{lemma}
+
 [[TODO: State this beast]]
 \begin{lemma}
     In the STLC the following term forms are generated by certain rules...
@@ -376,80 +417,6 @@ Having listed all these rules we need some lemmas detailing how different terms 
 \subsection{Normalisation and Canonicity}
 
 [[These two concepts are very related, we should find some way to talk about it, including Church-Rosser]]
-
-\subsection{Examples of lambda terms}
-
-Untyped lambda calculus, as we mentioned, is in fact \emph{stronger} than the typed lambda calculus. This we will see by looking at some examples of type checking. Many of these are combinators from untyped lambda calculus in combinatory logic. \ref{} [[Need refereence of Mockingbird combinator thing]]
-
-Note we don't have very much choice on types, so it may be useful to enrich our type theory with $+$-types or even the natural numbers. But we will see soon that these both are special cases of dependent types.
-
-\begin{example}[Identity function]
-    Let's consider the following lambda term $\lambda x . x$. We wish to find a type $T$ such that given some context $\Gamma$ we have $\Gamma \vdash \lambda x . x \Leftarrow T$. Our inversion lemma will tell us exactly which rules let us get to this point. So we will essentially be performing a tree search. Firstly we need to switch modes to get $\lambda x . x \Rightarrow T$. But mode switching also lets us change our 
-    \begin{prooftree}
-        \AxiomC{$\Gamma \vdash \lambda x . x \Rightarrow T$}
-    \end{prooftree}
-\end{example}
-
-\begin{example}
-    Here is another example of a term that type checks. Unfortunately we see the disadvantage with type-setting derivation trees: they are very difficult to write down, and get really wide very quickly.  We want to find a type $T$ such that $\Gamma \vdash \lambda x . \lambda y . x y \Leftarrow T$ is true. Here is a derivation tree: 
-        \begin{landscape}
-            \centering
-            \vspace*{\fill}
-            \begin{prooftree}
-                %\rootAtTop
-                \def\ScoreOverhang{1pt}
-                %%%
-                \AxiomC{$x : A \in \Gamma , x : A, y : C$}
-                \LeftLabel{(var)}
-                \UnaryInfC{$\Gamma , x : A, y : C \vdash x \Rightarrow A$}
-                \AxiomC{}
-                \RightLabel{$(***)$}
-                \UnaryInfC{$\Gamma , x : A, y : C \vdash C \to D \equiv A \ \mathsf{type}$}
-                    %\insertBetweenHyps{\hskip -5pt}
-                \BinaryInfC{$\Gamma , x : A, y : C \vdash x \Leftarrow C \to D$}
-                \AxiomC{}
-                \RightLabel{$(\dagger)$}
-                \UnaryInfC{$\Gamma , x : A, y : C \vdash y \Leftarrow C$}
-                \LeftLabel{($\to$-elim)}                
-                    \insertBetweenHyps{\hskip -20pt}
-                \BinaryInfC{$\Gamma , x : A, y : C \vdash x y \Rightarrow D$}
-                \AxiomC{}
-                \RightLabel{($\equiv_{\mathsf{type}}$-refl)}
-                \UnaryInfC{$\Gamma , x : A, y : C \vdash D \equiv D\ \mathsf{type}$}
-                \LeftLabel{(switch)}
-                    %\insertBetweenHyps{\hskip -10pt}
-                \BinaryInfC{$\Gamma , x : A , y : C \vdash xy \Leftarrow D$}
-                \LeftLabel{($\to$-intro)}
-                \UnaryInfC{$\Gamma , x : A \vdash \lambda y . x y \Rightarrow C \to D$}
-                \AxiomC{}
-                \RightLabel{$(**)$}
-                \UnaryInfC{$\Gamma , x : A \vdash B \equiv C \to D \ \mathsf{type}$}
-                \LeftLabel{(switch)}
-                    \insertBetweenHyps{\hskip -150pt}
-                \BinaryInfC{$ \Gamma , x : A \vdash \lambda y . xy \Leftarrow B$}
-                \LeftLabel{($\to$-intro)}
-                \UnaryInfC{$\Gamma \vdash \lambda x . \lambda y . x y \Rightarrow A \to B$}
-                \AxiomC{}
-                \RightLabel{$(*)$}
-                \UnaryInfC{$\Gamma \vdash T \equiv A \to B \ \mathsf{type}$}
-                \LeftLabel{(switch)}
-                    \insertBetweenHyps{\hskip -90pt}
-                \BinaryInfC{$\Gamma \vdash \lambda x . \lambda y . x y \Leftarrow T$}
-            \end{prooftree}
-            \vfill
-        \end{landscape}
-        
-        \begin{proof}
-        We begin with the judgement $\Gamma \vdash \lambda x . \lambda y . x y \Leftarrow T$, now the only way to arrive at this judgement is via the mode-switching rule. Whilst doing this we add type variables $A$ and $B$ which can easily be seen to form into $A \to B$ and let $T \equiv A \to B$. We can come back later and validate this judgement. The mode-switching should have given us $\Gamma \vdash \lambda x . \lambda y . x y \Rightarrow A \to B$ which we can only arrive at by applying the ($\to$-intro) rule. This gives us $\Gamma , x : A \vdash \lambda y . xy \Leftarrow B$. Which we have to mode-switch, and as before we take this chance to introduce type variables $C$ and $D$ in order to arrive at the judgement $\Gamma , x : A \vdash \lambda y . x y \Rightarrow C \to D$. This allows us to apply ($\to$-intro) giving us $\Gamma , x : A , y : C \vdash xy \Leftarrow D$. Now we apply the ($\to$-elim) rule since we have an application. For this we need $\Gamma , x : A, y : C \vdash y \Leftarrow C$, which is marked as $(\dagger)$, and observe that a simple application of mode-switching and the variable rule allows us to derive this judgement. The other hypthesis we need is $\Gamma , x : A, y : C \vdash x \Leftarrow C \to D$. Again by mode-switching and setting $C \to D \equiv A$ we get $\Gamma , x : A, y : C \vdash x \Rightarrow A$ which is clearly derivable by the variable rule. 
-        
-        
-        Now we have 3 type equations $(*)$, $(**)$ and $(***)$, substituting back in we get $\Gamma \vdash T \equiv (C \to D) \to C \to D$ for some types $C$ and $D$. So $\Gamma \vdash \lambda x . \labmda y . x y \Leftarrow T$ if we have types $C$ and $D$.
-        \end{proof}
-\end{example}
-
-\begin{remark}
-    There is a lot going on the the previous example, but crucially it should be observed that it is in fact the \emph{inversion lemmas} that allow us to make choices of which rules to use. So a type-checking algorithm would have to make choices based on what the inversion lemmas say. We also introduced equalities of types which was brushed over. In general, type equalities are only generated by reflexivity so in a way our equations were lifted to equality of syntax. This gave us a classical equality problem. Since all our syntax are trees, we can easily decide their equality. [[CAN YOU???!!]]
-\end{remark}
 
 
 \begin{comment}

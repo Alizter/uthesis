@@ -36,18 +36,27 @@
 \BOOKMARK [1][-]{section.6}{Simply typed lambda calculus}{}% 36
 \BOOKMARK [2][-]{subsection.6.1}{Judgements}{section.6}% 37
 \BOOKMARK [2][-]{subsection.6.2}{Structural rules}{section.6}% 38
-\BOOKMARK [2][-]{subsection.6.3}{Mode-switching}{section.6}% 39
-\BOOKMARK [2][-]{subsection.6.4}{Equality rules}{section.6}% 40
-\BOOKMARK [2][-]{subsection.6.5}{Type formers}{section.6}% 41
-\BOOKMARK [2][-]{subsection.6.6}{Inversion lemmas}{section.6}% 42
-\BOOKMARK [2][-]{subsection.6.7}{Normalisation and Canonicity}{section.6}% 43
-\BOOKMARK [2][-]{subsection.6.8}{Examples of lambda terms}{section.6}% 44
-\BOOKMARK [1][-]{section.7}{Category theory}{}% 45
-\BOOKMARK [2][-]{subsection.7.1}{Introduction}{section.7}% 46
-\BOOKMARK [2][-]{subsection.7.2}{Categories}{section.7}% 47
-\BOOKMARK [2][-]{subsection.7.3}{Functors}{section.7}% 48
-\BOOKMARK [2][-]{subsection.7.4}{Natural transformations}{section.7}% 49
-\BOOKMARK [2][-]{subsection.7.5}{Having a left or right adjoint}{section.7}% 50
-\BOOKMARK [2][-]{subsection.7.6}{Products, Terminal objects and Cartesian closedness}{section.7}% 51
-\BOOKMARK [2][-]{subsection.7.7}{Display object categories}{section.7}% 52
-\BOOKMARK [1][-]{section.8}{Theories and models}{}% 53
+\BOOKMARK [2][-]{subsection.6.3}{Equality rules}{section.6}% 39
+\BOOKMARK [2][-]{subsection.6.4}{Type formers}{section.6}% 40
+\BOOKMARK [2][-]{subsection.6.5}{Inversion lemmas}{section.6}% 41
+\BOOKMARK [2][-]{subsection.6.6}{Normalisation and Canonicity}{section.6}% 42
+\BOOKMARK [1][-]{section.7}{STLC Examples}{}% 43
+\BOOKMARK [2][-]{subsection.7.1}{Identity function x . x}{section.7}% 44
+\BOOKMARK [2][-]{subsection.7.2}{Function application x . y . x y}{section.7}% 45
+\BOOKMARK [2][-]{subsection.7.3}{Mockingbird x . x x}{section.7}% 46
+\BOOKMARK [2][-]{subsection.7.4}{\(x . x\)\(x . x\)}{section.7}% 47
+\BOOKMARK [2][-]{subsection.7.5}{x . y . \(xy\)\(xy\)}{section.7}% 48
+\BOOKMARK [2][-]{subsection.7.6}{Y-combinator x . \(y . x \(y y\)\) \(y . x \(y y\)\)}{section.7}% 49
+\BOOKMARK [2][-]{subsection.7.7}{Function composition x . y . z . x \( y z\)}{section.7}% 50
+\BOOKMARK [2][-]{subsection.7.8}{Owl combinator x . y . z . y \(x y\)}{section.7}% 51
+\BOOKMARK [2][-]{subsection.7.9}{Currying x . y . z . x \(y, z\)}{section.7}% 52
+\BOOKMARK [2][-]{subsection.7.10}{Swap t . \(snd\(t\), fst\(t\)\)}{section.7}% 53
+\BOOKMARK [1][-]{section.8}{Category theory}{}% 54
+\BOOKMARK [2][-]{subsection.8.1}{Introduction}{section.8}% 55
+\BOOKMARK [2][-]{subsection.8.2}{Categories}{section.8}% 56
+\BOOKMARK [2][-]{subsection.8.3}{Functors}{section.8}% 57
+\BOOKMARK [2][-]{subsection.8.4}{Natural transformations}{section.8}% 58
+\BOOKMARK [2][-]{subsection.8.5}{Having a left or right adjoint}{section.8}% 59
+\BOOKMARK [2][-]{subsection.8.6}{Products, Terminal objects and Cartesian closedness}{section.8}% 60
+\BOOKMARK [2][-]{subsection.8.7}{Display object categories}{section.8}% 61
+\BOOKMARK [1][-]{section.9}{Theories and models}{}% 62
