@@ -1,3 +1,11 @@
 \section{Dependent types}
 
-Here we will talk about simply typed lambda calculus, adding dependent types and 
+We have seen previously that the Curry-Howard correspondance is a deep parallel between logic and computation. We therefore will use it as a guiding principle for a type theory. This was originally sketched by Curry [[CITE]] and the proejct taken up by Per Martin-L\"of [[CITE]]. In order to begin modifying our rules for the STLC we need to introduce the notion of a \emph{universe}.
+
+\subsection{Universes}
+
+Originally Martin-L\"of had added a type of all types. But this, unsuprisingly, led to Russellian paradoxes. This is known as Giraurds paradox. [[CITE]]. There is a simple resolution to this, which is inspired to a similar technique in set theory known as \emph{Grothendieck universes}. Though the type theory counterpart is much simpler to state. [[CITE]] Category theorists actually use such universes but usually restricted to two, small and large sets. [[CITE]]
+
+There are two approaches to univereses. Universes a la Russel and universes a la Tarski. The former is much simpler to state but loses unicity of typing. The latter keeps unicity of typing and corresponds closely with the semantic models, however unfortunately has many annotations and extra congruence rules. It is generally believed that the latter can be compressed into the former, and the former annotated to give the latter. [[CITE]]
+
+

@@ -20,43 +20,61 @@
 \BOOKMARK [2][-]{subsection.4.3}{Type safety}{section.4}% 20
 \BOOKMARK [2][-]{subsection.4.4}{Run time errors}{section.4}% 21
 \BOOKMARK [2][-]{subsection.4.5}{Evaluation dynamics}{section.4}% 22
-\BOOKMARK [1][-]{section.5}{Curry-Howard correspondance}{}% 23
-\BOOKMARK [2][-]{subsection.5.1}{Mathematical logic}{section.5}% 24
-\BOOKMARK [2][-]{subsection.5.2}{Lambda calculus}{section.5}% 25
-\BOOKMARK [2][-]{subsection.5.3}{Recursive functions}{section.5}% 26
-\BOOKMARK [2][-]{subsection.5.4}{Turing machines}{section.5}% 27
-\BOOKMARK [2][-]{subsection.5.5}{Russells paradox}{section.5}% 28
-\BOOKMARK [2][-]{subsection.5.6}{The problem with lambda calculus as a logic}{section.5}% 29
-\BOOKMARK [2][-]{subsection.5.7}{Types to the rescue}{section.5}% 30
-\BOOKMARK [2][-]{subsection.5.8}{The theory of proof a la Gentzen}{section.5}% 31
-\BOOKMARK [2][-]{subsection.5.9}{Curry and Howard}{section.5}% 32
-\BOOKMARK [2][-]{subsection.5.10}{Propositions as types}{section.5}% 33
-\BOOKMARK [2][-]{subsection.5.11}{Predicates [CHANGE] as types?}{section.5}% 34
-\BOOKMARK [2][-]{subsection.5.12}{Dependent types}{section.5}% 35
-\BOOKMARK [1][-]{section.6}{Simply typed lambda calculus}{}% 36
-\BOOKMARK [2][-]{subsection.6.1}{Judgements}{section.6}% 37
-\BOOKMARK [2][-]{subsection.6.2}{Structural rules}{section.6}% 38
-\BOOKMARK [2][-]{subsection.6.3}{Equality rules}{section.6}% 39
-\BOOKMARK [2][-]{subsection.6.4}{Type formers}{section.6}% 40
-\BOOKMARK [2][-]{subsection.6.5}{Inversion lemmas}{section.6}% 41
-\BOOKMARK [2][-]{subsection.6.6}{Normalisation and Canonicity}{section.6}% 42
-\BOOKMARK [1][-]{section.7}{STLC Examples}{}% 43
-\BOOKMARK [2][-]{subsection.7.1}{Identity function x . x}{section.7}% 44
-\BOOKMARK [2][-]{subsection.7.2}{Function application x . y . x y}{section.7}% 45
-\BOOKMARK [2][-]{subsection.7.3}{Mockingbird x . x x}{section.7}% 46
-\BOOKMARK [2][-]{subsection.7.4}{\(x . x\)\(x . x\)}{section.7}% 47
-\BOOKMARK [2][-]{subsection.7.5}{x . y . \(xy\)\(xy\)}{section.7}% 48
-\BOOKMARK [2][-]{subsection.7.6}{Y-combinator x . \(y . x \(y y\)\) \(y . x \(y y\)\)}{section.7}% 49
-\BOOKMARK [2][-]{subsection.7.7}{Function composition x . y . z . x \( y z\)}{section.7}% 50
-\BOOKMARK [2][-]{subsection.7.8}{Owl combinator x . y . z . y \(x y\)}{section.7}% 51
-\BOOKMARK [2][-]{subsection.7.9}{Currying x . y . z . x \(y, z\)}{section.7}% 52
-\BOOKMARK [2][-]{subsection.7.10}{Swap t . \(snd\(t\), fst\(t\)\)}{section.7}% 53
-\BOOKMARK [1][-]{section.8}{Category theory}{}% 54
-\BOOKMARK [2][-]{subsection.8.1}{Introduction}{section.8}% 55
-\BOOKMARK [2][-]{subsection.8.2}{Categories}{section.8}% 56
-\BOOKMARK [2][-]{subsection.8.3}{Functors}{section.8}% 57
-\BOOKMARK [2][-]{subsection.8.4}{Natural transformations}{section.8}% 58
-\BOOKMARK [2][-]{subsection.8.5}{Having a left or right adjoint}{section.8}% 59
-\BOOKMARK [2][-]{subsection.8.6}{Products, Terminal objects and Cartesian closedness}{section.8}% 60
-\BOOKMARK [2][-]{subsection.8.7}{Display object categories}{section.8}% 61
-\BOOKMARK [1][-]{section.9}{Theories and models}{}% 62
+\BOOKMARK [1][-]{section.5}{Simply typed lambda calculus}{}% 23
+\BOOKMARK [2][-]{subsection.5.1}{Judgements}{section.5}% 24
+\BOOKMARK [2][-]{subsection.5.2}{Structural rules}{section.5}% 25
+\BOOKMARK [2][-]{subsection.5.3}{Equality rules}{section.5}% 26
+\BOOKMARK [2][-]{subsection.5.4}{Type formers}{section.5}% 27
+\BOOKMARK [2][-]{subsection.5.5}{Inversion lemmas}{section.5}% 28
+\BOOKMARK [1][-]{section.6}{Normalisation of STLC}{}% 29
+\BOOKMARK [2][-]{subsection.6.1}{Introduction}{section.6}% 30
+\BOOKMARK [2][-]{subsection.6.2}{Relations and transition systems}{section.6}% 31
+\BOOKMARK [2][-]{subsection.6.3}{Normalisation}{section.6}% 32
+\BOOKMARK [2][-]{subsection.6.4}{Canonicity}{section.6}% 33
+\BOOKMARK [1][-]{section.7}{STLC Examples}{}% 34
+\BOOKMARK [2][-]{subsection.7.1}{Identity function x . x}{section.7}% 35
+\BOOKMARK [2][-]{subsection.7.2}{Function application x . y . x y}{section.7}% 36
+\BOOKMARK [2][-]{subsection.7.3}{Mockingbird x . x x}{section.7}% 37
+\BOOKMARK [2][-]{subsection.7.4}{\(x . x\)\(x . x\)}{section.7}% 38
+\BOOKMARK [2][-]{subsection.7.5}{x . y . \(xy\)\(xy\)}{section.7}% 39
+\BOOKMARK [2][-]{subsection.7.6}{Y-combinator x . \(y . x \(y y\)\) \(y . x \(y y\)\)}{section.7}% 40
+\BOOKMARK [2][-]{subsection.7.7}{Function composition x . y . z . x \( y z\)}{section.7}% 41
+\BOOKMARK [2][-]{subsection.7.8}{Owl combinator x . y . z . y \(x y\)}{section.7}% 42
+\BOOKMARK [2][-]{subsection.7.9}{Currying x . y . z . x \(y, z\)}{section.7}% 43
+\BOOKMARK [2][-]{subsection.7.10}{Swap t . \(snd\(t\), fst\(t\)\)}{section.7}% 44
+\BOOKMARK [1][-]{section.8}{Curry-Howard correspondance}{}% 45
+\BOOKMARK [2][-]{subsection.8.1}{Mathematical logic}{section.8}% 46
+\BOOKMARK [2][-]{subsection.8.2}{Lambda calculus}{section.8}% 47
+\BOOKMARK [2][-]{subsection.8.3}{Recursive functions}{section.8}% 48
+\BOOKMARK [2][-]{subsection.8.4}{Turing machines}{section.8}% 49
+\BOOKMARK [2][-]{subsection.8.5}{Russells paradox}{section.8}% 50
+\BOOKMARK [2][-]{subsection.8.6}{The problem with lambda calculus as a logic}{section.8}% 51
+\BOOKMARK [2][-]{subsection.8.7}{Types to the rescue}{section.8}% 52
+\BOOKMARK [2][-]{subsection.8.8}{The theory of proof a la Gentzen}{section.8}% 53
+\BOOKMARK [2][-]{subsection.8.9}{Curry and Howard}{section.8}% 54
+\BOOKMARK [2][-]{subsection.8.10}{Propositions as types}{section.8}% 55
+\BOOKMARK [2][-]{subsection.8.11}{Predicates [CHANGE] as types?}{section.8}% 56
+\BOOKMARK [2][-]{subsection.8.12}{Dependent types}{section.8}% 57
+\BOOKMARK [1][-]{section.9}{Simply typed lambda calculus with products, sums and natural numbers}{}% 58
+\BOOKMARK [2][-]{subsection.9.1}{Natural numbers}{section.9}% 59
+\BOOKMARK [2][-]{subsection.9.2}{Sum types}{section.9}% 60
+\BOOKMARK [1][-]{section.10}{Dependent types}{}% 61
+\BOOKMARK [2][-]{subsection.10.1}{Universes}{section.10}% 62
+\BOOKMARK [1][-]{section.11}{Category theory}{}% 63
+\BOOKMARK [2][-]{subsection.11.1}{Introduction}{section.11}% 64
+\BOOKMARK [2][-]{subsection.11.2}{Categories}{section.11}% 65
+\BOOKMARK [2][-]{subsection.11.3}{Functors}{section.11}% 66
+\BOOKMARK [2][-]{subsection.11.4}{Natural transformations}{section.11}% 67
+\BOOKMARK [2][-]{subsection.11.5}{Having a left or right adjoint}{section.11}% 68
+\BOOKMARK [2][-]{subsection.11.6}{Products, Terminal objects and Cartesian closedness}{section.11}% 69
+\BOOKMARK [2][-]{subsection.11.7}{Display object categories}{section.11}% 70
+\BOOKMARK [1][-]{section.12}{Theories and models}{}% 71
+\BOOKMARK [1][-]{section*.2}{Appendices}{}% 72
+\BOOKMARK [1][-]{Appendix.1.A}{Simply typed lambda calculus }{}% 73
+\BOOKMARK [2][-]{subsection.1.A.1}{Syntax}{Appendix.1.A}% 74
+\BOOKMARK [2][-]{subsection.1.A.2}{Judgements}{Appendix.1.A}% 75
+\BOOKMARK [2][-]{subsection.1.A.3}{Structural rules}{Appendix.1.A}% 76
+\BOOKMARK [2][-]{subsection.1.A.4}{Equality rules}{Appendix.1.A}% 77
+\BOOKMARK [2][-]{subsection.1.A.5}{Function type}{Appendix.1.A}% 78
+\BOOKMARK [2][-]{subsection.1.A.6}{Product type}{Appendix.1.A}% 79
+\BOOKMARK [2][-]{subsection.1.A.7}{Unit type}{Appendix.1.A}% 80

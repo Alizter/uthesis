@@ -26,6 +26,7 @@
 \usepackage[hidelinks]{hyperref}
 \usepackage{lscape}
 \usepackage[framemethod=tikz]{mdframed}
+\usepackage[toc,page]{appendix}
 % Ommiting this because it looks terrible
 %\bibliographystyle{bath.bst}
 
@@ -57,21 +58,7 @@
 %   Common variables
 %%
 
-% Commands for barendregt.tex
-%\newcommand{\FV}{\mathrm{FV}}
-%\newcommand{\A}{\mathbb{A}}
-%\newcommand{\T}{\mathsf{T}}
-
 \newcommand{\Var}{\mathbf{Var}}
-
-% Simply typed
-%\newcommand{\Dec}{\mathbf{Dec}}
-%\newcommand{\Con}{\mathbf{Con}}
-
-%\newcommand{\Typ}{\mathbf{Type}} %%
-%\newcommand{\Tm}{\mathbf{Term}} %%%
-%\newcommand{\Jud}{\mathbf{Jud}}
-
 
 \newcommand{\Id}{\text{Id}}
 
@@ -101,6 +88,12 @@
 \newcommand{\scope}{\triangleleft}
 \newcommand{\soa}{\text{soa}}
 \newcommand{\sov}{\text{sov}}
+
+% stlc
+\newcommand{\tm}{\mathrm{tm}}
+\newcommand{\ty}{\mathrm{ty}}
+\newcommand{\fst}{\mathrm{fst}}
+\newcommand{\snd}{\mathrm{snd}}
 
 \title{Introduction to dependent type theory}
 \author{Ali Caglayan}
@@ -133,17 +126,26 @@
 % Statics and dynamics of programming langauges
 \input{static.tex}
 
-% History and implications of curry howard
-\input{curry.tex}
 
 % Model simply typed lambda calculus using syntax machinary
 \input{stlc.tex}
+
+% Normalisation of STLC
+\input{normal.tex}
 
 % Examples of STLC
 \input{ex_stlc.tex}
 
 % Notes on statics and dynamics of STLC
 
+% History and implications of curry howard
+\input{curry.tex}
+
+% STLC with sums, 0, and N
+\input{stlc_extra.tex}
+
+% Dependent type theory
+\input{deptypes.tex}
 
 % Category theory
 \input{cat.tex}
@@ -158,6 +160,11 @@
 
 % Notes from mikes talk, should really be integrated into the rest of the thesis
 \input{semantics.tex}
+
+\newpage
+\begin{appendices}
+	\input{rules_stlc.tex}
+\end{appendices}
 
 \bibliographystyle{plain} 
 \bibliography{uthesis}

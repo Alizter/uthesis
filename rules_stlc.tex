@@ -1,0 +1,272 @@
+\section{Simply typed lambda calculus $\lambda_{\to \times}$}
+
+This is the full-presentation of the simply typed lambda calculus $\lambda_{\to \times}$. It has function types, product types and a unit type.
+
+\subsection{Syntax}
+
+\begin{center}
+        \begin{tabular}{|c|c|c|c|c|c|c|}
+        \hline Op & Sort & Vars & Type args & Term args & Scoping & Syntax \\
+        \hline $\to$           & \ty &  --- & $A,B$ &  ---  &  ---  & $A \to B$            \\
+        \hline $\times$        & \ty &  --- & $A,B$ &  ---  &  ---  & $A \times B$         \\
+        \hline $(-,-)$         & \tm &  --- &  ---  & $x,y$ &  ---  & $(x,y)$              \\
+        \hline $\lambda$       & \tm &  $x$ & $A,B$ &  ---  &  $M$  & $\lambda (x : A).M$  \\
+        \hline $\mathrm{App}$  & \tm &  --- & $A,B$ &  ---  & $M,N$ & $M N$ \\
+        \hline
+    \end{tabular}
+\end{center}
+
+\subsection{Judgements}
+
+\begin{center}
+    \begin{tabular}{|l|l|}
+        \hline Judgement & Meaning \\
+        \hline $\Gamma \vdash A\ \mathsf{type}$          & $A$ is a type in context $\Gamma$. \\
+        \hline $\Gamma \vdash T \Leftarrow A$            & $T$ can be checked to have type $A$ in context $\Gamma$. \\
+        \hline $\Gamma \vdash T \Rightarrow A$           & $T$ synthesises the type $A$ in context $\Gamma$. \\
+        \hline $\Gamma \vdash A \equiv B\ \mathsf{type}$ & $A$ and $B$ are jdugementally equal types in context $\Gamma$. \\
+        \hline $\Gamma \vdash S \equiv T : A$            & $S$ and $T$ are judgementally equal terms of type $A$ in context $\Gamma$. \\
+        \hline
+    \end{tabular}
+\end{center}
+
+\subsection{Structural rules}
+
+% Variable rule
+\begin{center}
+    \AxiomC{$(x:A) \in \Gamma$}
+    \RightLabel{(var)}
+    \UnaryInfC{$\Gamma \vdash x \Rightarrow A$}
+    \DisplayProof
+        \hskip 1.5em
+% Switch rule
+    \AxiomC{$\Gamma \vdash t \Rightarrow A$}
+    \AxiomC{$\Gamma \vdash A \equiv B \ \mathsf{type}$}
+    \RightLabel{(switch)}
+    \BinaryInfC{$\Gamma \vdash t \Leftarrow B$}
+    \DisplayProof
+\end{center}
+
+[[TODO: Include admissible rules?]]
+
+\subsection{Equality rules}
+
+% Reflexivity of judgemental equality of types
+\begin{prooftree}
+    \AxiomC{$\Gamma \vdash A \ \mathsf{type}$}
+    \RightLabel{($\equiv_{\mathsf{type}}$-refl)}
+    \UnaryInfC{$\Gamma \vdash A \equiv A\ \mathsf{type}$}
+    \DisplayProof
+        \hskip 1.5em
+% Symmetry of judgemental equality of types
+    \AxiomC{$\Gamma \vdash A \equiv B \ \mathsf{type}$}
+    \RightLabel{($\equiv_{\mathsf{type}}$-symm)}
+    \UnaryInfC{$\Gamma \vdash B \equiv A \ \mathsf{type}$}
+    \DisplayProof
+\end{prooftree}
+
+% Transitivity of judgemental equality of types
+\begin{prooftree}
+    \AxiomC{$\Gamma \vdash B \ \mathsf{type}$}
+    \AxiomC{$\Gamma \vdash A \equiv B\ \mathsf{type}$}
+    \AxiomC{$\Gamma \vdash B \equiv C\ \mathsf{type}$}
+    \RightLabel{($\equiv_\mathsf{type}$-tran)}
+    \TrinaryInfC{$\Gamma \vdash A \equiv C\ \mathsf{type}$}
+\end{prooftree}
+
+% Reflexivity of judgemental equality of terms
+\begin{prooftree}
+    \AxiomC{$\Gamma \vdash t \Leftarrow A$}
+    \RightLabel{($\equiv_{\mathsf{term}}$-refl)}
+    \UnaryInfC{$\Gamma \vdash t \equiv t : A$}
+    \DisplayProof
+        \hskip 1.5em
+% Symmetry of judgemental equality of terms
+    \AxiomC{$\Gamma \vdash s \equiv t : A$}
+    \RightLabel{($\equiv_{\mathsf{term}}$-symm)}
+    \UnaryInfC{$\Gamma \vdash t \equiv s : A$}
+    \DisplayProof
+\end{prooftree}
+
+% Transitivity of judgemental equality of terms
+\begin{prooftree}
+    \AxiomC{$\Gamma \vdash t \Leftarrow A $}
+    \AxiomC{$\Gamma \vdash s \equiv t : A$}
+    \AxiomC{$\Gamma \vdash t \equiv r : A$}
+    \RightLabel{($\equiv_{\mathsf{term}}$-tran)}
+    \TrinaryInfC{$\Gamma \vdash s \equiv r : A$}
+\end{prooftree}
+
+% judgemental equality of types - judgemental equality of terms - congruence
+\begin{prooftree}
+    \AxiomC{$\Gamma \vdash A \ \mathsf{type}$}
+    \AxiomC{$\Gamma \vdash s \equiv t : A$}
+    \AxiomC{$\Gamma \vdash A \equiv B\ \mathsf{type}$}
+    \RightLabel{($\equiv_{\mathsf{term}}$-$\equiv_{\mathsf{type}}$-cong)}
+    \TrinaryInfC{$\Gamma \vdash s \equiv t : B$}
+\end{prooftree}
+
+\subsection{Function type}
+
+% -> formation
+\begin{center}
+    \AxiomC{$\Gamma \vdash A\ \mathsf{type}$}
+    \AxiomC{$\Gamma \vdash B\ \mathsf{type}$}
+    \RightLabel{($\to$-form)}
+    \BinaryInfC{$\Gamma \vdash A \to B \ \mathsf{type}$}
+    \DisplayProof
+        \hskip 1.5em
+% -> introduction
+    \AxiomC{$\Gamma , x : A\vdash M \Leftarrow B$}
+    \RightLabel{($\to$-intro)}
+    \UnaryInfC{$\Gamma \vdash \lambda x . M \Rightarrow A \to B$}
+    \DisplayProof
+\end{center}
+
+% -> elimination
+\begin{prooftree}
+    \AxiomC{$\Gamma \vdash M \Leftarrow A \to B$}
+    \AxiomC{$\Gamma \vdash N \Leftarrow A$}
+    \RightLabel{($\to$-elim)}
+    \BinaryInfC{$\Gamma \vdash M N \Rightarrow B$}
+\end{prooftree}
+
+% -> beta
+\begin{center}
+    \AxiomC{$\Gamma , x : A \vdash y \Leftarrow B$}
+    \AxiomC{$\Gamma \vdash t \Leftarrow A$}
+    \RightLabel{($\to$-$\beta$)}
+    \BinaryInfC{$\Gamma \vdash (\lambda x . y) t \equiv y[t / x] : B$}
+    \DisplayProof
+        \hskip 1.5em
+% -> eta
+    \AxiomC{$\Gamma , y : A \vdash M y \equiv M' y : B$}
+    \RightLabel{($\to$-$\eta$)}
+    \UnaryInfC{$\Gamma \vdash M \equiv M' : A \to B$}
+    \DisplayProof
+\end{center}
+
+% -> formation congruence
+\begin{prooftree}
+    \AxiomC{$\Gamma \vdash A \equiv A' \ \mathsf{type}$}
+    \AxiomC{$\Gamma \vdash B \equiv B' \ \mathsf{type}$}
+    \RightLabel{($\to$-$\equiv_{\mathsf{type}}$-cong)}
+    \BinaryInfC{$\Gamma \vdash A \to B \equiv A' \to B' \ \mathsf{type}$}
+\end{prooftree}
+
+% -> introduction congruence
+\begin{prooftree}
+    \AxiomC{$\Gamma , x : A \vdash M \equiv M' : B$}
+    \RightLabel{($\to$-$\equiv_{\mathsf{term}}$-cong)}
+    \UnaryInfC{$\Gamma \vdash \lambda x . M \equiv \lambda x . M' : A \to B$}
+\end{prooftree}
+
+% -> elimination congruence
+\begin{prooftree}
+    \AxiomC{$\Gamma \vdash M \equiv M' : A \to B$}
+    \AxiomC{$\Gamma \vdash N \equiv N' : A$}
+    \RightLabel{($\to$-elim-cong)}
+    \BinaryInfC{$\Gamma \vdash M N \equiv M' N' : A \to B$}
+\end{prooftree}
+
+\subsection{Product type}
+
+% x introduction
+\begin{prooftree}
+    \AxiomC{$\Gamma \vdash A \ \mathsf{type}$}
+    \AxiomC{$\Gamma \vdash B \ \mathsf{type}$}
+    \RightLabel{($\times$-form)}
+    \BinaryInfC{$\Gamma \vdash A \times B \ \mathsf{type}$}
+    \DisplayProof
+% x formation
+    \AxiomC{$\Gamma \vdash a \Leftarrow A$}
+    \AxiomC{$\Gamma \vdash b \Leftarrow B$}
+    \RightLabel{($\times$-intro)}
+    \BinaryInfC{$\Gamma \vdash (a, b) \Rightarrow A \times B$}
+    \DisplayProof
+\end{prooftree}
+
+
+
+% x eliminators
+\begin{center}
+    \AxiomC{$\Gamma \vdash t \Leftarrow A \times B$}
+    \RightLabel{($\times$-elim${}_1$)}
+    \UnaryInfC{$\Gamma \vdash \fst(t) \Rightarrow A$}        
+    \DisplayProof
+        \hskip 1.5em
+    \AxiomC{$\Gamma \vdash t \Leftarrow A \times B$}
+    \RightLabel{($\times$-elim${}_2$)}
+    \UnaryInfC{$\Gamma \vdash \snd(t) \Rightarrow B$}
+    \DisplayProof
+\end{center}
+
+% x betas
+\begin{center}
+    \AxiomC{$\Gamma \vdash x \Leftarrow A$}
+    \AxiomC{$\Gamma \vdash y \Leftarrow B$}
+    \RightLabel{($\times$-$\beta_1$)}
+    \BinaryInfC{$\Gamma \vdash \fst(x,y)\equiv x : A$}
+    \DisplayProof
+        \hskip 1.5em
+    \AxiomC{$\Gamma \vdash x \Leftarrow A$}
+    \AxiomC{$\Gamma \vdash y \Leftarrow B$}
+    \RightLabel{($\times$-$\beta_2$)}
+    \BinaryInfC{$\Gamma \vdash \snd(x,y)\equiv y : B$}
+    \DisplayProof
+\end{center}
+
+% x eta
+\begin{prooftree}
+    \AxiomC{$\Gamma \vdash \fst(t) \equiv \fst(t') : A$}
+    \AxiomC{$\Gamma \vdash \snd(t) \equiv \snd(t') : B$}
+    \RightLabel{($\times$-$\eta$)}
+    \BinaryInfC{$\Gamma \vdash t \equiv t' : A \times B$}
+\end{prooftree}
+
+% x form cong
+\begin{prooftree}
+    \AxiomC{$\Gamma \vdash A \equiv A' \ \mathsf{type}$}
+    \AxiomC{$\Gamma \vdash B \equiv B' \ \mathsf{type}$}
+    \RightLabel{($\times$-$\equiv_{\mathsf{type}}$-cong)}
+    \BinaryInfC{$\Gamma \vdash A \times B \equiv A' \times B' \ \mathsf{type}$}
+\end{prooftree}
+
+% x intro cong
+\begin{prooftree}
+    \AxiomC{$\Gamma \vdash a \equiv a' : A$}
+    \AxiomC{$\Gamma \vdash b \equiv b' : B$}
+    \RightLabel{($\times$-$\equiv_{\mathsf{term}}$-cong)}
+    \BinaryInfC{$\Gamma \vdash (a,b) \equiv (a',b') : A \times B$}
+\end{prooftree}
+
+% x elim1 cong
+\begin{prooftree}
+    \AxiomC{$\Gamma \vdash t \equiv t' : A \times B$}
+    \RightLabel{($\times$-elim${}_1$-cong)}
+    \UnaryInfC{$\Gamma \vdash \fst(t) \equiv \fst(t') : A$}
+\end{prooftree}
+
+% x elim2 cong
+\begin{prooftree}
+    \AxiomC{$\Gamma \vdash t \equiv t' : A \times B$}
+    \RightLabel{($\times$-elim${}_2$-cong)}
+    \UnaryInfC{$\Gamma \vdash \snd(t) \equiv \snd(t') : B$}
+\end{prooftree}
+
+\subsection{Unit type}
+
+% Unit formation
+\begin{center}
+    \AxiomC{}
+    \RightLabel{($\mathbf{1}$-form)}
+    \UnaryInfC{$\mathbf{1}\ \mathsf{type}$}
+    \DisplayProof
+        \hskip 1.5em
+% Unit introduction
+    \AxiomC{}
+    \RightLabel{($\mathbf{1}$-intro)}
+    \UnaryInfC{$\Gamma \vdash * \Rightarrow \mathbf{1}$}
+    \DisplayProof
+\end{center}
+

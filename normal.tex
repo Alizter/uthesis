@@ -1,0 +1,155 @@
+\section{Normalisation of STLC}
+
+\subsection{Introduction}
+We now wish to analyse the computational power of our type theory. When designing the type checking algorithm we made a point not to invoke any computational rules, since this will give us a decidable type checking algorithm. We now wish to show that successive applications of mode-switching, betas and eta will always terminate and to the same term, this will be known as the \emph{normal form}. The theorem is known as the Church-Rosser theorem [[CITE]]. This is a subtle property of the type theory and is determined by the computational rules we have added. Further addition of term constructors and type formers should leave this property untouched.
+
+Our proof will follow the proof in \cite[p. 67]{Sorensen:2006:LCI:1197021} albeit with modifications to make it work here. 
+
+\subsection{Relations and transition systems}
+
+% Compatible relation
+First we define what we mean by a binary relation being \emph{compatible} with the syntax of the STLC.
+\begin{defin}
+    A binary relation $\succ$ on $\mathrm{Term}$ the set of all terms, is said to be \emph{compatible with the syntax of STLC} (or just simply \emph{compatible}) if the following conditions hold:
+    \begin{enumerate}
+        \item If $M \succ N$ then $\lambda x . M \succ \lambda x . N$.
+        \item If $M \succ N$ then $M Z \succ N Z$.
+        \item If $M \succ N$ then $Z M \succ Z N$.
+        \item If $M \succ N$ then $(Z,M) \succ (Z,N)$.
+        \item If $M \succ N$ then $(M, Z) \succ (N, Z)$.
+    \end{enumerate}
+\end{defin}
+
+\begin{remark}
+    The notion of compatiblility allows us to make sure a relation also considers subterms. This is a tricky thing to get right but due to our focus on the correct structure of syntax we are fine.
+\end{remark}
+
+\begin{remark}
+[[CLEAN THIS UP]]
+    The reader may ask what relations have to do with normalisation, but it is a formalism that we have chosen. This is definitely not the only way to prove properties like Church-Rosser. The main reason we have chosen this method is for its simplicitly. Infact earlier we discussed the dynamics of languages, this is exactly that. There are many ways to go about dynamics including transition systems and equational dynamics. Our approach corresponds to the more classical and simple transition systems approach. It can be shown that this is equivalent to equational dynamics which we will do soon.
+\end{remark}
+
+% Transitive and reflexive closure
+\begin{defin}
+    Given a relation $\succ$ on a set $X$, we denote by $\succ^+$ the \emph{transitive closure} of $\succ$. This is the smallest relation which coincides with $\succ$ and is transitive. We also consider the \emph{reflexive closure} $\succ^*$ of $\succ$ which is simply the relation $\Delta(X)\cup \succ $ where $\Delta(X)$ is the image of the diagonal function $x \mapsto (x,x)$. (We've simply added that $x \succ^* x$
+\end{defin}
+
+\begin{remark}
+    Transitive closures correspond to chains of the relation, and reflexive closures allow for chains of length $0$. Note also that transitive and reflexive closures are compatible and we can have relations closed under both. It should also be noted that we took the \emph{union} of a relation. This is a well-defined notion and can easily be seen to be a relation.
+\end{remark}
+
+Let $\to$ be a binary relation on a set $A$, $\twoheadrightarrow^+$ be its transitive closure and $\twoheadrightarrow$ be its transitive and reflexive closure.
+
+Now we define (very generally) what it means for an element of a set to be in \emph{normal form} and \emph{normalising} with respect to some relation.
+
+\begin{defin}
+    An element $a \in A$ is said to be of \emph{normal form} if $\forall b \in A$, $a {\not \to} b$.
+\end{defin}
+
+\begin{defin}
+    An element $a \in A$ is said to be \emph{normalising} (or \emph{weakly normalising}) if there is a reduction sequence $a \to a_1 \to a_2 \to \cdots \to a_n$ where $a_n$ is in normal form, for some $n$.
+\end{defin}
+
+\begin{remark}
+    Note that not every reduction sequence is garanteed to be finite.
+\end{remark}
+
+We discuss what it means for a relation to be Church-Rosser:
+
+% Church-Rosser
+\begin{defin}
+    A relation $\to$ has the \emph{Church-Rosser} (CR) property if and only if for all $a,b,c \in A$ such that $a \twoheadrightarrow b$ and $a \twoheadrightarrow c$, there exists $d \in A$ with $b \twoheadrightarrow d$ and $c \twoheadrightarrow d$.
+\end{defin}
+
+\begin{remark}
+    This says no matter what path we take along a relation, there will always be elements at which the paths cross.
+\end{remark}
+
+We will also need a slightly weaker version called weak Church-Rosser, for reasons we will see later:
+
+% weak Church-Rosser
+\begin{defin}
+    A relation $\to$ has the \emph{weak Church-Rosser} (WCR) property if and only if for all $a, b, c \in A$ such that $a \to b$ and $a \to c$, there exists $d \in A$ with $b \twoheadrightarrow d$ and $c \twoheadrightarrow d$.
+\end{defin}
+
+We now state the obvious:
+
+\begin{cor}\label{cr_is_wcr}
+    If $\to$ is CR then $\to$ is WCR.
+\end{cor}
+
+The converse to this is in general \emph{false} but it is true when another condition holds, namely that $\to$ is \emph{strongly normalising}.
+
+\begin{defin}
+    A binary relation $\to$ is \emph{strongly normalising} (SN) if and only if there is no infinite sequence $a_0 \to a_1 \to a_2 \to  \cdots$.
+\end{defin}
+
+\begin{remark}
+    In other words, a relation $\to$ is SN if and only if \emph{every} sequence $a_0 \to a_1 \to a_2 \to  \cdots$ terminates after a finite number of steps.
+\end{remark}
+
+\begin{cor}
+    If a relation $\to$ is SN then every term is normalising.
+\end{cor}
+
+We now state a lemma which will be very useful. It is a sufficient condition for the converse of Corollary \ref{cr_is_wcr} to hold.
+
+\begin{lemma}[Newman's Lemma]
+    If $\to$ is SN and WCR then it is CR.
+\end{lemma}
+
+\begin{proof}
+    Since $\to$ is SN, any $a \in A$ has a normal form. Call an element \emph{ambiguous} if $a$ reduces to two distinct normal forms. Clearly $\to$ is CR if there are no ambiguous elements of $A$.
+    For any ambiguous $a$ there is another ambiguous $a'$ where $a \to a'$.
+    Suppose $a \twoheadrightarrow b_1$ and $a \twoheadrightarrow b_2$ where $b_1$ and $b_2$ are two different normal forms. Both reductions must make at least 1 step so we have $a \twoheadrightarrow^+ b_1$ and $a \twoheadrightarrow^+ b_2$. Thus both reductions can be written as $a \to a_1 \twoheadrightarrow b_1$ and $a \to a_2 \twoheadrightarrow b_2$.
+    Suppose 
+\end{proof}
+
+\subsection{Normalisation}
+
+Now we define what we mean by $\beta$-reduction and $\beta$-normal form.
+
+\begin{defin}
+    We define \emph{$\beta$-reduction} to be the least compatible relation $\to_{\beta}$ on $\mathrm{Term}$ satisfying the following conditions:
+    \begin{enumerate}
+        \item $(\lambda x . y)t \to_{\beta} y [t / x]$
+        \item $\fst(x,y) \to_{\beta} x$
+        \item $\snd(x,y) \to_{\beta} y$
+    \end{enumerate}
+    A term on the left hand side of any of the above is called a \emph{$\beta$-redex} (reducible expression) and the right hand sides are said to \emph{arise by contracting the redex}.
+\end{defin}
+
+\begin{remark}
+    Observe that these are very similar to our $\beta$ rules, in fact they are exactly those. So the question may arise: why haven't we defined $\beta$-reduction using the rules that we already have? The answer is that we could but we would have a much harder time, the rules also take into account typing information but we are explicitly not worried about that since we will show later $\beta$-reduction doesn't change a typed terms type. It is somewhat simpler and clearer to focus purely on terms. We will later justify calling this $\beta$-reduction.
+\end{remark}
+
+\begin{defin}
+    A term $M$ is said to be in \emph{$\beta$-normal form} if it is in normal form with respect to $\to_\beta$.
+\end{defin}
+
+\begin{remark}
+    That is to say a term is in $\beta$-normal form if there is no $\beta$-reduction to any other term. Or better yet, $M$ does not contain a $\beta$-redex.
+\end{remark}
+
+\begin{defin}
+    Let $\twoheadrightarrow_{\beta}$ be the transitive and symmetric closure of $\to_{\beta}$ called a \emph{multi-step $\beta$-reduction}.
+\end{defin}
+
+Now finally we can relate $\beta$-reduction to our $\beta$ computation rules.
+
+\begin{lemma}
+    Suppose $\Gamma \vdash M \Rightarrow T$, and $M \twoheadrightarrow_{\beta} N$, then $\Gamma \vdash M \equiv N : T$.
+\end{lemma}
+
+\begin{proof}
+[[TODO PROOF]]
+\end{proof}
+
+
+
+
+\subsection{Canonicity}
+
+
+
+[[These two concepts are very related, we should find some way to talk about it, including Church-Rosser]]
