@@ -100,15 +100,17 @@ We now state a lemma which will be very useful. It is a sufficient condition for
 
 \begin{proof}
     Since $\to$ is SN, any $a \in A$ has a normal form. Call an element \emph{ambiguous} if $a$ reduces to two distinct normal forms. Clearly $\to$ is CR if there are no ambiguous elements of $A$.
-    For any ambiguous $a$ there is another ambiguous $a'$ where $a \to a'$.
-    Suppose $a \twoheadrightarrow b_1$ and $a \twoheadrightarrow b_2$ where $b_1$ and $b_2$ are two different normal forms. Both reductions must make at least 1 step so we have $a \twoheadrightarrow^+ b_1$ and $a \twoheadrightarrow^+ b_2$. Thus both reductions can be written as $a \to a_1 \twoheadrightarrow b_1$ and $a \to a_2 \twoheadrightarrow b_2$.
-    Suppose 
+    Assume, for contradiction, that there is an ambiguous $a$. We will show that there is another ambiguous $a'$ where $a \to a'$.
+    Suppose we have $a \twoheadrightarrow b_1$ and $a \twoheadrightarrow b_2$ where $b_1$ and $b_2$ are two different normal forms. Both reductions must make at least one step, thus both reductions can be written as $a \to a_1 \twoheadrightarrow b_1$ and $a \to a_2 \twoheadrightarrow b_2$.
+    Suppose $a_1 = a_2$ then we can choose $a' = a_1 = a_2$. Now suppose $a_1 \neq a_2$, we know by WCR that $a_1 \twoheadrightarrow b_3$ and $a_2 \twoheadrightarrow b_3$ for some $b_3$. We can assume that $b_3$ is a normal form. Since $b_1$ and $b_2$ are distinct, $b_3$ is different from $b_1$ or $b_2$ so we can choose $a' = a_1$ or $a'=a_2$.
+    Since we can always choose an $a'$, we can repeat this process and get an infinite chain of ambiguous elements. It is clear that this contradicts SN, hence $A$ has no ambiguous elements.
 \end{proof}
 
 \subsection{Normalisation}
 
 Now we define what we mean by $\beta$-reduction and $\beta$-normal form.
 
+% Define beta-reduction
 \begin{defin}
     We define \emph{$\beta$-reduction} to be the least compatible relation $\to_{\beta}$ on $\mathrm{Term}$ satisfying the following conditions:
     \begin{enumerate}
@@ -119,10 +121,11 @@ Now we define what we mean by $\beta$-reduction and $\beta$-normal form.
     A term on the left hand side of any of the above is called a \emph{$\beta$-redex} (reducible expression) and the right hand sides are said to \emph{arise by contracting the redex}.
 \end{defin}
 
-\begin{remark}
+\begin{remark}[[Clear up wording]]
     Observe that these are very similar to our $\beta$ rules, in fact they are exactly those. So the question may arise: why haven't we defined $\beta$-reduction using the rules that we already have? The answer is that we could but we would have a much harder time, the rules also take into account typing information but we are explicitly not worried about that since we will show later $\beta$-reduction doesn't change a typed terms type. It is somewhat simpler and clearer to focus purely on terms. We will later justify calling this $\beta$-reduction.
 \end{remark}
 
+% Define beta normal form
 \begin{defin}
     A term $M$ is said to be in \emph{$\beta$-normal form} if it is in normal form with respect to $\to_\beta$.
 \end{defin}
@@ -131,12 +134,14 @@ Now we define what we mean by $\beta$-reduction and $\beta$-normal form.
     That is to say a term is in $\beta$-normal form if there is no $\beta$-reduction to any other term. Or better yet, $M$ does not contain a $\beta$-redex.
 \end{remark}
 
+% Define multi-step beta reductions
 \begin{defin}
-    Let $\twoheadrightarrow_{\beta}$ be the transitive and symmetric closure of $\to_{\beta}$ called a \emph{multi-step $\beta$-reduction}.
+    Let $\twoheadrightarrow_{\beta}$ be the transitive and reflexive closure of $\to_{\beta}$ called a \emph{multi-step $\beta$-reduction}.
 \end{defin}
 
 Now finally we can relate $\beta$-reduction to our $\beta$ computation rules.
 
+% Coherence lemma
 \begin{lemma}
     Suppose $\Gamma \vdash M \Rightarrow T$, and $M \twoheadrightarrow_{\beta} N$, then $\Gamma \vdash M \equiv N : T$.
 \end{lemma}
@@ -145,8 +150,92 @@ Now finally we can relate $\beta$-reduction to our $\beta$ computation rules.
 [[TODO PROOF]]
 \end{proof}
 
+\begin{remark}
+    This justifies our choice of rules, and shows that considering only terms strips away the typing information to no consequence.
+\end{remark}
 
+% Every term is beta N
+\begin{theorem}
+    Every term in the STLC is $\beta$-normalising.
+\end{theorem}
 
+\begin{proof}
+
+\end{proof}
+
+% eta
+
+%We also have eta computation rules, which we haven't included yet. But we will show that normalisation with these included will follow.
+
+% Define eta reduction
+\begin{defin}
+    
+\end{defin}
+
+% Define eta normal formal
+
+% Define multi-step eta reductions
+
+% Coherence lemma
+
+% Define beta eta reduction
+
+Now we need a small technical lemma that will show the utility of being SN.
+
+% Infinite beta-eta implies infinite beta
+\begin{lemma}
+    If there is an infinite $\beta \eta$-reduction sequence starting from $M$, then there is an infinite $\beta$-reduction sequence starting from $M$.
+\end{lemma}
+
+\begin{proof}
+    [[TODO]]
+\end{proof}
+
+We are interested in the contrapositive form of this lemma:
+
+\begin{cor}
+    If there is no infinite $\beta$-reduction sequence starting from $M$, then there is no infinite $\beta \eta$-reduction sequence starting from $M$.
+\end{cor}
+
+\begin{remark}
+    In particular this means that $\to_{\beta}$ being SN implies that $\to_{\beta \eta}$ is SN.
+\end{remark}
+
+% Every term is beta SN
+\begin{theorem}
+    $\beta$-reduction is strongly normalising.
+\end{theorem}
+
+\begin{proof}
+    [[TODO]]
+\end{proof}
+
+% beta eta reduction is SN
+\begin{cor}
+    $\beta \eta$-reduction is strongly normalising.
+\end{cor}
+
+% beta eta reduction is WCR
+\begin{lemma}
+    $\beta \eta$-reduction is WCR.
+\end{lemma}
+
+\begin{proof}
+    [[TODO]]
+\end{proof}
+
+% Church-Rosser
+\begin{theorem}
+    The Church-Rosser property holds for $\beta \eta$-reduction.
+\end{theorem}
+
+\begin{proof}
+    [[TODO]]
+\end{proof}
+
+\begin{remark}
+    So not only does every well-typed term have a normal-form, but it is in fact unique!
+\end{remark}
 
 \subsection{Canonicity}
 
