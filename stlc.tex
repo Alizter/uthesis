@@ -9,7 +9,7 @@
 \section{Simply typed lambda calculus} 
 
 
-First develop the features needed. Discuss the arbitrary nature of such features, then use Curry-Howard as motivation for ``the language that ought to be''. Develop STLC, discuss in detail the implications, give categorical semantics. Discuss breifly the dynamics of simply typed lambda calculus. A big disadvantage of STLC over the untyped version (which we ought to discuss since we have the tools to) is that there is no recursion. There are many ways to fix this, see G\"odel for example. In order to fix this we will introduce dependent types.
+First develop the features needed. Discuss the arbitrary nature of such features, then use Curry-Howard as motivation for ``the language that ought to be''. Develop STLC, discuss in detail the implications, give categorical semantics. Discuss briefly the dynamics of simply typed lambda calculus. A big disadvantage of STLC over the untyped version (which we ought to discuss since we have the tools to) is that there is no recursion. There are many ways to fix this, see G\"odel for example. In order to fix this we will introduce dependent types.
 
 We begin by discussing the syntax of our type theory. We will start by specifying the sorts $\mathcal{S}$ of our type theory.
 
@@ -17,7 +17,7 @@ We begin by discussing the syntax of our type theory. We will start by specifyin
     The sorts of simply typed lambda calculus are terms and types $\mathcal{S} := \{ \tm , \ty\}$.
 \end{defin}
 
-We now specify the operators (with generalized arities) that we defined in definition \ref{owga}. In remark \ref{opdata} we discussed the data needed to give an operator, therefore we will present all our operators in the following table.
+We now specify the operators (with generalised arities) that we defined in definition \ref{owga}. In remark \ref{opdata} we discussed the data needed to give an operator, therefore we will present all our operators in the following table.
 
 \begin{defin}
     The operators in the syntax of simply typed lambda calculus are given by the following table:
@@ -35,7 +35,7 @@ We now specify the operators (with generalized arities) that we defined in defin
 \end{defin}
 
 \begin{remark}
-    Note that some of the syntax loses information that was put in. The application is the main example of this. In practice if we know the type of $M$ and $N$ we can deduce the type of $M N$ just from the rules we will define later. The syntax is sugared or \emph{syntactic sugar} so we do not have to write so much. If done incorrectly it could be considered an abuse of notation. It should be possible to \emph{desugar} the syntax by adding an \emph{annotated} version of an operator. For example for application instead of $M N$ we could write $\mathrm{App}_{A,B}}(M;N)$. Having this information in the syntax will be useful when we want to induct over syntax, for example when proving an intiality theorem. But in practice we will save ourselves from having to write it out.
+    Note that some of the syntax loses information that was put in. The application is the main example of this. In practice if we know the type of $M$ and $N$ we can deduce the type of $M N$ just from the rules we will define later. The syntax is sugared or \emph{syntactic sugar} so we do not have to write so much. If done incorrectly it could be considered an abuse of notation. It should be possible to \emph{desugar} the syntax by adding an \emph{annotated} version of an operator. For example for application instead of $M N$ we could write $\mathrm{App}_{A,B}}(M;N)$. Having this information in the syntax will be useful when we want to induct over syntax, for example when proving an initiality theorem. But in practice we will save ourselves from having to write it out.
 \end{remark}
 
 \begin{defin}
@@ -43,7 +43,7 @@ We now specify the operators (with generalized arities) that we defined in defin
 \end{defin}
 
 \begin{remark}
-    Note that we have no variables. This is because if we set the definition of abt up correctly we don't need any, but terms can have subterms (subtrees of the abt) which have variables. The sets $\mathrm{Term}$ and $\mathrm{Type}$ become \emph{all} the types and terms we ought to be able to write down from scratch.
+    Note that we have no variables. This is because if we set the definition of abt up correctly we don't need any, but terms can have sub-terms (sub-trees of the abt) which have variables. The sets $\mathrm{Term}$ and $\mathrm{Type}$ become \emph{all} the types and terms we ought to be able to write down from scratch.
 \end{remark}
 
 We now need to define judgements about our syntax and write down the rules to write them down. [[Make a note about substitution because afik we haven't defined it properly yet]]. 
@@ -52,7 +52,7 @@ We now need to define judgements about our syntax and write down the rules to wr
 
 
 [[TODO: Clean up this whole paragraph(s)]]
-We begin with our basic judgements. Of which there will be 5. Our STLC will have bidirectional typechecking, in that we will distinguish between the direction of type checking. There are several advantages of this and historically the two main systems called STLC are Curry's and Church's which simply differ in the direction of type checking. By having both directions and a sort of ``mode-switching rule'' we have far greater control and ease when describing type checking properties. We will also need to have a notion of \emph{judgemental equality} since we wish to do some computation. There are variations of this theme discussed in the statics chapter that allow us to have transition systems instead but we will use an equational style since transition systems can be derived from this. This also has the advantage of STLC becomming what is known as an ``equational theory''. This will be a useful feature for when we want to derrive categorical semantics. 
+We begin with our basic judgements. Of which there will be 5. Our STLC will have bidirectional type checking, in that we will distinguish between the direction of type checking. There are several advantages of this and historically the two main systems called STLC are Curry's and Church's which simply differ in the direction of type checking. By having both directions and a sort of ``mode-switching rule'' we have far greater control and ease when describing type checking properties. We will also need to have a notion of \emph{judgemental equality} since we wish to do some computation. There are variations of this theme discussed in the statics chapter that allow us to have transition systems instead but we will use an equational style since transition systems can be derived from this. This also has the advantage of STLC becoming what is known as an ``equational theory''. This will be a useful feature for when we want to derive categorical semantics. 
 
 A context is a list of basic judgements. Our basic judgements are $x : A$. [[No it is not fix this]]
 
@@ -62,16 +62,16 @@ There are 5 judgements that we have:
     \item $\Gamma \vdash A\ \mathsf{type}$ - ``$A$ is a type in context $\Gamma$''.
     \item $\Gamma \vdash T \Leftarrow A$ - ``$T$ can be checked to have type $A$ in context $\Gamma$''.
     \item $\Gamma \vdash T \Rightarrow A$ - ``$T$ synthesises the type $A$ in context $\Gamma$''.
-    \item $\Gamma \vdash A \equiv B\ \mathsf{type}$ - ``$A$ and $B$ are jdugementally equal types in context $\Gamma$''.
-    \item $\Gamma \vdash S \equiv T : A$ - ``$S$ and $T$ are judgementally equal terms of type $A$ in context $\Gamma$''.
+    \item $\Gamma \vdash A \equiv B\ \mathsf{type}$ - ``$A$ and $B$ are judgmentally equal types in context $\Gamma$''.
+    \item $\Gamma \vdash S \equiv T : A$ - ``$S$ and $T$ are judgmentally equal terms of type $A$ in context $\Gamma$''.
 \end{itemize}
 
 \subsection{Structural rules}
 
-Structural rules will dictate how our judgements interact with eachother, how different contexts can be formed and how substitution works. This is all roughly what a ``type theory'' ought to provide.
+Structural rules will dictate how our judgements interact with each other, how different contexts can be formed and how substitution works. This is all roughly what a ``type theory'' ought to provide.
 
 \begin{defin}
-    We begin with the \emph{variable} rule, this says that if a term $x$ appears with a type $A$ as an element in a context $\Gamma$ then $x$ synthesises a type $A$ in context $\Gamma$. Or written more succiently as:
+    We begin with the \emph{variable} rule, this says that if a term $x$ appears with a type $A$ as an element in a context $\Gamma$ then $x$ synthesises a type $A$ in context $\Gamma$. Or written more succinctly as:
 
     % Variable rule
     \begin{prooftree}
@@ -120,7 +120,7 @@ Other structural rules: weakening, contraction and substitution are all admissib
 \end{remark}
 
 \subsection{Equality rules}
-Finally we have some structural rules for our two judgemental equality judgements. We wish for these to be an equivalence relation and that they are compatible with eachother.
+Finally we have some structural rules for our two judgemental equality judgements. We wish for these to be an equivalence relation and that they are compatible with each other.
 
 First we begin with the structural rules for the judgement form $- \equiv -\ \mathsf{type}$:
 
@@ -197,7 +197,7 @@ First we begin with the structural rules for the judgement form $- \equiv -\ \ma
 \end{defin}
 
 \subsection{Type formers}
-What we have constructed thusfar is essentially an ``empty type theory''. What we have included which other authors typcially gloss over is a clean way of constructing a typechecking algorithm: bidirectional typechecking and an account of judgemental equality. We now study what are known as type formers, typically when we wish to add a new type to a type theory we need to think about a collection of rules. These can roughly be sorted into 5 kinds of rules:
+What we have constructed thus far is essentially an ``empty type theory''. What we have included which other authors typically gloss over is a clean way of constructing a type checking algorithm: bidirectional type checking and an account of judgemental equality. We now study what are known as type formers, typically when we wish to add a new type to a type theory we need to think about a collection of rules. These can roughly be sorted into 5 kinds of rules:
 
 \begin{itemize}
     \item Formation rules - How can I construct my type?
@@ -207,7 +207,7 @@ What we have constructed thusfar is essentially an ``empty type theory''. What w
     \item Congruence rules - How do all the previous rules interact with judgemental equality
 \end{itemize}
 
-We make a note that although we will be providing all the rules, the congruence rules can be typically derrived from the others. Although we do not know exactly how to do this so we will provide them explicitly. We also note that not every type need computation rules.
+We make a note that although we will be providing all the rules, the congruence rules can be typically derived from the others. Although we do not know exactly how to do this so we will provide them explicitly. We also note that not every type need computation rules.
 
 Building on top of our ``empty type theory'' we introduce $\to$ the function type former:
 
@@ -242,7 +242,7 @@ Building on top of our ``empty type theory'' we introduce $\to$ the function typ
         \BinaryInfC{$\Gamma \vdash M N \Rightarrow B$}
     \end{prooftree}
 
-    And finally we have computation rules which tell us how to compute our terms. We will later prove results about normalisation of the lambda calculus. We start with $\beta$-reduction which tells us how applicated functions compute:
+    And finally we have computation rules which tell us how to compute our terms. We will later prove results about normalisation of the lambda calculus. We start with $\beta$-reduction which tells us how applied functions compute:
 
     % -> beta
     \begin{prooftree}
@@ -252,7 +252,7 @@ Building on top of our ``empty type theory'' we introduce $\to$ the function typ
         \BinaryInfC{$\Gamma \vdash (\lambda x . y) t \equiv y[t / x] : B$}
     \end{prooftree}
 
-    Then we introduce $\eta$-conversion which tells us if two functions applied to the same term and are judgementally equal then the functions are judgementally equal. This is ``function extensionality'' for judgemental equality.
+    Then we introduce $\eta$-conversion which tells us if two functions applied to the same term and are judgmentally equal then the functions are judgmentally equal. This is ``function extensionality'' for judgemental equality.
 
     % -> eta
     \begin{prooftree}
@@ -361,7 +361,7 @@ We define the product type as follows.
 \end{defin}
 
 \begin{remark}
-    There are many other ways to present product types, the eliminators are in a sense not unique. Typically in presentations of type theory [[LIKE IN MARTIN-LOF]] an inductive principle is given. This is simply just a way to build functions out of the type, the elimination principle is stated like that. What we note is that rule is in fact admissible in the presense of our $\fst$ and $\snd$ eliminators. We also argue that the $\fst$ and $\snd$ approach more closely matches what a programmer will do with the type theory. Elimination principles in general correspond to left[[or right I need to check]] universal properties of the categorical semantic counterparts. 
+    There are many other ways to present product types, the eliminators are in a sense not unique. Typically in presentations of type theory [[LIKE IN MARTIN-LOF]] an inductive principle is given. This is simply just a way to build functions out of the type, the elimination principle is stated like that. What we note is that rule is in fact admissible in the presence of our $\fst$ and $\snd$ eliminators. We also argue that the $\fst$ and $\snd$ approach more closely matches what a programmer will do with the type theory. Elimination principles in general correspond to left[[or right I need to check]] universal properties of the categorical semantic counterparts. 
 \end{remark}
 
 \begin{remark}
@@ -407,7 +407,7 @@ We will also need to add a unit type. This will be the simplest type, with only 
 \end{remark}
 
 \subsection{Inversion lemmas}
-Having listed all these rules, we need \emph{Inversion lemmas} detailing how different judgments can \emph{only} come from a set of given judgements. This is a crucial analysis if we wish to construct a type checking algorithm. An inversion lemma for a type theory is typically very difficult to state, and extremely tedious to prove. But nontheless is essential if we want to induct over terms. These are also known as \emph{Generation lemmas} \cite{Sorensen, harper_2016}.
+Having listed all these rules, we need \emph{Inversion lemmas} detailing how different judgements can \emph{only} come from a set of given judgements. This is a crucial analysis if we wish to construct a type checking algorithm. An inversion lemma for a type theory is typically very difficult to state, and extremely tedious to prove. But nonetheless is essential if we want to induct over terms. These are also known as \emph{Generation lemmas} \cite{Sorensen, harper_2016}.
 
 Luckily we set up syntax in such a way that we only need induct over the syntax. So we pick a syntactic form and the inversion lemma will tell us exactly how we can arrive at that conclusion. Let us list all term syntax we can create in STLC. We will write them in Backus-Naur form (BNF) [CITATION] which is a common and clear way to write inductive generators:
 
@@ -431,7 +431,7 @@ Where $A, B$ are types.
     \item $(x, y)$ where $x$ and $y$ are terms.
     \item $\fst, \snd$ the eliminators of $\times$
     \item $*$ the element of $\mathbf{1}$
-    \item $\mathrm{ind}_{\mathbf{1}}$ the inductor of $\mathbf{1}$
+    \item $\mathrm{ind}_{\mathbf{1}}$ the eliminator of $\mathbf{1}$
 \end{itemize}
 
 %Probably not true if we set things up correctly

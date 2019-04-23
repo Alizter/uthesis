@@ -14,7 +14,7 @@
 
 \subsection{Categories}
 
-We begin with the notion of a category. This can be thought of as a place mathematical objects live and interact with eachother. We have the eventual goal of deriving categorical semantics for simply typed lambda calculus.
+We begin with the notion of a category. This can be thought of as a place mathematical objects live and interact with each other. We have the eventual goal of deriving categorical semantics for simply typed lambda calculus.
 
 \begin{defin}
     A \emph{category} $\mc{C}$ consists of:
@@ -58,7 +58,7 @@ Choosing the direction in which our arrows point was rather arbitrary. This sugg
 \begin{defin}
     Given categories $\mc C$ and $\mc D$, a \emph{functor} $H$ from $\mc C$ to $\mc D$, written $H : \mc C \to \mc D$, consists of
     \begin{itemize}
-        \item A function $\Ob H : \Ob {\mc C} \to \Ob {\mc D}$, with notation typically abbreivated to $H$
+        \item A function $\Ob H : \Ob {\mc C} \to \Ob {\mc D}$, with notation typically abbreviated to $H$
         \item For each $X, Y \in \Ob{\mc C}$ a function $H_{X,Y} : \mc C(X, Y) \to \mc D(HX,HY)$
     \end{itemize}
     Such that the following diagrams commute in the category $\Set$:
@@ -121,7 +121,7 @@ The definition of having a right adjoint is very similar, in fact it is a specia
 \end{defin}
 
 \begin{defin}
-    These definitions are very minimalistic, in that there are not that many conditions to check. The notation we have used is very suggestive, for example greek letters 
+    These definitions are very minimalistic, in that there are not that many conditions to check. The notation we have used is very suggestive, for example Greek letters 
 \end{defin}
 
 \subsection{Products, Terminal objects and Cartesian closedness}
@@ -221,19 +221,19 @@ Size is a common issue in category theory with many similar ways of dealing with
 
 Here we list a few properties a given functor may possess. We mostly include them here for reference and it will not be so essential to understand what they mean.
 
-[TODO: Do we even care about essentially surjective functors? Is it something category theory ought to study? Can't we get away with fully faithful upto equivalence of categories?]
+[TODO: Do we even care about essentially surjective functors? Is it something category theory ought to study? Can't we get away with fully faithful up to equivalence of categories?]
 
 \begin{defin}
     A functor $F : \mathcal{C} \to \mathcal{D}$ is
     \begin{itemize}
         \item \textbf{full} if for each $x, y\in \mathcal{C}$, the map $\mathcal{C}(x,y)\to \mathcal{D}(F x, F y)$ is surjective;
         \item \textbf{faithful} if for each $x, y \in \mathcal{C}$. the map $\mathcal{C}(x,y) \to \mathcal{D}(F x, F y)$ is injective;
-        \item \textbf{essentially surjective} if for each object $y \in \mathcal{D}$, there exists an object $x \in \mathcal{C}$ and an isomorphism $F(x) \cong y$ in $\mathcal{D}$. ("Surjective on objects upto isomorphism").
+        \item \textbf{essentially surjective} if for each object $y \in \mathcal{D}$, there exists an object $x \in \mathcal{C}$ and an isomorphism $F(x) \cong y$ in $\mathcal{D}$. ("Surjective on objects up to isomorphism").
     \end{itemize}
 \end{defin}
 
 \begin{remark}
-    Being full or faithful are local conditions, this means that they don't hold globally. For example a functor that is full is not necesserily surjective on all morphisms and a faithful is not necesserily injective on all morphisms, this is because we know nothing of how the functor acts on objects. 
+    Being full or faithful are local conditions, this means that they don't hold globally. For example a functor that is full is not necessarily surjective on all morphisms and a faithful is not necessarily injective on all morphisms, this is because we know nothing of how the functor acts on objects. 
 \end{remark}
 
 \begin{defin}

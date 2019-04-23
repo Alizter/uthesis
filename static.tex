@@ -1,11 +1,11 @@
 \section{Statics and Dynamics}
 
-How can we in general design programming languages to assertain certain behaviours. Static and dynamic typing for instance. Different constructs and data types such as products and sums. Later we will look at a deep correspondance between programming and logic which gives us an indication of what a programming language ought to have.
+How can we in general design programming languages to ascertain certain behaviours. Static and dynamic typing for instance. Different constructs and data types such as products and sums. Later we will look at a deep correspondence between programming and logic which gives us an indication of what a programming language ought to have.
 
 Statics: Type checking
 Dynamics: Computation, equational rules, transition systems (reduction with betas and etas)
 
-We will introduce typing and think carefully about another structural rule: The exchange rule, we will see that it is inadmissible and infact not necesserily needed. Infact later when we think about dependent types we will see that it is in general "complete nonsense". HOWEVER it is essential for some models of STLC.
+We will introduce typing and think carefully about another structural rule: The exchange rule, we will see that it is inadmissible and in fact not necessarily needed. In fact later when we think about dependent types we will see that it is in general "complete nonsense". HOWEVER it is essential for some models of STLC.
 
 We will end up with STLC. But we will also show how to add sum types.
 
@@ -13,15 +13,15 @@ We will also model the semantics of such programming languages (at least the sta
 
 Later we will see that Curry-Howard is very suggestive about quantifiers, can we add these? YES!
 
-Then we can introduce our favorite dependent types. Show how useful they are for programmers and mathematicans
+Then we can introduce our favourite dependent types. Show how useful they are for programmers and mathematicians
 
-We will now try to design programming languages that can have types, types allow us to restrict what terms we can apply functions to. Something take for granted very often in mathematics and to a lesser extent in programming. Programming langauges such as C don't really type check, which means functions that should be applied can be. There are different strengths to type checking, some check at compilation (which is arguably to most sensible) but others check during run time but this means a program cannot be garanteed to be safe.
+We will now try to design programming languages that can have types, types allow us to restrict what terms we can apply functions to. Something take for granted very often in mathematics and to a lesser extent in programming. Programming languages such as C don't really type check, which means functions that should be applied can be. There are different strengths to type checking, some check at compilation (which is arguably to most sensible) but others check during run time but this means a program cannot be guaranteed to be safe.
 
 The ideas of types are very deep, so when combined with a flexibly expressible type system (dependent types) it leads to a powerful correctness tool.
 
 \subsection{Typing and Type systems}
 
-We will need to discuss the modern idea of bidirectional typechecking which has advantages over choosing a single one. This is closely related to the subtle difference between Church's lambda calculus and Curry's lambda calculus.
+We will need to discuss the modern idea of bidirectional type checking which has advantages over choosing a single one. This is closely related to the subtle difference between Church's lambda calculus and Curry's lambda calculus.
 
 
 Things to discuss:
@@ -42,7 +42,7 @@ Things to discuss:
 
 \subsection{Dynamics}
 
-Thigns to discuss:
+Things to discuss:
 
 \item Two formulations of dynamics in type theory:
 \begin{itemize}
@@ -53,8 +53,8 @@ Thigns to discuss:
 Arguably the first is more reminiscent of what a programming language ought to do, and the second is more reminiscent of what a mathematician would want.
 
 \begin{itemize}
-    \item Judgemental equality has some issues, some terms that ought to be judgementally equal are only so for particular instances but not in general. There is a discussion of \emph{semantic} equivalence to solve this issue.
-    \item Should be based off of Plotkins work on structural semantics
+    \item Judgemental equality has some issues, some terms that ought to be judgmentally equal are only so for particular instances but not in general. There is a discussion of \emph{semantic} equivalence to solve this issue.
+    \item Should be based off of Plotkin's work on structural semantics
 \end{itemize}
 
 Need a discussion of
@@ -90,7 +90,7 @@ A term is either evaluated or can be evaluated.
 
 \subsection{Run time errors}
 
-Talk about division yielding an excpetional case when divding by zero. There are two solutions:
+Talk about division yielding an exceptional case when dividing by zero. There are two solutions:
 
 \begin{enumerate}
     \item Enhance the typing systems

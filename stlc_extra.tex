@@ -1,10 +1,10 @@
 \section{Simply typed lambda calculus with products, sums and natural numbers}
 
-The Curry-Howard correspondance suggests that a programming language ought to have several features corresponding to logic. We will add some features to the STLC to make it as powerful as a propositional logic.
+The Curry-Howard correspondence suggests that a programming language ought to have several features corresponding to logic. We will add some features to the STLC to make it as powerful as a propositional logic.
 
 \subsection{Natural numbers}
 
-We add natural numbers. This will be our first example of an \emph{inductive type}. We will call the corresponding type theory $\lambda_{\to \times \NN}$ and note that it enjoys \emph{canonicity}. Meaning that not only do all terms \emph{normalise} but they normalise to a canonical form. This means if we have a function that computes a natural number, we are garanteed to get a numeral (an iterated number of sucessors to zero). If we had some rules in our type theory that broke canonicity, we may get a term that type checks as a natural number but isn't jdugementally equal to one.
+We add natural numbers. This will be our first example of an \emph{inductive type}. We will call the corresponding type theory $\lambda_{\to \times \NN}$ and note that it enjoys \emph{canonicity}. Meaning that not only do all terms \emph{normalise} but they normalise to a canonical form. This means if we have a function that computes a natural number, we are guaranteed to get a numeral (an iterated number of successors to zero). If we had some rules in our type theory that broke canonicity, we may get a term that type checks as a natural number but isn't judgmentally equal to one.
 
 \subsection{Sum types}
 
