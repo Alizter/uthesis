@@ -4,6 +4,18 @@ This is the full-presentation of the simply typed lambda calculus $\lambda_{\to 
 
 \subsection{Syntax}
 
+Written in BNF:
+
+$$
+    \mathrm{Term} ::= x \mid \lambda x . a \mid (a, b) \mid a b \mid c
+$$
+
+$$
+    \mathrm{Type} ::= \mathbf{1} \mid A \times B \mid A \to B
+$$
+
+Or listed as operators:
+
 \begin{center}
         \begin{tabular}{|c|c|c|c|c|c|c|}
         \hline Op & Sort & Vars & Type args & Term args & Scoping & Syntax \\

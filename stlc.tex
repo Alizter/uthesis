@@ -365,14 +365,14 @@ We define the product type as follows.
 \end{remark}
 
 \begin{remark}
-    Our presentation of $\eta$-reduction is also conventional. The traditional $\eta$
+    Our presentation of $\eta$-reduction is unconventional. The traditional $\eta$
     \begin{prooftree}
         \AxiomC{$\Gamma \vdash t \Leftarrow A \times B$}
         \UnaryInfC{$\Gamma \vdash (\fst(t),\snd(t))\equiv t$}
     \end{prooftree}
     Is in fact admissible by observing the following proof tree:
     [[Include admissibility tree]]
-    We choose our presentation because it more closely resembles how $\eta$ will be used in practice.
+    We choose our presentation because it more clearly display what $\eta$ really means and why it is there.
 \end{remark}
 
 We will also need to add a unit type. This will be the simplest type, with only one term.
@@ -407,9 +407,23 @@ We will also need to add a unit type. This will be the simplest type, with only 
 \end{remark}
 
 \subsection{Inversion lemmas}
-Having listed all these rules we need some lemmas detailing how different terms can \emph{only} come from a set of specified rules. This is a crucial analysis if we wish to construct a type checking algorithm. An inversion lemma for a type theory is typically very difficult to state, and extremely tedious to prove. But nontheless is essential if we want to induct over terms.
+Having listed all these rules, we need \emph{Inversion lemmas} detailing how different judgments can \emph{only} come from a set of given judgements. This is a crucial analysis if we wish to construct a type checking algorithm. An inversion lemma for a type theory is typically very difficult to state, and extremely tedious to prove. But nontheless is essential if we want to induct over terms. These are also known as \emph{Generation lemmas} \cite{Sorensen, harper_2016}.
 
-Luckily we set up syntax in such a way that we only need induct over the syntax. So we pick a syntactic form and the inversion lemma will tell us exactly how we can arrive at that conclusion. Let us list all term syntax we can create in STLC:
+Luckily we set up syntax in such a way that we only need induct over the syntax. So we pick a syntactic form and the inversion lemma will tell us exactly how we can arrive at that conclusion. Let us list all term syntax we can create in STLC. We will write them in Backus-Naur form (BNF) [CITATION] which is a common and clear way to write inductive generators:
+
+$$
+    \mathrm{Term} ::= x \mid \lambda x . a \mid (a, b) \mid a b \mid c
+$$
+
+Where $x$ is a variable, $a, b$ are terms and $c$ is a constant, in this case any of $*$, $\fst$, $\snd$. We may also list the types that we have:
+
+$$
+    \mathrm{Type} ::= A \times B \mid A \to B \mid \mathbf{1}
+$$
+
+Where $A, B$ are types.
+
+
 
 \begin{itemize}
     \item $x$ where $x$ is a variable.

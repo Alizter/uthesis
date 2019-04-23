@@ -3,7 +3,7 @@
 \subsection{Introduction}
 We now wish to analyse the computational power of our type theory. When designing the type checking algorithm we made a point not to invoke any computational rules, since this will give us a decidable type checking algorithm. We now wish to show that successive applications of mode-switching, betas and eta will always terminate and to the same term, this will be known as the \emph{normal form}. The theorem is known as the Church-Rosser theorem [[CITE]]. This is a subtle property of the type theory and is determined by the computational rules we have added. Further addition of term constructors and type formers should leave this property untouched.
 
-Our proof will follow the proof in \cite[p. 67]{Sorensen:2006:LCI:1197021} albeit with modifications to make it work here. 
+Our proof will follow the proof in \cite[p. 67]{Sorensen} albeit with modifications to make it work here. 
 
 \subsection{Relations and transition systems}
 
@@ -143,7 +143,7 @@ Now finally we can relate $\beta$-reduction to our $\beta$ computation rules.
 
 % Coherence lemma
 \begin{lemma}
-    Suppose $\Gamma \vdash M \Rightarrow T$, and $M \twoheadrightarrow_{\beta} N$, then $\Gamma \vdash M \equiv N : T$.
+    Suppose $\Gamma \vdash M \Leftarrow T$, and $M \twoheadrightarrow_{\beta} N$, then $\Gamma \vdash M \equiv N : T$.
 \end{lemma}
 
 \begin{proof}
@@ -156,10 +156,11 @@ Now finally we can relate $\beta$-reduction to our $\beta$ computation rules.
 
 % Every term is beta N
 \begin{theorem}
-    Every term in the STLC is $\beta$-normalising.
+    Every derivable term $\Gamma \vdash t \Leftarrow A$ in the STLC is $\beta$-normalising.
 \end{theorem}
 
 \begin{proof}
+    In order to prove this it suffices to give a \emph{reduction strategy}, an algorithm that will compute a normal form. There are many reduction strategies to choose [CITATION] but we will only need one.
 
 \end{proof}
 
@@ -169,12 +170,25 @@ Now finally we can relate $\beta$-reduction to our $\beta$ computation rules.
 
 % Define eta reduction
 \begin{defin}
-    
+    We define \emph{$\eta$-reduction} to be the least compatible relation $\to_{\eta}$ on $\mathrm{Term}$ satisfying the following conditions:
+    \begin{enumerate}
+        \item $\lambda x . f x \to_{\eta} f$
+        \item $(\fst(t), \snd(t)) \to_{\eta} t$
+    \end{enumerate}
+    Just like for $\beta$-reduction we have the notions of \emph{$\eta$-redex} and terms that \emph{arise by contracting the redex}.
 \end{defin}
 
-% Define eta normal formal
+% Define eta normal form
+\begin{defin}
+    A term is said to be in $\eta$-normal form if it is in normal form with respect to $\to_{\eta}$.
+\end{defin}
+
 
 % Define multi-step eta reductions
+\begin{defin}
+    Let $\twoheadrightarrow_{\eta}$ be the transitive and reflexive closure of $\to_{\eta}$ called a \emph{multi-step $\eta$-reduction}.
+\end{defin}
+
 
 % Coherence lemma
 

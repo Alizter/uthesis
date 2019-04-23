@@ -8,4 +8,4 @@ Originally Martin-L\"of had added a type of all types. But this, unsuprisingly, 
 
 There are two approaches to univereses. Universes a la Russel and universes a la Tarski. The former is much simpler to state but loses unicity of typing. The latter keeps unicity of typing and corresponds closely with the semantic models, however unfortunately has many annotations and extra congruence rules. It is generally believed that the latter can be compressed into the former, and the former annotated to give the latter. [[CITE]]
 
-
+Of course we don't actually \emph{need} universes to discuss dependent types, but we will soon see that there aren't many interesting dependnet types we can write down if we have no way of letting types vary over terms. In order to do this we need to be able to write down a \emph{type family}, which is a function $F : A \to \mathcal{U}$ from a type $A$ to some universe $U$, giving us each $F(a)$ as a type, i.e. $F(a)$ varies with $a:A$.
