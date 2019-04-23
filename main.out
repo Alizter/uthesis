@@ -42,12 +42,12 @@
 \BOOKMARK [2][-]{subsection.7.8}{Owl combinator x . y . z . y \(x y\)}{section.7}% 42
 \BOOKMARK [2][-]{subsection.7.9}{Currying x . y . z . x \(y, z\)}{section.7}% 43
 \BOOKMARK [2][-]{subsection.7.10}{Swap t . \(snd\(t\), fst\(t\)\)}{section.7}% 44
-\BOOKMARK [1][-]{section.8}{Curry-Howard correspondance}{}% 45
+\BOOKMARK [1][-]{section.8}{Curry-Howard correspondence}{}% 45
 \BOOKMARK [2][-]{subsection.8.1}{Mathematical logic}{section.8}% 46
 \BOOKMARK [2][-]{subsection.8.2}{Lambda calculus}{section.8}% 47
 \BOOKMARK [2][-]{subsection.8.3}{Recursive functions}{section.8}% 48
 \BOOKMARK [2][-]{subsection.8.4}{Turing machines}{section.8}% 49
-\BOOKMARK [2][-]{subsection.8.5}{Russells paradox}{section.8}% 50
+\BOOKMARK [2][-]{subsection.8.5}{Russell's paradox}{section.8}% 50
 \BOOKMARK [2][-]{subsection.8.6}{The problem with lambda calculus as a logic}{section.8}% 51
 \BOOKMARK [2][-]{subsection.8.7}{Types to the rescue}{section.8}% 52
 \BOOKMARK [2][-]{subsection.8.8}{The theory of proof a la Gentzen}{section.8}% 53
