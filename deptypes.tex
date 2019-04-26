@@ -2,10 +2,64 @@
 
 We have seen previously that the Curry-Howard correspondence is a deep parallel between logic and computation. We therefore will use it as a guiding principle for a type theory. This was originally sketched by Curry [[CITE]] and the project taken up by Per Martin-L\"of [[CITE]]. In order to begin modifying our rules for the STLC we need to introduce the notion of a \emph{universe}.
 
-\subsection{Universes}
+\section{Universes}
 
-Originally Martin-L\"of had added a type of all types. But this, unsurprisingly, led to Russellian paradoxes. This is known as Girard's paradox. [[CITE]]. There is a simple resolution to this, which is inspired to a similar technique in set theory known as \emph{Grothendieck universes}. Though the type theory counterpart is much simpler to state. [[CITE]] Category theorists actually use such universes but usually restricted to two, small and large sets. [[CITE]]
+\subsection{Introduction}
+
+Originally Martin-L\"of had added a type of all types. But this, unsurprisingly, led to Russellian paradoxes. This is known as Girard's paradox \cite{girard1972}. There is a simple resolution to this, which is inspired to a similar technique in set theory known as \emph{Grothendieck universes}, though the type theoretic counterpart is much simpler to state \cite{2008arXiv0810.1279S}.
 
 There are two approaches to universes. Universes a la Russel and universes a la Tarski. The former is much simpler to state but loses unicity of typing. The latter keeps unicity of typing and corresponds closely with the semantic models, however unfortunately has many annotations and extra congruence rules. It is generally believed that the latter can be compressed into the former, and the former annotated to give the latter. [[CITE]]
 
 Of course we don't actually \emph{need} universes to discuss dependent types, but we will soon see that there aren't many interesting dependent types we can write down if we have no way of letting types vary over terms. In order to do this we need to be able to write down a \emph{type family}, which is a function $F : A \to \mathcal{U}$ from a type $A$ to some universe $U$, giving us each $F(a)$ as a type, i.e. $F(a)$ varies with $a:A$.
+
+\subsection{Universes a la Tarski}
+
+We add a type $\mathcal{U}$ which has terms for each type former in our type theory. Universes are a general concept which can be added to many type theories but we will restrict ourselves and add it to \stlc the simply typed lambda calculus.
+
+\begin{defin}[Universes a la Tarski]
+    For every $i \in \N$ we have a universe type:
+    
+    \begin{prooftree}
+        \AxiomC{}
+        \RightLabel{($\mathcal{U}_i$-form)}
+        \UnaryInfC{$\Gamma \vdash \mathcal{U}_i \ \mathsf{type}$}
+    \end{prooftree}
+    
+    This type has a special property in that all it's terms are types:
+    
+    \begin{prooftree}
+        \AxiomC{$\Gamma \vdash a \Leftarrow \mathcal{U}_i$}
+        \RightLabel{(Universe${}_1$)}
+        \UnaryInfC{$\Gamma \vdash \mathsf{El}_i(a) \ \mathsf{type}$}
+    \end{prooftree}
+
+    In particular there is a term $u_i$ in $\mathcal{U}_{i+1}$:
+    
+    \begin{prooftree}
+        \AxiomC{}
+        \RightLabel{(Universe${}_2$)}
+        \UnaryInfC{$\Gamma \vdash u_i : \mathcal{U}_{i+1}$}
+    \end{prooftree}
+    
+    This little universe is in fact the corresponding universe as a type:
+    
+    \begin{prooftree}
+        \AxiomC{}
+        \RightLabel{(Universe${}_3$}
+        \UnaryInfC{$\Gamma \vdash \mathsf{El}_{i+1}(u_i) \equiv \mathcal{U}_i \ \mathsf{type} $}
+    \end{prooftree}
+    
+    Now for each type former of \stlc we add an introduction rule and add some congruence rules.
+    
+\end{defin}
+
+\begin{remark}
+    It quickly turns out that we essentially double the number of rules that we have by adding universes a la Tarski since we have to have a ``mini''-version of each type, add rules for a type $\mathsf{El}$ which ensures terms are types, and finally make sure $\mathsf{El}$ is congruent with respect to the formers we gave before.
+\end{remark}
+
+\begin{remark}
+    A \emph{metalogic} is the logic in which all these formal statments take place. We have not discussed this notion much since we would like our ideas to be mostly invariant of the metalogic. For technical satisfaction suppose we are working in $\mathrm{ZFC}$ with as many inaccessible cardinals as needed. This should be sufficiently strong enough to prove what we discussing. Further discussion on the foundational issues can be attained from \cite{2008arXiv0810.1279S, 2019arXiv190407004S, 2012arXiv1211.2851K} but is ultimately irrelevant in this context.
+\end{remark}
+
+
+

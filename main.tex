@@ -95,6 +95,12 @@
 \newcommand{\fst}{\mathrm{fst}}
 \newcommand{\snd}{\mathrm{snd}}
 
+% Type theories
+\newcommand{\lc}{\lambda_{\to}}
+\newcommand{\stlc}{$\lambda_{\to \times}$}
+\newcommand{\stlct}{\lambda_{\to \times \N}}
+\newcommand{\dtt}{\lambda\Pi_{\times}}
+
 \title{Introduction to dependent type theory}
 \author{Ali Caglayan}
 
@@ -148,7 +154,7 @@
 \input{deptypes.tex}
 
 % Category theory
-\input{cat.tex}
+%\input{cat.tex}
 
 % Derive categorical semantics of STLC
 
@@ -159,11 +165,22 @@
 % Talk about dependent products, dependent sums, Martin-lofs calculi etc
 
 % Notes from mikes talk, should really be integrated into the rest of the thesis
-\input{semantics.tex}
+%\input{semantics.tex}
 
 \newpage
 \begin{appendices}
 	\input{rules_stlc.tex}
+	
+	\section{Examples}
+	
+    \begin{landscape}
+        \centering
+        \vspace*{\fill}
+        \input{ex1.tex}
+        \input{ex2.tex}
+        \vfill
+    \end{landscape}
+	
 \end{appendices}
 
 \bibliographystyle{plain} 

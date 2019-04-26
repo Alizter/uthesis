@@ -28,7 +28,7 @@
 \BOOKMARK [2][-]{subsection.5.5}{Inversion lemmas}{section.5}% 28
 \BOOKMARK [1][-]{section.6}{Normalisation of STLC}{}% 29
 \BOOKMARK [2][-]{subsection.6.1}{Introduction}{section.6}% 30
-\BOOKMARK [2][-]{subsection.6.2}{Relations and transition systems}{section.6}% 31
+\BOOKMARK [2][-]{subsection.6.2}{Properties of relations}{section.6}% 31
 \BOOKMARK [2][-]{subsection.6.3}{Normalisation}{section.6}% 32
 \BOOKMARK [2][-]{subsection.6.4}{Canonicity}{section.6}% 33
 \BOOKMARK [1][-]{section.7}{STLC Examples}{}% 34
@@ -56,25 +56,20 @@
 \BOOKMARK [2][-]{subsection.8.11}{Predicates [CHANGE] as types?}{section.8}% 56
 \BOOKMARK [2][-]{subsection.8.12}{Dependent types}{section.8}% 57
 \BOOKMARK [1][-]{section.9}{Simply typed lambda calculus with products, sums and natural numbers}{}% 58
-\BOOKMARK [2][-]{subsection.9.1}{Natural numbers}{section.9}% 59
-\BOOKMARK [2][-]{subsection.9.2}{Sum types}{section.9}% 60
-\BOOKMARK [1][-]{section.10}{Dependent types}{}% 61
-\BOOKMARK [2][-]{subsection.10.1}{Universes}{section.10}% 62
-\BOOKMARK [1][-]{section.11}{Category theory}{}% 63
+\BOOKMARK [2][-]{subsection.9.1}{Introduction}{section.9}% 59
+\BOOKMARK [2][-]{subsection.9.2}{Natural numbers}{section.9}% 60
+\BOOKMARK [2][-]{subsection.9.3}{Sum types}{section.9}% 61
+\BOOKMARK [1][-]{section.10}{Dependent types}{}% 62
+\BOOKMARK [1][-]{section.11}{Universes}{}% 63
 \BOOKMARK [2][-]{subsection.11.1}{Introduction}{section.11}% 64
-\BOOKMARK [2][-]{subsection.11.2}{Categories}{section.11}% 65
-\BOOKMARK [2][-]{subsection.11.3}{Functors}{section.11}% 66
-\BOOKMARK [2][-]{subsection.11.4}{Natural transformations}{section.11}% 67
-\BOOKMARK [2][-]{subsection.11.5}{Having a left or right adjoint}{section.11}% 68
-\BOOKMARK [2][-]{subsection.11.6}{Products, Terminal objects and Cartesian closedness}{section.11}% 69
-\BOOKMARK [2][-]{subsection.11.7}{Display object categories}{section.11}% 70
-\BOOKMARK [1][-]{section.12}{Theories and models}{}% 71
-\BOOKMARK [1][-]{section*.2}{Appendices}{}% 72
-\BOOKMARK [1][-]{Appendix.1.A}{Simply typed lambda calculus }{}% 73
-\BOOKMARK [2][-]{subsection.1.A.1}{Syntax}{Appendix.1.A}% 74
-\BOOKMARK [2][-]{subsection.1.A.2}{Judgements}{Appendix.1.A}% 75
-\BOOKMARK [2][-]{subsection.1.A.3}{Structural rules}{Appendix.1.A}% 76
-\BOOKMARK [2][-]{subsection.1.A.4}{Equality rules}{Appendix.1.A}% 77
-\BOOKMARK [2][-]{subsection.1.A.5}{Function type}{Appendix.1.A}% 78
-\BOOKMARK [2][-]{subsection.1.A.6}{Product type}{Appendix.1.A}% 79
-\BOOKMARK [2][-]{subsection.1.A.7}{Unit type}{Appendix.1.A}% 80
+\BOOKMARK [2][-]{subsection.11.2}{Universes a la Tarski}{section.11}% 65
+\BOOKMARK [1][-]{section*.2}{Appendices}{}% 66
+\BOOKMARK [1][-]{Appendix.1.A}{Simply typed lambda calculus }{}% 67
+\BOOKMARK [2][-]{subsection.1.A.1}{Syntax}{Appendix.1.A}% 68
+\BOOKMARK [2][-]{subsection.1.A.2}{Judgements}{Appendix.1.A}% 69
+\BOOKMARK [2][-]{subsection.1.A.3}{Structural rules}{Appendix.1.A}% 70
+\BOOKMARK [2][-]{subsection.1.A.4}{Equality rules}{Appendix.1.A}% 71
+\BOOKMARK [2][-]{subsection.1.A.5}{Function type}{Appendix.1.A}% 72
+\BOOKMARK [2][-]{subsection.1.A.6}{Product type}{Appendix.1.A}% 73
+\BOOKMARK [2][-]{subsection.1.A.7}{Unit type}{Appendix.1.A}% 74
+\BOOKMARK [1][-]{Appendix.1.B}{Examples}{}% 75

@@ -29,54 +29,10 @@ Note we don't have very much choice on types, so it may be useful to enrich our 
 
 \subsection{Function application $\lambda x . \lambda y . x y$}
 
+%% rewrite!!
 \begin{example}
     Here is another example of a term that type checks. Unfortunately we see the disadvantage with type-setting derivation trees: they are very difficult to write down, and get really wide very quickly.  We want to find a type $T$ such that $\Gamma \vdash \lambda x . \lambda y . x y \Leftarrow T$ is true. Here is a derivation tree: 
-        \begin{landscape}
-            \centering
-            \vspace*{\fill}
-            \begin{prooftree}
-                %\rootAtTop
-                \def\ScoreOverhang{1pt}
-                %%%
-                \AxiomC{$x : A \in \Gamma , x : A, y : C$}
-                \LeftLabel{(var)}
-                \UnaryInfC{$\Gamma , x : A, y : C \vdash x \Rightarrow A$}
-                \AxiomC{}
-                \RightLabel{$(***)$}
-                \UnaryInfC{$\Gamma , x : A, y : C \vdash C \to D \equiv A \ \mathsf{type}$}
-                    %\insertBetweenHyps{\hskip -5pt}
-                \BinaryInfC{$\Gamma , x : A, y : C \vdash x \Leftarrow C \to D$}
-                \AxiomC{}
-                \RightLabel{$(\dagger)$}
-                \UnaryInfC{$\Gamma , x : A, y : C \vdash y \Leftarrow C$}
-                \LeftLabel{($\to$-elim)}                
-                    \insertBetweenHyps{\hskip -20pt}
-                \BinaryInfC{$\Gamma , x : A, y : C \vdash x y \Rightarrow D$}
-                \AxiomC{}
-                \RightLabel{($\equiv_{\mathsf{type}}$-refl)}
-                \UnaryInfC{$\Gamma , x : A, y : C \vdash D \equiv D\ \mathsf{type}$}
-                \LeftLabel{(switch)}
-                    %\insertBetweenHyps{\hskip -10pt}
-                \BinaryInfC{$\Gamma , x : A , y : C \vdash xy \Leftarrow D$}
-                \LeftLabel{($\to$-intro)}
-                \UnaryInfC{$\Gamma , x : A \vdash \lambda y . x y \Rightarrow C \to D$}
-                \AxiomC{}
-                \RightLabel{$(**)$}
-                \UnaryInfC{$\Gamma , x : A \vdash B \equiv C \to D \ \mathsf{type}$}
-                \LeftLabel{(switch)}
-                    \insertBetweenHyps{\hskip -150pt}
-                \BinaryInfC{$ \Gamma , x : A \vdash \lambda y . xy \Leftarrow B$}
-                \LeftLabel{($\to$-intro)}
-                \UnaryInfC{$\Gamma \vdash \lambda x . \lambda y . x y \Rightarrow A \to B$}
-                \AxiomC{}
-                \RightLabel{$(*)$}
-                \UnaryInfC{$\Gamma \vdash T \equiv A \to B \ \mathsf{type}$}
-                \LeftLabel{(switch)}
-                    \insertBetweenHyps{\hskip -90pt}
-                \BinaryInfC{$\Gamma \vdash \lambda x . \lambda y . x y \Leftarrow T$}
-            \end{prooftree}
-            \vfill
-        \end{landscape}
+%%%
         
         \begin{proof}
         We begin with the judgement $\Gamma \vdash \lambda x . \lambda y . x y \Leftarrow T$, now the only way to arrive at this judgement is via the mode-switching rule. Whilst doing this we add type variables $A$ and $B$ which can easily be seen to form into $A \to B$ and let $T \equiv A \to B$. We can come back later and validate this judgement. The mode-switching should have given us $\Gamma \vdash \lambda x . \lambda y . x y \Rightarrow A \to B$ which we can only arrive at by applying the ($\to$-intro) rule. This gives us $\Gamma , x : A \vdash \lambda y . xy \Leftarrow B$. Which we have to mode-switch, and as before we take this chance to introduce type variables $C$ and $D$ in order to arrive at the judgement $\Gamma , x : A \vdash \lambda y . x y \Rightarrow C \to D$. This allows us to apply ($\to$-intro) giving us $\Gamma , x : A , y : C \vdash xy \Leftarrow D$. Now we apply the ($\to$-elim) rule since we have an application. For this we need $\Gamma , x : A, y : C \vdash y \Leftarrow C$, which is marked as $(\dagger)$, and observe that a simple application of mode-switching and the variable rule allows us to derive this judgement. The other hypothesis we need is $\Gamma , x : A, y : C \vdash x \Leftarrow C \to D$. Again by mode-switching and setting $C \to D \equiv A$ we get $\Gamma , x : A, y : C \vdash x \Rightarrow A$ which is clearly derivable by the variable rule.

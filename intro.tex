@@ -58,33 +58,48 @@ Dependent types however, are not only of interest to mathematicians but also pro
 
 \section{Introduction}
 
-Dependent types have been around for a while. [[Introduction with citation]]. The fact that they haven't been used widely in programming and mathematics suggests that their exposition is in dire need of attention. This is one of the goals this dissertation aims to achieve. We also note that for type theorists, categorical semantics can be daunting and obscure. For mathematicians, computer scientific ideas seem out of reach. 
+The goal of this dissertation is to give an introduction to the formal study of lambda calculus and in general type theory. We begin by analysing the intuitive notion of \emph{syntax}, highlighting the many subtleties associated with it. We discuss possible solutions to these issues, but ultimately remark that it is very difficult to be certain of correctness. We will however give a notion of syntax which is correct enough for our purposes.
+
+The next section is to discuss the formality of \emph{judgements}. This is a concept oft overlooked in the study of type theory. We will give a careful and detailed account of derivability and admissibility. We will also remark on inconsistencies of the treatment of certain concepts.
+
+Next we will discuss the technology of \emph{typing}. Even though it is a relatively simple idea, it has many powerful, and subtle, consequences. After a look at this static analysis, we will also discuss the dynamics of programming languages. We will later remark on common solutions to over come incorrect code and run time errors.
+
+This will lead us into studying the \emph{simply type lambda calculus} (STLC), in some ways one of the simplest (functional) programming languages. We will give syntax, judgements and rules. After which, we will prove metaproperties about our type theory and discuss the notion of \emph{type checking}.
+
+We will then analyse the dynamics of the STLC. There is a long history of normalisation results we wish to breifly sketch. We will set up some machinary to prove some of these results. Finally we will discuss notions of canonicity and what these results mean for the design of programming languages.
+
+Next there will be several examples of terms to be type checked. This will show the intricacies that go into desiging a type checker. We will see that typing makes lambda calculus much weaker, in that many terms from the untyped lambda calculus cannot be typed. It is precisely these terms which gave the computational power of the untyped lambda calculus to begin with.
+
+The next section will be a detailed account of the ideas that went in to, what is now known as the \emph{Curry-Howard} correspondance. This is a very deep package of ideas with far reaching consequences, of which we will try to make account of.
+
+We will use the knowledge gained from a study of Curry-Howard to design new types and data structures for our STLC, and turn it into a more powerful programming language, i.e. one that can support recursion. We make a note about encodings of natural numbers in the plain STLC, and why they are insufficient to really be called natural numbers.
+
+Finally we will sketch a dependent type theory with $\Pi$ and $\Sigma$ types. We will not prove any formal properties of this type theory but using our previous work we will sketch how one might go about doing so. We will take this time to introduce the workings of dependent types and discuss their advantages over other type theory features.
+
+Our closing remarks will be about future directions in type theory, questions that need to be answered and future of programming language design.
 
 
-\begin{itemize}
-\item a[Begin with history and implications of curry Howard]
 
-\item a[outline the ``what they should do'' of dependent types]
 
-\item a[start to rigoursly model syntax and talk about how bad a job most authors do]
 
-\item a[small section about classical inductive definitions]
+%We will introduce and study several type theories starting with the simply typed lambda calculus and ending with dependent type theory, with an outlook towards future work and current applications. 
 
-\item a[small section on why categorical semantics]
+%Dependent types have been around for a while. [[Introduction with citation]]. The fact that they haven't been used widely in programming and mathematics suggests that their exposition is in dire need of attention. This is one of the goals this dissertation aims to achieve. We also note that for type theorists, categorical semantics can be daunting and obscure. For mathematicians, computer scientific ideas seem out of reach. 
 
-\item a[model simply typed lambda calculus with categorical semantics]
 
-\item a[show natural extensions of the idea and why contexts break when dependnet]
-
-\item a[outline different approches to solving these problems]
-
-\item a[discuss Awodey's natural models]
-
-\item a[finally talk about future directions for type theory]
-
-\item a[maybe some mention on applications to programming (generalising various constructs, polymorphism, GA data types)]
-
-\item a[equality, inductive types, [[[[[maybe a tinsy bit of homotopy type theory]]]]]]
-\end{itemize}
+%\begin{itemize}
+%\item a[Begin with history and implications of curry Howard]
+%\item a[outline the ``what they should do'' of dependent types]
+%\item a[start to rigoursly model syntax and talk about how bad a job most authors do]
+%\item a[small section about classical inductive definitions]
+%\item a[small section on why categorical semantics]
+%\item a[model simply typed lambda calculus with categorical semantics]
+%\item a[show natural extensions of the idea and why contexts break when dependnet]
+%\item a[outline different approches to solving these problems]
+%\item a[discuss Awodey's natural models]
+%\item a[finally talk about future directions for type theory]
+%\item a[maybe some mention on applications to programming (generalising various constructs, polymorphism, GA data types)]
+%\item a[equality, inductive types, [[[[[maybe a tinsy bit of homotopy type theory]]]]]]
+%\end{itemize}
 
 

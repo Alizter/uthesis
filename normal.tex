@@ -3,9 +3,9 @@
 \subsection{Introduction}
 We now wish to analyse the computational power of our type theory. When designing the type checking algorithm we made a point not to invoke any computational rules, since this will give us a decidable type checking algorithm. We now wish to show that successive applications of mode-switching, betas and eta will always terminate and to the same term, this will be known as the \emph{normal form}. The theorem is known as the Church-Rosser theorem [[CITE]]. This is a subtle property of the type theory and is determined by the computational rules we have added. Further addition of term constructors and type formers should leave this property untouched.
 
-Our proof will follow the proof in \cite[p. 67]{Sorensen} albeit with modifications to make it work here. 
+Our proof will follow the proof in \cite[p. 67]{Sorensen} albeit with modifications to make it work here. [[TODO rewrite and add good citations]]
 
-\subsection{Relations and transition systems}
+\subsection{Properties of relations}
 
 % Compatible relation
 First we define what we mean by a binary relation being \emph{compatible} with the syntax of the STLC.
@@ -26,19 +26,39 @@ First we define what we mean by a binary relation being \emph{compatible} with t
 
 \begin{remark}
 [[CLEAN THIS UP]]
-    The reader may ask what relations have to do with normalisation, but it is a formalism that we have chosen. This is definitely not the only way to prove properties like Church-Rosser. The main reason we have chosen this method is for its simplicity. In fact earlier we discussed the dynamics of languages, this is exactly that. There are many ways to go about dynamics including transition systems and equational dynamics. Our approach corresponds to the more classical and simple transition systems approach. It can be shown that this is equivalent to equational dynamics which we will do soon.
+    The reader may ask what relations have to do with normalisation, but it is a formalism that we have chosen. This is definitely not the only way to prove properties like Church-Rosser. The main reason we have chosen this method is for its simplicity. In fact earlier we discussed the dynamics of languages, this is exactly that. There are many ways to go about dynamics including transition systems and equational dynamics. Our approach corresponds to the more classical and simple transition systems approach. It can be shown that this is equivalent to equational dynamics in that a reduction step will be justified by application of rules from STLC.
 \end{remark}
+
+We will demonstrate our last remark by considering the following relation:
+
+\begin{defin}
+    Let $\sim_{\ty}$ denote the relation amond terms of having the same type. Suppose $\Gamma \vdash s \Leftarrow S$ and $\Gamma \vdash t \Leftarrow T$, then:
+    $$
+        s \sim_{\ty} t \iff \Gamma \vdash S \equiv T \ \mathsf{type}
+    $$
+\end{defin}
+
+\begin{lemma}
+    The relation $\sim_{\ty}$ is a compatible relation.
+\end{lemma}
+
+\begin{proof}
+    Suppose $M \sim_{\ty} N$, then we have $\Gamma \vdash M \Leftarrow S$, $\Gamma \vdash N \Leftarrow T$ and $\Gamma \vdash S \equiv T \ \mathsf{type}$.
+    \begin{enumerate}
+        
+    \end{enumerate}
+\end{proof}
 
 % Transitive and reflexive closure
 \begin{defin}
-    Given a relation $\succ$ on a set $X$, we denote by $\succ^+$ the \emph{transitive closure} of $\succ$. This is the smallest relation which coincides with $\succ$ and is transitive. We also consider the \emph{reflexive closure} $\succ^*$ of $\succ$ which is simply the relation $\Delta(X)\cup \succ $ where $\Delta(X)$ is the image of the diagonal function $x \mapsto (x,x)$. (We've simply added that $x \succ^* x$
+    Given a relation $\succ$ on a set $X$, we denote by $\succ^+$ the \emph{transitive closure} of $\succ$. This is the smallest relation which coincides with $\succ$ and is transitive. We also consider the \emph{reflexive-transitive closure} $\succ^*$ of $\succ$ which is simply the relation $\Delta(X)\cup \succ^+ $ where $\Delta(X)$ is the image of the diagonal function $x \mapsto (x,x)$. (We've simply added that $x \succ^* x$)
 \end{defin}
 
 \begin{remark}
-    Transitive closures correspond to chains of the relation, and reflexive closures allow for chains of length $0$. Note also that transitive and reflexive closures are compatible and we can have relations closed under both. It should also be noted that we took the \emph{union} of a relation. This is a well-defined notion and can easily be seen to be a relation.
+    Transitive closures correspond to chains of the relation, and reflexive-transitive closures allow for chains of length $0$. It should also be noted that we took the \emph{union} of a relation. This is a well-defined notion and can easily be seen to be a relation.
 \end{remark}
 
-Let $\to$ be a binary relation on a set $A$, $\twoheadrightarrow^+$ be its transitive closure and $\twoheadrightarrow$ be its transitive and reflexive closure.
+Let $\to$ be a binary relation on a set $A$, $\twoheadrightarrow^+$ be its transitive closure and $\twoheadrightarrow$ be its reflexive-transitive closure.
 
 Now we define (very generally) what it means for an element of a set to be in \emph{normal form} and \emph{normalising} with respect to some relation.
 
@@ -47,11 +67,11 @@ Now we define (very generally) what it means for an element of a set to be in \e
 \end{defin}
 
 \begin{defin}
-    An element $a \in A$ is said to be \emph{normalising} (or \emph{weakly normalising}) if there is a reduction sequence $a \to a_1 \to a_2 \to \cdots \to a_n$ where $a_n$ is in normal form, for some $n$.
+    An element $a \in A$ is said to be \emph{normalising} (or \emph{weakly normalising}) if there is a reduction sequence $a \to a_1 \to a_2 \to \cdots \to a_n$ where $a_n$ is in normal form, for some $n$. We call $a_n$ a \emph{normal form} or \emph{reduct} of $a$.
 \end{defin}
 
 \begin{remark}
-    Note that not every reduction sequence is guaranteed to be finite.
+    Note that not every reduction sequence is guaranteed to be finite. We also note that if $\to$ a relation is Church-Rosser (to be defined below) then $a_n$ is \emph{the} normal form or reduct.
 \end{remark}
 
 We discuss what it means for a relation to be Church-Rosser:
@@ -78,6 +98,10 @@ We now state the obvious:
     If $\to$ is CR then $\to$ is WCR.
 \end{cor}
 
+\begin{proof}
+    [[TODO]]
+\end{proof}
+
 The converse to this is in general \emph{false} but it is true when another condition holds, namely that $\to$ is \emph{strongly normalising}.
 
 \begin{defin}
@@ -85,25 +109,33 @@ The converse to this is in general \emph{false} but it is true when another cond
 \end{defin}
 
 \begin{remark}
-    In other words, a relation $\to$ is SN if and only if \emph{every} sequence $a_0 \to a_1 \to a_2 \to  \cdots$ terminates after a finite number of steps.
+    In other words, a relation $\to$ is strongly normalising if and only if \emph{every} sequence $a_0 \to a_1 \to a_2 \to  \cdots$ terminates after a finite number of steps.
+\end{remark}
+
+\begin{remark}
+    We typically also say an element is strongly normalising if the condition holds for that element. This allows us to state SN in a different (and perhaps more correct) way: A relation $\to$ is strongly normalising if each element is strongly normalising with respect to $\to$. Then we can define an element to be strongly normalising if all of it's reducts are strongly normalising. The nice thing about this definition is that we have seen it before, this is precisely what it means to be a \emph{well-founded relation} from Defintion \ref{wf}. So $\to$ is strongly normalising if and only if it is well-founded. This is good because we can induct over it!
 \end{remark}
 
 \begin{cor}
-    If a relation $\to$ is SN then every term is normalising.
+    If a relation $\to$ is strongly normalising then every element is normalising.
 \end{cor}
+
+\begin{proof}
+    By induction on $\to$ we see that either an element is in normal form, or it reduces to normal form. This is precisely what it means to be normalising.
+\end{proof}
 
 We now state a lemma which will be very useful. It is a sufficient condition for the converse of Corollary \ref{cr_is_wcr} to hold.
 
 \begin{lemma}[Newman's Lemma]
-    If $\to$ is SN and WCR then it is CR.
+    If $\to$ is strongly normalising and WCR then it is CR.
 \end{lemma}
 
 \begin{proof}
-    Since $\to$ is SN, any $a \in A$ has a normal form. Call an element \emph{ambiguous} if $a$ reduces to two distinct normal forms. Clearly $\to$ is CR if there are no ambiguous elements of $A$.
+    Since $\to$ is strongly normalising, any $a \in A$ has a normal form. Call an element \emph{ambiguous} if $a$ reduces to two distinct normal forms. Clearly $\to$ is CR if there are no ambiguous elements of $A$.
     Assume, for contradiction, that there is an ambiguous $a$. We will show that there is another ambiguous $a'$ where $a \to a'$.
     Suppose we have $a \twoheadrightarrow b_1$ and $a \twoheadrightarrow b_2$ where $b_1$ and $b_2$ are two different normal forms. Both reductions must make at least one step, thus both reductions can be written as $a \to a_1 \twoheadrightarrow b_1$ and $a \to a_2 \twoheadrightarrow b_2$.
     Suppose $a_1 = a_2$ then we can choose $a' = a_1 = a_2$. Now suppose $a_1 \neq a_2$, we know by WCR that $a_1 \twoheadrightarrow b_3$ and $a_2 \twoheadrightarrow b_3$ for some $b_3$. We can assume that $b_3$ is a normal form. Since $b_1$ and $b_2$ are distinct, $b_3$ is different from $b_1$ or $b_2$ so we can choose $a' = a_1$ or $a'=a_2$.
-    Since we can always choose an $a'$, we can repeat this process and get an infinite chain of ambiguous elements. It is clear that this contradicts SN, hence $A$ has no ambiguous elements.
+    Since we can always choose an $a'$, we can repeat this process and get an infinite chain of ambiguous elements. It is clear that this contradicts strongly normalising, hence $A$ has no ambiguous elements.
 \end{proof}
 
 \subsection{Normalisation}
@@ -139,30 +171,145 @@ Now we define what we mean by $\beta$-reduction and $\beta$-normal form.
     Let $\twoheadrightarrow_{\beta}$ be the transitive and reflexive closure of $\to_{\beta}$ called a \emph{multi-step $\beta$-reduction}.
 \end{defin}
 
-Now finally we can relate $\beta$-reduction to our $\beta$ computation rules.
+% Non normalising terms
+\begin{remark}
+    Not every term is normalising. Take for example the term $\Omega=(\lambda x . x x)(\lambda x . x x)$ which cannot be typed as we will see later. There is an infinite reduction sequence:
+    $$
+        \Omega \to_{\beta} \Omega \to_{\beta} \Omega \to_{\beta} \Omega \to_{\beta} \cdots
+    $$
+    Since $\Omega$ cannot be given a type, it is deemed \emph{ill-typed}.
+\end{remark}
 
-% Coherence lemma
-\begin{lemma}
-    Suppose $\Gamma \vdash M \Leftarrow T$, and $M \twoheadrightarrow_{\beta} N$, then $\Gamma \vdash M \equiv N : T$.
+This means we have to be careful which terms we are talking about. When talking about terms of the STLC we should add that we expect them to be well-typed (derivable). We will see later there are many syntactically valid terms that are ill-typed.
+
+We want to now prove that every derivable term is $\beta$-normalising. In order to do this we need to keep track of available redexes and bound them. We will then show there is a reduction strategy that decreases this bound yielding our result.
+
+This proof is usually attributed to an unpublished note of Turing [[CITE]] but it has been rediscovered by various authors. We will follow the proof in Girard's book \cite{Girard1989}.
+
+% Degree of a type
+\begin{defin}
+    The \emph{degree $\partial(T)$ of a type $T$} is defined by:
+    \begin{itemize}
+        \item $\partial(T) := 1$ if $T$ is atomic.
+        \item $\partial(U \times V), \partial(U \to V) := \max(\partial(U), \partial(V))+1$.
+    \end{itemize}
+\end{defin}
+
+% Degree of a redex
+\begin{defin}
+    The \emph{($\beta$-)degree $\partial_{\beta}(t)$ of a redex} is defined by:
+    \begin{itemize}
+        \item $\partial_{\beta}(\fst(u,v)), \partial_{\beta}(\snd(u,v)) := \partial(U\times V)$ where $\Gamma \vdash (u, v) \Leftarrow U \times V$.
+        \item $\partial_{\beta}((\lambda x . v) u) := \partial(U \to V)$ where $\Gamma \vdash \lambda x . v \Leftarrow U \to V$.
+    \end{itemize}
+\end{defin}
+
+% Degree of a term
+\begin{defin}
+    The \emph{($\beta$-)degree $d_{\beta}(t)$ of a term} is the maximum of the degrees of its redexes:
+    $$
+        d_{\beta}(t) := \max \{\partial_{\beta} (s) \mid s \text{ is a redex in } t\}
+    $$
+\end{defin}
+
+\begin{remark}
+    A redex is associated to two degrees, one as a redex and another as a term. Since a redex $r$ may contain other redexes we have that $\partial (r) \le d(r)$. It should be noted we have defined degree to mean 3 different things here, but as long as we are careful we should not get confused.
+\end{remark}
+
+% partial T < partial r
+\begin{lemma}\label{beta_redex_ineq}
+    If $r$ is a redex of type $T$ then $\partial(T) < \partial_{\beta}(r)$. 
 \end{lemma}
 
 \begin{proof}
-[[TODO PROOF]]
+    Checking the cases for $r$:
+    \begin{itemize}
+        \item $\partial (T) < \partial_{\beta}(\fst(t, u)) = \max(\partial(T), \partial(U)) + 1$.
+        \item $\partial (T) < \partial_{\beta}(\snd(u, t)) = \max(\partial(U), \partial(T)) + 1$.
+        \item $\partial (T) < \partial_{\beta}((\lambda x . t)u) = \max(\partial(U), \partial(T)) + 1$.
+    \end{itemize}
+\end{proof}
+
+% substitution inequality
+\begin{lemma}\label{beta_sub_ineq}
+    If $\Gamma , x : T \vdash t \Leftarrow U$ then $d_{\beta}(t[u/x]) \leq \max(d_{\beta}(t), d_{\beta}(u), \partial(T))$.
+\end{lemma}
+
+\begin{proof}
+    Analysing the redexes of $t[u/x]$ we find that they fall into the following cases:
+    \begin{itemize}
+        \item They are redexes of $t$ (in which $u$ has become $x$).
+        \item They are redexes of $u$, proliferating due to each occurence of $x$ in $t$.
+        \item They are formed when $t$ is of the form $\fst(x)$, $\snd(x)$, or $x v$ for $u$ of the form $(u', u'')$, $(u', u'')$, or $\lambda y . u'$ respectively. These new redexes have degree $\partial(T)$.
+    \end{itemize}
+\end{proof}
+
+% reduction inequality
+\begin{lemma}\label{beta_reduct_ineq}
+    If $t \to_{\beta} u$ then $d_{\beta}(u) \le d_{\beta}(t)$.    
+\end{lemma}
+
+\begin{proof}
+    Consider the reduction where $u$ is obtained from $t$ by replacing the redex $r$ in $u$ by $c$. Now we consider all the redexes of $u$ where we find:
+    \begin{itemize}
+        \item redexes which were originally in $t$, but not in $r$, and have been modified by the replacement of $r$ by $c$. Observe that their degree does not change.
+        \item redexes which were originally in $c$. But $c$ is obtained by reducing $r$, or in other words a substitution in $r$. Notice $(\lambda x . s)s'$ becomes $s[s'/x]$ and Lemma \ref{beta_sub_ineq} tells us that $d_{\beta}(c) \le \max(d_{\beta}(s), d_{\beta}(s'), \partial(T))$, where $T$ is the type of $x$. But by Lemma \ref{beta_redex_ineq} we have $\partial (T) \le \partial (r)$. Applying $\max$ gives us $\max(d(s), d(s'), \partial(T)) \le \max(d_{\beta}(s), d_{\beta}(s'), \partial_{\beta}(r))$ and hence $d_{\beta}(c) \le \max(d_{\beta}(s), d_{\beta}(s'), \partial(r))=d(r)$.
+        \item redexes which come from replacing $r$ by $c$. These redexes have degree equal to $\partial(T)$ where $T$ is the type of $r$. By Lemma \ref{beta_redex_ineq} we have $\partial(T) \le \partial (r)$.
+    \end{itemize}
+\end{proof}
+
+Next we will prove a lemma bounding the number of redexes of a certain degree.
+
+% number of redexes inequality
+\begin{lemma}\label{beta_redex_number_ineq}
+    Let $r$ be a redex of maximal degree $n$ in $t$, and suppose that all redexes strictly contained in $r$ have degree less than $n$. If $u$ is obtained from $t$ by reducing $r$ to $c$. Then $u$ has strictly fewer redexes of degree $n$.
+\end{lemma}
+
+\begin{proof}
+    When the reduction happens we make the following observations:
+    \begin{itemize}
+        \item The redexes outside $r$ in $t$ remain $u$.
+        \item The redexes strictly inside $r$ are in general conserved but sometimes become more prolific. Take for example $(\lambda x . (x, x)) s \to_{\beta} (s, s)$. The number of redexes in the reduct are double that of redex on the left. However the degree of the proliferated redexes must be strictly less than $n$.
+        \item The redex $r$ is destroyed and possibly replaced by redexes of strictly smaller degree.
+    \end{itemize}
 \end{proof}
 
 \begin{remark}
-    This justifies our choice of rules, and shows that considering only terms strips away the typing information to no consequence.
+    Although not defined, we take the meaning of \emph{a redex strictly inside} to be a redex that is not the whole redex.
 \end{remark}
 
-% Every term is beta N
+We now have all the machinary needed to prove that typed terms in the STLC are weakly $\beta$-normalising.
+
+% Every term is beta normalising
 \begin{theorem}
     Every derivable term $\Gamma \vdash t \Leftarrow A$ in the STLC is $\beta$-normalising.
 \end{theorem}
 
 \begin{proof}
-    In order to prove this it suffices to give a \emph{reduction strategy}, an algorithm that will compute a normal form. There are many reduction strategies to choose [CITATION] but we will only need one.
-
+    Consider the function $\mu : \Term \to \N \times \N$ which takes $t \mapsto (n, m)$ where $n = d_{\beta}(t)$ and $m$ is the number of redexes in $t$ of degree $n$. By Lemma \ref{beta_redex_number_ineq} it is possible to choose a redex $r$ of $t$ in such a way that, after reduction of $r$ to $c$, the reduct $t'$ satisfies $\mu(t') < \mu(t)$. Thus by double induction on $n$ and $m$ it is possible to see that $\mu(t)$ can always be decreased until $t$ is normal.
 \end{proof}
+
+\begin{remark}
+    The ordering in $\mu(t') < \mu(t)$ on $\N \times \N $ is the lexicographic ordering. Meaning $(n', m') < (n, m)$ if and only if $n' < n$ or $n'=n$ and $m' < m$. (Think Alphabetical order).
+\end{remark}
+
+% Coherence lemma
+\begin{lemma}
+    Suppose $\Gamma \vdash M \Leftarrow T$ and $M \twoheadrightarrow_{\beta} N$, then $\Gamma \vdash M \equiv N : T$.
+\end{lemma}
+
+\begin{proof}
+    [[TODO]]
+\end{proof}
+\begin{comment}
+\begin{remark}
+    Observe that by ($\equiv_{\mathsf{term}}$-tran) we can show this by induction on the definition $\twoheadrightarrow_{\beta}$. Thus it is sufficient to prove that given $\Gamma \vdash M \Leftarrow T$ and $M \to_{\beta} N$, then $\Gamma \vdash M \equiv N : T$.
+\end{remark}
+
+\begin{remark}
+    This justifies our choice of rules, and shows that considering only terms strips away the typing information to no consequence.
+\end{remark}
+\end{comment}
 
 % eta
 
@@ -183,18 +330,111 @@ Now finally we can relate $\beta$-reduction to our $\beta$ computation rules.
     A term is said to be in $\eta$-normal form if it is in normal form with respect to $\to_{\eta}$.
 \end{defin}
 
-
 % Define multi-step eta reductions
 \begin{defin}
     Let $\twoheadrightarrow_{\eta}$ be the transitive and reflexive closure of $\to_{\eta}$ called a \emph{multi-step $\eta$-reduction}.
 \end{defin}
 
+We will now show that $\to_\eta$ is strongly normalising.
+
+\begin{remark}
+    Originally we had thought to modify the proof of $\beta$-normal\-isa\-tion, and make it work for $\eta$. However, this is where the difference between the two is key.
+    $\beta$-normal\-isa\-tion has the power to create new $\beta$-redexes whereas $\eta$-normalisation never does. In fact $\eta$-normalisation is strongly normalising even in the untyped lambda calculus. This suggests that talking about degrees is not the correct approach and there ought to be some other metric for which can be used to bound $\eta$-reducible terms. Based off of work in \cite{Fortune1983}, the authors of \cite[Ex. 3.21]{Sorensen} define a \emph{depth} function for terms. We belive this to be the actual depth of the underlying tree of the abstract binding tree of the syntax of the term. But that is not a relevent result for now.
+\end{remark}
+
+\begin{defin}
+    Given a term $t$ we define the \emph{depth $\mathsf{\delta(t)}$ of $t$} by induction on terms:
+    \begin{itemize}
+        \item $\delta (x):=0$ for $x$ a variable or constant.
+        \item $\delta (a b) := 1+ \max(\delta(a), \delta(b))$.
+        \item $\delta (\lambda x . y):= 1 + \delta(y)$.
+        \item $\delta ((a, b)) := 1 + \max(\delta(a), \delta(b))$.  
+    \end{itemize}
+\end{defin}
+
+% eta bounds
+\begin{lemma}\label{eta_red_bound}
+    If $t \to_{\eta} u$ then $\delta(u) < \delta(t)$.
+\end{lemma}
+
+\begin{proof}
+    Observe that since $\to_{\eta}$ is a compatible relation, we need only prove the statement for a redex. We do this by cases:
+    \begin{itemize}
+        \item
+        $$
+            \begin{aligned}
+                \delta ((\fst(s), \snd(s))) &= 1+ \max(\delta(\fst(s)), \delta(\snd(s))) \\
+                &= 1 + \max(1+ \delta(s), 1+ \delta(s)) \\
+                &= \delta(s)+ 2
+            \end{aligned}
+        $$
+        \item
+        $$
+            \begin{aligned}
+                \delta (\lambda x . s x) &= 1 + \delta(s x) \\
+                &= 2 + \max(\delta(s), \delta(x)) \\
+                &= \delta(s) + 2
+            \end{aligned}
+        $$
+    \end{itemize}
+    Observe that in both cases we have that the depth of a redex $s$ is $\delta(s) = \delta(r) + 2$ where $r$ is the reduct of $s$. However at the level of terms we cannot garantee equality due to the nature of depth and compatibility. 
+\end{proof}
+
+\begin{lemma}
+    $\eta$-reduction is strongly normalising.
+\end{lemma}
+
+\begin{proof}
+    By Lemma \ref{eta_red_bound} we have that the depth of any $\eta$-reduction sequence is strictly decreasing. Hence there may only be finitely many steps in any given $\eta$-reduction sequence.
+\end{proof}
+
+\begin{comment}
+We wish to show that $\eta$-reduction enjoys similar normalisation properties to $\beta$-reduction. This should be much easier since $\eta$-redexes are much more distinct.
+
+% eta degree of a redex
+\begin{defin}
+    The \emph{($\eta$-)degree $\partial_{\eta}(t)$ of a redex} is defined as the degree of it's type. If $\Gamma \vdash t \Leftarrow T$ then $\partial_{\eta} := \partial(T)$. This is well-defined due to unicity of typing. [[REFERENCE INVERSION LEMMA HERE]]
+\end{defin}
+
+\begin{remark}
+    Note that a property of our type theory has made the definition for $\eta$-degree much simpler. We could have defined $\eta$-degree in a similar way to $\beta$-degree but when doing so you can observe that it is redundent. This was not entirely possible in the $\beta$-reduction type because we had some ambiguity for the $\beta$ rules. For example it is not entirely clear what type $v$ is in $\snd(u,v)$, and similarly for the other $\beta$-redexes. In fact we could go a step further and completely ignore typing information since $\eta$-reduction is strongly normalising even in the untyped lambda calculus.
+\end{remark}
+
+\begin{remark}
+    It should also be noted that in most practical implementations of STLC $\eta$ rules are usually completely ignored since many computations can be run without them. The computational argument is that $\eta$ rules are tedious and difficult to implement in a compiler. It has been observed that $\eta$ rules behave particularly badly with common programming constructs such as subtyping. Later we will discuss depenent types, which is a context where $\eta$ rules cannot easily be ignored.
+\end{remark}
+
+\begin{lemma}
+    If $r$ is a redex of type $T$ then $\partial (T) < \partial_{\eta}(r)$.
+\end{lemma}
+
+\begin{proof}
+    By definition $\partial_{\eta}(r)= \max(\partial(T), \partial(U))+1$ for some types $U$ and $V$ such that $T = U \times V$ or $T = U \to V$. Hence 
+\end{proof}
+
+
+\begin{lemma}
+    $\eta$-reduction is weakly normalising.
+\end{lemma}
+
+% Eta is strongly normalising
+\begin{lemma}
+    $\eta$-reduction is strongly normalising.
+\end{lemma}
+\end{comment}
 
 % Coherence lemma
+\begin{lemma}
+    Suppose $\Gamma \vdash M \Leftarrow T$ and $M \twoheadrightarrow_{\eta} N$, then $\Gamma \vdash M \equiv N : T$.
+\end{lemma}
+
+\begin{proof}
+    Observe that in the definition of 
+\end{proof}
 
 % Define beta eta reduction
 
-Now we need a small technical lemma that will show the utility of being SN.
+Now we need a small technical lemma that will show the utility of being strongly normalising.
 
 % Infinite beta-eta implies infinite beta
 \begin{lemma}
@@ -212,10 +452,10 @@ We are interested in the contrapositive form of this lemma:
 \end{cor}
 
 \begin{remark}
-    In particular this means that $\to_{\beta}$ being SN implies that $\to_{\beta \eta}$ is SN.
+    In particular this means that $\to_{\beta}$ being strongly normalising implies that $\to_{\beta \eta}$ is strongly normalising.
 \end{remark}
 
-% Every term is beta SN
+% Every term is beta strongly normalising
 \begin{theorem}
     $\beta$-reduction is strongly normalising.
 \end{theorem}
@@ -224,7 +464,7 @@ We are interested in the contrapositive form of this lemma:
     [[TODO]]
 \end{proof}
 
-% beta eta reduction is SN
+% beta eta reduction is strongly normalising
 \begin{cor}
     $\beta \eta$-reduction is strongly normalising.
 \end{cor}
