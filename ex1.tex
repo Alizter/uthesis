@@ -1,0 +1,17 @@
+\begin{prooftree}
+    \AxiomC{$(x : A) \in \Gamma, x : A$}
+        \LeftLabel{(var)}
+        \UnaryInfC{$\Gamma , x : A\vdash x \Rightarrow A$}
+    \AxiomC{$\Gamma, x: A \vdash A \ \mathsf{type}$}
+        \RightLabel{($\equiv_{\type}$-refl)}
+        \UnaryInfC{$\Gamma , x : A \vdash A \equiv A \ \mathsf{type}$}
+            \RightLabel{(switch)}
+            \BinaryInfC{$\Gamma , x : A \vdash x \Leftarrow A$}
+                \LeftLabel{($\to$-intro)}
+                \UnaryInfC{$\Gamma \vdash \lambda x . x \Rightarrow A \to A$}
+        \AxiomC{$\Gamma \vdasj $}
+            \UnaryInfC{$\Gamma \vdash T \equiv A \to A \ \mathsf{type}$}
+                \RightLabel{(switch)}
+                \insertBetweenHyps{\hskip -90pt}
+                \BinaryInfC{$\Gamma \vdash \lambda x . x \Leftarrow T$}
+\end{prooftree}

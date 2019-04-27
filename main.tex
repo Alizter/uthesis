@@ -171,14 +171,30 @@
 \begin{appendices}
 	\input{rules_stlc.tex}
 	
-	\section{Examples}
+
 	
     \begin{landscape}
-        \centering
-        \vspace*{\fill}
-        \input{ex1.tex}
-        \input{ex2.tex}
-        \vfill
+    	\section{Examples}
+        %\centering
+        %\vspace*{\fill}
+        \subsection{Identity function}
+            \input{ex1.tex} \label{ex1}
+        \subsection{Function application $\lambda x . \lambda y . x y$}
+            \input{ex2.tex} \label{ex2}
+        \subsection{Function composition $\lambda x . \lambda y . \lambda z . x ( y z)$} % Function comp
+            \input{ex7.tex} \label{ex7}
+        
+        \subsection{Owl combinator $\lambda x . \lambda y . \lambda z . y (x y)$} % Type checks ((A->B)->A)->(A->B)->A
+        
+        \subsection{Currying $\lambda x . \lambda y . \lambda z . x (y, z)$} % Curry
+            \input{ex8.tex} \label{ex8}
+        \subsection{Uncurry}
+            \input{ex9.tex} \label{ex9}
+        
+        \subsection{Swap $\lambda t . (\snd(t), \fst(t))$}
+        
+        %\vfill
+        
     \end{landscape}
 	
 \end{appendices}

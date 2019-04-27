@@ -1,8 +1,8 @@
-\section{Simply typed lambda calculus $\lambda_{\to \times}$}
+\section{Simply typed lambda calculus $\lambda_{\to \times}$}\label{stlc_rule}
 
 This is the full-presentation of the simply typed lambda calculus $\lambda_{\to \times}$. It has function types, product types and a unit type.
 
-\subsection{Syntax}
+\subsection{Syntax}\label{stlc_syntax}
 
 Written in BNF:
 
@@ -28,7 +28,7 @@ Or listed as operators:
     \end{tabular}
 \end{center}
 
-\subsection{Judgements}
+\subsection{Judgements}\label{stlc_judgements}
 
 \begin{center}
     \begin{tabular}{|l|l|}
@@ -42,10 +42,10 @@ Or listed as operators:
     \end{tabular}
 \end{center}
 
-\subsection{Structural rules}
+\subsection{Structural rules}\label{stlc_structural}
 
 % Variable rule
-\begin{center}
+\begin{center}\label{stlc_rule_var}\label{stlc_rule_switch}
     \AxiomC{$(x:A) \in \Gamma$}
     \RightLabel{(var)}
     \UnaryInfC{$\Gamma \vdash x \Rightarrow A$}
@@ -59,12 +59,18 @@ Or listed as operators:
     \DisplayProof
 \end{center}
 
+\begin{proof}\label{stlc_rule_cswitch}
+    \AxiomC{$\Gamma \vdash t \Rightarrow A$}
+    \RightLabel{(cswitch)}
+    \BinaryInfC{$\Gamma \vdash t \Leftarrow A$}
+\end{proof}
+
 [[TODO: Include admissible rules?]]
 
-\subsection{Equality rules}
+\subsection{Equality rules}\label{stlc_eq}
 
 % Reflexivity of judgemental equality of types
-\begin{prooftree}
+\begin{prooftree}\label{stlc_rule_type_refl}\label{stlc_type_symm}
     \AxiomC{$\Gamma \vdash A \ \mathsf{type}$}
     \RightLabel{($\equiv_{\mathsf{type}}$-refl)}
     \UnaryInfC{$\Gamma \vdash A \equiv A\ \mathsf{type}$}
@@ -78,7 +84,7 @@ Or listed as operators:
 \end{prooftree}
 
 % Transitivity of judgemental equality of types
-\begin{prooftree}
+\begin{prooftree}\label{stlc_rule_type_tran}
     \AxiomC{$\Gamma \vdash B \ \mathsf{type}$}
     \AxiomC{$\Gamma \vdash A \equiv B\ \mathsf{type}$}
     \AxiomC{$\Gamma \vdash B \equiv C\ \mathsf{type}$}
@@ -87,7 +93,7 @@ Or listed as operators:
 \end{prooftree}
 
 % Reflexivity of judgemental equality of terms
-\begin{prooftree}
+\begin{prooftree}\label{stlc_rule_term_refl}\label{stlc_rule_term_symm}
     \AxiomC{$\Gamma \vdash t \Leftarrow A$}
     \RightLabel{($\equiv_{\mathsf{term}}$-refl)}
     \UnaryInfC{$\Gamma \vdash t \equiv t : A$}
@@ -101,7 +107,7 @@ Or listed as operators:
 \end{prooftree}
 
 % Transitivity of judgemental equality of terms
-\begin{prooftree}
+\begin{prooftree}\label{stlc_rule_term_tran}
     \AxiomC{$\Gamma \vdash t \Leftarrow A $}
     \AxiomC{$\Gamma \vdash s \equiv t : A$}
     \AxiomC{$\Gamma \vdash t \equiv r : A$}
@@ -110,7 +116,7 @@ Or listed as operators:
 \end{prooftree}
 
 % judgemental equality of types - judgemental equality of terms - congruence
-\begin{prooftree}
+\begin{prooftree}\label{stlc_rule_term_type_cong}
     \AxiomC{$\Gamma \vdash A \ \mathsf{type}$}
     \AxiomC{$\Gamma \vdash s \equiv t : A$}
     \AxiomC{$\Gamma \vdash A \equiv B\ \mathsf{type}$}
@@ -118,10 +124,10 @@ Or listed as operators:
     \TrinaryInfC{$\Gamma \vdash s \equiv t : B$}
 \end{prooftree}
 
-\subsection{Function type}
+\subsection{Function type}\label{stlc_rule_arrow}
 
 % -> formation
-\begin{center}
+\begin{center}\label{stlc_rule_arrow_form}\label{stlc_rule_arrow_intro}
     \AxiomC{$\Gamma \vdash A\ \mathsf{type}$}
     \AxiomC{$\Gamma \vdash B\ \mathsf{type}$}
     \RightLabel{($\to$-form)}
@@ -136,7 +142,7 @@ Or listed as operators:
 \end{center}
 
 % -> elimination
-\begin{prooftree}
+\begin{prooftree}\label{stlc_rule_arrow_elim}
     \AxiomC{$\Gamma \vdash M \Leftarrow A \to B$}
     \AxiomC{$\Gamma \vdash N \Leftarrow A$}
     \RightLabel{($\to$-elim)}
@@ -144,7 +150,7 @@ Or listed as operators:
 \end{prooftree}
 
 % -> beta
-\begin{center}
+\begin{center}\label{stlc_rule_arrow_beta}\label{stlc_rule_arrow_eta}
     \AxiomC{$\Gamma , x : A \vdash y \Leftarrow B$}
     \AxiomC{$\Gamma \vdash t \Leftarrow A$}
     \RightLabel{($\to$-$\beta$)}
@@ -159,7 +165,7 @@ Or listed as operators:
 \end{center}
 
 % -> formation congruence
-\begin{prooftree}
+\begin{prooftree}\label{stlc_rule_arrow_form_cong}
     \AxiomC{$\Gamma \vdash A \equiv A' \ \mathsf{type}$}
     \AxiomC{$\Gamma \vdash B \equiv B' \ \mathsf{type}$}
     \RightLabel{($\to$-$\equiv_{\mathsf{type}}$-cong)}
@@ -167,24 +173,24 @@ Or listed as operators:
 \end{prooftree}
 
 % -> introduction congruence
-\begin{prooftree}
+\begin{prooftree}\label{stlc_rule_arrow_intro_cong}
     \AxiomC{$\Gamma , x : A \vdash M \equiv M' : B$}
     \RightLabel{($\to$-$\equiv_{\mathsf{term}}$-cong)}
     \UnaryInfC{$\Gamma \vdash \lambda x . M \equiv \lambda x . M' : A \to B$}
 \end{prooftree}
 
 % -> elimination congruence
-\begin{prooftree}
+\begin{prooftree}\label{stlc_rule_arrow_elim_cong}
     \AxiomC{$\Gamma \vdash M \equiv M' : A \to B$}
     \AxiomC{$\Gamma \vdash N \equiv N' : A$}
     \RightLabel{($\to$-elim-cong)}
     \BinaryInfC{$\Gamma \vdash M N \equiv M' N' : A \to B$}
 \end{prooftree}
 
-\subsection{Product type}
+\subsection{Product type}\label{stlc_rule_prod}
 
 % x introduction
-\begin{prooftree}
+\begin{prooftree}\label{stlc_rule_prod_form}\label{stlc_rule_prod_intro}
     \AxiomC{$\Gamma \vdash A \ \mathsf{type}$}
     \AxiomC{$\Gamma \vdash B \ \mathsf{type}$}
     \RightLabel{($\times$-form)}
@@ -201,7 +207,7 @@ Or listed as operators:
 
 
 % x eliminators
-\begin{center}
+\begin{center}\label{stlc_rule_prod_elim}
     \AxiomC{$\Gamma \vdash t \Leftarrow A \times B$}
     \RightLabel{($\times$-elim${}_1$)}
     \UnaryInfC{$\Gamma \vdash \fst(t) \Rightarrow A$}        
@@ -214,7 +220,7 @@ Or listed as operators:
 \end{center}
 
 % x betas
-\begin{center}
+\begin{center}\label{stlc_rule_prod_beta}
     \AxiomC{$\Gamma \vdash x \Leftarrow A$}
     \AxiomC{$\Gamma \vdash y \Leftarrow B$}
     \RightLabel{($\times$-$\beta_1$)}
@@ -229,7 +235,7 @@ Or listed as operators:
 \end{center}
 
 % x eta
-\begin{prooftree}
+\begin{prooftree}\label{stlc_rule_prod_eta}
     \AxiomC{$\Gamma \vdash \fst(t) \equiv \fst(t') : A$}
     \AxiomC{$\Gamma \vdash \snd(t) \equiv \snd(t') : B$}
     \RightLabel{($\times$-$\eta$)}
@@ -237,7 +243,7 @@ Or listed as operators:
 \end{prooftree}
 
 % x form cong
-\begin{prooftree}
+\begin{prooftree}\label{stlc_rule_prod_form_cong}
     \AxiomC{$\Gamma \vdash A \equiv A' \ \mathsf{type}$}
     \AxiomC{$\Gamma \vdash B \equiv B' \ \mathsf{type}$}
     \RightLabel{($\times$-$\equiv_{\mathsf{type}}$-cong)}
@@ -245,7 +251,7 @@ Or listed as operators:
 \end{prooftree}
 
 % x intro cong
-\begin{prooftree}
+\begin{prooftree}\label{stlc_rule_prod_intro_cong}
     \AxiomC{$\Gamma \vdash a \equiv a' : A$}
     \AxiomC{$\Gamma \vdash b \equiv b' : B$}
     \RightLabel{($\times$-$\equiv_{\mathsf{term}}$-cong)}
@@ -253,23 +259,23 @@ Or listed as operators:
 \end{prooftree}
 
 % x elim1 cong
-\begin{prooftree}
+\begin{prooftree}\label{stlc_rule_prod_elim1_cong}
     \AxiomC{$\Gamma \vdash t \equiv t' : A \times B$}
     \RightLabel{($\times$-elim${}_1$-cong)}
     \UnaryInfC{$\Gamma \vdash \fst(t) \equiv \fst(t') : A$}
 \end{prooftree}
 
 % x elim2 cong
-\begin{prooftree}
+\begin{prooftree}\label{stlc_rule_prod_elim2_cong}
     \AxiomC{$\Gamma \vdash t \equiv t' : A \times B$}
     \RightLabel{($\times$-elim${}_2$-cong)}
     \UnaryInfC{$\Gamma \vdash \snd(t) \equiv \snd(t') : B$}
 \end{prooftree}
 
-\subsection{Unit type}
+\subsection{Unit type}\label{stlc_rule_unit}
 
 % Unit formation
-\begin{center}
+\begin{center}\label{stlc_rule_unit_form}\label{stlc_rule_unit_intro}
     \AxiomC{}
     \RightLabel{($\mathbf{1}$-form)}
     \UnaryInfC{$\mathbf{1}\ \mathsf{type}$}

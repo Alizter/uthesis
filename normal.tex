@@ -143,7 +143,7 @@ We now state a lemma which will be very useful. It is a sufficient condition for
 Now we define what we mean by $\beta$-reduction and $\beta$-normal form.
 
 % Define beta-reduction
-\begin{defin}
+\begin{defin}\label{beta_reduction}
     We define \emph{$\beta$-reduction} to be the least compatible relation $\to_{\beta}$ on $\mathrm{Term}$ satisfying the following conditions:
     \begin{enumerate}
         \item $(\lambda x . y)t \to_{\beta} y [t / x]$
@@ -172,7 +172,7 @@ Now we define what we mean by $\beta$-reduction and $\beta$-normal form.
 \end{defin}
 
 % Non normalising terms
-\begin{remark}
+\begin{remark}\label{beta_non_normalising_remark}
     Not every term is normalising. Take for example the term $\Omega=(\lambda x . x x)(\lambda x . x x)$ which cannot be typed as we will see later. There is an infinite reduction sequence:
     $$
         \Omega \to_{\beta} \Omega \to_{\beta} \Omega \to_{\beta} \Omega \to_{\beta} \cdots
