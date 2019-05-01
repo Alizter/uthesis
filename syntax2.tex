@@ -1,0 +1,158 @@
+\section{Syntax}
+
+% Sorts
+\begin{defin}[Sorts]
+    Let $\mathcal{S}$ be a finite set of elements called \emph{sorts}.
+\end{defin}
+
+% Arity
+\begin{defin}[Arity]
+    An \emph{arity} (or \emph{signature}) consists of the following data:
+    \begin{enumerate}
+        \setlength{\itemsep}{0pt}
+        \item A sort $s \in \mathcal{S}$.
+        \item A natural number $n$ called the \emph{argument arity}.
+        \item A natural number $m$ called the \emph{binding arity}.
+        \item A function $\soa : [n] \to \mathcal{S}$ called the \emph{sort of argument} function.
+        \item A function $\sov : [m] \to \mathcal{S}$ called the \emph{sort of variable} function.
+        \item A relation $\scope \subseteq [n] \times [m]$ called \emph{scoping}.
+    \end{enumerate}
+    We denote the set of arities by $\mathbf{A}$.
+\end{defin}
+
+\begin{remark}
+    Let $1 \le k \le n$ and $1 \le l \le m$. We say that the sort of argument $k$ is $\soa(k)$ and the sort of variable $l$ is $\sov(l)$. If $k \scope l$ then we would say that the $k$th argument is in scope of the $l$th variable.
+\end{remark}
+
+\begin{remark}
+    This is a modification to the definition given in \cite{harper_2016}. In which each argument has a set of variables. For our purposes we want all arguments to use the same variables. This is achieved with a scoping relation. Details of this idea can be found in \cite{nlab:initiality_project_-_raw_syntax}.
+\end{remark}
+
+% Operators
+\begin{defin}
+    Let $\mathcal{O}$ be a set of elements called \emph{operators}, and let $\mathrm{ArityOf} : \mathcal{O} \to \mathbf{A}$ be the function picking the \emph{arity of an operator}. The arity of an operator $o\in \mathcal{O}$ is $\mathrm{ArityOf}(o)$.
+\end{defin}
+
+% Variables
+\begin{defin}\label{variables}
+    A set of \emph{variables} is simply a set $\mathcal{X}$ and a function $\mathrm{SortOf} : \mathcal{X} \to \mathcal{S}$ choosing the sort of the variable. We write $\mathcal{X}_s$ for all the variables $x \in \mathcal{X}$ with $\mathrm{SortOf}(x) = s \in \mathcal{S}$. Observe that $\mathcal{S}$ is the inverse image of $\mathrm{SortOf}$ over $s$.
+\end{defin}
+
+\begin{remark}\label{var_order}
+    Typically a set of variables is endowed with some sort of order. They are also typically countable. We could say that every set of variables should necesserily be equipped with an injection into the natural numbers.
+\end{remark}
+
+% Fresh variables
+\begin{defin}
+    We say a set of variables $\mathcal{V}$ is \emph{fresh} for a set of variables $\mathcal{X}$ if $\mathcal{V} \cap \mathcal{X} = \varnothing$. We can then take the \emph{union} of sets of variables $\mathcal{V} \cup \mathcal{U}$ with the obvious well-defined definition of $\mathrm{SortOf}$.
+\end{defin}
+
+% Abstract binding trees
+\begin{defin}
+    The set of \emph{abstract binding trees} (\emph{abts}) of \emph{sort} $s\in \mathcal{S}$ on a set of variables $\mathcal{X}$, is the least set $\mathcal{B}[\mathcal{X}]_s$ satisfying the following conditions:
+    \begin{enumerate}
+        \item If $x \in \mathcal{X}_s$ then $x \in \mathcal{B}[\mathcal{X}]_s$.
+        \item Let $\mathtt{G}$ be an operator of sort $s$, argument arity $n$, binding arity $m$. Let $\mathcal{V} := \{v_1, \dots , v_m \}$ be a finite set of $m$ variables fresh for $\mathcal{X}$. For $1 \le j \le n$, let $\mathcal{Y}_j := \{ v_k \in \mathcal{V} \mid j \scope k\}$ be the set of variables that the $j$th argument is in scope of. Now suppose for each $1 \le j \le n$, there are $M_j \in \mathcal{B}[\mathcal{X} \cup \mathcal{Y}_j]_{\soa(j)}$. Then $\mathtt{G}(\mathcal{V}; M_1, \dots M_n) \in \mathcal{B}[\mathcal{X}]_s$.
+    \end{enumerate}
+\end{defin}
+
+\begin{remark}
+    Harper's notion of \emph{abstract binding tree} is a generalisation of the more common \emph{abstract syntax tree}. The difference is that abts keep track of how their variables are bound. We will later demonstrate this by showing how variable capture is avoided. The above definition may seem complicated but it is simply a tree where branches are operators and nodes are variables. All these trees do not live in the same set however since the bound and free variables are being kept track of.
+\end{remark}
+
+% Alpha equivalence
+\begin{defin}[$\alpha$-equivalence]
+    Let $\mathcal{X}$ and $\mathcal{X}'$ be bijective sets of variables, and let $\rho : \mathcal{X} \to \mathcal{X'}$ be a bijection. Define the following relation $\sim_\rho \subseteq \mathcal{B}[\mathcal{X}]_s \times \mathcal{B}[\mathcal{X}']_s$ by induction on both abts:
+    \begin{itemize}
+        \item If $x \in \mathcal{X}$ and $y \in \mathcal{X}'$ then $x \sim_\rho y $ if and only if $\rho(x) = y$.
+        \item For bijective sets of variables $\mathcal{V}$ and $\mathcal{V}'$ of size $n$, free for $\mathcal{X}$ and $\mathcal{X}'$ respectively. By Remark \ref{var_order} we give them orders. Let $\xi : \mathcal{V} \to \mathcal{V}'$ be the \emph{unique} order-preserving bijection between them. For $1 \le j \le n$, let $\mathcal{Y}_j := \{ v_k \in \mathcal{V} \mid j \scope k\}$ and $\mathcal{Y}_j' := \{ v_k' \in \mathcal{V}' \mid j \scope k \}$ be the sets of variables the $j$th argument is in scope of in $\mathcal{V}$ and $\mathcal{V}'$ respectively. Observe that the restriction $\xi_j : \mathcal{Y}_j \to \mathcal{Y}_j'$ is also a bijection. Then $\mathtt{G}(\mathcal{V}; m_1, \dots, m_n) \sim_\rho \mathtt{G}(\mathcal{V}'; m_1', \dots, m_n')$ if and only if $m_j \sim_{\rho \cup \xi_j} M'_j$ for all $1 \le j \le n$.
+        \item In all other cases the relation is false.
+    \end{itemize}
+
+    We say that an abt $a \in \mathcal{B}[\mathcal{X}]_s$ is \emph{$\alpha$-equivalent} to an abt $b \in \mathcal{B}[\mathcal{X}']_s$, written $a \simeq_{\alpha} b$, if there exists a bijection $\rho : \mathcal{X} \to \mathcal{X'}$ such that $a \sim_\rho b$.
+\end{defin}
+
+We quickly sketch some routine proofs showing $\alpha$-equivalence is in fact an equivalence relation.
+
+\begin{lemma}[Reflexivity]
+    $\alpha$-equivalence is reflexive.
+\end{lemma}
+    
+\begin{proof}    
+     Observe that for any $m \in \mathcal{B}[\mathcal{X}]_s$ we have $m \sim_{\mathrm{id}} m$. 
+\end{proof}
+
+\begin{lemma}[Symmetry]
+    $\alpha$-equivalence is symmetric.
+\end{lemma}
+
+\begin{proof}
+    Suppose $a \simeq_\alpha b$ then $a \sim_\rho b$ for some bijection $\rho$. The inverse $\rho^{-1}$ is also a bijection, and observe that $b \sim_{\rho^{-1}} a$.
+\end{proof}
+
+\begin{lemma}
+    $\alpha$-equivalence is transitive.
+\end{lemma}
+
+\begin{proof}
+    Suppose $a \simeq_\alpha b$ and $b \simeq_\alpha c$ then $a \sim_\rho b$ and $b \sim_{\rho'} c$ for some bijections $\rho$ and $\rho'$. Observe that the composite $\rho' \cdot \rho$ is also a bijection, and that as a result $a \sim_{\rho' \cdot \rho} b$. It can then easily be checked that $a \simeq_\alpha c$.
+\end{proof}
+
+\begin{cor}
+    $\alpha$-equivalence is an equivalence relation.
+\end{cor}
+
+% Weakening, exchange and contraction
+\begin{defin}\label{sub}
+    Given $\sigma : \mathcal{X} \to \mathcal{Y}$ such that $\sigma$ preserves sorts, i.e. $\mathrm{SortOf} \cdot \sigma = \mathrm{SortOf}$, we define a function $\mathcal{B}[\mathcal{X}]_s \to \mathcal{B}[\mathcal{Y}]_s$ denoted $a \mapsto a[\sigma]$ by induction on $a$:
+    \begin{itemize}
+        \item If $a = x \in \mathcal{X}$, then $x[\sigma] = \sigma(x)$.
+        \item If $a = \mathtt{G}(\mathcal{V}; m_1, \dots , m_n)$ we would like to define $a[\sigma]$ as $$\mathtt{G}(\mathcal{V}, m_1[\sigma], \dots, m_n[\sigma])$$ but this is not possible since $\mathcal{V}$ may not be disjoint from $\mathcal{Y}$. Therefore we observe that we can accomadate for this by first freshening up our variables in $\mathcal{V}$ with respect to $\mathcal{Y}$ by finding another $\mathcal{V}'$ whose elements are all fresh in $\mathcal{Y}$ and $\mathcal{V} \simeq_{\alpha}\mathcal{V}'$. We will call such an operation $\mathcal{V}^{[\mathcal{Y}]}$ and then define $\mathtt{G}(\mathcal{V}; m_1 , \dots, m_n)[\sigma] := \mathtt{G}(\mathcal{V}^{[\mathcal{Y}]}; m_1[\sigma], \dots, m_n[\sigma])$. 
+    \end{itemize}
+    
+    If $\sigma$ is an inclusion, then the operation is \emph{weakening} (at the level of syntax).
+    If $\sigma$ is a permutation (a self-bijection) then this is known as \emph{exchange} (at the level of syntax).
+    If $\sigma$ is a surjection, then the operation is \emph{contraction} (at the level of syntax).
+\end{defin}
+
+\begin{remark}
+    We must be weary not to get confused later on with the \emph{structural rules} with the same names. These operations are intrinsic to syntax, and are not directly related with rules we will look at later.
+\end{remark}
+
+\begin{remark}\label{op_alpha_respect}
+    It can be seen that $\alpha$-equivalence between $a$ and $b$ can be stated as the existence of a bijection $\rho$ such taht $a[\rho] = b$.
+\end{remark}
+
+% Composition of functions
+\begin{lemma}\label{sub_comp}
+    Given functions $\sigma$ and $\sigma'$, we have $a[\sigma][\sigma'] = a[\sigma' \cdot \sigma]$.
+\end{lemma}
+
+\begin{proof}
+    Expanding the definition of $a[\sigma]$ and $a[\sigma][\sigma']$ this can be observed.
+\end{proof}
+
+\begin{lemma}\lable{sub_alpha}
+    If $\rho, \rho'$ are bijections, then $a \sim_\rho b$ implies $a[\sigma] \sim_{\rho'} b[\rho ' \cdot \sigma \cdot \rho^{-1}]$. Hence the operation $-[\sigma]$ respects $\alpha$-equivalence.
+\end{lemma}
+
+\begin{proof}
+    By Remark \ref{op_alpha_respect} and Lemma \ref{sub_comp}, we have $a \sim_\rho b \iff a[\rho] = b \iff a = b[\rho^{-1}]$. So $a[\sigma] = b[\rho^{-1}][\sigma]=b[\sigma \cdot \rho^{-1}]$ and hence  $a[\sigma][\rho']=b[\rho' \cdot \sigma \cdot \rho^{-1}]\iff a[\sigma] \sim_{\rho'} b[\rho' \cdot \sigma \cdot \rho^{-1}]$.
+\end{proof}
+
+%
+\begin{defin}
+    We override our definition of abstract binding tree by defining the set of all abts of sort $s$ over a set of variables $\mathcal{X}$ as $\mathcal{B}[\mathcal{X}]_s / \simeq_{\alpha}$.
+\end{defin}
+
+\begin{remark}
+    Whenever we refer to an abt we typically write it as some representing element of the equivalence class.
+\end{remark}
+
+\begin{remark}
+    Due to Lemma \ref{sub_alpha}, Definition \ref{sub} makes sense for equivalence classes too. Thus we do not need to change the meaning of $-[\sigma]$, by simply noting that it acts on representatives of the equivalcen class in a well-defined way.
+\end{remark}
+
+\begin{defin}
+    We call the disjoint union $\sqcup_{s \in \mathcal{S}} \mathcal{B}[\mathcal{X}]_s$ of abts over $\mathcal{X}$ with sort $s$ the set of all abts over $\mathcal{X}$. We could have defined this first and then defined $\mathcal{B}[\mathcal{X}]_s$ as the inverse image of some sort choosing function over a sort $s$ like in Definition \ref{variables}. When we talk about the sort of an abt $a \in \mathcal{B}[\mathcal{X}]$ we refer to the $s$ which corresponds to the set in which $a$ lives. 
+\end{defin}

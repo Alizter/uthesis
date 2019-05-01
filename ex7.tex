@@ -1,0 +1,46 @@
+\begin{prooftree}
+    \def\ScoreOverhang{1pt}
+    \AxiomC{$(x :B \to C) \in \Gamma , x : B \to C, y : A \to B , z : A$}
+    \LeftLabel{(var)}
+    \UnaryInfC{$\Gamma , x : B \to C, y : A \to B , z : A \vdash x \Rightarrow B \to C$}
+    \LeftLabel{(cswitch)}
+    \UnaryInfC{$\Gamma , x : B \to C, y : A \to B , z : A \vdash x \Leftarrow B \to C$}
+    
+        \AxiomC{$(z : A) \in \Gamma , x : B \to C, y : A \to B , z : A$}
+        \LeftLabel{(var)}
+        \UnaryInfC{$\Gamma , x : B \to C, y : A \to B , z : A \vdash z \Rightarrow A$}
+        \LeftLabel{(cswitch)}
+        \UnaryInfC{$\Gamma , x : B \to C, y : A \to B , z : A \vdash z \Leftarrow A$}
+        
+        \AxiomC{$(y : A \to B) \in \Gamma , x : B \to C, y : A \to B , z : A$}
+        \RightLabel{(var)}
+        \UnaryInfC{$\Gamma , x : B \to C, y : A \to B , z : A \vdash y \Rightarrow A \to B$}
+        \RightLabel{(cswitch)}
+        \UnaryInfC{$\Gamma , x : B \to C, y : A \to B , z : A \vdash y \Leftarrow A \to B$}
+    
+    \insertBetweenHyps{\hskip 10pt}
+    \RightLabel{($\to$-elim)}
+    \BinaryInfC{$\Gamma , x : B \to C, y : A \to B , z : A \vdash yz \Rightarrow B$}
+    \RightLabel{(cswitch)}
+    \UnaryInfC{$\Gamma , x : B \to C, y : A \to B , z : A \vdash yz \Leftarrow B$}
+    \noLine
+    \UnaryInfC{$\vdots$}
+    
+    \insertBetweenHyps{\hskip -110pt}
+    \LeftLabel{($\to$-elim)}
+    \BinaryInfC{$\Gamma , x : B \to C, y : A \to B , z : A \vdash x(yz) \Rightarrow C$}
+    \LeftLabel{(cswitch)}
+    \UnaryInfC{$\Gamma , x : B \to C, y : A \to B , z : A \vdash x(yz) \Leftarrow C$}
+    \LeftLabel{($\to$-intro)}
+    \UnaryInfC{$\Gamma , x : B \to C, y : A \to B \vdash \lambda z.x(yz) \Rightarrow A \to C$}
+    \LeftLabel{(cswitch)}
+    \UnaryInfC{$\Gamma , x : B \to C, y : A \to B \vdash \lambda z.x(yz) \Leftarrow A \to C$}
+    \LeftLabel{($\to$-intro)}
+    \UnaryInfC{$\Gamma , x : B \to C \vdash\lambda y.\lambda z.x(yz) \Rightarrow (A \to B) \to (A \to C)$}
+    \LeftLabel{(cswitch)}
+    \UnaryInfC{$\Gamma , x : B \to C \vdash\lambda y.\lambda z.x(yz) \Leftarrow (A \to B) \to (A \to C)$}
+    \LeftLabel{($\to$-intro)}
+    \UnaryInfC{$\Gamma \vdash \lambda x.\lambda y.\lambda z.x(yz) \Rightarrow (B \to C) \to (A \to B) \to (A \to C)$}
+    \LeftLabel{(cswitch)}
+    \UnaryInfC{$\Gamma \vdash \lambda x.\lambda y.\lambda z.x(yz) \Leftarrow (B \to C) \to (A \to B) \to (A \to C)$}
+\end{prooftree}

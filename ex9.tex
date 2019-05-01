@@ -1,0 +1,52 @@
+\begin{prooftree}
+    \def\ScoreOverhang{1pt}
+    \AxiomC{$(x : A \to B \to C) \in \Gamma , x : A \to B \to C, y : A \times B$}
+    \LeftLabel{(var)}
+    \UnaryInfC{$\Gamma , x : A \to B \to C, y : A \times B \vdash x \Rightarrow A \to B \to C$}
+    \LeftLabel{(cswitch)}
+    \UnaryInfC{$\Gamma , x : A \to B \to C, y : A \times B \vdash x \Leftarrow A \to B \to C$}
+    
+    \AxiomC{$(y : A \times B) \in \Gamma , x : A \to B \to C, y : A \times B$}
+    \RightLabel{(var)}
+    \UnaryInfC{$\Gamma , x : A \to B \to C, y : A \times B \vdash y \Rightarrow A \times B$}
+    \RightLabel{(cswitch)}
+    \UnaryInfC{$\Gamma , x : A \to B \to C, y : A \times B \vdash y \Leftarrow A \times B$}
+    \RightLabel{($\times$-elim${}_1$}
+    \UnaryInfC{$\Gamma , x : A \to B \to C, y : A \times B \vdash \fst(y) \Rightarrow A$}
+    \RightLabel{(cswitch)}
+    \UnaryInfC{$\Gamma , x : A \to B \to C, y : A \times B \vdash \fst(y) \Leftarrow A$}
+    
+    \LeftLabel{($\to$-elim)}
+    \BinaryInfC{$\Gamma , x : A \to B \to C, y : A \times B \vdash x(\fst(y)) \Rightarrow A$}
+    \LeftLabel{(cswitch)}
+    \UnaryInfC{$\Gamma , x : A \to B \to C, y : A \times B \vdash x(\fst(y)) \Leftarrow A$}
+    \noLine
+    \UnaryInfC{$\vdots$}
+    \noLine
+    \UnaryInfC{$\vdots$}
+    
+    \AxiomC{$(y : A \times B) \in \Gamma , x : A \to B \to C, y : A \times B$}
+    \RightLabel{(var)}
+    \UnaryInfC{$\Gamma , x : A \to B \to C, y : A \times B \vdash y \Rightarrow A \times B$}
+    \RightLabel{(cswitch)}
+    \UnaryInfC{$\Gamma , x : A \to B \to C, y : A \times B \vdash \snd(y) \Leftarrow B$}
+    \RightLabel{($\times$-elim${}_2$}
+    \UnaryInfC{$\Gamma , x : A \to B \to C, y : A \times B \vdash \snd(y) \Rightarrow B$}
+    \RightLabel{(cswitch)}
+    \UnaryInfC{$\Gamma , x : A \to B \to C, y : A \times B \vdash \snd(y) \Leftarrow B$}
+    
+    
+    \insertBetweenHyps{\hskip -140pt}
+    \LeftLabel{($\to$-elim)}
+    \BinaryInfC{$\Gamma , x : A \to B \to C, y : A \times B \vdash x(\fst(y))(\snd(y)) \Rightarrow C$}
+    \LeftLabel{(cswitch)}
+    \UnaryInfC{$\Gamma , x : A \to B \to C, y : A \times B \vdash x(\fst(y))(\snd(y)) \Leftarrow C$}
+    \LeftLabel{($\to$-intro)}
+    \UnaryInfC{$\Gamma , x : A \to B \to C \vdash \lambda y . \vdash x(\fst(y))(\snd(y)) \Rightarrow A \times B \to C$}
+    \LeftLabel{(cswitch)}
+    \UnaryInfC{$\Gamma , x : A \to B \to C \vdash \lambda y . \vdash x(\fst(y))(\snd(y)) \Leftarrow A \times B \to C$}
+    \LeftLabel{($\to$-intro)}
+    \UnaryInfC{$\Gamma \vdash \lambda x . \lambda y .  \vdash x(\fst(y))(\snd(y)) \Rightarrow (A \to B \to C) \to A \times B \to C$}
+    \LeftLabel{(cswitch)}
+    \UnaryInfC{$\Gamma \vdash \lambda x . \lambda y .  \vdash x(\fst(y))(\snd(y)) \Leftarrow (A \to B \to C) \to A \times B \to C$}
+\end{prooftree}

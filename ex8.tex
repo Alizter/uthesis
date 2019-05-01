@@ -1,0 +1,43 @@
+\begin{prooftree}
+    \def\ScoreOverhang{1pt}
+    \AxiomC{$(x : A \times B \to C) \in \Gamma, x : A \times B \to C , y : A, z : B$}
+    \LeftLabel{(var)}
+    \UnaryInfC{$\Gamma, x : A \times B \to C , y : A, z : B \vdash x \Rightarrow A \times B \to C$}
+    \LeftLabel{(cswitch)}
+    \UnaryInfC{$\Gamma, x : A \times B \to C , y : A, z : B \vdash x \Leftarrow A \times B \to C$}
+    
+    \AxiomC{$(y : A) \in \Gamma, x : A \times B \to C , y : A, z : B$}
+    \LeftLabel{(var)}
+    \UnaryInfC{$\Gamma , x : A \times B \to C, y : A, z : B \vdash y \Rightarrow A$}
+    \LeftLabel{(cswitch)}
+    \UnaryInfC{$\Gamma , x : A \times B \to C, y : A, z : B \vdash y \Leftarrow A$}
+    
+    \AxiomC{$(z : B) \in \Gamma , x : A \times B \to C, y : A, z : B$}
+    \RightLabel{(var)}
+    \UnaryInfC{$\Gamma , x : A \times B \to C, y : A, z : B \vdash z \Rightarrow B$}
+    \RightLabel{(cswitch)}
+    \UnaryInfC{$\Gamma , x : A \times B \to C, y : A, z : B \vdash z \Leftarrow B$}
+    
+    \LeftLabel{($\times$-intro)}
+    \BinaryInfC{$\Gamma , x : A \times B \to C, y : A, z : B \vdash (y, z) \Rightarrow A \times B$}
+    \LeftLabel{(cswitch)}
+    \UnaryInfC{$\Gamma , x : A \times B \to C, y : A, z : B \vdash (y, z) \Leftarrow A \times B$}
+    
+    \LeftLabel{($\to$-elim)}
+    \UnaryInfC{$\Gamma, x : A \times B \to C , y : A, z : B \vdash x (y , z) \Rightarrow C$}
+    \LeftLabel{(cswitch)}
+    \UnaryInfC{$\Gamma, x : A \times B \to C , y : A, z : B \vdash x (y , z) \Leftarrow C$}
+    \LeftLabel{($\to$-intro)}
+    \UnaryInfC{$\Gamma, x : A \times B \to C , y : A \vdash \lambda z . x (y , z) \Rightarrow B \to C$}
+    \LeftLabel{(cswitch)}
+    \UnaryInfC{$\Gamma, x : A \times B \to C , y : A \vdash \lambda z . x (y , z) \Leftarrow B \to C$}
+    \LeftLabel{($\to$-intro)}
+    \UnaryInfC{$\Gamma, x : A \times B \to C \vdash \lambda y . \lambda z . x (y , z) \Rightarrow A \to B \to C$}
+    \LeftLabel{(cswitch)}
+    \UnaryInfC{$\Gamma, x : A \times B \to C \vdash \lambda y . \lambda z . x (y , z) \Leftarrow A \to B \to C$}
+    \LeftLabel{($\to$-intro)}
+    \UnaryInfC{$\Gamma \vdash \lambda x . \lambda y . \lambda z . x (y , z) \Rightarrow (A \times B \to C) \to A \to B \to C$}
+    \LeftLabel{(cswitch)}
+    \UnaryInfC{$\Gamma \vdash \lambda x . \lambda y . \lambda z . x (y , z) \Leftarrow (A \times B \to C) \to A \to B \to C$}
+    
+\end{prooftree}
