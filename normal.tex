@@ -31,6 +31,7 @@ First we define what we mean by a binary relation being \emph{compatible} with t
 
 We will demonstrate our last remark by considering the following relation:
 
+% same type relation
 \begin{defin}
     Let $\sim_{\ty}$ denote the relation amond terms of having the same type. Suppose $\Gamma \vdash s \Leftarrow S$ and $\Gamma \vdash t \Leftarrow T$, then:
     $$
@@ -38,6 +39,7 @@ We will demonstrate our last remark by considering the following relation:
     $$
 \end{defin}
 
+% having the same type is a compatible relation
 \begin{lemma}
     The relation $\sim_{\ty}$ is a compatible relation.
 \end{lemma}
@@ -62,14 +64,17 @@ Let $\to$ be a binary relation on a set $A$, $\twoheadrightarrow^+$ be its trans
 
 Now we define (very generally) what it means for an element of a set to be in \emph{normal form} and \emph{normalising} with respect to some relation.
 
+% normal form with respect to a relation
 \begin{defin}
     An element $a \in A$ is said to be of \emph{normal form} if $\forall b \in A$, $a {\not \to} b$.
 \end{defin}
 
+% weak normalisation with respect to a relation
 \begin{defin}
     An element $a \in A$ is said to be \emph{normalising} (or \emph{weakly normalising}) if there is a reduction sequence $a \to a_1 \to a_2 \to \cdots \to a_n$ where $a_n$ is in normal form, for some $n$. We call $a_n$ a \emph{normal form} or \emph{reduct} of $a$.
 \end{defin}
 
+% 
 \begin{remark}
     Note that not every reduction sequence is guaranteed to be finite. We also note that if $\to$ a relation is Church-Rosser (to be defined below) then $a_n$ is \emph{the} normal form or reduct.
 \end{remark}
@@ -432,7 +437,56 @@ We wish to show that $\eta$-reduction enjoys similar normalisation properties to
     Observe that in the definition of 
 \end{proof}
 
-% Define beta eta reduction
+Now we take some results from Takahashi \cite{} [[NEED CITTIOONS]], who considers \emph{parallel reductions}. This is a stronger relation than $\to_{\beta}$
+and weaker than $\twoheadrightarrow_{\beta}$. This might not seem like much but, parallel ($\beta$-)reduction, denoted $\Rightarrow_{\beta}$ (not to be confused with our typing judgements), satisfies the diamond in Church-Rosser. And since $\twoheadrightarrow_{\beta}$ is the transitive closure of $\Rightarrow_{\beta}$, it too satisfies the diamond in Church-Rosser hence $\to_{\beta}$ has the Church-Rosser property. We will formalise this argument as follows and consider $\beta$, $\eta$ and $\beta \eta$ reductions along the way.
+
+% Parallel beta reduction
+\begin{defin}
+    \emph{Parallel $\beta$-reduction}, $\Rightarrow_{\beta}$, is defined inductively on terms by the following rules:
+    \begin{enumerate}
+        \item $x \Rightarrow_{\beta} x$ for a variable $x$.
+        \item $\lambda x . M \Rightarrow_{\beta} \lambda x . M'$ if $M \Rightarrow_{\beta} M'$.
+        \item $MN \Rightarrow_{\beta} M' N'$ if $M \Rightarrow_{\beta} M'$ and $N \Rightarrow_{\beta} N'$.
+        \item $(M, N) \Rightarrow_{\beta} (M', N')$ if $M \Rightarrow_{\beta} M'$ and $N \Rightarrow_{\beta} N'$.
+        \item $(\lambda x . M)N \Rightarrow_{\beta} M'[N' / x]$ if $M \Rightarrow_{\beta} M'$ and $N \Rightarrow_{\beta} N'$.
+        \item $\fst(M, N) \Rightarrow_{\beta} M'$ if $M \Rightarrow_{\beta} M'$.
+        \item $\snd(M, N) \Rightarrow_{\beta} N'$ if $N \Rightarrow_{\beta} N'$.
+    \end{enumerate}
+\end{defin}
+
+\begin{remark}
+    If we expand the definition of compatible in the definition of $\to_{\beta}$ it may appear to be identical to the definition of $\Rightarrow_{\beta}$. The key difference is the direction in which we are building up the terms. In the above definition we are breaking down the syntax and making sure that \emph{all} components also satisfy the relation. We will see later the relation with $\to_{\beta}$.
+\end{remark}
+
+\begin{remark}
+    The name comes from the fact that parallel reduction can reduce many $\beta$-redexes at once, unlike usual reduction.
+\end{remark}
+
+% => beta is reflexive
+\begin{cor}
+    The relation $\Rightarrow_\beta$ is reflexive.
+\end{cor}
+
+\begin{proof}
+    Observe that ignoring the last three rules in the definition of $\Rightarrow_\beta$ we still cover all the syntax.
+\end{proof}
+
+% M -> M'  ==>  M => M'  ==>  M ->> M'
+\begin{lemma}
+    We have the following implications:
+    $$
+        M \to_\beta M' \quad \implies \quad M \Rightarrow_\beta M' \quad \implies \quad M \twoheadrightarrow_\beta M'
+    $$
+\end{lemma}
+
+\begin{proof}
+    For the first implication, observe that a redex in $M$ is being contracted to such that $M \to_\beta M'$. We can also contract the redex in the definition of $M \Rightarrow_\beta M'$ by choosing the correct rule. For the second implication, proceed by induction on $M$:
+    \begin{itemize}
+        \item If $x \Rightarrow_\beta M'$ then clearly $M'=x$ hence $x \twoheadrightarrow x'$.
+        \item If 
+    \end{itemize}
+\end{proof}
+
 
 Now we need a small technical lemma that will show the utility of being strongly normalising.
 

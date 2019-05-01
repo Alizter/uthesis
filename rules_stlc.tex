@@ -59,11 +59,12 @@ Or listed as operators:
     \DisplayProof
 \end{center}
 
-\begin{proof}\label{stlc_rule_cswitch}
+% Compact switch
+\begin{prooftree}\label{stlc_rule_cswitch}
     \AxiomC{$\Gamma \vdash t \Rightarrow A$}
     \RightLabel{(cswitch)}
-    \BinaryInfC{$\Gamma \vdash t \Leftarrow A$}
-\end{proof}
+    \UnaryInfC{$\Gamma \vdash t \Leftarrow A$}
+\end{prooftree}
 
 [[TODO: Include admissible rules?]]
 

@@ -308,7 +308,52 @@ We will now show that composing curry with uncurry gives us the identity. Unfort
 
 \subsection{Swap $\lambda t . (\snd(t), \fst(t))$}
 
+This example demonstates a simple operation that manipualtes a data structure. We will later show that composing this function with itself is the identity.
+
+\begin{example}
+    The type of $\lambda t . (\snd(t), \fst(t))$ is $A \times B \to B \times A$. Intuitively, this function simply swaps the order in an ordered pair. Here is a derivation tree showing that $\Gamma \vdash \lambda t . (\snd(t), \fst(t)) \Leftarrow B \times A \to A \times B$.
+
+    \begin{prooftree}
+        \AxiomC{$(t : A \times B) \in \Gamma , t : A \times B$}
+        \LeftLabel{(var)}
+        \UnaryInfC{$\Gamma , t : A \times B \vdash t \Rightarrow A \times B $}
+        \LeftLabel{(cswitch)}
+        \UnaryInfC{$\Gamma , t : A \times B \vdash t \Leftarrow A \times B $}
+        \LeftLabel{($\times$-elim${}_2$)}
+        \UnaryInfC{$\Gamma , t : A \times B \vdash \snd(t) \Rightarrow B$}
+        \LeftLabel{(cswitch)}
+        \UnaryInfC{$\Gamma , t : A \times B \vdash \snd(t) \Leftarrow B$}
+        
+        \AxiomC{$(t : A \times B) \in \Gamma , t : A \times B$}
+        \RightLabel{(var)}
+        \UnaryInfC{$\Gamma , t : A \times B \vdash t \Rightarrow A \times B $}
+        \RightLabel{(cswitch)}
+        \UnaryInfC{$\Gamma , t : A \times B \vdash t \Leftarrow A \times B $}
+        \RightLabel{($\times$-elim${}_1$)}
+        \UnaryInfC{$\Gamma , t : A \times B \vdash \fst(t) \Rightarrow A$}
+        \RightLabel{(cswitch)}
+        \UnaryInfC{$\Gamma , t : A \times B \vdash \fst(t) \Leftarrow A$}
+        
+        \LeftLabel{($\times$-intro)}
+        \BinaryInfC{$\Gamma , t : A \times B\vdash (\snd(t), \fst(t)) \Rightarrow B \times A$}
+        \LeftLabel{(cswitch)}
+        \UnaryInfC{$\Gamma , t : A \times B\vdash (\snd(t), \fst(t)) \Leftarrow B \times A$}
+        \LeftLabel{($\to$-intro)}
+        \UnaryInfC{$\Gamma \vdash \lambda t . (\snd (t), \fst(t)) \Rightarrow B \times A$}
+        \LeftLabel{(cswitch)}
+        \UnaryInfC{$\Gamma \vdash \lambda t . (\snd (t), \fst(t)) \Leftarrow B \times A$}        
+    \end{prooftree}
+\end{exmaple}
+
 \subsection{Swap-Swap}
+
+We will now demonstrate that the swap function composes with itself to give the identity.
+
+\begin{example}
+    We follow a similar argument to example \ref{curry_uncurry}.
+\end{example}
+
+
 
 
 
