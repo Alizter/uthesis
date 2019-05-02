@@ -1,5 +1,9 @@
 \section{Syntax}
 
+\subsection{Introduction}
+
+\subsection{Abstract binding trees}
+
 % Sorts
 \begin{defin}[Sorts]
     Let $\mathcal{S}$ be a finite set of elements called \emph{sorts}.
@@ -132,7 +136,7 @@ We quickly sketch some routine proofs showing $\alpha$-equivalence is in fact an
     Expanding the definition of $a[\sigma]$ and $a[\sigma][\sigma']$ this can be observed.
 \end{proof}
 
-\begin{lemma}\lable{sub_alpha}
+\begin{lemma}\label{sub_alpha}
     If $\rho, \rho'$ are bijections, then $a \sim_\rho b$ implies $a[\sigma] \sim_{\rho'} b[\rho ' \cdot \sigma \cdot \rho^{-1}]$. Hence the operation $-[\sigma]$ respects $\alpha$-equivalence.
 \end{lemma}
 
@@ -156,3 +160,9 @@ We quickly sketch some routine proofs showing $\alpha$-equivalence is in fact an
 \begin{defin}
     We call the disjoint union $\sqcup_{s \in \mathcal{S}} \mathcal{B}[\mathcal{X}]_s$ of abts over $\mathcal{X}$ with sort $s$ the set of all abts over $\mathcal{X}$. We could have defined this first and then defined $\mathcal{B}[\mathcal{X}]_s$ as the inverse image of some sort choosing function over a sort $s$ like in Definition \ref{variables}. When we talk about the sort of an abt $a \in \mathcal{B}[\mathcal{X}]$ we refer to the $s$ which corresponds to the set in which $a$ lives. 
 \end{defin}
+
+
+
+
+
+

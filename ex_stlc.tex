@@ -221,13 +221,24 @@ It doesn't mean however any expression containing an ill-typed term is ill-typed
 
 \end{example}
 
-\subsection{Bluebird mocks the bluebird $\lambda x . \lambda y . (xy)(xy)$} % Does not type check BMB
+%\subsection{Bluebird mocks the bluebird $\lambda x . \lambda y . (xy)(xy)$} % Does not type check BMB
 
 
 
 
-\subsection{Y-combinator $\lambda x . (\lambda y . x (y y)) (\lambda y . x (y y))$} % Does not type check :O oh no!! no recursion!
+\subsection{$\mathbf{Y}$-combinator $\lambda x . (\lambda y . x (y y)) (\lambda y . x (y y))$} % Does not type check :O oh no!! no recursion!
 
+Here is an important example from the untyped lambda calculus, the $\mathbf{Y}$-combinator is defined as $\mathbf{Y} = \lambda x . (\lambda y . x (y y)) (\lambda y . x (y y))$.
+$\beta$-reducing the $\mathbf{Y}$-combinator applied to a function $f$, we see that $\mathbf{Y}f = f (\mathbf{Y} f)$. This is precisely the behaviour that allows it to attain recursive behaviour.
+The $\mathbf{Y}$-combinator allows one to define recursive functions. Due to the non-normalising nature of the untyped lambda calculus, it isn't garanteed that a given function will have a terminating $\beta$-reduction sequence.
+One vital thing the $\mathbf{Y}$-combinator provides is an \emph{induction princple} for Church-numerals. It allows one to define functions on Church-numerals by specifying how it acts on zero and on the successor.
+We will see that the $\mathbf{Y}$-combinator \emph{cannot} be typed. This doesn't bode well for the use of Church-numerals in simply typed lambda calculus.
+
+[[TODO add references showing off $\mathbf{Y}$-combinator]]
+
+\begin{example}
+    We wish to derive $\Gamma \vdash \lambda x . (\lambda y . x( y y)) (\lambda y . x (y y)) \Leftarrow T$ for some type $T$. We begin by switching and letting $T \equiv A \to B$ for some $A$ and $B$. Then we can apply ($\to$-intro) to arrive at $\Gamma , x : A \vdash (\lambda y . x (y y))(\lambda y . x (yy) ) \Leftarrow B$. Switching then applying ($\to$-elim) we need two derivations $\Gamma , x : A \vdash \lambda y . x (y y) \Leftarrow C \to B$ and $\Gamma , x : A \vdash \lambda y . x (y y) \Leftarrow C$, for some $C$. Applying switch on the former and then ($\to$-intro) we arive at $\Gamma , x : A, y : C \vdash x ( y y) \Leftarrow B$. Yet again, we apply switch and ($\to$-elim) to arrive at two derivations: $\Gamma, x : A, y : C \vdash x \Leftarrow D \to B$ and $\Gamma , x : A, y : C \vdash y y \Leftarrow D$ for some type $D$. Switching and applying ($\to$-elim) on the latter we get another two derivations $\Gamma , x : A, y : C \vdash y \Leftarrow E \to D$ and $\Gamma , x : A, y : C \vdash y \Leftarrow E$. Observe that only switching and applying (var) can finish this branch of the tree, leading to the hypotheses $\Gamma , x : A, y : C \vdash C \equiv E \to D \ \mathsf{type}$ and $\Gamma , x : A, y : C \vdash C \equiv E$. Clearly these two give us $C \equiv C \to D$ which is impossible. Hence the $\mathbf{Y}$-combinator cannot be typed. 
+\end{example}
 
 
 \subsection{Function composition $\lambda x . \lambda y . \lambda z . x ( y z)$} % Function comp

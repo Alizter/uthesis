@@ -283,11 +283,11 @@ Next we will prove a lemma bounding the number of redexes of a certain degree.
     Although not defined, we take the meaning of \emph{a redex strictly inside} to be a redex that is not the whole redex.
 \end{remark}
 
-We now have all the machinary needed to prove that typed terms in the STLC are weakly $\beta$-normalising.
+We now have all the machinary needed to prove that typed terms in the STLC are strongly $\beta$-normalising.
 
 % Every term is beta normalising
-\begin{theorem}
-    Every derivable term $\Gamma \vdash t \Leftarrow A$ in the STLC is $\beta$-normalising.
+\begin{theorem}\label{beta_SN}
+    Every derivable term $\Gamma \vdash t \Leftarrow A$ in the STLC is strongly $\beta$-normalising.
 \end{theorem}
 
 \begin{proof}
@@ -296,6 +296,10 @@ We now have all the machinary needed to prove that typed terms in the STLC are w
 
 \begin{remark}
     The ordering in $\mu(t') < \mu(t)$ on $\N \times \N $ is the lexicographic ordering. Meaning $(n', m') < (n, m)$ if and only if $n' < n$ or $n'=n$ and $m' < m$. (Think Alphabetical order).
+\end{remark}
+
+\begin{remark}
+    Since we have decreasing sequences of natural numbers we must have a finite number of reductions in \emph{any} reduction sequence. Of course we have weakly normalising too.
 \end{remark}
 
 % Coherence lemma
@@ -437,8 +441,7 @@ We wish to show that $\eta$-reduction enjoys similar normalisation properties to
     Observe that in the definition of 
 \end{proof}
 
-Now we take some results from Takahashi \cite{} [[NEED CITTIOONS]], who considers \emph{parallel reductions}. This is a stronger relation than $\to_{\beta}$
-and weaker than $\twoheadrightarrow_{\beta}$. This might not seem like much but, parallel ($\beta$-)reduction, denoted $\Rightarrow_{\beta}$ (not to be confused with our typing judgements), satisfies the diamond in Church-Rosser. And since $\twoheadrightarrow_{\beta}$ is the transitive closure of $\Rightarrow_{\beta}$, it too satisfies the diamond in Church-Rosser hence $\to_{\beta}$ has the Church-Rosser property. We will formalise this argument as follows and consider $\beta$, $\eta$ and $\beta \eta$ reductions along the way.
+Now we take some results from Takahashi \cite{TakahashiM1989PRIL, Takahashi:1995:PR9:207177.207191}, who considers \emph{parallel reductions}. This is a stronger relation than $\to_{\beta}$ and weaker than $\twoheadrightarrow_{\beta}$. This might not seem like much but, parallel ($\beta$-)reduction, denoted $\Rightarrow_{\beta}$ (not to be confused with our typing judgements), satisfies the diamond in Church-Rosser. And since $\twoheadrightarrow_{\beta}$ is the transitive closure of $\Rightarrow_{\beta}$, it too satisfies the diamond in Church-Rosser hence $\to_{\beta}$ has the Church-Rosser property. We will formalise this argument as follows and consider $\beta$, $\eta$ and $\beta \eta$ reductions along the way.
 
 % Parallel beta reduction
 \begin{defin}
@@ -488,6 +491,19 @@ and weaker than $\twoheadrightarrow_{\beta}$. This might not seem like much but,
 \end{proof}
 
 
+%%%
+
+We next wish to show that $\beta$-normal forms occur if and only if $\beta \eta$-normal forms occur.
+
+\begin{lemma}\label{beta_SN_beta_eta_SN}
+    A term $t$ have a $\beta$-normal form if and only if it has a $\beta \eta$-normal form.
+\end{lemma}
+
+\begin{proof}
+    A similar proof can be found in \cite[Corollary 15.1.5]{barendregt1984lambda}, this would of course have to be modified to accomdate for product types.
+\end{proof}
+
+\begin{comment}
 Now we need a small technical lemma that will show the utility of being strongly normalising.
 
 % Infinite beta-eta implies infinite beta
@@ -504,25 +520,22 @@ We are interested in the contrapositive form of this lemma:
 \begin{cor}
     If there is no infinite $\beta$-reduction sequence starting from $M$, then there is no infinite $\beta \eta$-reduction sequence starting from $M$.
 \end{cor}
+\end{comment}
 
 \begin{remark}
     In particular this means that $\to_{\beta}$ being strongly normalising implies that $\to_{\beta \eta}$ is strongly normalising.
 \end{remark}
-
-% Every term is beta strongly normalising
-\begin{theorem}
-    $\beta$-reduction is strongly normalising.
-\end{theorem}
-
-\begin{proof}
-    [[TODO]]
-\end{proof}
 
 % beta eta reduction is strongly normalising
 \begin{cor}
     $\beta \eta$-reduction is strongly normalising.
 \end{cor}
 
+\begin{proof}
+    By Lemma \ref{beta_SN} and Lemma \ref{beta_SN_beta_eta_SN}.
+\end{proof}
+
+\begin{comment}
 % beta eta reduction is WCR
 \begin{lemma}
     $\beta \eta$-reduction is WCR.
@@ -532,21 +545,128 @@ We are interested in the contrapositive form of this lemma:
     [[TODO]]
 \end{proof}
 
+\end{comment}
+
+We can now discuss \emph{the complete development of a term}.
+
+\begin{defin}
+    The \emph{complete development} of a term $\Gamma \vdash t \Leftarrow A$, written $t^*$ is defined by induction on syntax:
+    \begin{itemize}
+        \item For variables $x^* = x$.
+        \item $(\lambda x . M)^* = \lambda x . M^*$.
+        \item $(M N)^* = M^* N^*$ if $MN$ is not a $\beta$-redex.
+        \item $((\lambda x . M)N)^* = M^* [N^* / x]$.
+        \item $(a, b)^* = (a^*, b^*)$.
+        \item $(\fst (a, b))^* = a^*$.
+        \item $(\snd (a, b))^* = b^*$.
+    \end{itemize}
+\end{defin}
+
+\begin{lemma}
+    Given a term $\Gamma \vdash t \Leftarrow A$, $t^*$ is in $\beta$-normal form.
+\end{lemma}
+
+\begin{proof}
+    Observe by induction that the complete development rids a term of \emph{all} $\beta$-redexes.
+\end{proof}
+
+Now we will prove the following lemma which will give us Church-Rosser for $\beta \eta$-reduction.
+
+\begin{lemma}\label{cd_lemma}
+    Suppose $M \Rightarrow_\beta N$ then $N \Rightarrow_\beta M^*$.
+\end{lemma}
+
+\begin{proof}
+    Proceed by induction on $M$:
+    \begin{itemize}
+        \item If $M = x$, then $x \Rightarrow_\beta N  =x \Rightarrow_\beta x = M^*$.
+        \item If $M = \lambda x . y \Rightarrow_\beta N$, then $N = \lambda x . N'$ for some $N'$, with $y \Rightarrow_\beta N'$. By our induction hypothesis we get $N' \Rightarrow_\beta y^*$. Hence $\lambda x . y \Rightarrow_\beta \lambda x . y^* = M^*$.
+        \item If $M = M_1 M_2 \Rightarrow_\beta N$ and $M$ is not a $\beta$-redex, then $N = N_1 N_2$ for some $N_1$, $N_2$ with $M_1 \Rightarrow_\beta N_1$ and $M_2 \Rightarrow_\beta N_2$.
+    \end{itemize}
+    
+    We leave out the other cases since this is a routine proof by induction. Details can be found in \cite{TakahashiM1989PRIL}.
+\end{proof}
+
+\begin{cor}\label{diamond_par}
+    Given $M \Rightarrow_\beta N_1$ and $M \Rightarrow_\beta N_2$ then $N_1 \Rightarrow_\beta M'$ and $N_2 \Rightarrow_\beta M'$ for some $M'$.
+\end{cor}
+
+\begin{proof}
+    By Lemma \ref{cd_lemma} we observe that we have the desired result.
+\end{proof}
+
+And now the transitive closure of $\Rightarrow_\beta$ is $\twoheadrightarrow_\beta$ and we get the following diamond:
+
+\begin{cor}\label{diamond_beta}
+    Given $M \twoheadrightarrow_\beta N_1$ and $M \twoheadrightarrow_\beta N_2$ then $N_1 \twoheadrightarrow_\beta M'$ and $N_2 \twoheadrightarrow_\beta M'$ for some $M'$.
+\end{cor}
+
+\begin{proof}
+    By \cite[Lemma 3.2.2]{barendregt1984lambda} and Corollary \ref{diamond_par}.
+\end{proof}
+
+This is precisely the CR property for $\to_\beta$.
+
 % Church-Rosser
 \begin{theorem}
-    The Church-Rosser property holds for $\beta \eta$-reduction.
+    The Church-Rosser property holds for $\beta$-reduction.
 \end{theorem}
 
 \begin{proof}
-    [[TODO]]
+    By Corollary \ref{diamond_beta}.
 \end{proof}
 
 \begin{remark}
-    So not only does every well-typed term have a normal-form, but it is in fact unique!
+    Not only does every well-typed term have a normal form, but this normal form is unique.
 \end{remark}
+
+\begin{remark}
+    This whole argument can be repeated for the $\Rightarrow_{\beta\eta}$ analogue of Lemma \ref{cd_lemma}. This gives us CR for $\beta \eta$.
+\end{remark}
+
+\subsection{Closing remarks}
+
+The best reference for these arguments is \cite{barendregt1984lambda}. There have been a few papers afterwhich many of the arguments have been vastly simplified notably \cite{TakahashiM1989PRIL}. However to our knowledege there is no single account of many of these results. A possible future direction is via the use of \emph{categorical semantics}, which associate each ``type theory'' to an appropriately structured category. Typically these only model the \emph{statics} of the type theory, but there are attempts in the literature to realise the reductions as 2-cells in a \emph{bicategory}. Then a property such as Church-Rosser would be about the existence of pushouts in the Hom-category. 
 
 \subsection{Canonicity}
 
+\begin{defin}
+    A term $\Gamma \vdash t \Leftarrow A$ is said to be in \emph{canonical form} if syntactically it is only built from variables in $\Gamma$ and constructors of the type $A$.
+\end{defin}
 
+\begin{remark}
+    A more precise way to say this is perhaps that the derivation tree of $\Gamma \vdash t \Leftarrow A$ only consists of structural rules and introduction rules corresponding to $A$.
+\end{remark}
+
+From this we see some immediate consequences.
+
+\begin{lemma}
+    If a term $\Gamma \vdash t \Leftarrow A$ is in canonical form then it is necessarily in $\beta \eta$-normal form.
+\end{lemma}
+
+\begin{proof}
+    If it was not in $\beta \eta$-normal form then it would contain some redex which would mean that the derivation of $\Gamma \vdash t \Leftarrow A$ uses $($\to$-intro)$. Hence $t$ cannot be in canonical form.
+\end{proof}
+
+However it is not so obvious that the converse is true:
+
+\begin{lemma}
+    If a term $\Gamma \vdash t \Leftarrow A$ is in $\beta \eta$-normal form, then it is in canonical form.
+\end{lemma}
+
+\begin{proof}
+    
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+Canonicity is a property of a type theory that ensures that a given term of a type $\Gamma \vdash t \Leftarrow T$ has a \emph{canonical form}, in that $t$ is only made up of variables from $\Gamma$ and constructors of $T$. Such a property would garantee that 
 
 [[These two concepts are very related, we should find some way to talk about it, including Church-Rosser]]

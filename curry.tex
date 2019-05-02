@@ -12,7 +12,19 @@ This however did not deter logicians, who were still interested in understanding
 %%%
 \subsection{Lambda calculus}
 
-(Untyped) lambda calculus was discovered by Church at Princeton, originally as a way to define notations for logical formulas. It is a remarkably compact idea, with only three constructs: variables; lambda abstraction; and function application.z It is closely related to Curry's idea of combinatory logic \cite{curry1930a, curry1930b} It was realised at the time by Church and others that ``There may, indeed, be other applications of the system than its use as a logic.'' \cite{church1932, church1933}. Church discovered a way of encoding numbers as terms of lambda calculus. From this addition and multiplication could be defined. Kleene later discovered how to define the predecessor function. \cite{kleene1935a, kleene1935b}. Church later proposed $\lambda$-definability as the definition of ``effectively calculable'', what is now known as Church's Thesis, and demonstrated that the problem of determining whether or not a given $\lambda$-term  has a normal form is not $\lambda$-definable. This is now known as the Halting Problem. 
+Lambda calculus was discovered by Church at Princeton in the 1930s, originally as a way to define notations for logical formulas.
+It is a very compact and simle idea, with only three constructs: variables; lambda abstraction; and function application.
+Curry developed the closely related idea of combinatory logic around the same time \cite{curry1930a, curry1930b}.
+It was realised at the time by Church and others that ``There may, indeed, be other applications of the system than its use as a logic.'' \cite{church1932, church1933}.
+This meant that lambda calculus was studied as a topic of interest in it's own right.
+This becae explictly apparent when Church discovered a way of encoding numbers as terms of lambda calculus, known as the \emph{Church encoding} of the natural numbers.
+%The idea is very simple, a natural number $n$ is represented by the function $\lambda f . \lambda x . f^n x$. 
+From this addition and multiplication could also be defined.
+However the problem of defining a predecessor function alluded Church and his students, in fact Church later became convinced that it was impossible.
+Fortunately Kleene later discovered how to define the predecessor function at his dentists office \cite{kleene1935a, kleene1935b}.
+This led to Church tp later propose that $\lambda$-definability ought to be the definition of ``effectively calculable'', culminating into what is now known as Church's Thesis. Church went on to demonstrate that the problem of determining whether or not a given $\lambda$-term  has a normal form is not $\lambda$-definable.
+This is now known as the Halting Problem.
+Put differently this says that no program writtein in the $\lambda$-calculus can determine whether a program written in the $\lambda$-calculus halts or not.
 
 %%%
 \subsection{Recursive functions}
@@ -22,17 +34,21 @@ In 1933 G\"odel arrived in Princeton, unconvinced by Church's claim that every e
 %%%
 \subsection{Turing machines}
 
-Alan Turing was at Cambridge when he independently formulated his own idea of what it means to be "effectively calculable", now known today as Turing machines. He used it to show that the Entscheidungsproblem is undecidable, that is it cannot be proven to be true or false. Before publication, Turing's advisor Max Newman was worried since Church had published a solution, but since Turing's approach was sufficiently novel it was published anyway. Turing had added an appendix sketching the equivalence of $\lambda$-definability to Turing machines. It was Turing's argument that later convinced G\"odel that this was the correct notion of ``effectively calculable''.
+Alan Turing was at Cambridge when he independently formulated his own idea of what it means to be ``effectively calculable'', now known today as \emph{Turing machines}. He used it to show that the Entscheidungsproblem is undecidable, that is it cannot be proven to be true or false. Before publication, Turing's advisor Max Newman was worried since Church had published a solution, but since Turing's approach was sufficiently novel it was published anyway. Turing had added an appendix sketching the equivalence of $\lambda$-definability to Turing machines. It was Turing's argument that later convinced G\"odel that this was the correct notion of ``effectively calculable''.
 
 %%%
 \subsection{Russell's paradox}
 
-[Talk about the origin of types and stuff]
+Foundational crisis in mathematics.
+Led to many attempts at axiomatising mathematics.
+
 
 %%%
 \subsection{The problem with lambda calculus as a logic}
 
-Church's students Kleene and Rosser quickly discovered that lambda calculus was inconsistent as a logic \cite{kleene1935c}. Curry later simplified the result which became known as Curry's paradox \cite{curry1942}. Curry's paradox was related to rissoles paradox, in that a predicate was allowed to act on itself. This led to an abandoning of the use of lambda calculus as a logic for a short time. In order to solve this Church adapted a solution similar to Russell's when formulating \emph{Principia Mathematica}: use types \cite{PrincipiaMathematicaVolumeI}. What was discovered is now known today as \emph{simply-typed lambda calculus} \cite{church1940}. What is nice about Church's STLC is that every term has a normal form, or in the language of Turing machines every computation halts. \cite{turing1936a} [CITATION NEEDED] From this consistency of Church's STLC as a logic could be established.
+Church's students Kleene and Rosser quickly discovered that lambda calculus was inconsistent as a logic \cite{kleene1935c}.
+A logic is deemed \emph{inconsistent} if every statement can be proven. For exmaple assuming $1 = 2$ can lead to many bizaare consequences.
+Curry later published a simplified version of Kleene and Rosser's result which became known as \emph{Curry's paradox} \cite{curry1942}. Curry's paradox was related to Russel's paradox, in that a predicate was allowed to act on itself. This led to an abandoning of the use of lambda calculus as a logic for a short time. In order to solve this Church adapted a solution similar to Russell's when formulating \emph{Principia Mathematica}: use types \cite{PrincipiaMathematicaVolumeI}. What was discovered is now known today as \emph{simply typed lambda calculus} \cite{church1940}. What is nice about Church's STLC is that every term has a normal form, or in the language of Turing machines every computation halts \cite{turing1936}. From this consistency of Church's STLC as a logic could be established.
 
 %%%
 \subsection{Types to the rescue}
