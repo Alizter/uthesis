@@ -1,5 +1,9 @@
 \section{Normalisation of STLC}
 
+%%
+%%  Introduction
+%%
+
 \subsection{Introduction}
 We now wish to analyse the computational power of our type theory. When designing the type checking algorithm we made a point not to invoke any computational rules, since this will give us a decidable type checking algorithm. We now wish to show that successive applications of mode-switching, betas and eta will always terminate and to the same term, this will be known as the \emph{normal form}. The theorem is known as the Church-Rosser theorem [[CITE]]. This is a subtle property of the type theory and is determined by the computational rules we have added. Further addition of term constructors and type formers should leave this property untouched.
 
@@ -33,7 +37,7 @@ We will demonstrate our last remark by considering the following relation:
 
 % same type relation
 \begin{defin}
-    Let $\sim_{\ty}$ denote the relation amond terms of having the same type. Suppose $\Gamma \vdash s \Leftarrow S$ and $\Gamma \vdash t \Leftarrow T$, then:
+    Let $\sim_{\ty}$ denote the relation among terms of \emph{having the same type}. Suppose $\Gamma \vdash s \Leftarrow S$ and $\Gamma \vdash t \Leftarrow T$, then:
     $$
         s \sim_{\ty} t \iff \Gamma \vdash S \equiv T \ \mathsf{type}
     $$
@@ -104,7 +108,7 @@ We now state the obvious:
 \end{cor}
 
 \begin{proof}
-    [[TODO]]
+    Observe that WCR is a special case of CR.
 \end{proof}
 
 The converse to this is in general \emph{false} but it is true when another condition holds, namely that $\to$ is \emph{strongly normalising}.
@@ -131,7 +135,7 @@ The converse to this is in general \emph{false} but it is true when another cond
 
 We now state a lemma which will be very useful. It is a sufficient condition for the converse of Corollary \ref{cr_is_wcr} to hold.
 
-\begin{lemma}[Newman's Lemma]
+\begin{lemma}[Newman's Lemma]\label{newman}
     If $\to$ is strongly normalising and WCR then it is CR.
 \end{lemma}
 
@@ -143,7 +147,15 @@ We now state a lemma which will be very useful. It is a sufficient condition for
     Since we can always choose an $a'$, we can repeat this process and get an infinite chain of ambiguous elements. It is clear that this contradicts strongly normalising, hence $A$ has no ambiguous elements.
 \end{proof}
 
-\subsection{Normalisation}
+
+
+
+
+%%
+%%  Beta reduction
+%%
+
+\subsection{$\beta$-reduction}
 
 Now we define what we mean by $\beta$-reduction and $\beta$-normal form.
 
@@ -158,8 +170,9 @@ Now we define what we mean by $\beta$-reduction and $\beta$-normal form.
     A term on the left hand side of any of the above is called a \emph{$\beta$-redex} (reducible expression) and the right hand sides are said to \emph{arise by contracting the redex}.
 \end{defin}
 
-\begin{remark}[[Clear up wording]]
+\begin{remark}
     Observe that these are very similar to our $\beta$ rules, in fact they are exactly those. So the question may arise: why haven't we defined $\beta$-reduction using the rules that we already have? The answer is that we could but we would have a much harder time, the rules also take into account typing information but we are explicitly not worried about that since we will show later $\beta$-reduction doesn't change a typed terms type. It is somewhat simpler and clearer to focus purely on terms. We will later justify calling this $\beta$-reduction.
+    Such dynamics falls under what is known as \emph{equational dynamics}. This would require us to have a suitable way of dealing with judgemental equality, which we feel would obstruct the inner workings of the result.[[DROP REFERENCE TO EARLIER SECTION]]
 \end{remark}
 
 % Define beta normal form
@@ -173,7 +186,7 @@ Now we define what we mean by $\beta$-reduction and $\beta$-normal form.
 
 % Define multi-step beta reductions
 \begin{defin}
-    Let $\twoheadrightarrow_{\beta}$ be the transitive and reflexive closure of $\to_{\beta}$ called a \emph{multi-step $\beta$-reduction}.
+    Let $\twoheadrightarrow_{\beta}$ be the transitive, reflexive closure of $\to_{\beta}$ called a \emph{multi-step $\beta$-reduction}.
 \end{defin}
 
 % Non normalising terms
@@ -189,7 +202,7 @@ This means we have to be careful which terms we are talking about. When talking 
 
 We want to now prove that every derivable term is $\beta$-normalising. In order to do this we need to keep track of available redexes and bound them. We will then show there is a reduction strategy that decreases this bound yielding our result.
 
-This proof is usually attributed to an unpublished note of Turing [[CITE]] but it has been rediscovered by various authors. We will follow the proof in Girard's book \cite{Girard1989}.
+This proof is usually attributed to an unpublished note of Turing but it has been rediscovered by various authors. We will follow the proof in Girard's book \cite{Girard1989}.
 
 % Degree of a type
 \begin{defin}
@@ -303,26 +316,158 @@ We now have all the machinary needed to prove that typed terms in the STLC are s
 \end{remark}
 
 % Coherence lemma
-\begin{lemma}
+\begin{lemma}\label{beta_coh}
     Suppose $\Gamma \vdash M \Leftarrow T$ and $M \twoheadrightarrow_{\beta} N$, then $\Gamma \vdash M \equiv N : T$.
 \end{lemma}
 
 \begin{proof}
-    [[TODO]]
+    We will only sketch the proof here. It will require inducting over syntax and the definition of $\twoheadrightarrow_\beta$. The main part to notice is that as $\to_\beta$ is a compatible relation, we can destruct the syntax down and isolate a redex. Then using ($\to$-$\beta$), ($\times$-$\beta_1$) and ($\times$-$\beta_2$) we can combine their results with congruence rules to build the term back up. It will be a technically finicky proof.
 \end{proof}
-\begin{comment}
+
 \begin{remark}
-    Observe that by ($\equiv_{\mathsf{term}}$-tran) we can show this by induction on the definition $\twoheadrightarrow_{\beta}$. Thus it is sufficient to prove that given $\Gamma \vdash M \Leftarrow T$ and $M \to_{\beta} N$, then $\Gamma \vdash M \equiv N : T$.
+    Although we haven't checked Lemma \ref{beta_coh}, it would be extremely suprising if it were false. So we have a strong feeling that it ought to be true. 
+\end{remark}
+
+We now wish to prove that $\to_\beta$ is weakly Church-Rosser. First we take some results from Takahashi \cite{TakahashiM1989PRIL, Takahashi:1995:PR9:207177.207191}, who considers \emph{parallel reductions}. This is a stronger relation than $\to_{\beta}$ and weaker than $\twoheadrightarrow_{\beta}$. This might not seem like much but, parallel ($\beta$-)reduction, denoted $\Rightarrow_{\beta}$ (not to be confused with our typing judgements), satisfies the diamond in Church-Rosser. And since $\twoheadrightarrow_{\beta}$ is the transitive closure of $\Rightarrow_{\beta}$, it too satisfies the diamond in Church-Rosser hence $\to_{\beta}$ has the Church-Rosser property. We will formalise this argument as follows and consider $\beta$, $\eta$ and $\beta \eta$ reductions along the way.
+
+% Parallel beta reduction
+\begin{defin}
+    \emph{Parallel $\beta$-reduction}, $\Rightarrow_{\beta}$, is defined inductively on terms by the following rules:
+    \begin{enumerate}
+        \item $x \Rightarrow_{\beta} x$ for a variable or constant $x$.
+        \item $\lambda x . M \Rightarrow_{\beta} \lambda x . M'$ if $M \Rightarrow_{\beta} M'$.
+        \item $MN \Rightarrow_{\beta} M' N'$ if $M \Rightarrow_{\beta} M'$ and $N \Rightarrow_{\beta} N'$.
+        \item $(M, N) \Rightarrow_{\beta} (M', N')$ if $M \Rightarrow_{\beta} M'$ and $N \Rightarrow_{\beta} N'$.
+        \item $(\lambda x . M)N \Rightarrow_{\beta} M'[N' / x]$ if $M \Rightarrow_{\beta} M'$ and $N \Rightarrow_{\beta} N'$.
+        \item $\fst(M, N) \Rightarrow_{\beta} M'$ if $M \Rightarrow_{\beta} M'$.
+        \item $\snd(M, N) \Rightarrow_{\beta} N'$ if $N \Rightarrow_{\beta} N'$.
+    \end{enumerate}
+\end{defin}
+
+\begin{remark}
+    If we expand the definition of compatible in the definition of $\to_{\beta}$ it may appear to be identical to the definition of $\Rightarrow_{\beta}$. The key difference is the direction in which we are building up the terms. In the above definition we are breaking down the syntax and making sure that \emph{all} components also satisfy the relation. We will see later the relation with $\to_{\beta}$.
 \end{remark}
 
 \begin{remark}
-    This justifies our choice of rules, and shows that considering only terms strips away the typing information to no consequence.
+    The name comes from the fact that parallel reduction can reduce many $\beta$-redexes at once, unlike usual reduction.
 \end{remark}
-\end{comment}
 
-% eta
+% => beta is reflexive
+\begin{cor}\label{beta_par_refl}
+    The relation $\Rightarrow_\beta$ is reflexive.
+\end{cor}
 
-%We also have eta computation rules, which we haven't included yet. But we will show that normalisation with these included will follow.
+\begin{proof}
+    Observe that ignoring the last three rules in the definition of $\Rightarrow_\beta$ we still cover all the syntax.
+\end{proof}
+
+The following lemma shows the strengths of our notions of $\beta$-reduction. It will be very useful later on.
+
+% M -> M'  ==>  M => M'  ==>  M ->> M'
+\begin{lemma}\label{beta_par_imp}
+    We have the following implications:
+    $$
+        M \to_\beta M' \quad \implies \quad M \Rightarrow_\beta M' \quad \implies \quad M \twoheadrightarrow_\beta M'
+    $$
+\end{lemma}
+
+\begin{proof}
+    For the first implication, observe that a redex in $M$ is being contracted to such that $M \to_\beta M'$. We can also contract the redex in the definition of $M \Rightarrow_\beta M'$ by choosing the correct rule. For the second implication, proceed by induction on $M$:
+    \begin{itemize}
+        \item If $M = x \Rightarrow_\beta M'$ then clearly $M'=x$ hence $x \twoheadrightarrow x$.
+        \item If $M = \lambda x . N$ then $M' = \lambda x . N'$ where $N \Rightarrow_\beta N'$, which by the induction hypothesis gives us $N \twoheadrightarrow_\beta N'$, and since $\twoheadrightarrow_\beta$ is the transitive, reflexive closure of a compatible relation, we have $M \twoheadrightarrow_\beta M'$.
+        \item If $M = (a, b)$, then by induction hypothesis and $\twoheadrightarrow_\beta$ being compatible we have $M \twoheadrightarrow_\beta M'$.
+        \item Finally for the case that $M$ is a $\beta$-redex, observe that $\twoheadrightarrow_\beta$ can reduce this redex, and by the induction hypothesis and subredexes of that.
+    \end{itemize}
+\end{proof}
+
+\begin{remark}
+    The previous proof may be considered as a sketch since we didn't explicitly check every case. This can definitely be done but it is not so interesting.
+\end{remark}
+
+We can now discuss \emph{the complete ($\beta$-)development of a term}. This is a way of compeletely reducing down \emph{all} $\beta$-redexes at once.
+
+\begin{defin}
+    The \emph{complete ($\beta$-)development} of a term $\Gamma \vdash t \Leftarrow A$, written $t^*$ is defined by induction on syntax:
+    \begin{itemize}
+        \item For a variable or cosntant $x^* = x$.
+        \item $(\lambda x . M)^* = \lambda x . M^*$.
+        \item $(M N)^* = M^* N^*$ if $MN$ is not a $\beta$-redex.
+        \item $(a, b)^* = (a^*, b^*)$.
+        \item $((\lambda x . M)N)^* = M^* [N^* / x]$.
+        \item $(\fst (a, b))^* = a^*$.
+        \item $(\snd (a, b))^* = b^*$.
+    \end{itemize}
+\end{defin}
+
+\begin{lemma}
+    Given a term $\Gamma \vdash t \Leftarrow A$, $t^*$ is in $\beta$-normal form.
+\end{lemma}
+
+\begin{proof}
+    Observe by induction that the complete development rids a term of \emph{all} $\beta$-redexes.
+\end{proof}
+
+
+Here is a technical lemma that is the driving force behind our proof of being Church-Rosser. It says that the compelete development is always the most reduced form of a term.
+
+\begin{lemma}\label{cd_lemma_beta}
+    Suppose $M \Rightarrow_\beta N$ then $N \Rightarrow_\beta M^*$.
+\end{lemma}
+
+\begin{proof}
+    We proceed by induction on $M \Rightarrow_\beta N$:
+    \begin{itemize}
+        \item Suppose $M = x$ then $M = x \Rightarrow_\beta x = N$. Hence $N = x \Rightarrow_\beta x^* = M^*$.
+        \item Suppose $M = \lambda x . t \Rightarrow_\beta \lambda x . t'$. Then $t \Rightarrow_\beta t'$ and $t' \Rightarrow_\beta t^*$ by the induction hypothesis, hence $N = \lambda x . t' \Rightarrow_\beta \lambda x . t^* = (\lambda x . t)^* = M^*$.
+        \item Suppose $M = a b$ and $M$ is not a $\beta$-redex, then $M = a b \Rightarrow_\beta a ' b ' = N$, with $a \Rightarrow_\beta a'$ and $b \Rightarrow_\beta b'$. Then by the induction hypotheses, we have $a' \Rightarrow_\beta a^*$ and $b' \Rightarrow_\beta b^*$, yielding $a' b' \Rightarrow_\beta a^* b^* = (a b)^*=M^*$, since $M$ is not a $\beta$-redex.
+        \item Suppose $M = (a, b) \Rightarrow_\beta (a' , b')$ where $a \Rightarrow_\beta a'$ and $b \Rightarrow_\beta b'$. Then by the induction hypotheses we have $a' \Rightarrow_\beta a^*$ and $b' \Rightarrow_\beta b^*$. Hence $N = (a', b') \Rightarrow_\beta (a^*, b^*) = (a, b)^* = M^*$.
+        \item Suppose $M = (\lambda x . y) t \Rightarrow_\beta y'[t'/x]$ with $y \Rightarrow_\beta y'$ and $t \Rightarrow_\beta t'$. By our induction hypotheses: $y' \Rightarrow_\beta y^*$ and $t' \Rightarrow_\beta t^*$. It can be shown by induction on the syntax of $y'$ that $y'[t'/x] \Rightarrow_\beta y^*[t^* / x]$ however the proof would get to long. Assuming this we have $y' [t'/x] \Rightarrow_\beta y^*[t^* / x] = (y[t/x])^*$, again by induction on $y$ and $t$, and again we omit since it would lengthen the proof substantially, finally giving us $N \Rightarrow_\beta M^*$.
+        \item Finally suppose $M = \fst(a, b) \Rightarrow_\beta a'$ where $a \Rightarrow_\beta a'$, by our induction hypothesis, $a' \Rightarrow_\beta a^*$ so $N = a' \Rightarrow_\beta a^* = (\fst(a, b))^* = M^*$.
+        \item The case for $\snd$ is very similar to the case for $\fst$.
+    \end{itemize}
+\end{proof}
+
+Now we show that $\Rightarrow_\beta$ satisfies a diamond property.
+
+\begin{cor}\label{diamond_par_beta}
+    Given $M \Rightarrow_\beta N_1$ and $M \Rightarrow_\beta N_2$ then $N_1 \Rightarrow_\beta M'$ and $N_2 \Rightarrow_\beta M'$ for some $M'$.
+\end{cor}
+
+\begin{proof}
+    By Lemma \ref{cd_lemma_beta} we observe that $M' = M^*$ gives us the desired result.
+\end{proof}
+
+We now have all we need to prove our desired result.
+
+\begin{lemma}\label{beta_WCR}
+    $\beta$-reduction is weakly Church-Rosser.
+\end{lemma}
+
+\begin{proof}
+    Given $a \to_\beta b$ and $a \to_\beta b'$ we see that by Lemma \ref{beta_par_imp}, we have $a \Rightarrow_\beta b$ and $a \Rightarrow_\beta b'$. Hence by the diamond property of $\Rightarrow_\beta$ (Corollary \ref{diamond_par_beta}), we have $b \Rightarrow_\beta a'$ and $b' \Rightarrow_\beta a'$ for some $a'$. Which by Lemma \ref{beta_par_imp} again, gives us $b \twoheadrightarrow_\beta a'$ and $b' \twoheadrightarrow_\beta a'$.
+\end{proof}
+
+\begin{theorem}
+    $\beta$-reduction is Church-Rosser (on well-typed terms).
+\end{theorem}
+
+\begin{proof}
+    $\beta$-reduction is strongly normalising by Lemma \ref{beta_SN} and weakly Church-Rosser by Lemma \ref{beta_WCR}. Hence by Newman's Lemma (\ref{newman}) we have that $\beta$-reduction is Church-Rosser. 
+\end{proof}
+
+\begin{remark}
+    In \cite{Takahashi:1995:PR9:207177.207191, barendregt1984lambda} it is stated that the diamond property of $\Rightarrow_\beta$ (Lemma \ref{diamond_par_beta}) directly implies that $\to_\beta$ is Church-Rosser. We could not understand how this implication has come about, so we instead use Newman's lemma.
+\end{remark}
+
+
+%%
+%%  Eta reduction
+%%
+
+\subsection{$\eta$-reduction}
+
+The proof of Church-Rosser for $\eta$-reduction will be simpler than that of $\beta$-reduction. This is because reduced $\eta$-redexes have comparably tame behaviour and don't product any new redexes.
 
 % Define eta reduction
 \begin{defin}
@@ -336,12 +481,12 @@ We now have all the machinary needed to prove that typed terms in the STLC are s
 
 % Define eta normal form
 \begin{defin}
-    A term is said to be in $\eta$-normal form if it is in normal form with respect to $\to_{\eta}$.
+    A term is said to be in \emph{$\eta$-normal form} if it is in normal form with respect to $\to_{\eta}$.
 \end{defin}
 
 % Define multi-step eta reductions
 \begin{defin}
-    Let $\twoheadrightarrow_{\eta}$ be the transitive and reflexive closure of $\to_{\eta}$ called a \emph{multi-step $\eta$-reduction}.
+    Let $\twoheadrightarrow_{\eta}$ be the transitive, reflexive closure of $\to_{\eta}$ called a \emph{multi-step $\eta$-reduction}.
 \end{defin}
 
 We will now show that $\to_\eta$ is strongly normalising.
@@ -389,7 +534,7 @@ We will now show that $\to_\eta$ is strongly normalising.
     Observe that in both cases we have that the depth of a redex $s$ is $\delta(s) = \delta(r) + 2$ where $r$ is the reduct of $s$. However at the level of terms we cannot garantee equality due to the nature of depth and compatibility. 
 \end{proof}
 
-\begin{lemma}
+\begin{lemma}\label{eta_SN}
     $\eta$-reduction is strongly normalising.
 \end{lemma}
 
@@ -397,102 +542,329 @@ We will now show that $\to_\eta$ is strongly normalising.
     By Lemma \ref{eta_red_bound} we have that the depth of any $\eta$-reduction sequence is strictly decreasing. Hence there may only be finitely many steps in any given $\eta$-reduction sequence.
 \end{proof}
 
-\begin{comment}
-We wish to show that $\eta$-reduction enjoys similar normalisation properties to $\beta$-reduction. This should be much easier since $\eta$-redexes are much more distinct.
-
-% eta degree of a redex
-\begin{defin}
-    The \emph{($\eta$-)degree $\partial_{\eta}(t)$ of a redex} is defined as the degree of it's type. If $\Gamma \vdash t \Leftarrow T$ then $\partial_{\eta} := \partial(T)$. This is well-defined due to unicity of typing. [[REFERENCE INVERSION LEMMA HERE]]
-\end{defin}
-
-\begin{remark}
-    Note that a property of our type theory has made the definition for $\eta$-degree much simpler. We could have defined $\eta$-degree in a similar way to $\beta$-degree but when doing so you can observe that it is redundent. This was not entirely possible in the $\beta$-reduction type because we had some ambiguity for the $\beta$ rules. For example it is not entirely clear what type $v$ is in $\snd(u,v)$, and similarly for the other $\beta$-redexes. In fact we could go a step further and completely ignore typing information since $\eta$-reduction is strongly normalising even in the untyped lambda calculus.
-\end{remark}
-
-\begin{remark}
-    It should also be noted that in most practical implementations of STLC $\eta$ rules are usually completely ignored since many computations can be run without them. The computational argument is that $\eta$ rules are tedious and difficult to implement in a compiler. It has been observed that $\eta$ rules behave particularly badly with common programming constructs such as subtyping. Later we will discuss depenent types, which is a context where $\eta$ rules cannot easily be ignored.
-\end{remark}
-
-\begin{lemma}
-    If $r$ is a redex of type $T$ then $\partial (T) < \partial_{\eta}(r)$.
-\end{lemma}
-
-\begin{proof}
-    By definition $\partial_{\eta}(r)= \max(\partial(T), \partial(U))+1$ for some types $U$ and $V$ such that $T = U \times V$ or $T = U \to V$. Hence 
-\end{proof}
-
-
-\begin{lemma}
-    $\eta$-reduction is weakly normalising.
-\end{lemma}
-
-% Eta is strongly normalising
-\begin{lemma}
-    $\eta$-reduction is strongly normalising.
-\end{lemma}
-\end{comment}
-
 % Coherence lemma
-\begin{lemma}
+\begin{lemma}\label{eta_coh}
     Suppose $\Gamma \vdash M \Leftarrow T$ and $M \twoheadrightarrow_{\eta} N$, then $\Gamma \vdash M \equiv N : T$.
 \end{lemma}
 
 \begin{proof}
-    Observe that in the definition of 
+    The proof ought to be similar to the sketch outlined in Lemma \ref{beta_coh}.
 \end{proof}
 
-Now we take some results from Takahashi \cite{TakahashiM1989PRIL, Takahashi:1995:PR9:207177.207191}, who considers \emph{parallel reductions}. This is a stronger relation than $\to_{\beta}$ and weaker than $\twoheadrightarrow_{\beta}$. This might not seem like much but, parallel ($\beta$-)reduction, denoted $\Rightarrow_{\beta}$ (not to be confused with our typing judgements), satisfies the diamond in Church-Rosser. And since $\twoheadrightarrow_{\beta}$ is the transitive closure of $\Rightarrow_{\beta}$, it too satisfies the diamond in Church-Rosser hence $\to_{\beta}$ has the Church-Rosser property. We will formalise this argument as follows and consider $\beta$, $\eta$ and $\beta \eta$ reductions along the way.
+Now we define a notion of \emph{parallel}
 
-% Parallel beta reduction
-\begin{defin}
-    \emph{Parallel $\beta$-reduction}, $\Rightarrow_{\beta}$, is defined inductively on terms by the following rules:
+% parallel eta reductions
+\begin{defin}\label{eta_par}
+    \emph{Parallel $\eta$-reduction}, $\Rightarrow_\eta$, is defined inductively on terms by the following rules:
     \begin{enumerate}
-        \item $x \Rightarrow_{\beta} x$ for a variable $x$.
-        \item $\lambda x . M \Rightarrow_{\beta} \lambda x . M'$ if $M \Rightarrow_{\beta} M'$.
-        \item $MN \Rightarrow_{\beta} M' N'$ if $M \Rightarrow_{\beta} M'$ and $N \Rightarrow_{\beta} N'$.
-        \item $(M, N) \Rightarrow_{\beta} (M', N')$ if $M \Rightarrow_{\beta} M'$ and $N \Rightarrow_{\beta} N'$.
-        \item $(\lambda x . M)N \Rightarrow_{\beta} M'[N' / x]$ if $M \Rightarrow_{\beta} M'$ and $N \Rightarrow_{\beta} N'$.
-        \item $\fst(M, N) \Rightarrow_{\beta} M'$ if $M \Rightarrow_{\beta} M'$.
-        \item $\snd(M, N) \Rightarrow_{\beta} N'$ if $N \Rightarrow_{\beta} N'$.
+        \item $x \Rightarrow_\eta x$ for a variable or constant $x$.
+        \item $\lambda x . M \Rightarrow_\eta \lambda x . M'$ if $M \Rightarrow_\eta M'$.
+        \item $M N \Rightarrow_\eta M' N'$ if $M \Rightarrow_\eta M'$ and $N \Rightarrow_\eta N'$.
+        \item $(M, N) \Rightarrow_\eta (M', N')$ if $M \Rightarrow_\eta M'$ and $N \Rightarrow_\eta N'$.
+        \item $\lambda x . M x \Rightarrow_\eta M'$ if $M \Rightarrow_\eta M'$ and $x \not\in \mathrm{FV}(M)$.
+        \item $(\fst(t), \snd(t)) \Rightarrow_\eta t'$ if $t \Rightarrow_\eta t'$.
     \end{enumerate}
 \end{defin}
 
 \begin{remark}
-    If we expand the definition of compatible in the definition of $\to_{\beta}$ it may appear to be identical to the definition of $\Rightarrow_{\beta}$. The key difference is the direction in which we are building up the terms. In the above definition we are breaking down the syntax and making sure that \emph{all} components also satisfy the relation. We will see later the relation with $\to_{\beta}$.
+    Notice the condition on $\lambda x . M x$ we have to check that $M$ is specifically not ``in scope'' of $x$. Since $M$ on it's own does not make sense otherwise.
 \end{remark}
 
-\begin{remark}
-    The name comes from the fact that parallel reduction can reduce many $\beta$-redexes at once, unlike usual reduction.
-\end{remark}
-
-% => beta is reflexive
 \begin{cor}
-    The relation $\Rightarrow_\beta$ is reflexive.
+    The relation $\Rightarrow_\eta$ is reflexive.
 \end{cor}
 
 \begin{proof}
-    Observe that ignoring the last three rules in the definition of $\Rightarrow_\beta$ we still cover all the syntax.
+    Observe that ignoring the last two rules, still qualifies any term $t$ to satisfy $t \Rightarrow_\eta t$.
 \end{proof}
 
-% M -> M'  ==>  M => M'  ==>  M ->> M'
-\begin{lemma}
+Now we show the strenght of $\Rightarrow_\eta$ relative to the other two $\eta$-reduction relations.
+
+\begin{lemma}\label{eta_par_imp}
     We have the following implications:
     $$
-        M \to_\beta M' \quad \implies \quad M \Rightarrow_\beta M' \quad \implies \quad M \twoheadrightarrow_\beta M'
+        M \to_\eta M' \quad \implies \quad M \Rightarrow_\eta M' \quad \implies \quad M \twoheadrightarrow_\eta M'
     $$
 \end{lemma}
 
 \begin{proof}
-    For the first implication, observe that a redex in $M$ is being contracted to such that $M \to_\beta M'$. We can also contract the redex in the definition of $M \Rightarrow_\beta M'$ by choosing the correct rule. For the second implication, proceed by induction on $M$:
+    This first implication is trivial. The second implication can be done by induction on $M$ and the definition of $M \Rightarrow_\eta M'$.
+\end{proof}
+
+Now we define a way of completely reducing all $\eta$-redexes of a term.
+
+\begin{defin}
+    The \emph{complete ($\eta$-)development} of a term $t$, written $t^*$ is defined by induction on syntax:
     \begin{itemize}
-        \item If $x \Rightarrow_\beta M'$ then clearly $M'=x$ hence $x \twoheadrightarrow x'$.
-        \item If 
+        \item For a variable or constant $x^* = x$.
+        \item $(\lambda x . M)^* = \lambda x . M^*$ if $\lambda x . M$ is not an $\eta$-redex.
+        \item $(M N)^* = M^* N^*$.
+        \item $(a, b)^* = (a^*, b^*)$ if $(a, b)$ is not an $\eta$-redex.
+        \item $(\lambda x . M x)^* = M^*$ if $x \not\in \mathrm{FV}(M)$.
+        \item $(\fst(t), \snd(t))^* = t^*$.
+    \end{itemize}
+\end{defin}
+
+\begin{remark}
+    We have overloaded the notation $t^*$ but since this section is only concerned with $\eta$-reduction this is fine.
+\end{remark}
+
+\begin{remark}
+    Notice we have not mentioned any typing information about $t$. $\eta$-reduction is quite strong even without the presence of types.
+\end{remark}
+
+\begin{lemma}\label{cd_eta_normal}
+    Given a term $t$, $t^*$ is in $\eta$-normal form.
+\end{lemma}
+
+\begin{proof}
+    Observe by induction that the complete development rids a term of \emph{all} $\eta$-redexes.
+\end{proof}
+
+Now for the technical lemma that will give us Church-Rosser.
+
+\begin{lemma}\label{cd_lemma_eta}
+    Suppose $M \Rightarrow_\eta N$ then $N \Rightarrow_\eta M^*$.
+\end{lemma}
+
+\begin{proof}
+    Begin by induction on $M \Rightarrow_\eta N$:
+    \begin{itemize}
+        \item If $M = x$, then $x \Rightarrow_\eta N$ so $N  = x \Rightarrow_\eta x = M^*$.
+        \item If $M = \lambda x . t$ and $M$ is not an $\eta$-redex, then $M - \lambda x . t \Rightarrow_\eta \lambda x . t' = N$. By definition $t \Rightarrow_\eta t'$, and by the induction hypothesis $t' \Rightarrow_\eta t^*$. Hence $N = \lambda x . t' \Rightarrow_\eta \lambda x . t^* = (\lambda x. t)^*$ since $(\lambda x . t)$ is not an $\eta$-redex.
+        \item If $M = a b \Rightarrow_\eta a' b' = N$. By definition $a \Rightarrow_\eta a'$ and $b \Rightarrow_\eta b'$. By the induction hypotheses $a' \Rightarrow_\eta a^*$ and $b' \Rightarrow_\eta b^*$. Hence $N = a'b' \Rightarrow_\eta a^* b^* = (a b)^* = M^*$.
+        \item If $M = (a, b)$ and $(a, b)$ is not an $\eta$-redex, then $M = (a, b) \Rightarrow_\eta (a', b') = N$. By definition $a \Rightarrow_\eta a'$ and $b \Rightarrow_\eta b'$. By the induction hypotheses $a' \Rightarrow_\eta a^*$ and $b' \Rightarrow_\eta b^*$. Hence $N = (a',b') \Rightarrow_\eta (a^*, b^*) = (a, b)^* = M^*$ since $(a, b)$ is not an $\eta$-redex.
+        \item If $M = \lambda x . t x$ for $x \not\in \mathrm{FV}(t)$, then $M = \lambda x . t x \Rightarrow_\eta N$. There are two cases for $N$:
+        \begin{itemize}
+            \item If $N = t'$ for some $t \Rightarrow_\eta t'$ then $M^* = (t')^*$ and hence $N = t' \Rightarrow_\eta t^* = M^*$.
+            \item If $N = \lambda x . t' x$ for some $t x\Rightarrow_\eta t' x$ then our induction hypothesis gives $t' x \Rightarrow_\eta (t x)^* = t^* x$. Hence $t' \Rightarrow_\eta t^*$. Thus by definition we have $\lambda x . t' x \Rightarrow_\eta t^*$ since $t' \Rightarrow_\eta t^*$. The induction here is a bit tricky and would probably benefit with some clearer notation. 
+        \end{itemize}
+        \item Finally if $M =(\fst(t), \snd(t)) \Rightarrow_\eta N$ then we have two cases for $N$:
+        \begin{itemize}
+            \item If $N = t'$ for some $t \Rightarrow_\eta t'$, then by the induction hypothesis $t' \Rightarrow_\eta t^* = (\fst(t), \snd(t))^* = M^*$.
+            \item If $N = ((\fst(t'), \snd(t'))$ for some $t \Rightarrow_\eta t'$, then by the induction hypothesis $t' \Rightarrow_\eta t^*$. Hence by definition we have $N = ((\fst(t'), \snd(t')) \Rightarrow_\eta t^*$ since $t' \Rightarrow_\eta t^*$.
+        \end{itemize}
     \end{itemize}
 \end{proof}
 
 
-%%%
+Now we show that $\Rightarrow_\eta$ satisfies a diamond property.
 
+\begin{cor}\label{diamond_par_eta}
+    Given $M \Rightarrow_\eta N_1$ and $M \Rightarrow_\eta N_2$ then $N_1 \Rightarrow_\eta M'$ and $N_2 \Rightarrow_\eta M'$ for some $M'$.
+\end{cor}
+
+\begin{proof}
+    By Lemma \ref{cd_lemma_eta} we observe that $M' = M^*$ gives us the desired result.
+\end{proof}
+
+We now have all we need to prove our desired result.
+
+\begin{lemma}\label{eta_WCR}
+    $\eta$-reduction is weakly Church-Rosser.
+\end{lemma}
+
+\begin{proof}
+    Given $a \to_\eta b$ and $a \to_\eta b'$ we see that by Lemma \ref{eta_par_imp}, we have $a \Rightarrow_\eta b$ and $a \Rightarrow_\eta b'$. Hence by the diamond property of $\Rightarrow_\eta$ (Corollary \ref{diamond_par_eta}), we have $b \Rightarrow_\eta a'$ and $b' \Rightarrow_\eta a'$ for some $a'$. Which by Lemma \ref{eta_par_imp} again, gives us $b \twoheadrightarrow_\eta a'$ and $b' \twoheadrightarrow_\eta a'$.
+\end{proof}
+
+\begin{theorem}
+    $\eta$-reduction is Church-Rosser.
+\end{theorem}
+
+\begin{proof}
+    $\eta$-reduction is strongly normalising by Lemma \ref{eta_SN} and weakly Church-Rosser by Lemma \ref{eta_WCR}. Hence by Newman's Lemma (\ref{newman}) we have that $\eta$-reduction is Church-Rosser. 
+\end{proof}
+
+\begin{remark}
+    Notice yet again how we at no point used the typing of terms for $\eta$.
+\end{remark}
+
+\begin{remark}
+    $\eta$-reduction is typically seen as an easy case and it is not so common to see proofs written out explicitly for it. Lemma \ref{cd_lemma_eta} for example is not such an easy proof to write or read. This is due to the iterated uses of induction. One way to make this easier to check is to use a proof assistant. This however would take some time to set up properly, and may risk diverging our attention.
+\end{remark}
+
+
+%%
+%%  Beta eta reduction
+%%
+
+\subsection{$\beta \eta$-reduction}
+
+We now begin the intricate business of mixing the two reductions, keeping note of how they interact, and finally showing that, used together, they satisfy Church-Rosser.
+
+\begin{defin}
+    We define \emph{$\beta\eta$-reduction}, $\to_{\beta\eta}$ to be the union of the relations $\to_\beta$ and $\to_\eta$.
+\end{defin}
+
+\begin{remark}
+    Observe that $\to_{\beta\eta}$ is also a compatible relation.
+\end{remark}
+
+\begin{defin}
+    We define $\twoheadrightarrow_{\beta\eta}$ as the transitive, reflexive closure of $\to_{\beta\eta}$.
+\end{defin}
+
+\begin{lemma}\label{beta_SN_iff_beta_eta_SN}
+    A term $\Gamma \vdash t \Leftarrow A$ has a $\beta$-normal form if and only if it has a $\beta \eta$-normal form.
+\end{lemma}
+
+\begin{proof}
+    A similar proof can be found in \cite[Corollary 15.1.5]{barendregt1984lambda}, this would of course have to be modified to accomodate for product types. The idea of the proof is to show that $M \twoheadrightarrow_{\beta\eta} N$ implies $M \twoheadrightarrow_{\beta} P \twoheadrightarrow_{\eta} N$ for some $P$. Then since $\eta$-reduction is strongly normalising, it must be the case that $\beta$-reduction is strongly normalising if and only if $\beta \eta$-reduction is.
+\end{proof}
+
+\begin{cor}\label{beta_eta_SN}
+    $\beta \eta$-reduction is strongly normalising on typed terms.
+\end{cor}
+
+\begin{proof}
+    By Lemma \ref{beta_SN} and Lemma \ref{beta_SN_iff_beta_eta_SN}.
+\end{proof}
+
+Next we introduce parallel $\beta \eta$-reduction.
+
+\begin{defin}
+    \emph{Parallel $\beta\eta$-reduction}, $\Rightarrow_{\beta\eta}$, is defined inductively on terms by the following rules:
+    \begin{enumerate}
+        \item $x \Rightarrow_{\beta\eta} x$ for a variable or constant $x$.
+        \item $\lambda x . M \Rightarrow_{\beta\eta} \lambda x . M'$ if $M \Rightarrow_{\beta\eta} M'$.
+        \item $M N \Rightarrow_{\beta\eta} M' N'$ if $M \Rightarrow_{\beta\eta} M'$ and $N \Rightarrow_{\beta\eta} N'$.
+        \item $(M, N) \Rightarrow_{\beta\eta} (M', N')$ if $M \Rightarrow_{\beta\eta} M'$ and $N \Rightarrow_{\beta\eta} N'$.
+        \item $(\lambda x . M) N \Rightarrow_{\beta\eta} M '[N'/x]$ if $M \Rightarrow_{\beta\eta} M'$ and $N \Rightarrow_{\beta\eta} N'$.
+        \item $\fst(M, N) \Rightarrow_{\beta\eta} M'$ if $M \Rightarrow_{\beta\eta} M'$.
+        \item $\snd(M, N) \Rightarrow_{\beta\eta} N'$ if $N \Rightarrow_{\beta\eta} N'$.
+        \item $\lambda x . M x \Rightarrow_{\beta\eta}M'$ if $M \Rightarrow_{\beta\eta} M'$ and $x \not \in \mathrm{FV}(M)$.
+        \item $(\fst (t), \snd(t)) \Rightarrow_{\beta\eta} t'$ if $t \Rightarrow_{\beta\eta} t'$.
+    \end{enumerate}
+\end{defin}
+
+\begin{cor}\label{beta_eta_par_refl}
+    $\Rightarrow_{\beta\eta}$ is reflexive.
+\end{cor}
+
+\begin{proof}
+    Observe that any term can be put through the definition of $\Rightarrow_{\beta\eta}$ even by ignoring the last five cases.
+\end{proof}
+
+Next we give the technical lemma that will let us prove Church-Rosser.
+
+\begin{lemma}\label{beta_eta_par_imp}
+    We have the following implications:
+    $$
+        M \to_{\beta\eta} M' \quad \implies \quad M \Rightarrow_{\beta\eta} M' \quad \implies \quad M \twoheadrightarrow_{\beta\eta} M'
+    $$
+\end{lemma}
+
+\begin{proof}
+    This first implication is trivial. The second implication can be done by induction on $M$ and the definition of $M \Rightarrow_{\beta\eta} M'$.
+\end{proof}
+
+Now we need a way of fully $\beta \eta$-reducing a term.
+
+\begin{defin}
+    The \emph{complete ($\beta\eta$-)development} of a term $t$, written $t^*$ is defined by induction on syntax:
+    \begin{itemize}
+        \item For a variable or constant $x^*= x$.
+        \item $(\lambda x . M)^* = \lambda x . M^*$ if $\lambda x . M$ is not an $\eta$-redex.
+        \item $(M N)^* = M^* N^*$ if $MN$ is not a $\beta$-redex.
+        \item $(a, b)^* = (a^*, b^*)$ if $(a, b)$ is not an $\eta$-redex.
+        \item $((\lambda x . M) N)^* = M^* [N^* / x]$.
+        \item $(\fst(a, b))^* = a^*$.
+        \item $(\snd(a, b))^* = b^*$.
+        \item $(\lambda x . M x)^* = M^*$ if $x \not \in \mathrm{FV}(M)$.
+        \item $(\fst(t), \snd(t))^* = t^*$.
+    \end{itemize}
+\end{defin}
+
+\begin{remark}
+    We have yet again overridden the notation $t^*$. As before we keep the notion contained within the section to avoid any confusion.
+\end{remark}
+
+\begin{lemma}
+    Given a term $\Gamma \vdash t \Leftarrow A$, $t^*$ is in $\beta \eta$-normal form.
+\end{lemma}
+
+\begin{proof}
+    Observe that any $\beta \eta$-redexes will be reduced. This proof can be done by induction on syntax. The induction may have to go a bit deeper than just over term forms since we need to single out the cases for $\beta \eta$-redexes.
+\end{proof}
+
+Now we can prove our technical lemma that will give us Church-Rosser for $\beta\eta$.
+
+\begin{lemma}\label{cd_lemma_beta_eta}
+    Suppose $M \Rightarrow_{\beta\eta} N$, then $N \Rightarrow_{\beta\eta} M^*$.    
+\end{lemma}
+
+\begin{proof}
+    We begin by induction on $M \Rightarrow_{\beta\eta} N$:
+    \begin{itemize}
+        \item If $M = x \Rightarrow_{\beta\eta} x = N$, then $N = x \Rightarrow_{\beta\eta} x = x^* = M^*$.
+        \item If $M = \lambda x . t$ is not an $\eta$-redex, then $M = \lambda x . t \Rightarrow_{\beta\eta} \lambda x . t'$ where $t \Rightarrow_{\beta\eta} t'$, then by the induction hypothesis, $t' \Rightarrow_{\beta\eta} t^*$, hence $\lambda x . t' \Rightarrow_{\beta\eta} \lambda x . t^*=(\lambda x . t)* = M^*$ since $t$ is not an $\eta$-redex.
+        \item If $M = a b$ is not a $\beta$-redex, then $M = a b \Rightarrow_{\beta\eta} a' b'$ where $a \Rightarrow_{\beta\eta} a'$ and $b \Rightarrow_{\beta\eta} b'$. By our induction hypotheses we have $a' \Rightarrow_{\beta\eta} a^*$ and $b' \Rightarrow_{\beta\eta} b^*$, hence $a' b' \Rightarrow_{\beta\eta} a^* b^* = (ab)^* = M^*$ since $ab$ is not a $\beta$-redex.
+        \item If $M = (a, b)$ is not an $\eta$-redex, then $M = (a, b) \Rightarrow_{\beta\eta} (a', b')$ where $a \Rightarrow_{\beta\eta} a'$ and $b \Rightarrow_{\beta\eta} b'$. By our induction hypotheses we have $a' \Rightarrow_{\beta\eta} a^*$ and $b' \Rightarrow_{\beta\eta} b^*$, hence $(a', b') \Rightarrow_{\beta\eta} (a^*, b^*) = (a, b)^* = M^*$ since $(a, b)$ is not an $\eta$-redex.
+        \item If $M = (\lambda x . y)t \Rightarrow_{\beta\eta} N$, by induction on $N$:
+        \begin{itemize}
+            \item If $N = y'[t'/x]$ where $y \Rightarrow_{\beta\eta} y'$ and $t \Rightarrow_{\beta\eta} t'$. By our induction hypotheses, we have $y' \Rightarrow_{\beta\eta} y^*$ and $t' \Rightarrow_{\beta\eta}t^*$. By induction on $y'$ and $t'$ it can be shown that $N = y'[t'/x] \Rightarrow_{\beta\eta} y^*[t^*/x]=((\lambda x . y)t)^* = M^*$.
+            \item If $N = (\lambda x . y')t'$ where $y \Rightarrow_{\beta\eta} y'$ and $y \Rightarrow_{\beta\eta} t'$. By the our induction hypotheses, we have $y' \Rightarrow_{\beta\eta} y^*$ and $t' \Rightarrow_{\beta\eta} t^*$. Hence $N = (\lambda x . y')t' \Rightarrow_{\beta\eta} y^*[t^*/x] = ((\lambda x . M)t)^* = M^*$.
+        \end{itemize}
+        \item If $M = \fst(a, b) \Rightarrow_{\beta\eta} N$, by induction on $N$:
+        \begin{itemize}
+            \item If $N= a'$ where $a \Rightarrow_{\beta\eta} a'$, then by our induction hypothesis, $a' \Rightarrow_{\beta\eta} a^*$, hence $N = a' \Rightarrow_{\beta\eta} a^* = (\fst(a, b))^* = M^*$.
+            \item If $N = \fst(a', b')$ where $a \Rightarrow_{\beta\eta} a'$ and $b \Rightarrow_{\beta\eta} b'$. Then $N = \fst(a', b') \Rightarrow_{\beta\eta} a^* = (\fst(a, b))^* = M^*$ since $a' \Rightarrow_{\beta\eta} a^*$ by our induction hypothesis.
+        \end{itemize}
+        \item If $M = \snd(a, b) \Rightarrow_{\beta\eta} N$, by induction on $N$:
+        \begin{itemize}
+            \item If $N= b'$ where $b \Rightarrow_{\beta\eta} b'$, then by our induction hypothesis, $b' \Rightarrow_{\beta\eta} b^*$, hence $N = b' \Rightarrow_{\beta\eta} b^* = (\snd(a, b))^* = M^*$.
+            \item If $N = \snd(a', b')$ where $a \Rightarrow_{\beta\eta} a'$ and $b \Rightarrow_{\beta\eta} b'$. Then $N = \snd(a', b') \Rightarrow_{\beta\eta} b^* = (\snd(a, b))^* = M^*$ since $b' \Rightarrow_{\beta\eta} b^*$ by our induction hypothesis.
+        \end{itemize}
+        \item If $M = \lambda x. t x$ where $x \not \in \mathrm{FV}(t)$ then $M \Rightarrow_{\beta\eta} N$. Induction over $N$:
+        \begin{itemize}
+            \item If $N = t'$ where $t \Rightarrow_{\beta\eta} t'$, then by our induction hypothesis $t' \Rightarrow_{\beta\eta} t^* = (\lambda x . t x)^* = M^*$.
+            \item If $N = \lambda x . t' x$ where $t \Rightarrow_{\beta\eta} t'$ and $x \not \in \mathrm{FV}(t')$. By our induction hypothesis $t' \Rightarrow_{\beta\eta} t^*$, hence $N = \lambda x . t' x \Rightarrow_{\beta\eta} t^* = (\lambda x . t x)^* = M^*$.
+        \end{itemize}
+        \item If $M = (\fst(t), \snd(t))$ and $M \Rightarrow_{\beta\eta} N$. By induction on $N$:
+        \begin{itemize}
+            \item If $N = t'$ where $t \Rightarrow_{\beta\eta} t'$, then by our induction hypothesis $t' \Rightarrow_{\beta\eta} t^*$, hence $N = t' \Rightarrow_{\beta\eta} t^* = (\fst(t), \snd(t))^* = M^*$.
+            \item If $N = (\fst(t'), \snd(t'))$ where $t \Rightarrow_{\beta\eta} t'$ then by our induction hypothesis, $t' \Rightarrow_{\beta\eta} t^*$ hence $N = (\fst(t'), \snd(t')) \Rightarrow_{\beta\eta} t^* = (\fst (t), \snd(t))^* = M^*$.
+        \end{itemize}
+    \end{itemize}
+\end{proof}
+
+\begin{cor}\label{diamond_par_beta_eta}
+    Given $M \Rightarrow_{\beta\eta} N_1$ and $M \Rightarrow_{\beta\eta} N_2$ then $N_1 \Rightarrow_{\beta\eta} M'$ and $N_2 \Rightarrow_{\beta\eta} M'$ for some $M'$.
+\end{cor}
+
+\begin{proof}
+    By Lemma \ref{cd_lemma_beta_eta} we observe that $M' = M^*$ gives us the desired result.
+\end{proof}
+
+Now we can show that $\beta\eta$-reduction is weakly Church-Rosser.
+
+\begin{lemma}\label{beta_eta_WCR}
+    $\beta\eta$-reduction is weakly Church-Rosser.
+\end{lemma}
+
+\begin{proof}
+    Given $a \to_{\beta\eta} b$ and $a \to_{\beta\eta} b'$ we see that by Lemma \ref{beta_eta_par_imp}, we have $a \Rightarrow_{\beta\eta} b$ and $a \Rightarrow_{\beta\eta} b'$. Hence by the diamond property of $\Rightarrow_{\beta\eta}$ (Corollary \ref{diamond_par_beta_eta}), we have $b \Rightarrow_{\beta\eta} a'$ and $b' \Rightarrow_{\beta\eta} a'$ for some $a'$. Which by Lemma \ref{beta_eta_par_imp} again, gives us $b \twoheadrightarrow_{\beta\eta} a'$ and $b' \twoheadrightarrow_{\beta\eta} a'$.
+\end{proof}
+
+\begin{theorem}
+    $\beta\eta$-reduction is Church-Rosser (for typed terms).
+\end{theorem}
+
+\begin{proof}
+    $\beta\eta$-reduction is strongly normalising by Lemma \ref{beta_eta_SN} and weakly Church-Rosser by Lemma \ref{beta_eta_WCR}. Hence by Newman's Lemma (\ref{newman}) we have that $\beta\eta$-reduction is Church-Rosser for typed terms. 
+\end{proof}
+
+
+
+
+
+
+
+
+
+\begin{comment}
+%% beta eta reduction 
 We next wish to show that $\beta$-normal forms occur if and only if $\beta \eta$-normal forms occur.
 
 \begin{lemma}\label{beta_SN_beta_eta_SN}
@@ -502,25 +874,6 @@ We next wish to show that $\beta$-normal forms occur if and only if $\beta \eta$
 \begin{proof}
     A similar proof can be found in \cite[Corollary 15.1.5]{barendregt1984lambda}, this would of course have to be modified to accomdate for product types.
 \end{proof}
-
-\begin{comment}
-Now we need a small technical lemma that will show the utility of being strongly normalising.
-
-% Infinite beta-eta implies infinite beta
-\begin{lemma}
-    If there is an infinite $\beta \eta$-reduction sequence starting from $M$, then there is an infinite $\beta$-reduction sequence starting from $M$.
-\end{lemma}
-
-\begin{proof}
-    [[TODO]]
-\end{proof}
-
-We are interested in the contrapositive form of this lemma:
-
-\begin{cor}
-    If there is no infinite $\beta$-reduction sequence starting from $M$, then there is no infinite $\beta \eta$-reduction sequence starting from $M$.
-\end{cor}
-\end{comment}
 
 \begin{remark}
     In particular this means that $\to_{\beta}$ being strongly normalising implies that $\to_{\beta \eta}$ is strongly normalising.
@@ -535,94 +888,6 @@ We are interested in the contrapositive form of this lemma:
     By Lemma \ref{beta_SN} and Lemma \ref{beta_SN_beta_eta_SN}.
 \end{proof}
 
-\begin{comment}
-% beta eta reduction is WCR
-\begin{lemma}
-    $\beta \eta$-reduction is WCR.
-\end{lemma}
-
-\begin{proof}
-    [[TODO]]
-\end{proof}
-
-\end{comment}
-
-We can now discuss \emph{the complete development of a term}.
-
-\begin{defin}
-    The \emph{complete development} of a term $\Gamma \vdash t \Leftarrow A$, written $t^*$ is defined by induction on syntax:
-    \begin{itemize}
-        \item For variables $x^* = x$.
-        \item $(\lambda x . M)^* = \lambda x . M^*$.
-        \item $(M N)^* = M^* N^*$ if $MN$ is not a $\beta$-redex.
-        \item $((\lambda x . M)N)^* = M^* [N^* / x]$.
-        \item $(a, b)^* = (a^*, b^*)$.
-        \item $(\fst (a, b))^* = a^*$.
-        \item $(\snd (a, b))^* = b^*$.
-    \end{itemize}
-\end{defin}
-
-\begin{lemma}
-    Given a term $\Gamma \vdash t \Leftarrow A$, $t^*$ is in $\beta$-normal form.
-\end{lemma}
-
-\begin{proof}
-    Observe by induction that the complete development rids a term of \emph{all} $\beta$-redexes.
-\end{proof}
-
-Now we will prove the following lemma which will give us Church-Rosser for $\beta \eta$-reduction.
-
-\begin{lemma}\label{cd_lemma}
-    Suppose $M \Rightarrow_\beta N$ then $N \Rightarrow_\beta M^*$.
-\end{lemma}
-
-\begin{proof}
-    Proceed by induction on $M$:
-    \begin{itemize}
-        \item If $M = x$, then $x \Rightarrow_\beta N  =x \Rightarrow_\beta x = M^*$.
-        \item If $M = \lambda x . y \Rightarrow_\beta N$, then $N = \lambda x . N'$ for some $N'$, with $y \Rightarrow_\beta N'$. By our induction hypothesis we get $N' \Rightarrow_\beta y^*$. Hence $\lambda x . y \Rightarrow_\beta \lambda x . y^* = M^*$.
-        \item If $M = M_1 M_2 \Rightarrow_\beta N$ and $M$ is not a $\beta$-redex, then $N = N_1 N_2$ for some $N_1$, $N_2$ with $M_1 \Rightarrow_\beta N_1$ and $M_2 \Rightarrow_\beta N_2$.
-    \end{itemize}
-    
-    We leave out the other cases since this is a routine proof by induction. Details can be found in \cite{TakahashiM1989PRIL}.
-\end{proof}
-
-\begin{cor}\label{diamond_par}
-    Given $M \Rightarrow_\beta N_1$ and $M \Rightarrow_\beta N_2$ then $N_1 \Rightarrow_\beta M'$ and $N_2 \Rightarrow_\beta M'$ for some $M'$.
-\end{cor}
-
-\begin{proof}
-    By Lemma \ref{cd_lemma} we observe that we have the desired result.
-\end{proof}
-
-And now the transitive closure of $\Rightarrow_\beta$ is $\twoheadrightarrow_\beta$ and we get the following diamond:
-
-\begin{cor}\label{diamond_beta}
-    Given $M \twoheadrightarrow_\beta N_1$ and $M \twoheadrightarrow_\beta N_2$ then $N_1 \twoheadrightarrow_\beta M'$ and $N_2 \twoheadrightarrow_\beta M'$ for some $M'$.
-\end{cor}
-
-\begin{proof}
-    By \cite[Lemma 3.2.2]{barendregt1984lambda} and Corollary \ref{diamond_par}.
-\end{proof}
-
-This is precisely the CR property for $\to_\beta$.
-
-% Church-Rosser
-\begin{theorem}
-    The Church-Rosser property holds for $\beta$-reduction.
-\end{theorem}
-
-\begin{proof}
-    By Corollary \ref{diamond_beta}.
-\end{proof}
-
-\begin{remark}
-    Not only does every well-typed term have a normal form, but this normal form is unique.
-\end{remark}
-
-\begin{remark}
-    This whole argument can be repeated for the $\Rightarrow_{\beta\eta}$ analogue of Lemma \ref{cd_lemma}. This gives us CR for $\beta \eta$.
-\end{remark}
 
 \subsection{Closing remarks}
 
@@ -670,3 +935,4 @@ However it is not so obvious that the converse is true:
 Canonicity is a property of a type theory that ensures that a given term of a type $\Gamma \vdash t \Leftarrow T$ has a \emph{canonical form}, in that $t$ is only made up of variables from $\Gamma$ and constructors of $T$. Such a property would garantee that 
 
 [[These two concepts are very related, we should find some way to talk about it, including Church-Rosser]]
+\end{comment}

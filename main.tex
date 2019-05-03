@@ -15,6 +15,7 @@
 \usepackage{dirtytalk}
 \usepackage{pst-node}
 \usepackage{tikz-cd}
+\usepackage{enumitem}
 \usepackage{enumerate}
 \usepackage{forest}
 \usepackage{mwe}
@@ -121,6 +122,8 @@
 
 \tableofcontents
 
+%%%
+
 % Introduction and direction of thesis
 \input{intro.tex}
 
@@ -134,15 +137,15 @@
 % Statics and dynamics of programming langauges
 \input{static.tex}
 
-
 % Model simply typed lambda calculus using syntax machinary
 \input{stlc.tex}
 
 % Normalisation of STLC
 \input{normal.tex}
 
+
 % Examples of STLC
-\input{ex_stlc.tex}
+%\input{ex_stlc.tex}
 
 % Notes on statics and dynamics of STLC
 
@@ -154,6 +157,8 @@
 
 % Dependent type theory
 \input{deptypes.tex}
+
+%%%
 
 % Category theory
 %\input{cat.tex}
@@ -172,8 +177,6 @@
 \newpage
 \begin{appendices}
 	\input{rules_stlc.tex}
-	
-
 	
     \begin{landscape}
     	\section{Examples}
@@ -200,6 +203,7 @@
     \end{landscape}
 	
 \end{appendices}
+
 
 \bibliographystyle{plain} 
 \bibliography{uthesis}

@@ -4,14 +4,14 @@ This is the full-presentation of the simply typed lambda calculus $\lambda_{\to 
 
 \subsection{Syntax}\label{stlc_syntax}
 
-Written in BNF:
+We have two sorts $\mathcal{S} := \{ \tm , \ty \} $. Our syntax can be presented in BNF:
 
 $$
     \mathrm{Term} ::= x \mid \lambda x . a \mid (a, b) \mid a b \mid c
 $$
 
 $$
-    \mathrm{Type} ::= \mathbf{1} \mid A \times B \mid A \to B
+    \mathrm{Type} ::= A \mid \mathbf{1} \mid A \times B \mid A \to B
 $$
 
 Or listed as operators:

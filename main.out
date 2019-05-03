@@ -4,78 +4,68 @@
 \BOOKMARK [1][-]{section.2}{Syntax}{}% 4
 \BOOKMARK [2][-]{subsection.2.1}{Introduction}{section.2}% 5
 \BOOKMARK [2][-]{subsection.2.2}{Abstract binding trees}{section.2}% 6
-\BOOKMARK [1][-]{section.3}{Judgements}{}% 7
-\BOOKMARK [2][-]{subsection.3.1}{Introduction}{section.3}% 8
-\BOOKMARK [2][-]{subsection.3.2}{Inference rules}{section.3}% 9
-\BOOKMARK [2][-]{subsection.3.3}{Derivations}{section.3}% 10
-\BOOKMARK [2][-]{subsection.3.4}{Rule induction}{section.3}% 11
-\BOOKMARK [2][-]{subsection.3.5}{Hypothetical judgements}{section.3}% 12
-\BOOKMARK [2][-]{subsection.3.6}{Hypothetical inductive definitions}{section.3}% 13
-\BOOKMARK [2][-]{subsection.3.7}{General judgements}{section.3}% 14
-\BOOKMARK [1][-]{section.4}{Statics and Dynamics}{}% 15
-\BOOKMARK [2][-]{subsection.4.1}{Typing and Type systems}{section.4}% 16
-\BOOKMARK [2][-]{subsection.4.2}{Dynamics}{section.4}% 17
-\BOOKMARK [2][-]{subsection.4.3}{Type safety}{section.4}% 18
-\BOOKMARK [2][-]{subsection.4.4}{Run time errors}{section.4}% 19
-\BOOKMARK [2][-]{subsection.4.5}{Evaluation dynamics}{section.4}% 20
-\BOOKMARK [1][-]{section.5}{Simply typed lambda calculus}{}% 21
-\BOOKMARK [2][-]{subsection.5.1}{Judgements}{section.5}% 22
-\BOOKMARK [2][-]{subsection.5.2}{Structural rules}{section.5}% 23
-\BOOKMARK [2][-]{subsection.5.3}{Equality rules}{section.5}% 24
-\BOOKMARK [2][-]{subsection.5.4}{Type formers}{section.5}% 25
-\BOOKMARK [2][-]{subsection.5.5}{Inversion lemmas}{section.5}% 26
-\BOOKMARK [1][-]{section.6}{Normalisation of STLC}{}% 27
-\BOOKMARK [2][-]{subsection.6.1}{Introduction}{section.6}% 28
-\BOOKMARK [2][-]{subsection.6.2}{Properties of relations}{section.6}% 29
-\BOOKMARK [2][-]{subsection.6.3}{Normalisation}{section.6}% 30
-\BOOKMARK [2][-]{subsection.6.4}{Closing remarks}{section.6}% 31
-\BOOKMARK [2][-]{subsection.6.5}{Canonicity}{section.6}% 32
-\BOOKMARK [1][-]{section.7}{STLC Examples}{}% 33
-\BOOKMARK [2][-]{subsection.7.1}{Identity function x . x}{section.7}% 34
-\BOOKMARK [2][-]{subsection.7.2}{Function application x . y . x y}{section.7}% 35
-\BOOKMARK [2][-]{subsection.7.3}{Mockingbird x . x x}{section.7}% 36
-\BOOKMARK [2][-]{subsection.7.4}{Aye-aye \(x . x\)\(x . x\)}{section.7}% 37
-\BOOKMARK [2][-]{subsection.7.5}{Y-combinator x . \(y . x \(y y\)\) \(y . x \(y y\)\)}{section.7}% 38
-\BOOKMARK [2][-]{subsection.7.6}{Function composition x . y . z . x \( y z\)}{section.7}% 39
-\BOOKMARK [2][-]{subsection.7.7}{Currying x . y . z . x \(y, z\)}{section.7}% 40
-\BOOKMARK [2][-]{subsection.7.8}{Uncurrying x . y . x \(fst\(y\)\)\(snd\(y\)\)}{section.7}% 41
-\BOOKMARK [2][-]{subsection.7.9}{Curry-Uncurry}{section.7}% 42
-\BOOKMARK [2][-]{subsection.7.10}{Swap t . \(snd\(t\), fst\(t\)\)}{section.7}% 43
-\BOOKMARK [2][-]{subsection.7.11}{Swap-Swap}{section.7}% 44
-\BOOKMARK [1][-]{section.8}{Curry-Howard correspondence}{}% 45
-\BOOKMARK [2][-]{subsection.8.1}{Mathematical logic}{section.8}% 46
-\BOOKMARK [2][-]{subsection.8.2}{Lambda calculus}{section.8}% 47
-\BOOKMARK [2][-]{subsection.8.3}{Recursive functions}{section.8}% 48
-\BOOKMARK [2][-]{subsection.8.4}{Turing machines}{section.8}% 49
-\BOOKMARK [2][-]{subsection.8.5}{Russell's paradox}{section.8}% 50
-\BOOKMARK [2][-]{subsection.8.6}{The problem with lambda calculus as a logic}{section.8}% 51
-\BOOKMARK [2][-]{subsection.8.7}{Types to the rescue}{section.8}% 52
-\BOOKMARK [2][-]{subsection.8.8}{The theory of proof a la Gentzen}{section.8}% 53
-\BOOKMARK [2][-]{subsection.8.9}{Curry and Howard}{section.8}% 54
-\BOOKMARK [2][-]{subsection.8.10}{Propositions as types}{section.8}% 55
-\BOOKMARK [2][-]{subsection.8.11}{Predicates [CHANGE] as types?}{section.8}% 56
-\BOOKMARK [2][-]{subsection.8.12}{Dependent types}{section.8}% 57
-\BOOKMARK [1][-]{section.9}{Simply typed lambda calculus with products, sums and natural numbers}{}% 58
-\BOOKMARK [2][-]{subsection.9.1}{Introduction}{section.9}% 59
-\BOOKMARK [2][-]{subsection.9.2}{Natural numbers}{section.9}% 60
-\BOOKMARK [2][-]{subsection.9.3}{Sum types}{section.9}% 61
-\BOOKMARK [1][-]{section.10}{Dependent types}{}% 62
-\BOOKMARK [1][-]{section.11}{Universes}{}% 63
-\BOOKMARK [2][-]{subsection.11.1}{Introduction}{section.11}% 64
-\BOOKMARK [2][-]{subsection.11.2}{Universes a la Tarski}{section.11}% 65
-\BOOKMARK [1][-]{section*.4}{Appendices}{}% 66
-\BOOKMARK [1][-]{Appendix.1.A}{Simply typed lambda calculus }{}% 67
-\BOOKMARK [2][-]{subsection.1.A.1}{Syntax}{Appendix.1.A}% 68
-\BOOKMARK [2][-]{subsection.1.A.2}{Judgements}{Appendix.1.A}% 69
-\BOOKMARK [2][-]{subsection.1.A.3}{Structural rules}{Appendix.1.A}% 70
-\BOOKMARK [2][-]{subsection.1.A.4}{Equality rules}{Appendix.1.A}% 71
-\BOOKMARK [2][-]{subsection.1.A.5}{Function type}{Appendix.1.A}% 72
-\BOOKMARK [2][-]{subsection.1.A.6}{Product type}{Appendix.1.A}% 73
-\BOOKMARK [2][-]{subsection.1.A.7}{Unit type}{Appendix.1.A}% 74
-\BOOKMARK [1][-]{Appendix.1.B}{Examples}{}% 75
-\BOOKMARK [2][-]{subsection.1.B.1}{Identity function}{Appendix.1.B}% 76
-\BOOKMARK [2][-]{subsection.1.B.2}{Function application x . y . x y}{Appendix.1.B}% 77
-\BOOKMARK [2][-]{subsection.1.B.3}{Function composition x . y . z . x \( y z\)}{Appendix.1.B}% 78
-\BOOKMARK [2][-]{subsection.1.B.4}{Currying x . y . z . x \(y, z\)}{Appendix.1.B}% 79
-\BOOKMARK [2][-]{subsection.1.B.5}{Uncurry}{Appendix.1.B}% 80
-\BOOKMARK [1][-]{section.12}{Bibliography}{}% 81
+\BOOKMARK [2][-]{subsection.2.3}{Substitution}{section.2}% 7
+\BOOKMARK [1][-]{section.3}{Judgements}{}% 8
+\BOOKMARK [2][-]{subsection.3.1}{Introduction}{section.3}% 9
+\BOOKMARK [2][-]{subsection.3.2}{Inference rules}{section.3}% 10
+\BOOKMARK [2][-]{subsection.3.3}{Derivations}{section.3}% 11
+\BOOKMARK [2][-]{subsection.3.4}{Rule induction}{section.3}% 12
+\BOOKMARK [2][-]{subsection.3.5}{Hypothetical judgements}{section.3}% 13
+\BOOKMARK [2][-]{subsection.3.6}{Hypothetical inductive definitions}{section.3}% 14
+\BOOKMARK [2][-]{subsection.3.7}{General judgements}{section.3}% 15
+\BOOKMARK [1][-]{section.4}{Statics and Dynamics}{}% 16
+\BOOKMARK [2][-]{subsection.4.1}{Typing and Type systems}{section.4}% 17
+\BOOKMARK [2][-]{subsection.4.2}{Dynamics}{section.4}% 18
+\BOOKMARK [2][-]{subsection.4.3}{Type safety}{section.4}% 19
+\BOOKMARK [2][-]{subsection.4.4}{Run time errors}{section.4}% 20
+\BOOKMARK [2][-]{subsection.4.5}{Evaluation dynamics}{section.4}% 21
+\BOOKMARK [1][-]{section.5}{Simply typed lambda calculus}{}% 22
+\BOOKMARK [2][-]{subsection.5.1}{Judgements}{section.5}% 23
+\BOOKMARK [2][-]{subsection.5.2}{Structural rules}{section.5}% 24
+\BOOKMARK [2][-]{subsection.5.3}{Equality rules}{section.5}% 25
+\BOOKMARK [2][-]{subsection.5.4}{Type formers}{section.5}% 26
+\BOOKMARK [2][-]{subsection.5.5}{Inversion lemmas}{section.5}% 27
+\BOOKMARK [2][-]{subsection.5.6}{Type checking}{section.5}% 28
+\BOOKMARK [1][-]{section.6}{Normalisation of STLC}{}% 29
+\BOOKMARK [2][-]{subsection.6.1}{Introduction}{section.6}% 30
+\BOOKMARK [2][-]{subsection.6.2}{Properties of relations}{section.6}% 31
+\BOOKMARK [2][-]{subsection.6.3}{-reduction}{section.6}% 32
+\BOOKMARK [2][-]{subsection.6.4}{-reduction}{section.6}% 33
+\BOOKMARK [2][-]{subsection.6.5}{-reduction}{section.6}% 34
+\BOOKMARK [1][-]{section.7}{Curry-Howard correspondence}{}% 35
+\BOOKMARK [2][-]{subsection.7.1}{Mathematical logic}{section.7}% 36
+\BOOKMARK [2][-]{subsection.7.2}{Lambda calculus}{section.7}% 37
+\BOOKMARK [2][-]{subsection.7.3}{Recursive functions}{section.7}% 38
+\BOOKMARK [2][-]{subsection.7.4}{Turing machines}{section.7}% 39
+\BOOKMARK [2][-]{subsection.7.5}{Russell's paradox}{section.7}% 40
+\BOOKMARK [2][-]{subsection.7.6}{The problem with lambda calculus as a logic}{section.7}% 41
+\BOOKMARK [2][-]{subsection.7.7}{Types to the rescue}{section.7}% 42
+\BOOKMARK [2][-]{subsection.7.8}{The theory of proof a la Gentzen}{section.7}% 43
+\BOOKMARK [2][-]{subsection.7.9}{Curry and Howard}{section.7}% 44
+\BOOKMARK [2][-]{subsection.7.10}{Propositions as types}{section.7}% 45
+\BOOKMARK [2][-]{subsection.7.11}{Predicates [CHANGE] as types?}{section.7}% 46
+\BOOKMARK [2][-]{subsection.7.12}{Dependent types}{section.7}% 47
+\BOOKMARK [1][-]{section.8}{Simply typed lambda calculus with products, sums and natural numbers}{}% 48
+\BOOKMARK [2][-]{subsection.8.1}{Introduction}{section.8}% 49
+\BOOKMARK [2][-]{subsection.8.2}{Natural numbers}{section.8}% 50
+\BOOKMARK [2][-]{subsection.8.3}{Sum types}{section.8}% 51
+\BOOKMARK [1][-]{section.9}{Dependent types}{}% 52
+\BOOKMARK [1][-]{section.10}{Universes}{}% 53
+\BOOKMARK [2][-]{subsection.10.1}{Introduction}{section.10}% 54
+\BOOKMARK [2][-]{subsection.10.2}{Universes a la Tarski}{section.10}% 55
+\BOOKMARK [1][-]{section*.2}{Appendices}{}% 56
+\BOOKMARK [1][-]{Appendix.1.A}{Simply typed lambda calculus }{}% 57
+\BOOKMARK [2][-]{subsection.1.A.1}{Syntax}{Appendix.1.A}% 58
+\BOOKMARK [2][-]{subsection.1.A.2}{Judgements}{Appendix.1.A}% 59
+\BOOKMARK [2][-]{subsection.1.A.3}{Structural rules}{Appendix.1.A}% 60
+\BOOKMARK [2][-]{subsection.1.A.4}{Equality rules}{Appendix.1.A}% 61
+\BOOKMARK [2][-]{subsection.1.A.5}{Function type}{Appendix.1.A}% 62
+\BOOKMARK [2][-]{subsection.1.A.6}{Product type}{Appendix.1.A}% 63
+\BOOKMARK [2][-]{subsection.1.A.7}{Unit type}{Appendix.1.A}% 64
+\BOOKMARK [1][-]{Appendix.1.B}{Examples}{}% 65
+\BOOKMARK [2][-]{subsection.1.B.1}{Identity function}{Appendix.1.B}% 66
+\BOOKMARK [2][-]{subsection.1.B.2}{Function application x . y . x y}{Appendix.1.B}% 67
+\BOOKMARK [2][-]{subsection.1.B.3}{Function composition x . y . z . x \( y z\)}{Appendix.1.B}% 68
+\BOOKMARK [2][-]{subsection.1.B.4}{Currying x . y . z . x \(y, z\)}{Appendix.1.B}% 69
+\BOOKMARK [2][-]{subsection.1.B.5}{Uncurry}{Appendix.1.B}% 70
+\BOOKMARK [1][-]{section.11}{Bibliography}{}% 71

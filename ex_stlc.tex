@@ -182,7 +182,7 @@ It doesn't mean however any expression containing an ill-typed term is ill-typed
 \begin{example}\label{ayeaye}
     Now suppose we want to show $\Gamma \vdash (\lambda x . x)(\lambda x . x) \Leftarrow T$ for some type $T$. We begin with (cswitch) noting that we will later use ($\to$-elim) so there is no reason to introduce an equality. From $\Gamma \vdash (\lambda x . x)(\lambda x . x) \Rightarrow T$ we use ($\to$-elim) to arive with two hypotheses $\Gamma \vdash \lambda x . x \Leftarrow A \to T$ and $\Gamma \vdash \lambda x. x \Leftarrow A$ for some type $A$. Here we might be inclined to think something has gone wrong, since we have the same term being typed in two different ways! But this is not the case.
     
-    We noted in [[ALPHA EQUIVALENCE]] that variables were really just considered up to $\alpha$-equivalence and that it is always sensible to change when things get confusing. We also noted that such intricacies are the source of many problems in theory and implementation of type theories.
+    We noted in Defintion \ref{alpha} that variables were really just considered up to $\alpha$-equivalence and that it is always sensible to change when things get confusing. We also noted that such intricacies are the source of many problems in theory and implementation of type theories.
     It's not hard to see that $\lambda x . x$ can have any type $A \to A$ we give it. This is because it is simply the identity function. Therefore we could have equally written the judgements as $\Gamma \vdash \lambda x . x \Leftarrow A \to T$ and $\Gamma \vdash \lambda y . y \Leftarrow A$ and this would not have been confusing.
     
     Working on the first we see that after a (cswitch) we get $\Gamma \vdash \lambda x . x \Rightarrow A \to T$ which allows us to use ($\to$-intro) giving us $\Gamma , x : A\vdash x \Leftarrow T$. We see that switching with $\Gamma , x : A \vdash T \equiv A \ \mathsf{type}$ leads to $\Gamma , x : A \vdash x \Rightarrow A$ which is obviously true by (var).
@@ -228,7 +228,7 @@ It doesn't mean however any expression containing an ill-typed term is ill-typed
 
 \subsection{$\mathbf{Y}$-combinator $\lambda x . (\lambda y . x (y y)) (\lambda y . x (y y))$} % Does not type check :O oh no!! no recursion!
 
-Here is an important example from the untyped lambda calculus, the $\mathbf{Y}$-combinator is defined as $\mathbf{Y} = \lambda x . (\lambda y . x (y y)) (\lambda y . x (y y))$.
+Here is another important example from the untyped lambda calculus, the $\mathbf{Y}$-combinator is defined as $\mathbf{Y} = \lambda x . (\lambda y . x (y y)) (\lambda y . x (y y))$.
 $\beta$-reducing the $\mathbf{Y}$-combinator applied to a function $f$, we see that $\mathbf{Y}f = f (\mathbf{Y} f)$. This is precisely the behaviour that allows it to attain recursive behaviour.
 The $\mathbf{Y}$-combinator allows one to define recursive functions. Due to the non-normalising nature of the untyped lambda calculus, it isn't garanteed that a given function will have a terminating $\beta$-reduction sequence.
 One vital thing the $\mathbf{Y}$-combinator provides is an \emph{induction princple} for Church-numerals. It allows one to define functions on Church-numerals by specifying how it acts on zero and on the successor.
@@ -245,7 +245,7 @@ We will see that the $\mathbf{Y}$-combinator \emph{cannot} be typed. This doesn'
 
 Here we will try something different, and perhaps more typical. We will provide ourselves with the type. We wish to check that function composition, written as $\lambda x.\lambda y.\lambda z.x(yz)$ has the type we expect it to: $(B \to C) \to (A \to B) \to (A \to C)$.
 
-\begin{example}
+\begin{example}\label{function_comp}
     We will show that for some types $A$, $B$ and $C$, we have function composition $\Gamma \vdash \lambda x.\lambda y.\lambda z.x(yz) \Leftarrow (B \to C) \to (A \to B) \to (A \to C)$.
     A nice thing about being given the type is that type checking becomes much simpler. In fact, there is very little we actually need to do. Oberserve that in Appendix \ref{ex7} we have a derivation tree. We could write this all out as a proof but it would be pointless. As can be seen the derivation tree is much easier to read.
     This is the convention we will take for terms with a given type from now on: giving only a derivation tree.
@@ -255,9 +255,12 @@ Here we will try something different, and perhaps more typical. We will provide 
 
 
 \subsection{Currying $\lambda x . \lambda y . \lambda z . x (y, z)$} % Curry
-Here is an interesting function that is quite useful.
-[[TODO discuss currying]]
-A full derivation is given in \ref{ex8}.
+Here is an interesting function that is quite useful. In mathematics we typically don't make too much distinction between a function that maps to a set of functions and a function that maps from tuples. Written in set-theoretic notation, this can be seen as a ``power law'' for sets: $C^{A \times B} = \left (C^B \right )^A$.
+    In functional programming, this seemingly pointless distinction becomes quite useful. Partial-application of functions literally are partial applications. For example if there was a function $\mathbf{add} : A \to B \to C$ (notice this is really $A \to (B \to C)$ but we have right-associativity for $\to$), we can get a function $\mathbf{add}\ a : B \to C$. This would be particularly awkward to do if it were defined as $\mathbf{add} : A \times B \to C$ instead. On top of this we can compose functions nicely. This is all standard practice in programming languages such as Haskell. [[CITATION]]
+    
+\begin{example}\label{curry}
+    The following statement is true: $\Gamma \vdash \lambda x . \lambda y . \lambda z . x ( y , z) \Leftarrow (A \to B \to C) \to (A \times B \to C)$ for some types $A$, $B$ and $C$. A full derivation is given in \ref{ex8}.
+\end{example}
 
 \subsection{Uncurrying $\lambda x . \lambda y . x (\fst(y))(\snd(y))$} % uncurry
 [[TODO discuss un-doing functions]]
@@ -321,7 +324,7 @@ We will now show that composing curry with uncurry gives us the identity. Unfort
 
 This example demonstates a simple operation that manipualtes a data structure. We will later show that composing this function with itself is the identity.
 
-\begin{example}
+\begin{example}\label{swap}
     The type of $\lambda t . (\snd(t), \fst(t))$ is $A \times B \to B \times A$. Intuitively, this function simply swaps the order in an ordered pair. Here is a derivation tree showing that $\Gamma \vdash \lambda t . (\snd(t), \fst(t)) \Leftarrow B \times A \to A \times B$.
 
     \begin{prooftree}
@@ -361,7 +364,30 @@ This example demonstates a simple operation that manipualtes a data structure. W
 We will now demonstrate that the swap function composes with itself to give the identity.
 
 \begin{example}
-    We follow a similar argument to example \ref{curry_uncurry}.
+    We follow a similar argument to example \ref{curry_uncurry}. Let $\Gamma \vdash \mathbf{S} \equiv \lambda t . (\snd(t), \fst(t)) : A \times B \to B \times A$. We wish to show that $\Gamma \vdash \mathbf{B}\mathbf{S}\mathbf{S} \equiv \lambda x . x : A \times B \to A \times B$. First we compute $\mathbf{B}\mathbf{S}$:
+    
+    \begin{equation*}
+        \begin{aligned}
+            \mathbf{B}\mathbf{S} &= (\lambda x . \lambda y. \lambda z . x(yz))(\lambda t . (\snd(t),\fst(t))) \\
+            &\to_\beta \lambda y . \lambda z . (\lambda t . (\snd(t), \fst(t)))(y z) \\
+            &\to_\beta \lambda y . \lambda z . (\snd(yz), \fst(yz)) 
+        \end{aligned}
+    \end{equation*}
+    
+    Now we can reduce $\mathbf{B}\mathbf{S}\mathbf{S}$:
+    
+    \begin{equation*}
+        \begin{aligned}
+            \mathbf{B}\mathbf{S}\mathbf{S} &= (\mathbf{B} \mathbf{S})\mathbf{S} \\
+            &= (\lambda y. \lambda z. (\snd (yz), \fst(yz)))\mathbf{S} \\
+            &\to_\beta \lambda z. (\snd (\mathbf{S} z), \fst(\mathbf{S} z)) \\
+            &\Rightarrow_\beta \lambda z. (\snd (\snd(z), \fst(z)), \fst (\snd(z), \fst(z))) \\
+            &\Rightarrow_\beta \lambda z. (\fst(z), \snd(z)) \\
+            &\to_\eta \lambda z . z
+        \end{aligned}
+    \end{equation*}
+    
+    So we have shown $\Gamma \vdash \mathbf{B}\mathbf{S}\mathbf{S} \equiv \lambda x . x : A \times B \to A \times B$.
 \end{example}
 
 
