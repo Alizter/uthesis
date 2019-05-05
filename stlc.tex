@@ -1,8 +1,3 @@
-\newcommand{\tm}{\mathrm{tm}}
-\newcommand{\ty}{\mathrm{ty}}
-\newcommand{\fst}{\mathrm{fst}}
-\newcommand{\snd}{\mathrm{snd}}
-
 %
 % Simply typed lambda calculus
 %
@@ -17,7 +12,7 @@ We begin by discussing the syntax of our type theory. We will start by specifyin
     The sorts of simply typed lambda calculus are terms and types $\mathcal{S} := \{ \tm , \ty\}$.
 \end{defin}
 
-We now specify the operators (with generalised arities) that we defined in definition \ref{owga}. In remark \ref{opdata} we discussed the data needed to give an operator, therefore we will present all our operators in the following table.
+We now specify the operators that we defined in definition \ref{op}. In remark \ref{opdata} we discussed the data needed to give an operator, therefore we will present all our operators in the following table.
 
 \begin{defin}
     The operators in the syntax of simply typed lambda calculus are given by the following table:
@@ -25,17 +20,17 @@ We now specify the operators (with generalised arities) that we defined in defin
         \begin{tabular}{ c|c|c|c|c|c|c }
         Op & Sort & Vars & Type args & Term args & Scoping & Syntax \\
         \hline
-        $\to$           & \ty &  --- & $A,B$ &  ---  &  ---  & $A \to B$            \\
-        $\times$        & \ty &  --- & $A,B$ &  ---  &  ---  & $A \times B$         \\
-        $(-,-)$         & \tm &  --- &  ---  & $x,y$ &  ---  & $(x,y)$              \\
-        $\lambda$       & \tm &  $x$ & $A,B$ &  ---  &  $M$  & $\lambda (x : A).M$  \\
-        $\mathrm{App}$  & \tm &  --- & $A,B$ &  ---  & $M,N$ & $M N$
+        $\to$           & $\ty$ &  --- & $A,B$ &  ---  &  ---  & $A \to B$            \\
+        $\times$        & $\ty$ &  --- & $A,B$ &  ---  &  ---  & $A \times B$         \\
+        $(-,-)$         & $\tm$ &  --- &  ---  & $x,y$ &  ---  & $(x,y)$              \\
+        $\lambda$       & $\tm$ &  $x$ & $A,B$ &  ---  &  $M$  & $\lambda (x : A).M$  \\
+        $\mathrm{App}$  & $\tm$ &  --- & $A,B$ &  ---  & $M,N$ & $M N$
         \end{tabular}
     \end{center}
 \end{defin}
 
 \begin{remark}
-    Note that some of the syntax loses information that was put in. The application is the main example of this. In practice if we know the type of $M$ and $N$ we can deduce the type of $M N$ just from the rules we will define later. The syntax is sugared or \emph{syntactic sugar} so we do not have to write so much. If done incorrectly it could be considered an abuse of notation. It should be possible to \emph{desugar} the syntax by adding an \emph{annotated} version of an operator. For example for application instead of $M N$ we could write $\mathrm{App}_{A,B}}(M;N)$. Having this information in the syntax will be useful when we want to induct over syntax, for example when proving an initiality theorem. But in practice we will save ourselves from having to write it out.
+    Note that some of the syntax loses information that was put in. The application is the main example of this. In practice if we know the type of $M$ and $N$ we can deduce the type of $M N$ just from the rules we will define later. The syntax is sugared or \emph{syntactic sugar} so we do not have to write so much. If done incorrectly it could be considered an abuse of notation. It should be possible to \emph{desugar} the syntax by adding an \emph{annotated} version of an operator. For example for application instead of $M N$ we could write $\mathrm{App}_{A,B}(M;N)$. Having this information in the syntax will be useful when we want to induct over syntax, for example when proving an initiality theorem. But in practice we will save ourselves from having to write it out.
 \end{remark}
 
 \begin{defin}
@@ -50,7 +45,32 @@ We now need to define judgements about our syntax and write down the rules to wr
 
 \subsection{Judgements}
 
+We begin with our basic judgements.
 
+\begin{defin}
+    Firstly we have a judgement form 
+    $$A \ \mathsf{type}$$
+    asserting that an abt $A$ is a type. It may seem like a strange that we haven't mentioned the definition of a type yet, this is because a type is anything that satisfies this judgement. This is in some sense the definition of a type.
+    Next we have the judgement form
+    $$a \Leftarrow A$$
+    which states that the term $a$ can be checked to have type $A$. Whenever we wish to check what type a term has, we are in fact attempting to derive this judgement.
+    Next we have
+    $$a \Rightarrow A$$
+    stating that the term $a$ synthesises the type $A$. This is used to represent the ``creation of a term''. We will later see why we have two judgements when typically in type theory there is a single one, written $a : A$. This is due to our adoption of \emph{bidirectional type checking}, which we will discuss later.
+    We now have two forms of \emph{judgemental (or definitional) equalty}. Firstly judgemental equality of types
+    $$A \equiv B \ \mathsf{type}$$
+    which states that types $A$ and $B$ are judgementally equal. And finally we have the judgmental equality of terms of some types
+    $$a \equiv b : A$$
+    which states that the terms $a$ and $b$ of type $A$ are judgementally equal.
+\end{defin}
+
+\begin{remark}
+    Since these are \emph{basic judgements} we would typically never write them on their own like this. For this we will need to 
+\end{remark}
+
+%
+% add associativity
+%
 [[TODO: Clean up this whole paragraph(s)]]
 We begin with our basic judgements. Of which there will be 5. Our STLC will have bidirectional type checking, in that we will distinguish between the direction of type checking. There are several advantages of this and historically the two main systems called STLC are Curry's and Church's which simply differ in the direction of type checking. By having both directions and a sort of ``mode-switching rule'' we have far greater control and ease when describing type checking properties. We will also need to have a notion of \emph{judgemental equality} since we wish to do some computation. There are variations of this theme discussed in the statics chapter that allow us to have transition systems instead but we will use an equational style since transition systems can be derived from this. This also has the advantage of STLC becoming what is known as an ``equational theory''. This will be a useful feature for when we want to derive categorical semantics. 
 
@@ -79,18 +99,55 @@ Structural rules will dictate how our judgements interact with each other, how d
         \RightLabel{(var)}
         \UnaryInfC{$\Gamma \vdash x \Rightarrow A$}
     \end{prooftree}
+
+    We now state what it means to perform a substitution in the type theory. Later we will see that this rule is admissible. This says if I can derive that $a$ has type $A$ in context $\Gamma$ and that in context of $\Gamma$ and some variable $x$ with type $A$ I have a judgement $\mathcal{J}$, then I can derive that $\mathcal{J}[a/x]$ in context $\Gamma$.
+
+    % Substitution
+    \begin{prooftree}
+        \AxiomC{$\Gamma \vdash a \Leftarrow A$}
+        \AxiomC{$\Gamma , x : A \vdash \mathcal{J}$}
+        \RightLabel{(subst)}
+        \BinaryInfC{$\Gamma \vdash \mathcal{J}[a / x]$}
+    \end{prooftree}
+
+    % Weakening
+    \begin{prooftree}
+        \AxiomC{$\Gamma \vdash A \ \mathsf{type}$}
+        \AxiomC{$\Gamma \vdash \mathcal{J}$}
+        \RightLabel{(wkg)}
+        \BinaryInfC{$\Gamma , x : A \vdash \mathcal{J}$}
+    \end{prooftree}
+    
+    % Exchange
+    %\begin{prooftree}
+        [[TODO FINISH]]
+    %\end{prooftree}
+
 \end{defin}
+
+\begin{remark}
+    We noted these rules would appear in Remark \ref{structural_remark}. We also noted that these rules are admissible.
+\end{remark}
+
+\begin{lemma}
+    The rules (subst), (wkg) and (exg) are all admissible.
+\end{lemma}
+
+\begin{proof}
+    Though we didn't really specify it that way, the judgement forms can be thought of as operators. That was we can think of a derivability judgement $\Gamma \vdash \mathcal{J}$ as an abt itself. We didn't do it this way since it would be confusing which abt we are talking about. However we will note that in an implementation of a type theory on a computer, having a data structure such as an abt will be indespensible for designing and reasoning about type theories. In that light, a judgement form ought to be part of the syntax. On top of this, substitution is admissible simply because it is a property of the syntax (Definition \ref{subst}).
+\end{proof}
+
 
 Other structural rules: weakening, contraction and substitution are all admissible. [[What does it mean for a rule to be admissible? We have defined this previously but we need to carefully state these facts, and prove them too!]]
 
-\end{defin}
+\begin{defin}
     One of the features of bidirectional type checking is that we can switch the mode we are in. This is expressed as the mode switching rule:
 
     % Switch rule
     \begin{prooftree}
         \AxiomC{$\Gamma \vdash t \Rightarrow A$}
         \AxiomC{$\Gamma \vdash A \equiv B \ \mathsf{type}$}
-        \RightLabel{(cswitch)}
+        \RightLabel{(switch)}
         \BinaryInfC{$\Gamma \vdash t \Leftarrow B$}
     \end{prooftree}
 \end{defin}
@@ -114,7 +171,7 @@ Other structural rules: weakening, contraction and substitution are all admissib
     % compact switch
     \begin{prooftree}
         \AxiomC{$\Gamma \vdash t \Rightarrow A$}
-        \RightLabel{(switch)}
+        \RightLabel{(cswitch)}
         \UnaryInfC{$\Gamma \vdash t \Leftarrow A$}
     \end{prooftree}
 \end{remark}
@@ -401,11 +458,6 @@ We will also need to add a unit type. This will be the simplest type, with only 
     We don't need to give any more rules since the unit type has all the properties we need. Our rules for $\to$ allow us to build constant functions anyway. And we note that all functions $\mathbf{1} \to A$ are constant functions!
 \end{remark}
 
-[[TODO: Clear up wording maybe?]]
-\begin{remark}
-    We make an important note that this is not the simplest presentation of the STLC of which there are many variations thereof. We chose judgemental equality and bidirectional type checking because these are features we will need if we are to enrich our type system with dependent types.
-\end{remark}
-
 \subsection{Inversion lemmas}
 Having listed all these rules, we need \emph{Inversion lemmas} detailing how different judgements can \emph{only} come from a set of given judgements. This is a crucial analysis if we wish to construct a type checking algorithm. An inversion lemma for a type theory is typically very difficult to state, and extremely tedious to prove. But nonetheless is essential if we want to induct over terms. These are also known as \emph{Generation lemmas} \cite{Sorensen, harper_2016}.
 
@@ -462,7 +514,7 @@ Where $A, B$ are types.
 
 \subsection{Type checking}
 
-There are several natural problems that occur in a typed system:
+There are several natural problems that occur in a typed system \cite{BarendregtHenk2013Lcwt}:
 
 Firstly there are the problems of checking whether a given judgement is true:
 
@@ -471,7 +523,7 @@ Firstly there are the problems of checking whether a given judgement is true:
 \end{defin}
 
 \begin{remark}
-    We do not consider $\Gamma \vdash a \Leftarrow A$ since this will always be given by a (switch).
+    We do not consider $\Gamma \vdash a \Rightarrow A$ since this will always be given by a (switch).
 \end{remark}
 
 We would ideally wish for there to be an algorithm that will determine the truth of such a statement. Such an algorithm would render the problem of type checking in the STLC \emph{decidable}.
@@ -486,127 +538,23 @@ We would ideally wish for there to be an algorithm that will determine the truth
     The only typing hypotheses we would have are those that arise form elimination rules such as ($\to$-elim), ($\times$-elim${}_1$) and ($\times$-elim${}_2$). Everything else is exactly how the inversion lemmas state. If the inversion lemma says that $\Gamma \vdash T \equiv A \times B$ then this would need to hold by reflexivity.
 \end{proof}
 
+Perhaps a more common, and practical problem is that of \emph{type inference}. Given a desired statement $\Gamma \vdash a \vdash \boxed{?}$, how can we \emph{infer} the missing type? This is a more difficult problem than type checking since we not only have to type check, but we have to constantly build up our type that we are checking against. In order to do this, we need a solid understanding of judgemental equality of types and which statements are not allowed.
 
-\begin{comment}
-%\subsection{Lambda calculus}
-%We recall that there are 3 kinds of expressions in lambda calculus: variables, abstractions and applications. These are defined inductively on themselves. A variable is simply a string of characters from an alphabet. A lambda abstraction looks like $\lambda x.y$ where $x$ is some variable and $y$ is some expression. There are alternate ways of writing this, allowing us to drop the need for naming $x$, for example de Brujin indices. Finally an application is simply the concatenation $ab$ of two expressions $a$ and $b$. We will assume that  This fully describes the syntax of this type theory. We will now introduce some rules that tell us which expressions we can derive from other expressions. Firstly we have $\beta$-reduction which tells us if we have an expression of the form $(\lambda x . y)z$ this can be reduced to an expression where all occurrences of $x$ in $y$ are replaced with the expression $z$. We also have $\alpha$-conversion which I would argue isn't really a rule as naming of variables can be completely avoided in the first place using de Brujin indices or even combinators. \cite{BarendregtHenk2013Lcwt, hottbook}
+\begin{theorem}
+    There is an algorithm that can deduce a type for the statement $\Gamma \vdash a \Leftarrow \boxed{?}$ to hold, or deduce that the term is untypable.
+\end{theorem}
 
-%\subsection{Contexts}
-%In mathematics we work with contexts implicitly. That is there is always an ambient knowledge of what has been defined. Mostly due to the nature of how we read mathematical papers. We can make this explicit using contexts. We will not however, use contexts in our discussion of type theory but we will provide a formal exposition in the appendix.
-
-\subsection{Judgements}
-Our judgements:
-\begin{center}
-    \begin{tabular}{c | c}
-        $\Gamma\ \mathrm{ctx}$ &  $\Gamma$ is a well-formed context. \\
-        $\Gamma \vdash A\ \mathrm{Type}$ & $A$ is a type in context $\Gamma$. \\
-        $\Gamma \vdash x : A$ & $x$ is a term of type $A$ in context $\Gamma$. \\
-%        $\Gamma \vdash x \equiv y : A$ & the terms $x$ and $y$ of type $A$ are definitionally equal in context $\Gamma$
-    \end{tabular}
-\end{center}
+\begin{proof}
+    As before, we give only a sketch. For demonstrations see Examples \ref{identity}, \ref{fun_app}, \ref{mockingbird}, \ref{ayeaye}. Instead of using (cswitch) we will use (switch). This means we will have to provide it with some sort of judgemental equality of types. We make an educated guess for this by looking at the syntax of the term. If it is a lambda term, then it is only possible to choose a function type, if it is a pair, then a product type etc. Finally we will eventually accumulate many assumptions about types. The trick now is to see if these equations are trivial. If we instead get a non-trivial typing equation such as $A \equiv A \to B$, we say that the term cannot be typed. Otherwise, we can substitute back through and get the type we started with. The reason we disallow $A \equiv A \to B$ is that there is no way to get such an equalty at the level of syntax. In that sense it is non-trivial.
+\end{proof}
 
 
-Type theory ``will be about'' deriving judgements from other judgements. Which can be concisely summarised in the form of an inference rule
 
-$$\frac{A_1\quad A_2 \quad \cdots \quad A_n}{B}$$
 
-which says that given the judgements $A_1,\dots,A_n$ we can derive the judgement $B$.
 
-\subsection{Structural rules}
-We now look at the rules that govern contexts and the structure of our type system.
 
-We begin with a rule stating that the empty context (which as contexts are sets or lists is well-defined) is well-formed. Which is another way of stating that the context was grown in a specified way and is not just an arbitrary list or set of variables.
 
-\begin{prooftree}
-    \AxiomC{}
-    \RightLabel{empty-ctx}
-    \UnaryInfC{$\varnothing$ ctx}
-    \singleLine
-\end{prooftree}
 
-We also want the concatenation of two well-formed contexts to be well-formed.
-
-\begin{prooftree}
-    \AxiomC{$\Gamma$ ctx}
-    \AxiomC{$\Delta$ ctx}
-    \BinaryInfC{$\Gamma,\Delta$ ctx}
-\end{prooftree}
-
-We omit rules about repeating or removing repeated elements and ordering lists (think of them as finite sets).
-
-A variable is a statement of the form $x : A$ where $x$ is known as the term and $A$ its type.
-
-\subsection{Function types}
-
-We introduce a formation rule for the function type.
-
-\begin{prooftree}
-    \RightLabel{$(\to)$-form}
-    \AxiomC{$\Gamma \vdash A\ \mathrm{Type}$}
-    \AxiomC{$\Gamma \vdash B\ \mathrm{Type}$}
-    \BinaryInfC{$\Gamma \vdash A \to B\ \mathrm{Type}$}
-\end{prooftree}
-
-We now need a rule for producing terms of this new type. We introduce the introduction rule for the function type.
-
-\begin{prooftree}
-    \RightLabel{$(\to)$-intro}
-    \AxiomC{$\Gamma, x : A \vdash y : B$}
-    \UnaryInfC{$\Gamma \vdash (\lambda x . y) : A \to B$}
-\end{prooftree}
-
-We will sometimes call this lambda abstraction. We next introduce a way to apply these functions to terms in their domains. We introduce our elimination rule for the function type.
-
-\begin{prooftree}
-    \RightLabel{$(\to)$-elim}
-    \AxiomC{$\Gamma \vdash f : A \to B$}
-    \AxiomC{$\Gamma \vdash a : A$}
-    \BinaryInfC{$\Gamma \vdash f(a) : B$}
-\end{prooftree}
-
-This is essentially useless unless we have a way to compute (or reduce) this expression. This is where our computation rule comes in. The computation rule will tell us how our elimination rule and introduction rule interact.
-\begin{prooftree}
-    \RightLabel{$(\to)$-comp}
-    \AxiomC{$(\lambda x . y) : A \to B$}
-    \AxiomC{$\Gamma, a : A \vdash (\lambda x.y)a : B$}
-    \AxiomC{$\Gamma, x : A, y : B, (\lambda x . y) : A \to B, a : A \vdash (\lambda x . y) (a) : B$}
-    \UnaryInfC{$\Gamma \vdash y[x / a] : B$}
-\end{prooftree}
-
-%%%%%%%%%%%%%%%%%%%%
-
-We will describe what is known as a simply typed lambda calculus. There is a lot of literature on type theory, and it doesn't seem that there are many authors in agreement of ways to present it.
-
-In \cite{BarendregtHenk2013Lcwt} a more type theoretic approach, analysing the type theory mostly in the syntactic world. This gives us a good starting point for how we want our type theory to be presented however it may not be so easy to keep an eye on how the categorical semantics (the ways we model types in mathematics) behave. In order to do this we will use references such as \cite{CroleRoyL1993Cft, JacobsCLTT, LambekJ1986Itho}. This will be from the more categorical logic school of thought, which will study type theory that is "generated" by certain categories in interest.
-
-We start by describing a general class of simple type theories as outlined in \cite{JacobsCLTT}. Firstly we introduce the notion of a {\it signature}. Similar accounts can be found in \cite{CroleRoyL1993Cft}. This will essentially consist of "generating" a category from some signature (which can be thought of as a stripped down type theory syntax), and then studying the functors from that category into other categories. This allows nice properties from the second category to be "pulled back" onto our type theory giving it features we desire.
-
-\begin{defin}
-    A {\bf signature} is a pair $(\Typ, \mathcal{F})$ where $\Typ$ is a finite set of {\bf basic} (or {\bf atomic}) {\bf types}. And a functor $\mathcal{F} : \Typ^\star \times \Typ \to \Set$. Where $\Typ^\star$ is the Kleene-Star operation on a set (or the free monoid over $\Typ$), defined as $X^\star := \bigcup_{n\in \N} X^n$ whose elements are finite tuples of elements of $X$ for a set $X$. We have $\mathbf{Set}$ for the category of finite sets. Note that the sets in the domain of the functor are realised as discrete categories.
-\end{defin}
-
-We will usually write a signature as $\Sigma := (\Typ, \mathcal{F})$, denote $|\Sigma|:=\Typ$ and write $F: \sigma_1,\dots,\sigma_n\to\sigma_{n+1}$ when $F \in \mathcal{F}(( \sigma_1,\dots,\sigma_n ), \sigma_{n+1})$.
-
-\begin{defin}
-    Let $\Var$ be a countable set. Elements $x\in \Var$ are called {\bf variables}.
-\end{defin}
-
-Note this style of variables is essentially de Brujin indices. But allows us to have a set of names for our variables, which allows future annoyances like $\alpha$-equivalence to be sorted out easily due to the plentiful existence of bijections from $\Var \to \Var$.
-
-\begin{defin}
-    A {\bf variable declaration} is a pair $(x, \sigma) \in \Var \times \Typ$ usually written as $x : \sigma$. This can be read as "the variable $x$ has type $\sigma$. We will define $\Dec:=\Var \times \Typ$.
-\end{defin}
-
-\begin{defin}
-    A {\bf context} $\Gamma$ is an element of $\Con:=\Dec^\star$. In other words, a context is a finite list of variable declarations. We will usually write a context $\Gamma$ as $v_1 : \sigma_1, \dots ,v_n : \sigma_n$. Note that the Kleene-Star has a monoid structure with operation $","$. We can thus give $\Con$ a monoid structure and write, for contexts $\Gamma$ and $\Delta$ another context $\Gamma,\Delta$ which is the concatenation of two contexts. The notation here allows the "expanded version" to coincide, as in $\Gamma,\Delta$ can be written as $v_1 : \sigma_1, \dots ,v_n : \sigma_n, w_1 : \tau_1, \dots, w_m, \tau_m$.
-\end{defin}
-
-We also note that there is a canonical inclusion $\Dec \hookrightarrow \Con$ given that $\Dec$ freely generates the monoid $\Con$. This will allow us to write $\Gamma, x:\tau$ for $v_1 : \sigma_1, \dots ,v_n : \sigma_n, x:\tau$.
-
-We now denote the basic statements of our language. These statements are called {\bf judgements} and we will derive
-
-%%%%%%%%%%%%%%%%%%%%
-\end{comment}
 
 
 

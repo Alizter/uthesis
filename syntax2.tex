@@ -33,9 +33,13 @@
 \end{remark}
 
 % Operators
-\begin{defin}
+\begin{defin}\label{op}
     Let $\mathcal{O}$ be a set of elements called \emph{operators}, and let $\mathrm{ArityOf} : \mathcal{O} \to \mathbf{A}$ be the function picking the \emph{arity of an operator}. The arity of an operator $o\in \mathcal{O}$ is $\mathrm{ArityOf}(o)$.
 \end{defin}
+
+\begin{remark}\label{opdata}
+    [[TODO op data]]
+\end{remark}
 
 % Variables
 \begin{defin}\label{variables}
@@ -43,7 +47,7 @@
 \end{defin}
 
 \begin{remark}\label{var_order}
-    Typically a set of variables is endowed with some sort of order. They are also typically countable. We could say that every set of variables should necesserily be equipped with an injection into the natural numbers.
+    Typically a set of variables is endowed with some sort of order. They are also typically countable. We could say that every set of variables should necessarily be equipped with an injection into the natural numbers.
 \end{remark}
 
 % Fresh variables
@@ -52,12 +56,13 @@
 \end{defin}
 
 % Abstract binding trees
-\begin{defin}
+\begin{defin}\label{abt}
     The set of \emph{abstract binding trees} (\emph{abts}) of \emph{sort} $s\in \mathcal{S}$ on a set of variables $\mathcal{X}$, is the least set $\mathcal{B}[\mathcal{X}]_s$ satisfying the following conditions:
     \begin{enumerate}
         \item If $x \in \mathcal{X}_s$ then $x \in \mathcal{B}[\mathcal{X}]_s$.
         \item Let $\mathtt{G}$ be an operator of sort $s$, argument arity $n$, binding arity $m$. Let $\mathcal{V} := \{v_1, \dots , v_m \}$ be a finite set of $m$ variables fresh for $\mathcal{X}$. For $1 \le j \le n$, let $\mathcal{Y}_j := \{ v_k \in \mathcal{V} \mid j \scope k\}$ be the set of variables that the $j$th argument is in scope of. Now suppose for each $1 \le j \le n$, there are $M_j \in \mathcal{B}[\mathcal{X} \cup \mathcal{Y}_j]_{\soa(j)}$. Then $\mathtt{G}(\mathcal{V}; M_1, \dots, M_n) \in \mathcal{B}[\mathcal{X}]_s$.
     \end{enumerate}
+    
 \end{defin}
 
 \begin{remark}
@@ -65,7 +70,7 @@
 \end{remark}
 
 % Alpha equivalence
-\begin{defin}[$\alpha$-equivalence]\lable{alpha}
+\begin{defin}[$\alpha$-equivalence]\label{alpha}
     Let $\mathcal{X}$ and $\mathcal{X}'$ be bijective sets of variables, and let $\rho : \mathcal{X} \to \mathcal{X'}$ be a bijection. Define the following relation $\sim_\rho \subseteq \mathcal{B}[\mathcal{X}]_s \times \mathcal{B}[\mathcal{X}']_s$ by induction on both abts:
     \begin{itemize}
         \item If $x \in \mathcal{X}$ and $y \in \mathcal{X}'$ then $x \sim_\rho y $ if and only if $\rho(x) = y$.
@@ -111,7 +116,7 @@ We quickly sketch some routine proofs showing $\alpha$-equivalence is in fact an
     Given $\sigma : \mathcal{X} \to \mathcal{Y}$ such that $\sigma$ preserves sorts, i.e. $\mathrm{SortOf} \cdot \sigma = \mathrm{SortOf}$, we define a function $\mathcal{B}[\mathcal{X}]_s \to \mathcal{B}[\mathcal{Y}]_s$ denoted $a \mapsto a[\sigma]$ by induction on $a$:
     \begin{itemize}
         \item If $a = x \in \mathcal{X}$, then $x[\sigma] = \sigma(x)$.
-        \item If $a = \mathtt{G}(\mathcal{V}; m_1, \dots , m_n)$ we would like to define $a[\sigma]$ as $$\mathtt{G}(\mathcal{V}, m_1[\sigma], \dots, m_n[\sigma])$$ but this is not possible since $\mathcal{V}$ may not be disjoint from $\mathcal{Y}$. Therefore we observe that we can accomadate for this by first freshening up our variables in $\mathcal{V}$ with respect to $\mathcal{Y}$ by finding another $\mathcal{V}'$ whose elements are all fresh in $\mathcal{Y}$ and $\mathcal{V} \simeq_{\alpha}\mathcal{V}'$. We will call such an operation $\mathcal{V}^{[\mathcal{Y}]}$ and then define $\mathtt{G}(\mathcal{V}; m_1 , \dots, m_n)[\sigma] := \mathtt{G}(\mathcal{V}^{[\mathcal{Y}]}; m_1[\sigma], \dots, m_n[\sigma])$. 
+        \item If $a = \mathtt{G}(\mathcal{V}; m_1, \dots , m_n)$ we would like to define $a[\sigma]$ as $$\mathtt{G}(\mathcal{V}, m_1[\sigma], \dots, m_n[\sigma])$$ but this is not possible since $\mathcal{V}$ may not be disjoint from $\mathcal{Y}$. Therefore we observe that we can accommodate for this by first freshening up our variables in $\mathcal{V}$ with respect to $\mathcal{Y}$ by finding another $\mathcal{V}'$ whose elements are all fresh in $\mathcal{Y}$ and $\mathcal{V} \simeq_{\alpha}\mathcal{V}'$. We will call such an operation $\mathcal{V}^{[\mathcal{Y}]}$ and then define $\mathtt{G}(\mathcal{V}; m_1 , \dots, m_n)[\sigma] := \mathtt{G}(\mathcal{V}^{[\mathcal{Y}]}; m_1[\sigma], \dots, m_n[\sigma])$. 
     \end{itemize}
     
     If $\sigma$ is an inclusion, then the operation is \emph{weakening} (at the level of syntax).
@@ -124,7 +129,7 @@ We quickly sketch some routine proofs showing $\alpha$-equivalence is in fact an
 \end{remark}
 
 \begin{remark}\label{op_alpha_respect}
-    It can be seen that $\alpha$-equivalence between $a$ and $b$ can be stated as the existence of a bijection $\rho$ such taht $a[\rho] = b$.
+    It can be seen that $\alpha$-equivalence between $a$ and $b$ can be stated as the existence of a bijection $\rho$ such that $a[\rho] = b$.
 \end{remark}
 
 % Composition of functions
@@ -154,7 +159,7 @@ We quickly sketch some routine proofs showing $\alpha$-equivalence is in fact an
 \end{remark}
 
 \begin{remark}
-    Due to Lemma \ref{sub_alpha}, Definition \ref{sub} makes sense for equivalence classes too. Thus we do not need to change the meaning of $-[\sigma]$, by simply noting that it acts on representatives of the equivalcen class in a well-defined way.
+    Due to Lemma \ref{sub_alpha}, Definition \ref{sub} makes sense for equivalence classes too. Thus we do not need to change the meaning of $-[\sigma]$, by simply noting that it acts on representatives of the equivalence class in a well-defined way.
 \end{remark}
 
 \begin{defin}
@@ -164,10 +169,10 @@ We quickly sketch some routine proofs showing $\alpha$-equivalence is in fact an
 \subsection{Substitution}
 
 \begin{defin}\label{subst}
-    Let $M \in \mathcal{B} [\mathal{X} \cup \{ x \}]$ and $N \in \mathcal{B}[\mathcal{X}]_{\mathrm{SortOf(x)}}$. Then $M[N/x]$, read as the substitution of $x$ for $N$ in $M$, is defined by induction on $M$ as follows:
+    Let $M \in \mathcal{B} [\mathcal{X} \cup \{ x \}]$ and $N \in \mathcal{B}[\mathcal{X}]_{\mathrm{SortOf(x)}}$. Then $M[N/x]$, read as the substitution of $x$ for $N$ in $M$, is defined by induction on $M$ as follows:
     \begin{itemize}
         \item Suppose $M = x$ then $M[N / x] := N$.
-        \item Suppose $M = y \in \mathcal{X}_{\SortOf(x)}$ then $M[N / x] := M$.
+        \item Suppose $M = y \in \mathcal{X}_{\mathrm{SortOf}(x)}$ then $M[N / x] := M$.
         \item Suppose $M = \mathtt{G}(V; m_1 , \dots, m_n)$ then $$M[N / x] := \mathtt{G}(V; m_1[N / x], \dots, m_n[N / x])$$.
     \end{itemize}
 \end{defin}
@@ -176,4 +181,7 @@ We quickly sketch some routine proofs showing $\alpha$-equivalence is in fact an
     The reason we set up abstract binding trees is that it avoids \emph{``variable capture''}. Take for example the following: $(\lambda x . x y)[M / x]$, this statement makes sense in most formulations of syntax, therefore a complicated exceptions need to be taken into consideration for the definition of substitution. The way we have set up syntax we see that this sentence is complete nonsense. $(\lambda x . x y)$ lives in some set $\mathcal{B}[\mathcal{X}]$ which definitely doesn't have $x \in \mathcal{X}$ or else the operator $\lambda$ would not be able to introduce $x$ as a variable fresh for $\mathcal{X}$.
 \end{remark}
 
+\begin{remark}
+    It should be noted that although badly formed sentences are avoided, it doesn't stop one from writing it down erroneously. To the human eye, it may even look valid. This is a situation in which using a \emph{proof assistant} would be a huge benefit. In this way writing down sentences that don't make sense simply wouldn't be a valid statement, and would be rejected by the program.
+\end{remark}
 

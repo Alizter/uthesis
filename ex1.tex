@@ -3,13 +3,13 @@
         \LeftLabel{(var)}
         \UnaryInfC{$\Gamma , x : A\vdash x \Rightarrow A$}
     \AxiomC{$\Gamma, x: A \vdash A \ \mathsf{type}$}
-        \RightLabel{($\equiv_{\type}$-refl)}
+        \RightLabel{($\equiv_{\mathsf{type}}$-refl)}
         \UnaryInfC{$\Gamma , x : A \vdash A \equiv A \ \mathsf{type}$}
             \RightLabel{(switch)}
             \BinaryInfC{$\Gamma , x : A \vdash x \Leftarrow A$}
                 \LeftLabel{($\to$-intro)}
                 \UnaryInfC{$\Gamma \vdash \lambda x . x \Rightarrow A \to A$}
-        \AxiomC{$\Gamma \vdasj $}
+        \AxiomC{$\Gamma \vdash $}
             \UnaryInfC{$\Gamma \vdash T \equiv A \to A \ \mathsf{type}$}
                 \RightLabel{(switch)}
                 \insertBetweenHyps{\hskip -90pt}

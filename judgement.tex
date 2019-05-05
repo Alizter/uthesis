@@ -2,7 +2,7 @@
 
 \subsection{Introduction}
 
-We will now develop the basic formal tools to describe how our programming languages work.  We will first describe judgements and how to specify a type system. Then our first example will be the simply typed lambda calculus. We use the ideas developed in \cite{harper_2016} though these ideas are much older. [Probably traceable back to Gentzen]. [There are many more references to be included here]
+We will now develop the basic formal tools to describe how our programming languages work.  We will first describe judgements and how to specify a type system. Our leading example will be the simply typed lambda calculus. We use the ideas developed in \cite{harper_2016} as a basic guide line. 
 
 \begin{defin}
     The notion of a \emph{judgement} or \emph{assertion} is a logical statement about an abt. The property or relation itself is called a \emph{judgement form}. The judgement that an object or objects have that property or stand in relation is said to be an \emph{instance} of that judgement form. A judgement form has also historically been called a \emph{predicate} and its instances called \emph{subjects}.
@@ -41,7 +41,7 @@ We will now develop the basic formal tools to describe how our programming langu
         {\texttt{succ}(a)\ \mathsf{nat}}
     $$
 
-    We can see that an abt $a$ is zero or is of the form $\texttt{succ}(a)$. We see this by induction on the abt, the set of such abts has an operator $\texttt{succ}$. Taking these rules to be exhaustive, it follows that $\textt{succ}(a)$ is a natural number if and only if $a$ is.
+    We can see that an abt $a$ is zero or is of the form $\texttt{succ}(a)$. We see this by induction on the abt, the set of such abts has an operator $\texttt{succ}$. Taking these rules to be exhaustive, it follows that $\texttt{succ}(a)$ is a natural number if and only if $a$ is.
 \end{example}
 
 \begin{remark}
@@ -91,7 +91,7 @@ To show that an inductively defined judgement holds, we need to exhibit a \emph{
 Writing derivations as trees can be very enlightening to how the rules compose. Going back to our example with $\mathsf{nat}$ we can give an example of a derivation.
 
 \begin{example}
-    Here is a derivation of the judgement $\texttt{succ}(\texttt{succ}(\texttt{succ}(\texttt{zero})))\ \mathsf{nat}$:
+    Here is a derivation of $\texttt{succ}(\texttt{succ}(\texttt{succ}(\texttt{zero})))\ \mathsf{nat}$:
     
     \begin{prooftree}
         \AxiomC{}
@@ -276,11 +276,15 @@ A \emph{hypothetical judgement} expresses an entailment between one or more hypo
     $$
         \frac{\qquad}{J_1} \quad \cdots \quad \frac{\qquad}{J_k}
     $$
-    We treat the \emph{hypotheses} or \emph{antecedents} $J_1, \dots, J_k$ of the judgement $J_1,\dots,J_k \vdash_{\mathcal{R}} K$ as axioms and derive the \emph{conclusion} or \emph{consequent}, by composing rules in $\mathcal{R}$. Thus $J_1,\dots,J_k \vdash_{\mathcal{R}} K$ means the judgement $K$ is derivable from the expanded rules $\mathcal{R} \cup \{ J_1, \dots, J_k \}$.
+    We treat the \emph{hypotheses} $J_1, \dots, J_k$ of the judgement $J_1,\dots,J_k \vdash_{\mathcal{R}} K$ as axioms and derive the \emph{conclusion}, by composing rules in $\mathcal{R}$. Thus $J_1,\dots,J_k \vdash_{\mathcal{R}} K$ means the judgement $K$ is derivable from the expanded rules $\mathcal{R} \cup \{ J_1, \dots, J_k \}$.
 \end{defin}
 
 \begin{remark}
     We will typically denote a list of basic judgements by a capital Greek letter such as $\Gamma$ or $\Delta$. The expansion $\mathcal{R} \cup \{ J_1, \dots, J_k \}$ may also be written as $\mathcal{R} \cup \Gamma$ where $\Gamma := J_1, dots, J_k$. The judgement $\Gamma \vdash_{\mathcal{R}} K$ means $K$ is derivable from the rules $\mathcal{R} \cup \Gamma$, and the judgement $\vdash _{\mathcal{R}} \Gamma$ means that $\vdash _{\mathcal{R}} J$ for each $J$ in $\Gamma$. We may also extend lists of basic judgements like this: $\Gamma, J$, which would correspond to the list of basic judgements $J_1, \dots, J_k, J$, similarly for $J, \Gamma$. We can then concatenate two lists of basic judgements in the obvious way, through list concatenation written $\Gamma, \Delta$.
+\end{remark}
+
+\begin{remark}
+    Alternative names for \emph{hypothesis} and \emph{conclusion} include \emph{antecedent} and \emph{consequent} respectively.
 \end{remark}
 
 \begin{example}
@@ -307,7 +311,7 @@ We now show that derivability doesn't get affected by expansion.
 There are a number of structural properties that derivability satisfies:
 
 \begin{lemma}[Reflexivity]
-    Every judgement is a consequence of itself: $\Gamma, J\vdash_{\mathcal{R}} J$.
+    Every judgement is a consequence of itself: $$\Gamma, J\vdash_{\mathcal{R}} J$$
 \end{lemma}
 
 \begin{proof}
@@ -337,7 +341,7 @@ There are a number of structural properties that derivability satisfies:
 \end{defin}
 
 \begin{remark}
-    In particular, if any of the hypotheses are \emph{not} derivable relative to $\mathcal{R}$, then the judgement is \empth{vacuously} true.
+    In particular, if any of the hypotheses are \emph{not} derivable relative to $\mathcal{R}$, then the judgement is \emph{vacuously} true.
 \end{remark}
 
 
@@ -404,7 +408,7 @@ Our inductive definitions give us a rich and expressive way to define and use ru
     A hypothetical inductive definition can be regarded as an ordinary inductive definition of a \emph{formal derivability judgement} $\Gamma \vdash J$ consisting of a list of basic judgements $\Gamma$ and a basic judgement $J$.
 \end{remark}
 
-\begin{defin}
+\begin{defin}\label{form_deri}
     A \emph{formal derivability judgement} $\Gamma \vdash J$ is closed under a set of hypothetical rules $\mathcal{R}$ and the judgement is \emph{structural} is that it is closed under the following rules
     $$
         \frac{}{\Gamma, J \vdash J} \qquad
@@ -414,12 +418,14 @@ Our inductive definitions give us a rich and expressive way to define and use ru
     These rules ensure that formal derivability behaves like a hypothetical judgement. We write $\Gamma \vdash_{\mathcal{R}} J$ to denote that $\Gamma \vdash J$ is derivable from rules $\mathcal{R}$.
 \end{defin}
 
-[[ This bit is very confusing, and we abuse notation (with reason)]]
 \begin{remark}
     This definition is perhaps quite confusing, this is because we have two layers of derivability. What a formal derivability judgement shows is that the judgement of being derivable is itself derivable. This also means that we do not have to define what hypothetical induction on a hypothetical inductive definition is, since the formal derivability judgement is itself a judgement. So the principle of \emph{hypothetical rule induction} is just the principle of rule induction applied to the formal hypothetical rule induction.
 \end{remark}
 
-[[TODO: talk about admissibility of structural rules]]
+\begin{remark}\label{structural_remark}
+    In the context of type theory, basic judgements are typically assertions that a term $a$ has a type $A$, written $a : A$. In this case $\Gamma$ becomes known as a \emph{typing context}. In this case, the first structural rule in Definition \ref{form_deri} is typically known as the \emph{variable}.
+    The second rule is known as \emph{weakening}, this states that ``having knowledge of an extra variable does not effect what you know''. Finally the third would correspond to ``being able to forget an assumption, if you know you can derive it''. In the case of the simply typed lambda calculus, which will study later, we will see that such structural rules are admisslbe. 
+\end{remark}
 
 \subsection{General judgements}
 

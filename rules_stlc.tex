@@ -1,4 +1,4 @@
-\section{Simply typed lambda calculus $\lambda_{\to \times}$}\label{stlc_rule}
+\section{Simply typed lambda calculus \texorpdfstring{$\lambda_{\to \times}$}{}}\label{stlc_rule}
 
 This is the full-presentation of the simply typed lambda calculus $\lambda_{\to \times}$. It has function types, product types and a unit type.
 
@@ -19,11 +19,11 @@ Or listed as operators:
 \begin{center}
         \begin{tabular}{|c|c|c|c|c|c|c|}
         \hline Op & Sort & Vars & Type args & Term args & Scoping & Syntax \\
-        \hline $\to$           & \ty &  --- & $A,B$ &  ---  &  ---  & $A \to B$            \\
-        \hline $\times$        & \ty &  --- & $A,B$ &  ---  &  ---  & $A \times B$         \\
-        \hline $(-,-)$         & \tm &  --- &  ---  & $x,y$ &  ---  & $(x,y)$              \\
-        \hline $\lambda$       & \tm &  $x$ & $A,B$ &  ---  &  $M$  & $\lambda (x : A).M$  \\
-        \hline $\mathrm{App}$  & \tm &  --- & $A,B$ &  ---  & $M,N$ & $M N$ \\
+        \hline $\to$           & $\ty$ &  --- & $A,B$ &  ---  &  ---  & $A \to B$            \\
+        \hline $\times$        & $\ty$ &  --- & $A,B$ &  ---  &  ---  & $A \times B$         \\
+        \hline $(-,-)$         & $\tm$ &  --- &  ---  & $x,y$ &  ---  & $(x,y)$              \\
+        \hline $\lambda$       & $\tm$ &  $x$ & $A,B$ &  ---  &  $M$  & $\lambda (x : A).M$  \\
+        \hline $\mathrm{App}$  & $\tm$ &  --- & $A,B$ &  ---  & $M,N$ & $M N$ \\
         \hline
     \end{tabular}
 \end{center}
@@ -33,11 +33,11 @@ Or listed as operators:
 \begin{center}
     \begin{tabular}{|l|l|}
         \hline Judgement & Meaning \\
-        \hline $\Gamma \vdash A\ \mathsf{type}$          & $A$ is a type in context $\Gamma$. \\
-        \hline $\Gamma \vdash T \Leftarrow A$            & $T$ can be checked to have type $A$ in context $\Gamma$. \\
-        \hline $\Gamma \vdash T \Rightarrow A$           & $T$ synthesises the type $A$ in context $\Gamma$. \\
-        \hline $\Gamma \vdash A \equiv B\ \mathsf{type}$ & $A$ and $B$ are judgmentally equal types in context $\Gamma$. \\
-        \hline $\Gamma \vdash S \equiv T : A$            & $S$ and $T$ are judgmentally equal terms of type $A$ in context $\Gamma$. \\
+        \hline $ A\ \mathsf{type}$          & $A$ is a type. \\
+        \hline $ T \Leftarrow A$            & $T$ can be checked to have type $A$. \\
+        \hline $ T \Rightarrow A$           & $T$ synthesises the type $A$. \\
+        \hline $ A \equiv B\ \mathsf{type}$ & $A$ and $B$ are judgmentally equal types. \\
+        \hline $ S \equiv T : A$            & $S$ and $T$ are judgmentally equal terms of type $A$s. \\
         \hline
     \end{tabular}
 \end{center}
@@ -71,7 +71,7 @@ Or listed as operators:
 \subsection{Equality rules}\label{stlc_eq}
 
 % Reflexivity of judgemental equality of types
-\begin{prooftree}\label{stlc_rule_type_refl}\label{stlc_type_symm}
+\begin{center}\label{stlc_rule_type_refl}\label{stlc_type_symm}
     \AxiomC{$\Gamma \vdash A \ \mathsf{type}$}
     \RightLabel{($\equiv_{\mathsf{type}}$-refl)}
     \UnaryInfC{$\Gamma \vdash A \equiv A\ \mathsf{type}$}
@@ -82,7 +82,7 @@ Or listed as operators:
     \RightLabel{($\equiv_{\mathsf{type}}$-symm)}
     \UnaryInfC{$\Gamma \vdash B \equiv A \ \mathsf{type}$}
     \DisplayProof
-\end{prooftree}
+\end{center}
 
 % Transitivity of judgemental equality of types
 \begin{prooftree}\label{stlc_rule_type_tran}
@@ -94,7 +94,7 @@ Or listed as operators:
 \end{prooftree}
 
 % Reflexivity of judgemental equality of terms
-\begin{prooftree}\label{stlc_rule_term_refl}\label{stlc_rule_term_symm}
+\begin{center}\label{stlc_rule_term_refl}\label{stlc_rule_term_symm}
     \AxiomC{$\Gamma \vdash t \Leftarrow A$}
     \RightLabel{($\equiv_{\mathsf{term}}$-refl)}
     \UnaryInfC{$\Gamma \vdash t \equiv t : A$}
@@ -105,7 +105,7 @@ Or listed as operators:
     \RightLabel{($\equiv_{\mathsf{term}}$-symm)}
     \UnaryInfC{$\Gamma \vdash t \equiv s : A$}
     \DisplayProof
-\end{prooftree}
+\end{center}
 
 % Transitivity of judgemental equality of terms
 \begin{prooftree}\label{stlc_rule_term_tran}
@@ -191,7 +191,7 @@ Or listed as operators:
 \subsection{Product type}\label{stlc_rule_prod}
 
 % x introduction
-\begin{prooftree}\label{stlc_rule_prod_form}\label{stlc_rule_prod_intro}
+\begin{center}\label{stlc_rule_prod_form}\label{stlc_rule_prod_intro}
     \AxiomC{$\Gamma \vdash A \ \mathsf{type}$}
     \AxiomC{$\Gamma \vdash B \ \mathsf{type}$}
     \RightLabel{($\times$-form)}
@@ -203,7 +203,7 @@ Or listed as operators:
     \RightLabel{($\times$-intro)}
     \BinaryInfC{$\Gamma \vdash (a, b) \Rightarrow A \times B$}
     \DisplayProof
-\end{prooftree}
+\end{center}
 
 
 

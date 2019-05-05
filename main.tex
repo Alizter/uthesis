@@ -1,4 +1,6 @@
-\documentclass[varwidth]{article}
+%\documentclass[varwidth]{article}
+\documentclass{article}
+
 
 \usepackage[english]{babel}
 \usepackage[utf8]{inputenc}
@@ -15,8 +17,10 @@
 \usepackage{dirtytalk}
 \usepackage{pst-node}
 \usepackage{tikz-cd}
-\usepackage{enumitem}
-\usepackage{enumerate}
+
+\usepackage[shortlabels]{enumitem}
+%\usepackage{enumerate}
+
 \usepackage{forest}
 \usepackage{mwe}
 \usepackage{verbatim}
@@ -26,7 +30,19 @@
 \usepackage{stmaryrd}
 \usepackage[hidelinks]{hyperref}
 \usepackage{lscape}
+
 \usepackage[framemethod=tikz]{mdframed}
+%\usepackage{tcolorbox}
+
+\usepackage{silence}
+\WarningFilter{mdframed}{You got a bad break}
+\makeatletter
+\mdf@PackageWarning{You got a bad break\MessageBreak
+  because the last split box is empty\MessageBreak
+  You have to change the settings}
+\makeatother
+
+
 \usepackage[toc,page]{appendix}
 \usepackage[nottoc,numbib]{tocbibind}
 % Ommiting this because it looks terrible
@@ -45,16 +61,6 @@
 
 \newcommand{\N}{\mathbb{N}} %% Need to say NN has 0
 
-% Typical names of categories
-\newcommand{\catname}[1]{{\normalfont\textbf{#1}}}
-\newcommand{\Set}{\catname{Set}}
-\newcommand{\Cat}{\catname{Cat}}
-\newcommand{\op}{\text{op}}
-
-\newcommand{\el}{\text{el}}
-\newcommand{\Ty}{\text{Ty}}
-
-\newcommand{\of}{\mathbf{of}}
 
 %%
 %   Common variables
@@ -63,23 +69,6 @@
 \newcommand{\Var}{\mathbf{Var}}
 
 \newcommand{\Id}{\text{Id}}
-
-%%
-%   Type theories
-%%
-
-\newcommand{\stcu}{${\boldsymbol \lambda}_\to^{\text{Cu}}$} % simply typed curry 
-\newcommand{\stch}{${\boldsymbol \lambda}_\to^{\text{Ch}}$} % simply typed church
-\newcommand{\stdb}{${\boldsymbol \lambda}_\to^{\text{dB}}$} % simply typed de brujin
-\newcommand{\utbe}{${\boldsymbol {\lambda \beta \eta}}$ } % untyped beta eta
-
-%%
-%   Turn styles
-%%
-
-\newcommand{\vdashstcu}{\vdash_{\boldsymbol \lambda_\to}^{\text{Cu}}} % vdash for curry
-\newcommand{\vdashstcu}{\vdash_{\boldsymbol \lambda_\to}^{\text{Ch}}} % vdash for church
-\newcommand{\vdashstcu}{\vdash_{\boldsymbol \lambda_\to}^{\text{dB}}} % vdash for de Brujin
 
 %%
 %   Harper notations
@@ -103,39 +92,25 @@
 \newcommand{\stlct}{\lambda_{\to \times \N}}
 \newcommand{\dtt}{\lambda\Pi_{\times}}
 
-\title{Introduction to dependent type theory}
+%\title{Introduction to dependent type theory}
+\title{Simply typed lambda calculus and the Curry-Howard correspondance} 
 \author{Ali Caglayan}
 
+%\showoutput
 \begin{document}
 
 \maketitle
 
-% TODO:
-%
-%   * Rewrite syntax
-%   * Insert missing references throughout judgement and curry
-%   * Expand discussion of statics and dynamics
-%   * Design and study STLC
-%   * Discuss its drawbacks
-%   * Expand discussion of curry howard
-%   * DEPENDENT TYPES
-
 \tableofcontents
-
-%%%
 
 % Introduction and direction of thesis
 \input{intro.tex}
 
 % Rigourous treatement and analysis of syntax
-%\input{syntax.tex}
 \input{syntax2.tex}
 
 % Judgements, inference rules and general notions of logical
 \input{judgement.tex}
-
-% Statics and dynamics of programming langauges
-\input{static.tex}
 
 % Model simply typed lambda calculus using syntax machinary
 \input{stlc.tex}
@@ -143,65 +118,24 @@
 % Normalisation of STLC
 \input{normal.tex}
 
-
 % Examples of STLC
-%\input{ex_stlc.tex}
-
-% Notes on statics and dynamics of STLC
+\input{ex_stlc.tex}
 
 % History and implications of curry howard
 \input{curry.tex}
 
-% STLC with sums, 0, and N
-\input{stlc_extra.tex}
-
-% Dependent type theory
-\input{deptypes.tex}
-
-%%%
-
-% Category theory
-%\input{cat.tex}
-
-% Derive categorical semantics of STLC
-
-% Modify STLC to accomadate for dependent types with guidance from Curry-Howard
-
-% Sketch semantics of (essentially) LF
-
-% Talk about dependent products, dependent sums, Martin-lofs calculi etc
-
-% Notes from mikes talk, should really be integrated into the rest of the thesis
-%\input{semantics.tex}
 
 \newpage
 \begin{appendices}
-	\input{rules_stlc.tex}
-	
+	\input{rules_stlc.tex}	
     \begin{landscape}
     	\section{Examples}
-        %\centering
-        %\vspace*{\fill}
-        \subsection{Identity function}
-            \input{ex1.tex} \label{ex1}
-        \subsection{Function application $\lambda x . \lambda y . x y$}
-            \input{ex2.tex} \label{ex2}
-        \subsection{Function composition $\lambda x . \lambda y . \lambda z . x ( y z)$} % Function comp
-            \input{ex7.tex} \label{ex7}
-        
-        %\subsection{Owl combinator $\lambda x . \lambda y . \lambda z . y (x y)$} % Type checks ((A->B)->A)->(A->B)->A
-        
-        \subsection{Currying $\lambda x . \lambda y . \lambda z . x (y, z)$} % Curry
-            \input{ex8.tex} \label{ex8}
-        \subsection{Uncurry}
-            \input{ex9.tex} \label{ex9}
-        
-        %\subsection{Swap $\lambda t . (\snd(t), \fst(t))$}
-        
-        %\vfill
-        
+        \subsection{Identity function} \input{ex1.tex} \label{ex1}
+        \subsection{Function application \texorpdfstring{$\lambda x . \lambda y . x y$}{}} \input{ex2.tex} \label{ex2}
+        \newpage \subsection{Function composition \texorpdfstring{$\lambda x . \lambda y . \lambda z . x ( y z)$}{}} \input{ex7.tex} \label{ex7}        
+        \newpage \subsection{Currying \texorpdfstring{$\lambda x . \lambda y . \lambda z . x (y, z)$}{}} \input{ex8.tex} \label{ex8}
+        \newpage \subsection{Uncurry} \input{ex9.tex} \label{ex9}
     \end{landscape}
-	
 \end{appendices}
 
 
@@ -210,81 +144,3 @@
 
 
 \end{document}
-
-
-% Demonstration of and usefulness of dependent types as a logic and programming language
-%\input{deptypes.tex}
-
-% Derive categorical semantics for stlc % talk about LCCC
-%\section{Categorical semantics of stlc}
-
-% Model dependently typed lambda calculus using syntax machinary
-%\section{Rigourous treatment of dependent types}
-
-% Now talk about the problems of coming up with a similar model for dependent types
-%\section{Problems with categorical semantics of dependent type theories}
-
-% Survey various ways of overcomming these obstacles
-%\section{Look at the various models of depenent type theories, detail on how they work}
-
-
-
-
-
-
-
-%   Second plan for writing this documentclass
-%
-%   1. Introduce type theories
-%   2. Add different types comment on uses
-%   3. Talk about what dependent types should be
-%   4. Define dependent types
-%   5. Introduce pi and sigma types 
-%   6. Introduce uses and applications of dependent types
-%   7. Detail categorical semantics of type theories
-%   8. Survey categorical semantics for dependent types
-%   9. Derive steve awodeys natural model of dependent types
-%   10. Should interweave category theory
-%
-%
-%
-%
-
-
-
-%
-%   Plan for writing this document
-%  
-%   1. Complete bibliography and use
-%   2. Introduce simply typed lambda calculus (similar in style to the way John wrote it for his course notes)
-%   3. Lay out general outline of how new types are added
-%   4. Talk about different ways to introduce dependent types
-%   5. introduce universes
-%   6. Prefer the type families/univereses approach
-%   7. Talk about type families
-%   8. Introduce Pi types
-%   9. Examples of Pi types
-%   10. Introduce Sigma types
-%   11. Examples of Sigma types
-%   12. How they interact together
-%   13. Relationship with logic
-%   14. Curry-Howard correspondance
-%   15. Inductive types
-%   16. Examples, uses, general syntax, implementation (W-types)
-%   17. Identity types
-%   18. Discuss the induction principle on the identity type and axiom K etc.
-%   19. Consider no restriction of axiom K
-%   20. Give Identity type as inductive definition
-%   21. Say that what we have now is Martin-Lof intensional type theory, reference all these papers about its semantics
-% ~ ~ ~ ~ ~ Experimental territory / Could be a masters? ~ ~ ~ ~ ~
-%   22. Consider functional extensionality
-%   23. Consider univalence with examples
-%   24. Introduce higher inductive types
-%   25. Examples of HITs with reference to semantics by Schulman-Lumsdaine
-%   26. Discuss HoTT, what has been done (in algebraic topology etc.) its usefulness as a language for mathematics
-%   27. Category theory in HoTT
-%   28. Survey of synthetic homotopy theory
-%   the list goes on...
-
-
-

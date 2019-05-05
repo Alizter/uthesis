@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
 echo -n "Cleaning..."
-rm *.dvi *.aux *.fdb_latexmk *.fls *.log *.blg &> out.log
+rm *.dvi *.aux *.fdb_latexmk *.fls *.log *.blg *.bak &> out.log
 echo " Done."

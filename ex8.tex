@@ -22,9 +22,14 @@
     \BinaryInfC{$\Gamma , x : A \times B \to C, y : A, z : B \vdash (y, z) \Rightarrow A \times B$}
     \LeftLabel{(cswitch)}
     \UnaryInfC{$\Gamma , x : A \times B \to C, y : A, z : B \vdash (y, z) \Leftarrow A \times B$}
+    \noLine
+    \UnaryInfC{$\vdots$}
+    \noLine
+    \UnaryInfC{$\vdots$}
     
+        \insertBetweenHyps{\hskip -150pt}
     \LeftLabel{($\to$-elim)}
-    \UnaryInfC{$\Gamma, x : A \times B \to C , y : A, z : B \vdash x (y , z) \Rightarrow C$}
+    \BinaryInfC{$\Gamma, x : A \times B \to C , y : A, z : B \vdash x (y , z) \Rightarrow C$}
     \LeftLabel{(cswitch)}
     \UnaryInfC{$\Gamma, x : A \times B \to C , y : A, z : B \vdash x (y , z) \Leftarrow C$}
     \LeftLabel{($\to$-intro)}

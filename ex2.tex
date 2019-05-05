@@ -13,14 +13,18 @@
     \AxiomC{}
     \RightLabel{$(\dagger)$}
     \UnaryInfC{$\Gamma , x : A, y : C \vdash y \Leftarrow C$}
+    \noLine
+    \UnaryInfC{$\vdots$}
+    \noLine
+    \UnaryInfC{$\vdots$}
+        \insertBetweenHyps{\hskip -40pt}
     \LeftLabel{($\to$-elim)}                
-        \insertBetweenHyps{\hskip -20pt}
     \BinaryInfC{$\Gamma , x : A, y : C \vdash x y \Rightarrow D$}
     \AxiomC{}
     \RightLabel{($\equiv_{\mathsf{type}}$-refl)}
     \UnaryInfC{$\Gamma , x : A, y : C \vdash D \equiv D\ \mathsf{type}$}
     \LeftLabel{(switch)}
-        %\insertBetweenHyps{\hskip -10pt}
+        \insertBetweenHyps{\hskip -50pt}
     \BinaryInfC{$\Gamma , x : A , y : C \vdash xy \Leftarrow D$}
     \LeftLabel{($\to$-intro)}
     \UnaryInfC{$\Gamma , x : A \vdash \lambda y . x y \Rightarrow C \to D$}
@@ -28,7 +32,7 @@
     \RightLabel{$(**)$}
     \UnaryInfC{$\Gamma , x : A \vdash B \equiv C \to D \ \mathsf{type}$}
     \LeftLabel{(switch)}
-        \insertBetweenHyps{\hskip -150pt}
+        \insertBetweenHyps{\hskip -130pt}
     \BinaryInfC{$ \Gamma , x : A \vdash \lambda y . xy \Leftarrow B$}
     \LeftLabel{($\to$-intro)}
     \UnaryInfC{$\Gamma \vdash \lambda x . \lambda y . x y \Rightarrow A \to B$}

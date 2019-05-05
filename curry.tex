@@ -1,59 +1,81 @@
 \section{Curry-Howard correspondence}
 
 %%%
-\subsection{Mathematical logic}
+\subsection{Mathematical logic}\label{logic_chapter}
 
 At the beginning of the 20th century, Whitehead and Russell published their \emph{Principia Mathematica} \cite{GlossarWiki:Whitehead_Russell:1910}, demonstrating to mathematicians of the time that formal logic could express much of mathematics. It served to popularise modern mathematical logic leading to many mathematicians taking a more serious look at topic such as the foundations of mathematics.
 
 One of the most influential mathematicians of the time was David Hilbert. Inspired by Whitehead and Russell's vision, Hilbert and his colleagues at G\"ottingen became leading researchers in formal logic. Hilbert proposed the \emph{Entscheidungsproblem} (decision problem), that is, to develop an ``effectually calculable procedure'' to determine the truth or falsehood of any logical statement. At the 1930 Mathematical Congress in K\"onigsberg, Hilbert affirmed his belief in the conjecture, concluding with his famous words ``Wir m\"ussen wissen, wir werden wissen'' (``We must know, we will know''). At the very same conference, Kurt G\"odel announced his proof that arithmetic is incomplete \cite{GlossarWiki:Goedel:1931}, not every statement in arithmetic can be proven.
 
-This however did not deter logicians, who were still interested in understanding why the \emph{Entscheidungsproblem} was undecidable, for this a formal definition of ``effectively calculable'' was required. So along came three proposed definitions of what it meant to be ``effectively calculable'': \emph{lambda calculus}, published in 1936 by Alonzo Church \cite{church-unsolvableproblemof-1936}; \emph{recursive functions}, proposed by G\"odel in 1934 later published in 1936 by Stephen Kleene \cite{Kleene1936}; and finally \emph{Turing machines} in 1937 by Alan Turing \cite{turing1936a}.
+This however did not deter logicians, who were still interested in understanding why the \emph{Entscheidungsproblem} was not attainable.
+For this, a formal definition of ``effectively calculable'' was required.
+So along came three candidate definitions of what it meant to be ``effectively calculable'': \emph{$\lambda$-calculus}, published in 1936 by Alonzo Church \cite{church-unsolvableproblemof-1936}; \emph{recursive functions}, proposed by G\"odel in 1934 later published in 1936 by Stephen Kleene \cite{kleene1936}; and finally \emph{Turing machines} in 1937 by Alan Turing \cite{turing1936a}.
 
 %%%
-\subsection{Lambda calculus}
+\subsection{\texorpdfstring{$\lambda$}{}-calculus}
 
-Lambda calculus was discovered by Church at Princeton in the 1930s, originally as a way to define notations for logical formulas.
-It is a very compact and simle idea, with only three constructs: variables; lambda abstraction; and function application.
+$\lambda$-calculus was discovered by Church at Princeton in the 1930s, originally as a way to define notations for logical formulas.
+It is a very compact and simple idea, with only three constructs: variables; $\lambda$-abstraction; and function application.
 Curry developed the closely related idea of combinatory logic around the same time \cite{curry1930a, curry1930b}.
+
+Interestingly, Curry had introduced the notion of \emph{Combinators} into logic for the very same reason reason we introduced abstract binding trees: to avoid mentioning named variables \cite{Sorensen}.
+
 It was realised at the time by Church and others that ``There may, indeed, be other applications of the system than its use as a logic.'' \cite{church1932, church1933}.
-This meant that lambda calculus was studied as a topic of interest in it's own right.
-This becae explictly apparent when Church discovered a way of encoding numbers as terms of lambda calculus, known as the \emph{Church encoding} of the natural numbers.
-%The idea is very simple, a natural number $n$ is represented by the function $\lambda f . \lambda x . f^n x$. 
-From this addition and multiplication could also be defined.
+This meant that $\lambda$-calculus was worth studying as a topic of interest in it's own right.
+This became explicitly apparent when Church discovered a way of encoding numbers as terms of $\lambda$-calculus, known as the \emph{Church encoding} of the natural numbers. From this addition and multiplication could also be defined.
+
 However the problem of defining a predecessor function alluded Church and his students, in fact Church later became convinced that it was impossible.
-Fortunately Kleene later discovered how to define the predecessor function at his dentists office \cite{kleene1935a, kleene1935b}.
-This led to Church tp later propose that $\lambda$-definability ought to be the definition of ``effectively calculable'', culminating into what is now known as Church's Thesis. Church went on to demonstrate that the problem of determining whether or not a given $\lambda$-term  has a normal form is not $\lambda$-definable.
-This is now known as the Halting Problem.
-Put differently this says that no program writtein in the $\lambda$-calculus can determine whether a program written in the $\lambda$-calculus halts or not.
+Fortunately Kleene later discovered, at his dentist's office, how to define the predecessor function \cite{kleene1935a, kleene1935b, 4392910}.
+This led to Church to later propose that $\lambda$-definability ought to be the definition of ``effectively calculable'', culminating into what is now known as Church's Thesis. Church went on to demonstrate that the problem of determining whether or not a given $\lambda$-term  has a normal form is not $\lambda$-definable.
+This is now known as the Halting Problem. Put differently this says that no program written in the $\lambda$-calculus can determine whether a program written in the $\lambda$-calculus halts or not.
 
 %%%
 \subsection{Recursive functions}
 
-In 1933 G\"odel arrived in Princeton, unconvinced by Church's claim that every effectively calculable function was $\lambda$-definable. Church responded by offering that if Go\"odel would propose a different definition, then Church would ``undertake to prove it was included in $\lambda$-definability''. In a series of lectures at Princeton, G\"odel proposed what came to be known as ``general recursive functions'' as his candidate for effective calculability. Kleene later published the definition \cite{kleene1936}. Church later outlined a proof \cite{church1936} and Kleene later published it in detail \cite{kleene1936b}. This however did not have the intended effect on G\"odel, whereby he then became convinced that his own definition was incorrect!
+In 1933 G\"odel arrived in Princeton, unconvinced by Church's claim that every effectively calculable function was $\lambda$-definable. Church responded by offering that if Go\"odel would propose a different definition, then Church would ``undertake to prove it was included in $\lambda$-definability''. In a series of lectures at Princeton, G\"odel proposed what came to be known as ``general recursive functions'' as his candidate for effective calculability. Kleene later published the definition \cite{kleene1936}. Church later outlined a proof that it was equivalent to the $\lambda$-calculus \cite{church1936} and Kleene later published it in detail \cite{kleene1936b}. This however did not have the intended effect on G\"odel, whereby he then became convinced that his own definition was incorrect!
 
 %%%
 \subsection{Turing machines}
 
-Alan Turing was at Cambridge when he independently formulated his own idea of what it means to be ``effectively calculable'', now known today as \emph{Turing machines}. He used it to show that the Entscheidungsproblem is undecidable, that is it cannot be proven to be true or false. Before publication, Turing's advisor Max Newman was worried since Church had published a solution, but since Turing's approach was sufficiently novel it was published anyway. Turing had added an appendix sketching the equivalence of $\lambda$-definability to Turing machines. It was Turing's argument that later convinced G\"odel that this was the correct notion of ``effectively calculable''.
+Alan Turing was at Cambridge when he independently formulated his own idea of what it meant to be ``effectively calculable'', what is now known today as a \emph{Turing machine}. He used it to show that the Entscheidungsproblem is undecidable, meaning that it cannot be proven to be true or false. Before publication, Turing's advisor Max Newman was worried since Church had already published a solution, but since Turing's approach was sufficiently novel it was published anyway \cite{turing1936a}. Turing had added an appendix sketching the equivalence of $\lambda$-definability to Turing machines. It was Turing's argument that later convinced G\"odel that this was the correct notion of ``effectively calculable''.
+
+Of course today the argument for Turing machines as a candidate for computation seems obvious.
+We are surrounded by computers in our daily lives, all based loosely on the idea of a Turing machine.
+From this it is easy to see that Turing's ideas had a \emph{huge} influence on the notions of computation.
 
 %%%
-\subsection{Russell's paradox}
+\subsection{The problem with \texorpdfstring{$\lambda$}{}-calculus as a logic}
 
-Foundational crisis in mathematics.
-Led to many attempts at axiomatising mathematics.
+Church's students Kleene and Rosser quickly discovered that $\lambda$-calculus was inconsistent as a logic \cite{kleene1935c}.
+A logic is deemed \emph{inconsistent} if every statement can be proven.
+For example assuming $1 = 2$ can lead to many bizarre consequences, such as all logical formulas becoming true, one way or another.
+In that way, arithmetic with the assumption that $1 = 2$, is \emph{inconsistent as a logic}.
+Curry later published a simplified version of Kleene and Rosser's result which became known as \emph{Curry's paradox} \cite{curry1942}.
+Curry's paradox was related to Russell's paradox, in that a predicate was allowed to act on itself.
+
+Russell's paradox is typically seen as a paradox of set theory, but can usually be phrased in a much more general manner. The basic idea is this: Let $A$ be the set of all sets that do not contain themselves. The question is, does $A$ belong to itself? Clearly, if it did then it would not be an element of the set. If it did not, then it would have to be an element. Either way there is a contradiction, hence we have a \emph{logical paradox}.
+
+The issue arises with the definition of $A$. In it we defined it as something quantifying over a lot of things, but most importantly itself. This self reference is exactly the issue that leads to such a paradox. The idea of self-reference isn't that harmful if kept under control however, particularly if a relation is \emph{well-founded}.
+
+But allowing all predicates (formulas quantifying over other formulas), leads to silly situations as above. Much of modern set theory has been developed in order to avoid being able to write down paradoxical statements as above. We will see many of these ideas in a type theoretic form later on. A good introduction to basic set theory is \cite{johnstone1987notes}.
 
 
-%%%
-\subsection{The problem with lambda calculus as a logic}
-
-Church's students Kleene and Rosser quickly discovered that lambda calculus was inconsistent as a logic \cite{kleene1935c}.
-A logic is deemed \emph{inconsistent} if every statement can be proven. For exmaple assuming $1 = 2$ can lead to many bizaare consequences.
-Curry later published a simplified version of Kleene and Rosser's result which became known as \emph{Curry's paradox} \cite{curry1942}. Curry's paradox was related to Russel's paradox, in that a predicate was allowed to act on itself. This led to an abandoning of the use of lambda calculus as a logic for a short time. In order to solve this Church adapted a solution similar to Russell's when formulating \emph{Principia Mathematica}: use types \cite{PrincipiaMathematicaVolumeI}. What was discovered is now known today as \emph{simply typed lambda calculus} \cite{church1940}. What is nice about Church's STLC is that every term has a normal form, or in the language of Turing machines every computation halts \cite{turing1936}. From this consistency of Church's STLC as a logic could be established.
+What is nice about Church's STLC is that every term has a normal form, or in the language of Turing machines every computation halts \cite{turing1936a}. From this consistency of Church's STLC as a logic could be established, not every logical formula is true.
 
 %%%
 \subsection{Types to the rescue}
 
-[Talk in detail why typing is good for mathematicians, programmers and logicians]
+Types were originally introduced as a method to avoid paradoxes occurring in the type-free world.
+However mathematicians had naturally stratified objects into different categories, without any consideration to types before \cite{GANDY1977173, kamareddine2002}.
+Russell was one of the first mathematicians to introduce a formal theory of types \cite{GlossarWiki:Whitehead_Russell:1910}, precisely to avoid the paradox baring his name.
+In order to solve this Church adapted a solution similar to Russell's.
+The first presentation of a simple theory of types was given in Church's influential paper \cite{church1940}, where he introduced the simply typed lambda calculus.
+
+Being typed had some immediate consequences, especially on the ideas of $\lambda$-calculus as a notion of computation. We saw in 
+
+%%%
+\subsection{Types in the design of programming languages}
+
 
 %%%
 \subsection{The theory of proof a la Gentzen}
@@ -63,7 +85,7 @@ Curry later published a simplified version of Kleene and Rosser's result which b
 %%%
 \subsection{Curry and Howard}
 
-[Curry makes an observation that Gentzen's natural deduction corresponds to simply typed lambda calculus, Howard takes this further and defines it formally, eventually predicting a notion of dependent type.
+[Curry makes an observation that Gentzen's natural deduction corresponds to simply typed $\lambda$-calculus, Howard takes this further and defines it formally, eventually predicting a notion of dependent type.
 
 %%%
 \subsection{Propositions as types}
