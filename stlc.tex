@@ -57,11 +57,11 @@ We begin with our basic judgements.
     Next we have
     $$a \Rightarrow A$$
     stating that the term $a$ synthesises the type $A$. This is used to represent the ``creation of a term''. We will later see why we have two judgements when typically in type theory there is a single one, written $a : A$. This is due to our adoption of \emph{bidirectional type checking}, which we will discuss later.
-    We now have two forms of \emph{judgemental (or definitional) equalty}. Firstly judgemental equality of types
+    We now have two forms of \emph{judgemental (or definitional) equality}. Firstly judgemental equality of types
     $$A \equiv B \ \mathsf{type}$$
-    which states that types $A$ and $B$ are judgementally equal. And finally we have the judgmental equality of terms of some types
+    which states that types $A$ and $B$ are judgmentally equal. And finally we have the judgemental equality of terms of some types
     $$a \equiv b : A$$
-    which states that the terms $a$ and $b$ of type $A$ are judgementally equal.
+    which states that the terms $a$ and $b$ of type $A$ are judgmentally equal.
 \end{defin}
 
 \begin{remark}
@@ -134,7 +134,7 @@ Structural rules will dictate how our judgements interact with each other, how d
 \end{lemma}
 
 \begin{proof}
-    Though we didn't really specify it that way, the judgement forms can be thought of as operators. That was we can think of a derivability judgement $\Gamma \vdash \mathcal{J}$ as an abt itself. We didn't do it this way since it would be confusing which abt we are talking about. However we will note that in an implementation of a type theory on a computer, having a data structure such as an abt will be indespensible for designing and reasoning about type theories. In that light, a judgement form ought to be part of the syntax. On top of this, substitution is admissible simply because it is a property of the syntax (Definition \ref{subst}).
+    Though we didn't really specify it that way, the judgement forms can be thought of as operators. That was we can think of a derivability judgement $\Gamma \vdash \mathcal{J}$ as an abt itself. We didn't do it this way since it would be confusing which abt we are talking about. However we will note that in an implementation of a type theory on a computer, having a data structure such as an abt will be indispensable for designing and reasoning about type theories. In that light, a judgement form ought to be part of the syntax. On top of this, substitution is admissible simply because it is a property of the syntax (Definition \ref{subst}).
 \end{proof}
 
 
@@ -545,7 +545,7 @@ Perhaps a more common, and practical problem is that of \emph{type inference}. G
 \end{theorem}
 
 \begin{proof}
-    As before, we give only a sketch. For demonstrations see Examples \ref{identity}, \ref{fun_app}, \ref{mockingbird}, \ref{ayeaye}. Instead of using (cswitch) we will use (switch). This means we will have to provide it with some sort of judgemental equality of types. We make an educated guess for this by looking at the syntax of the term. If it is a lambda term, then it is only possible to choose a function type, if it is a pair, then a product type etc. Finally we will eventually accumulate many assumptions about types. The trick now is to see if these equations are trivial. If we instead get a non-trivial typing equation such as $A \equiv A \to B$, we say that the term cannot be typed. Otherwise, we can substitute back through and get the type we started with. The reason we disallow $A \equiv A \to B$ is that there is no way to get such an equalty at the level of syntax. In that sense it is non-trivial.
+    As before, we give only a sketch. For demonstrations see Examples \ref{identity}, \ref{fun_app}, \ref{mockingbird}, \ref{ayeaye}. Instead of using (cswitch) we will use (switch). This means we will have to provide it with some sort of judgemental equality of types. We make an educated guess for this by looking at the syntax of the term. If it is a lambda term, then it is only possible to choose a function type, if it is a pair, then a product type etc. Finally we will eventually accumulate many assumptions about types. The trick now is to see if these equations are trivial. If we instead get a non-trivial typing equation such as $A \equiv A \to B$, we say that the term cannot be typed. Otherwise, we can substitute back through and get the type we started with. The reason we disallow $A \equiv A \to B$ is that there is no way to get such an equality at the level of syntax. In that sense it is non-trivial.
 \end{proof}
 
 

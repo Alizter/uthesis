@@ -16,7 +16,7 @@ The main goal of this chapter will be to show that the STLC, defined in the prev
 
 It can be observed that there is not a unique way to compute something, i.e. run the program. What is important is that the result is unique. Such a property is known as the Church-Rosser property. We will show that Church-Rosser property holds for $\beta$-, $\eta$- and $\beta\eta$-reductions. 
 
-Finally we will discuss the issue of canoncity and modifications to the STLC, and what they mean with respect to these computational properties.
+Finally we will discuss the issue of canonicity and modifications to the STLC, and what they mean with respect to these computational properties.
 
 Guiding references for this chapter are \cite{Sorensen} and \cite{BarendregtHenk2013Lcwt}.
 
@@ -159,7 +159,7 @@ The converse to this is in general \emph{false} but it is true when another cond
 \end{remark}
 
 \begin{remark}
-    We typically also say an element is strongly normalising if the condition holds for that element. This allows us to state SN in a different (and perhaps more correct) way: A relation $\to$ is strongly normalising if each element is strongly normalising with respect to $\to$. Then we can define an element to be strongly normalising if all of it's reducts are strongly normalising. The nice thing about this definition is that we have seen it before, this is precisely what it means to be a \emph{well-founded relation} from Defintion \ref{wf}. So $\to$ is strongly normalising if and only if it is well-founded. This is good because we can induct over it!
+    We typically also say an element is strongly normalising if the condition holds for that element. This allows us to state SN in a different (and perhaps more correct) way: A relation $\to$ is strongly normalising if each element is strongly normalising with respect to $\to$. Then we can define an element to be strongly normalising if all of it's reducts are strongly normalising. The nice thing about this definition is that we have seen it before, this is precisely what it means to be a \emph{well-founded relation} from Definition \ref{wf}. So $\to$ is strongly normalising if and only if it is well-founded. This is good because we can induct over it!
 \end{remark}
 
 \begin{cor}
@@ -187,7 +187,7 @@ We now state a lemma which will be very useful. It is a sufficient condition for
 \end{proof}
 
 
-[[TODO add note about the knowledge of newmans lemma, should be footnote in Sorensen]]
+[[TODO add note about the knowledge of Newman's lemma, should be footnote in Sorensen]]
 
 
 %%
@@ -296,7 +296,7 @@ This proof is usually attributed to an unpublished note of Turing but it has bee
     Analysing the redexes of $t[u/x]$ we find that they fall into the following cases:
     \begin{itemize}
         \item They are redexes of $t$ (in which $u$ has become $x$).
-        \item They are redexes of $u$, proliferating due to each occurence of $x$ in $t$.
+        \item They are redexes of $u$, proliferating due to each occurrence of $x$ in $t$.
         \item They are formed when $t$ is of the form $\fst(x)$, $\snd(x)$, or $x v$ for $u$ of the form $(u', u'')$, $(u', u'')$, or $\lambda y . u'$ respectively. These new redexes have degree $\partial(T)$.
     \end{itemize}
 \end{proof}
@@ -335,7 +335,7 @@ Next we will prove a lemma bounding the number of redexes of a certain degree.
     Although not defined, we take the meaning of \emph{a redex strictly inside} to be a redex that is not the whole redex.
 \end{remark}
 
-We now have all the machinary needed to prove that typed terms in the STLC are strongly $\beta$-normalising.
+We now have all the machinery needed to prove that typed terms in the STLC are strongly $\beta$-normalising.
 
 % Every term is beta normalising
 \begin{theorem}\label{beta_SN}
@@ -364,7 +364,7 @@ We now have all the machinary needed to prove that typed terms in the STLC are s
 \end{proof}
 
 \begin{remark}
-    Although we haven't checked Lemma \ref{beta_coh}, it would be extremely suprising if it were false. So we have a strong feeling that it ought to be true. 
+    Although we haven't checked Lemma \ref{beta_coh}, it would be extremely surprising if it were false. So we have a strong feeling that it ought to be true. 
 \end{remark}
 
 We now wish to prove that $\to_\beta$ is weakly Church-Rosser. First we take some results from Takahashi \cite{TakahashiM1989PRIL, Takahashi:1995:PR9:207177.207191}, who considers \emph{parallel reductions}. This is a stronger relation than $\to_{\beta}$ and weaker than $\twoheadrightarrow_{\beta}$. This might not seem like much but, parallel ($\beta$-)reduction, denoted $\Rightarrow_{\beta}$ (not to be confused with our typing judgements), satisfies the diamond in Church-Rosser. And since $\twoheadrightarrow_{\beta}$ is the transitive closure of $\Rightarrow_{\beta}$, it too satisfies the diamond in Church-Rosser hence $\to_{\beta}$ has the Church-Rosser property. We will formalise this argument as follows and consider $\beta$, $\eta$ and $\beta \eta$ reductions along the way.
@@ -424,12 +424,12 @@ The following lemma shows the strengths of our notions of $\beta$-reduction. It 
     The previous proof may be considered as a sketch since we didn't explicitly check every case. This can definitely be done but it is not so interesting.
 \end{remark}
 
-We can now discuss \emph{the complete ($\beta$-)development of a term}. This is a way of compeletely reducing down \emph{all} $\beta$-redexes at once.
+We can now discuss \emph{the complete ($\beta$-)development of a term}. This is a way of completely reducing down \emph{all} $\beta$-redexes at once.
 
 \begin{defin}
     The \emph{complete ($\beta$-)development} of a term $\Gamma \vdash t \Leftarrow A$, written $t^*$ is defined by induction on syntax:
     \begin{itemize}
-        \item For a variable or cosntant $x^* = x$.
+        \item For a variable or constant $x^* = x$.
         \item $(\lambda x . M)^* = \lambda x . M^*$.
         \item $(M N)^* = M^* N^*$ if $MN$ is not a $\beta$-redex.
         \item $(a, b)^* = (a^*, b^*)$.
@@ -448,7 +448,7 @@ We can now discuss \emph{the complete ($\beta$-)development of a term}. This is 
 \end{proof}
 
 
-Here is a technical lemma that is the driving force behind our proof of being Church-Rosser. It says that the compelete development is always the most reduced form of a term.
+Here is a technical lemma that is the driving force behind our proof of being Church-Rosser. It says that the complete development is always the most reduced form of a term.
 
 \begin{lemma}\label{cd_lemma_beta}
     Suppose $M \Rightarrow_\beta N$ then $N \Rightarrow_\beta M^*$.
@@ -532,7 +532,7 @@ We will now show that $\to_\eta$ is strongly normalising.
 
 \begin{remark}
     Originally we had thought to modify the proof of $\beta$-normal\-isa\-tion, and make it work for $\eta$. However, this is where the difference between the two is key.
-    $\beta$-normal\-isa\-tion has the power to create new $\beta$-redexes whereas $\eta$-normalisation never does. In fact $\eta$-normalisation is strongly normalising even in the untyped lambda calculus. This suggests that talking about degrees is not the correct approach and there ought to be some other metric for which can be used to bound $\eta$-reducible terms. Based off of work in \cite{Fortune1983}, the authors of \cite[Ex. 3.21]{Sorensen} define a \emph{depth} function for terms. We belive this to be the actual depth of the underlying tree of the abstract binding tree of the syntax of the term. But that is not a relevent result for now.
+    $\beta$-normal\-isa\-tion has the power to create new $\beta$-redexes whereas $\eta$-normalisation never does. In fact $\eta$-normalisation is strongly normalising even in the untyped lambda calculus. This suggests that talking about degrees is not the correct approach and there ought to be some other metric for which can be used to bound $\eta$-reducible terms. Based off of work in \cite{Fortune1983}, the authors of \cite[Ex. 3.21]{Sorensen} define a \emph{depth} function for terms. We believe this to be the actual depth of the underlying tree of the abstract binding tree of the syntax of the term. But that is not a relevant result for now.
 \end{remark}
 
 \begin{defin}
@@ -570,7 +570,7 @@ We will now show that $\to_\eta$ is strongly normalising.
             \end{aligned}
         $$
     \end{itemize}
-    Observe that in both cases we have that the depth of a redex $s$ is $\delta(s) = \delta(r) + 2$ where $r$ is the reduct of $s$. However at the level of terms we cannot garantee equality due to the nature of depth and compatibility. 
+    Observe that in both cases we have that the depth of a redex $s$ is $\delta(s) = \delta(r) + 2$ where $r$ is the reduct of $s$. However at the level of terms we cannot guarantee equality due to the nature of depth and compatibility. 
 \end{proof}
 
 \begin{lemma}\label{eta_SN}
@@ -617,7 +617,7 @@ Now we define a notion of \emph{parallel}
     Observe that ignoring the last two rules, still qualifies any term $t$ to satisfy $t \Rightarrow_\eta t$.
 \end{proof}
 
-Now we show the strenght of $\Rightarrow_\eta$ relative to the other two $\eta$-reduction relations.
+Now we show the strength of $\Rightarrow_\eta$ relative to the other two $\eta$-reduction relations.
 
 \begin{lemma}\label{eta_par_imp}
     We have the following implications:
@@ -750,7 +750,7 @@ We now begin the intricate business of mixing the two reductions, keeping note o
 \end{lemma}
 
 \begin{proof}
-    A similar proof can be found in \cite[Corollary 15.1.5]{barendregt1984lambda}, this would of course have to be modified to accomodate for product types. The idea of the proof is to show that $M \twoheadrightarrow_{\beta\eta} N$ implies $M \twoheadrightarrow_{\beta} P \twoheadrightarrow_{\eta} N$ for some $P$. Then since $\eta$-reduction is strongly normalising, it must be the case that $\beta$-reduction is strongly normalising if and only if $\beta \eta$-reduction is.
+    A similar proof can be found in \cite[Corollary 15.1.5]{barendregt1984lambda}, this would of course have to be modified to accommodate for product types. The idea of the proof is to show that $M \twoheadrightarrow_{\beta\eta} N$ implies $M \twoheadrightarrow_{\beta} P \twoheadrightarrow_{\eta} N$ for some $P$. Then since $\eta$-reduction is strongly normalising, it must be the case that $\beta$-reduction is strongly normalising if and only if $\beta \eta$-reduction is.
 \end{proof}
 
 \begin{cor}\label{beta_eta_SN}
@@ -895,7 +895,7 @@ Now we can show that $\beta\eta$-reduction is weakly Church-Rosser.
     $\beta\eta$-reduction is strongly normalising by Lemma \ref{beta_eta_SN} and weakly Church-Rosser by Lemma \ref{beta_eta_WCR}. Hence by Newman's Lemma (\ref{newman}) we have that $\beta\eta$-reduction is Church-Rosser for typed terms. 
 \end{proof}
 
-
+\begin{comment}
 
 %%
 %% Canonicity
@@ -933,7 +933,7 @@ However it is not so obvious that the converse is true:
 
 
 
-
+\end{comment}
 
 
 
@@ -946,7 +946,7 @@ We next wish to show that $\beta$-normal forms occur if and only if $\beta \eta$
 \end{lemma}
 
 \begin{proof}
-    A similar proof can be found in \cite[Corollary 15.1.5]{barendregt1984lambda}, this would of course have to be modified to accomdate for product types.
+    A similar proof can be found in \cite[Corollary 15.1.5]{barendregt1984lambda}, this would of course have to be modified to accommodate for product types.
 \end{proof}
 
 \begin{remark}
@@ -965,7 +965,7 @@ We next wish to show that $\beta$-normal forms occur if and only if $\beta \eta$
 
 \subsection{Closing remarks}
 
-The best reference for these arguments is \cite{barendregt1984lambda}. There have been a few papers afterwhich many of the arguments have been vastly simplified notably \cite{TakahashiM1989PRIL}. However to our knowledege there is no single account of many of these results. A possible future direction is via the use of \emph{categorical semantics}, which associate each ``type theory'' to an appropriately structured category. Typically these only model the \emph{statics} of the type theory, but there are attempts in the literature to realise the reductions as 2-cells in a \emph{bicategory}. Then a property such as Church-Rosser would be about the existence of pushouts in the Hom-category. 
+The best reference for these arguments is \cite{barendregt1984lambda}. There have been a few papers after which many of the arguments have been vastly simplified notably \cite{TakahashiM1989PRIL}. However to our knowledge there is no single account of many of these results. A possible future direction is via the use of \emph{categorical semantics}, which associate each ``type theory'' to an appropriately structured category. Typically these only model the \emph{statics} of the type theory, but there are attempts in the literature to realise the reductions as 2-cells in a \emph{bicategory}. Then a property such as Church-Rosser would be about the existence of pushouts in the Hom-category. 
 
 \subsection{Canonicity}
 
@@ -1006,7 +1006,7 @@ However it is not so obvious that the converse is true:
 
 
 
-Canonicity is a property of a type theory that ensures that a given term of a type $\Gamma \vdash t \Leftarrow T$ has a \emph{canonical form}, in that $t$ is only made up of variables from $\Gamma$ and constructors of $T$. Such a property would garantee that 
+Canonicity is a property of a type theory that ensures that a given term of a type $\Gamma \vdash t \Leftarrow T$ has a \emph{canonical form}, in that $t$ is only made up of variables from $\Gamma$ and constructors of $T$. Such a property would guarantee that 
 
 [[These two concepts are very related, we should find some way to talk about it, including Church-Rosser]]
 \end{comment}

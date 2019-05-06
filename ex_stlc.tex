@@ -3,7 +3,7 @@
 \subsection{Identity function \texorpdfstring{$\lambda x . x$}{}}
 
 \begin{example}[Identity function]\label{identity}
-    Let's consider the following lambda term $\lambda x . x$. We wish to find a type $T$ such that given some context $\Gamma$ we have $\Gamma \vdash \lambda x . x \Leftarrow T$. The only rule that allows us to get to this judgement is the mode-switching rule (switch). We also have the oppurtunity to add some structure to the type, so we keep this in mind.
+    Let's consider the following lambda term $\lambda x . x$. We wish to find a type $T$ such that given some context $\Gamma$ we have $\Gamma \vdash \lambda x . x \Leftarrow T$. The only rule that allows us to get to this judgement is the mode-switching rule (switch). We also have the opportunity to add some structure to the type, so we keep this in mind.
     \begin{prooftree}
         \AxiomC{$\Gamma \vdash \lambda x . x \Rightarrow \boxed{?}$}
         \AxiomC{$\Gamma \vdash T \equiv \boxed{?} \ \mathsf{type}$}
@@ -104,7 +104,7 @@
 \end{example}
 
 \begin{remark}
-    The density of information in the previous proof is one reason why it is sometimes clearer to draw a derivation tree. The crucial lesson is the choices we have to make at each step. We have set up our rules in such a manner that there is very often only \emph{one} choice that can be made. When being ambiguous about the type we start with, we are in essense \emph{inferring} typing information. Simply typed lambda calculus where the terms do not have typing information is typically referred to as Curry-style. Where as when terms are annotated with their types it is referred to as Church-style \cite{Sorensen}.
+    The density of information in the previous proof is one reason why it is sometimes clearer to draw a derivation tree. The crucial lesson is the choices we have to make at each step. We have set up our rules in such a manner that there is very often only \emph{one} choice that can be made. When being ambiguous about the type we start with, we are in essence \emph{inferring} typing information. Simply typed lambda calculus where the terms do not have typing information is typically referred to as Curry-style. Where as when terms are annotated with their types it is referred to as Church-style \cite{Sorensen}.
 \end{remark}
 
 \subsection{Mockingbird \texorpdfstring{$\lambda x . x x$}{}} % Definitely does not type check M
@@ -112,13 +112,13 @@
 In the untyped lambda calculus, $\lambda$-terms with no free variables can be called combinators. By combining combinators interesting expressions can be written in a readable way. This is related to the idea of combinatory logic which was mostly developed by Haskell Curry. Many combinators have been recorded and one of the best known references is \cite{smullyan2012mock}, \emph{``To Mock a Mockingbird''}. We will take a look at some other combinators later but we will start with the Mockingbird, also known as $\lambda x . x x$.
 
 \begin{example}\label{mockingbird}
-    We wish to find a type $T$ such that $\Gamma \vdash \lambda x . x x \Leftarrow T$ for some context $\Gamma$. We begin, as with every begining, with the (switch) rule. We take this time to assume that $\Gamma \vdash T \equiv A \to B \ \mathsf{type}$ given that there is no other way for a $\lambda$-term, as discussed in previous examples. This gives us $\Gamma \vdash \lambda x . x x \Rightarrow A \to B$. Observing that we can only apply ($\to$-intro) we arrive at $\Gamma , x : A\vdash x x \Leftarrow B$. First performing a (cswitch) we get $\Gamma , x : A\vdash x x \Rightarrow B$ which then points us to ($\to$-elim). This gives us $\Gamma , x : A \vdash x \Leftarrow \boxed{?}$ and $\Gamma , x : A \vdash x \Leftarrow \boxed{?} \to B$. Now we need to resolve both of these, the first is easier. We can see that we will have to (cswitch) and then use the variable rule, since this is the only judgement that matches with our hole. This also allows us to deduce that $\boxed{?}$ can be filled with $A$, yielding $\Gamma , x : A \vdash x \Leftarrow A \to B$. This is where things become problematic. We can of course apply the switch rule. But the only way to do this is with the hypothesis $\Gamma , x : A \vdash A \equiv A \to B \ \mathsf{type}$. And we see that $\Gamma , x : A \vdash x \Rightarrow A$ resolves via (var).
+    We wish to find a type $T$ such that $\Gamma \vdash \lambda x . x x \Leftarrow T$ for some context $\Gamma$. We begin, as with every beginning, with the (switch) rule. We take this time to assume that $\Gamma \vdash T \equiv A \to B \ \mathsf{type}$ given that there is no other way for a $\lambda$-term, as discussed in previous examples. This gives us $\Gamma \vdash \lambda x . x x \Rightarrow A \to B$. Observing that we can only apply ($\to$-intro) we arrive at $\Gamma , x : A\vdash x x \Leftarrow B$. First performing a (cswitch) we get $\Gamma , x : A\vdash x x \Rightarrow B$ which then points us to ($\to$-elim). This gives us $\Gamma , x : A \vdash x \Leftarrow \boxed{?}$ and $\Gamma , x : A \vdash x \Leftarrow \boxed{?} \to B$. Now we need to resolve both of these, the first is easier. We can see that we will have to (cswitch) and then use the variable rule, since this is the only judgement that matches with our hole. This also allows us to deduce that $\boxed{?}$ can be filled with $A$, yielding $\Gamma , x : A \vdash x \Leftarrow A \to B$. This is where things become problematic. We can of course apply the switch rule. But the only way to do this is with the hypothesis $\Gamma , x : A \vdash A \equiv A \to B \ \mathsf{type}$. And we see that $\Gamma , x : A \vdash x \Rightarrow A$ resolves via (var).
     At this point it would seem we are done, but now we will show the importance of checking the type equations we hypothesised. We set up judgemental equality in such a way that if $\Gamma \vdash A \equiv B \ \mathsf{type}$ then the abts $A$ and $B$ where equal as abts. Thus we have an equation $A = A \to B$, but this is impossible!
     This means that the term $\lambda x . x x$ cannot be typed! This is the first stark difference we have seen compared to the untyped lambda calculus. It is typical to assume that by adding typing information to lambda calculus we will break nothing. But as we can clearly see, this is not the case. 
 \end{example}
 
 \begin{remark}
-    This also presents an oppurtunity to show why we can \emph{only normalise typed terms}. Using the notion of $\beta$-reduction we define back in \ref{beta_reduction}, it appears that $\lambda x . x x$ is in \emph{($\beta$-)normal form}. This is misleading since any application of this function to some other term will not be able to reach normal form:
+    This also presents an opportunity to show why we can \emph{only normalise typed terms}. Using the notion of $\beta$-reduction we define back in \ref{beta_reduction}, it appears that $\lambda x . x x$ is in \emph{($\beta$-)normal form}. This is misleading since any application of this function to some other term will not be able to reach normal form:
     \begin{equation*}
         (\lambda x. x x)(\lambda x . x x) \to_{\beta} y y [\lambda x . x x / y] = (\lambda x . x x)(\lambda x . x x) \to_{\beta} \cdots
     \end{equation*}
@@ -131,15 +131,15 @@ In the untyped lambda calculus, $\lambda$-terms with no free variables can be ca
 It doesn't mean however any expression containing an ill-typed term is ill-typed. Take for instance $(\lambda x . x)( \lambda x . x)$ which may be written as ($\lambda x . x x) (\lambda x . x)$. As we saw in \ref{mockingbird}, $\lambda x . x x$ cannot be typed.
 
 \begin{example}\label{ayeaye}
-    Now suppose we want to show $\Gamma \vdash (\lambda x . x)(\lambda x . x) \Leftarrow T$ for some type $T$. We begin with (cswitch) noting that we will later use ($\to$-elim) so there is no reason to introduce an equality. From $\Gamma \vdash (\lambda x . x)(\lambda x . x) \Rightarrow T$ we use ($\to$-elim) to arive with two hypotheses $\Gamma \vdash \lambda x . x \Leftarrow A \to T$ and $\Gamma \vdash \lambda x. x \Leftarrow A$ for some type $A$. Here we might be inclined to think something has gone wrong, since we have the same term being typed in two different ways! But this is not the case.
+    Now suppose we want to show $\Gamma \vdash (\lambda x . x)(\lambda x . x) \Leftarrow T$ for some type $T$. We begin with (cswitch) noting that we will later use ($\to$-elim) so there is no reason to introduce an equality. From $\Gamma \vdash (\lambda x . x)(\lambda x . x) \Rightarrow T$ we use ($\to$-elim) to arrive with two hypotheses $\Gamma \vdash \lambda x . x \Leftarrow A \to T$ and $\Gamma \vdash \lambda x. x \Leftarrow A$ for some type $A$. Here we might be inclined to think something has gone wrong, since we have the same term being typed in two different ways! But this is not the case.
     
-    We noted in Defintion \ref{alpha} that variables were really just considered up to $\alpha$-equivalence and that it is always sensible to change when things get confusing. We also noted that such intricacies are the source of many problems in theory and implementation of type theories.
+    We noted in Definition \ref{alpha} that variables were really just considered up to $\alpha$-equivalence and that it is always sensible to change when things get confusing. We also noted that such intricacies are the source of many problems in theory and implementation of type theories.
     It's not hard to see that $\lambda x . x$ can have any type $A \to A$ we give it. This is because it is simply the identity function. Therefore we could have equally written the judgements as $\Gamma \vdash \lambda x . x \Leftarrow A \to T$ and $\Gamma \vdash \lambda y . y \Leftarrow A$ and this would not have been confusing.
     
     Working on the first we see that after a (cswitch) we get $\Gamma \vdash \lambda x . x \Rightarrow A \to T$ which allows us to use ($\to$-intro) giving us $\Gamma , x : A\vdash x \Leftarrow T$. We see that switching with $\Gamma , x : A \vdash T \equiv A \ \mathsf{type}$ leads to $\Gamma , x : A \vdash x \Rightarrow A$ which is obviously true by (var).
     Applying the weakening rule on our type equation $\Gamma , x : A \vdash T \equiv A \ \mathsf{type}$ gives us $\Gamma \vdash T \equiv A \ \mathsf{type}$ hence going back to $\Gamma \vdash \lambda y . y \Leftarrow A$ we can switch with $\Gamma \vdash A \equiv C \to D$ in order to be able to progress with ($\to$-intro).
     Now applying ($\to$-intro) to $\Gamma \vdash \lambda y . y \Rightarrow C \to D$ we get $\Gamma , y : C \vdash y \Leftarrow D$. Mode switching with $\Gamma , y : C, \vdash D \equiv C \ \mathsf{type}$ we get $\Gamma , y : C \vdash y \Rightarrow C$ which is true by (var).
-    We finally see that $\Gamma \vdash T \equiv C \to C\ \mathsf{type}$, and that $\Gamma \vdash (\lambda x . x)(\lambda x . x) \Rightarrow A \to A$ for some type $A$. An important thing to note, is that even though we have two syntactically identical terms that look like $\lambda x . x$ the type information we gave them had to be different. In this case $(A \to A) \to (A \to A)$ for the first occurance and $A \to A$ for the second. 
+    We finally see that $\Gamma \vdash T \equiv C \to C\ \mathsf{type}$, and that $\Gamma \vdash (\lambda x . x)(\lambda x . x) \Rightarrow A \to A$ for some type $A$. An important thing to note, is that even though we have two syntactically identical terms that look like $\lambda x . x$ the type information we gave them had to be different. In this case $(A \to A) \to (A \to A)$ for the first occurrence and $A \to A$ for the second. 
 
     \begin{prooftree}
         \def\ScoreOverhang{1pt}
@@ -176,14 +176,13 @@ It doesn't mean however any expression containing an ill-typed term is ill-typed
 
 Here is another important example from the untyped lambda calculus, the $\mathbf{Y}$-combinator is defined as $\mathbf{Y} = \lambda x . (\lambda y . x (y y)) (\lambda y . x (y y))$.
 $\beta$-reducing the $\mathbf{Y}$-combinator applied to a function $f$, we see that $\mathbf{Y}f = f (\mathbf{Y} f)$. This is precisely the behaviour that allows it to attain recursive behaviour.
-The $\mathbf{Y}$-combinator allows one to define recursive functions. Due to the non-normalising nature of the untyped lambda calculus, it isn't garanteed that a given function will have a terminating $\beta$-reduction sequence.
-One vital thing the $\mathbf{Y}$-combinator provides is an \emph{induction princple} for Church-numerals. It allows one to define functions on Church-numerals by specifying how it acts on zero and on the successor.
+The $\mathbf{Y}$-combinator allows one to define recursive functions. Due to the non-normalising nature of the untyped lambda calculus, it isn't guaranteed that a given function will have a terminating $\beta$-reduction sequence.
+One vital thing the $\mathbf{Y}$-combinator provides is an \emph{induction principle} for Church-numerals. It allows one to define functions on Church-numerals by specifying how it acts on zero and on the successor.
 We will see that the $\mathbf{Y}$-combinator \emph{cannot} be typed. This doesn't bode well for the use of Church-numerals in simply typed lambda calculus.
 
-[[TODO add references showing off $\mathbf{Y}$-combinator]]
 
 \begin{example}\label{y_comb}
-    We wish to derive $\Gamma \vdash \lambda x . (\lambda y . x( y y)) (\lambda y . x (y y)) \Leftarrow T$ for some type $T$. We begin by switching and letting $T \equiv A \to B$ for some $A$ and $B$. Then we can apply ($\to$-intro) to arrive at $\Gamma , x : A \vdash (\lambda y . x (y y))(\lambda y . x (yy) ) \Leftarrow B$. Switching then applying ($\to$-elim) we need two derivations $\Gamma , x : A \vdash \lambda y . x (y y) \Leftarrow C \to B$ and $\Gamma , x : A \vdash \lambda y . x (y y) \Leftarrow C$, for some $C$. Applying switch on the former and then ($\to$-intro) we arive at $\Gamma , x : A, y : C \vdash x ( y y) \Leftarrow B$. Yet again, we apply switch and ($\to$-elim) to arrive at two derivations: $\Gamma, x : A, y : C \vdash x \Leftarrow D \to B$ and $\Gamma , x : A, y : C \vdash y y \Leftarrow D$ for some type $D$. Switching and applying ($\to$-elim) on the latter we get another two derivations $\Gamma , x : A, y : C \vdash y \Leftarrow E \to D$ and $\Gamma , x : A, y : C \vdash y \Leftarrow E$. Observe that only switching and applying (var) can finish this branch of the tree, leading to the hypotheses $\Gamma , x : A, y : C \vdash C \equiv E \to D \ \mathsf{type}$ and $\Gamma , x : A, y : C \vdash C \equiv E$. Clearly these two give us $C \equiv C \to D$ which is impossible. Hence the $\mathbf{Y}$-combinator cannot be typed. 
+    We wish to derive $\Gamma \vdash \lambda x . (\lambda y . x( y y)) (\lambda y . x (y y)) \Leftarrow T$ for some type $T$. We begin by switching and letting $T \equiv A \to B$ for some $A$ and $B$. Then we can apply ($\to$-intro) to arrive at $\Gamma , x : A \vdash (\lambda y . x (y y))(\lambda y . x (yy) ) \Leftarrow B$. Switching then applying ($\to$-elim) we need two derivations $\Gamma , x : A \vdash \lambda y . x (y y) \Leftarrow C \to B$ and $\Gamma , x : A \vdash \lambda y . x (y y) \Leftarrow C$, for some $C$. Applying switch on the former and then ($\to$-intro) we arrive at $\Gamma , x : A, y : C \vdash x ( y y) \Leftarrow B$. Yet again, we apply switch and ($\to$-elim) to arrive at two derivations: $\Gamma, x : A, y : C \vdash x \Leftarrow D \to B$ and $\Gamma , x : A, y : C \vdash y y \Leftarrow D$ for some type $D$. Switching and applying ($\to$-elim) on the latter we get another two derivations $\Gamma , x : A, y : C \vdash y \Leftarrow E \to D$ and $\Gamma , x : A, y : C \vdash y \Leftarrow E$. Observe that only switching and applying (var) can finish this branch of the tree, leading to the hypotheses $\Gamma , x : A, y : C \vdash C \equiv E \to D \ \mathsf{type}$ and $\Gamma , x : A, y : C \vdash C \equiv E$. Clearly these two give us $C \equiv C \to D$ which is impossible. Hence the $\mathbf{Y}$-combinator cannot be typed. 
 \end{example}
 
 
@@ -193,7 +192,7 @@ Here we will try something different, and perhaps more typical. We will provide 
 
 \begin{example}\label{function_comp}
     We will show that for some types $A$, $B$ and $C$, we have function composition $\Gamma \vdash \lambda x.\lambda y.\lambda z.x(yz) \Leftarrow (B \to C) \to (A \to B) \to (A \to C)$.
-    A nice thing about being given the type is that type checking becomes much simpler. In fact, there is very little we actually need to do. Oberserve that in Appendix \ref{ex7} we have a derivation tree. We could write this all out as a proof but it would be pointless. As can be seen the derivation tree is much easier to read.
+    A nice thing about being given the type is that type checking becomes much simpler. In fact, there is very little we actually need to do. Observe that in Appendix \ref{ex7} we have a derivation tree. We could write this all out as a proof but it would be pointless. As can be seen the derivation tree is much easier to read.
     This is the convention we will take for terms with a given type from now on: giving only a derivation tree.
     
 \end{example}
@@ -267,14 +266,14 @@ We will now show that composing curry with uncurry gives us the identity. Unfort
 \end{example}
 
 \begin{remark}
-    This example suggests an algorithm for deciding whether or not two terms are judgementally equal. 
+    This example suggests an algorithm for deciding whether or not two terms are judgmentally equal. 
     We mentioned this as one of the natural problems to consider in type theory.
     Simply take the $\beta \eta$-normal form and compare terms. Since $\beta \eta$-reduction is strongly normalising, we see that equality of terms in simply typed lambda calculus is in fact decidable! [[LINK BACK TO NORMALISATION HERE]]
 \end{remark}
 
 \subsection{Swap \texorpdfstring{$\lambda t . (\snd(t), \fst(t))$}{}}
 
-This example demonstates a simple operation that manipualtes a data structure. We will later show that composing this function with itself is the identity.
+This example demonstrates a simple operation that manipulates a data structure. We will later show that composing this function with itself is the identity.
 
 \begin{example}\label{swap}
     The type of $\lambda t . (\snd(t), \fst(t))$ is $A \times B \to B \times A$. Intuitively, this function simply swaps the order in an ordered pair. Here is a derivation tree showing that $\Gamma \vdash \lambda t . (\snd(t), \fst(t)) \Leftarrow B \times A \to A \times B$.

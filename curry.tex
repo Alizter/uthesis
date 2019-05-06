@@ -68,13 +68,14 @@ What is nice about Church's STLC is that every term has a normal form, or in the
 Types were originally introduced as a method to avoid paradoxes occurring in the type-free world.
 However mathematicians had naturally stratified objects into different categories, without any consideration to types before \cite{GANDY1977173, kamareddine2002}.
 Russell was one of the first mathematicians to introduce a formal theory of types \cite{GlossarWiki:Whitehead_Russell:1910}, precisely to avoid the paradox baring his name.
-In order to solve this Church adapted a solution similar to Russell's.
+In order to solve this problem, Church adapted a solution similar to Russell's.
 The first presentation of a simple theory of types was given in Church's influential paper \cite{church1940}, where he introduced the simply typed lambda calculus.
 
-Being typed had some immediate consequences, especially on the ideas of $\lambda$-calculus as a notion of computation. We saw in 
+Being typed had some immediate consequences, especially on the ideas of $\lambda$-calculus as a notion of computation. We saw in Example \ref{y_comb}, certain computational properties of the untyped lambda calculus, such as recursion are lost. What we are left with is a strictly weaker programming language. But one that is at least consistent as a system of logic.
 
 %%%
 \subsection{Types in the design of programming languages}
+
 
 
 %%%
@@ -89,6 +90,11 @@ Being typed had some immediate consequences, especially on the ideas of $\lambda
 
 %%%
 \subsection{Propositions as types}
+
+We have previously discussed a condensed form of the two judgements $a \Leftarrow A$ and $a \Rightarrow A$, which we will denote $a : A$. This is in fact the judgement considered without bidirectional type checking, and the one found in most literature on the subject. We had our own reasons for choosing this set up but now we want to discuss how types and propositions are related, hence we will only be mentioning $a : A$.
+
+The basic idea of the propositions as types is to consider types as propositional formulas, and terms as proof of those propositions. Suppose I had a type $\mathrm{TheSkyIsBlue}$. Then terms of this type would correspond to evidence or proofs that the sky is indeed blue. Type formers can then be seen as logical connectives. Suppose an animal is a cow
+
 
 [Overview of the full nature of the observation, much deeper than a simple correspondence since logic is in some sense ``very correct'' and programming constructs corresponding to these must therefore also be ``very correct''.]
 
