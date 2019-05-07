@@ -289,3 +289,124 @@ Or listed as operators:
     \DisplayProof
 \end{center}
 
+\section{Extended simply typed lambda calculus}
+
+\subsection{Natural numbers}\label{nat_type}
+
+\begin{prooftree}
+    \AxiomC{}
+    \RightLabel{($\N$-form)}
+    \UnaryInfC{$\Gamma \vdash \N \ \mathsf{type}$}
+\end{prooftree}
+
+\begin{center}
+    \AxiomC{}
+    \RightLabel{($\N$-intro${}_1$)}
+    \UnaryInfC{$\Gamma \vdash 0 \Rightarrow \N$}
+    \DisplayProof
+        \hskip 1.5em
+    \AxiomC{$\Gamma \vdash n \Leftarrow \N$}
+    \RightLabel{($\N$-intro${}_2$)}
+    \UnaryInfC{$\Gamma \vdash s(n) \Rightarrow \N$}
+    \DisplayProof
+\end{center}
+
+\begin{prooftree}
+    \AxiomC{$\Gamma \vdash f \Leftarrow \N \to A \to A$}
+    \AxiomC{$\Gamma \vdash c \Leftarrow A$}
+    \RightLabel{($\N$-elim)}
+    \BinaryInfC{$\Gamma \vdash \indn (f, c) \Rightarrow \N \to A$}
+\end{prooftree}
+
+\begin{prooftree}
+    \AxiomC{$\Gamma \vdash f \Leftarrow \N \to A \to A$}
+    \AxiomC{$\Gamma \vdash c \Leftarrow A$}
+    \RightLabel{($\N$-comp${}_1$)}
+    \BinaryInfC{$\Gamma \vdash \indn (f, c) (0) \equiv c : A$}
+\end{prooftree}
+
+\begin{prooftree}
+    \AxiomC{$\Gamma \vdash f \Leftarrow \N \to A \to A$}
+    \AxiomC{$\Gamma \vdash c \Leftarrow A$}
+    \AxiomC{$\Gamma \vdash n \Leftarrow \N$}
+    \RightLabel{($\N$-comp${}_2$)}
+    \TrinaryInfC{$\Gamma \vdash \indn (f, c) (s(n)) \equiv f(n)(\indn (f, c)(n)) : A$}
+\end{prooftree}
+
+\subsection{Empty type}\label{empty_type}
+
+\begin{center}
+    % Empty formation
+    \AxiomC{}
+    \RightLabel{($\mathbf{0}$-form)}
+    \UnaryInfC{$\Gamma \vdash \mathbf{0} \ \mathsf{type}$}
+    \DisplayProof
+        \hskip 1.5em
+    % Empty elimination
+    \AxiomC{$\Gamma \vdash A \ \mathsf{type}$}
+    \RightLabel{($\mathbf{0}$-elim)}
+    \UnaryInfC{$\Gamma \vdash \indz \Rightarrow \mathbf{0} \to A$}
+    \DisplayProof
+\end{center}
+
+\subsection{Sum type}\label{sum_types}
+
+% + formation
+\begin{prooftree}
+    \AxiomC{$\Gamma \vdash A \ \mathsf{type}$}
+    \AxiomC{$\Gamma \vdash B \ \mathsf{type}$}
+    \RightLabel{($+$-form)}
+    \BinaryInfC{$\Gamma \vdash A + B \ \mathsf{type}$}
+\end{prooftree}
+
+% + intro 1
+\begin{prooftree}
+    \AxiomC{$\Gamma \vdash a \Leftarrow A$}
+    \RightLabel{($+$-intro${}_1$)}
+    \UnaryInfC{$\Gamma \vdash \inl(a) \Rightarrow A + B$}
+\end{prooftree}
+
+% + intro 2
+\begin{prooftree}
+    \AxiomC{$\Gamma \vdash b \Leftarrow B$}
+    \RightLabel{($+$-intro${}_2$)}
+    \UnaryInfC{$\Gamma \vdash \inr(b) \Rightarrow A + B$}
+\end{prooftree}
+
+% + elim
+\begin{prooftree}
+    \AxiomC{$\Gamma \vdash f \Leftarrow A \to C$}
+    \AxiomC{$\Gamma \vdash g \Leftarrow B \to C$}
+    \RightLabel{($+$-elim)}
+    \BinaryInfC{$\Gamma \vdash \indp(f,g) \Rightarrow A + B$}
+\end{prooftree}
+
+% + comp 1
+\begin{prooftree}
+    \AxiomC{$\Gamma \vdash a \Leftarrow A$}
+    \AxiomC{$\Gamma \vdash f \Leftarrow A \to C$}
+    \AxiomC{$\Gamma \vdash g \Leftarrow B \to C$}
+    \RightLabel{($+$-$\beta_1$)}
+    \TrinaryInfC{$\Gamma \vdash \indp(f, g)(\inl(a)) \equiv f(a) : C$}
+\end{prooftree}
+
+% + comp 2
+\begin{prooftree}
+    \AxiomC{$\Gamma \vdash b \Leftarrow B$}
+    \AxiomC{$\Gamma \vdash f \Leftarrow A \to C$}
+    \AxiomC{$\Gamma \vdash g \Leftarrow B \to C$}
+    \RightLabel{($+$-$\beta_2$)}
+    \TrinaryInfC{$\Gamma \vdash \indp(f, g)(\inr(b)) \equiv g(b) : C$}
+\end{prooftree}
+
+
+
+
+
+
+
+
+
+
+
+

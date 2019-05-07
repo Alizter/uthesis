@@ -1,21 +1,189 @@
-\section{Simply typed lambda calculus with products, sums and natural numbers}
+\section{Extensions of simply typed lambda calculus}
 
 \subsection{Introduction}
 
-Historically the addition of a natural numbers type with a recursion principle $\N$ was done by G\"odel in his \emph{``System T''} of Higher-Order recursion. This is different than having \emph{encoded} numbers in type theory. For example in \stlc we have \emph{Church numerals} [[CITE EXAMPLE]], and we have seen that it is possible to do basic arithmetic with. Church-Encodings are what are known as impredicative encodings, whereby the terms of the types are the same as the desired one but the eliminators are not present. This is demonstrated for Church-encodings of the natural numbers by the fact that it is \emph{impossible} to define recursion over the natural numbers in \stlc \cite{a} [[CITATION NEEDED]]. This isn't the case for \emph{untyped} lambda calculus however. It is well-known that untyped lambda calculus can have recursive definitions, but they come at a cost. Not every term in untyped lambda calculus is normalising. This corresponds to a computation which doesn't halt and is intimately related to the halting problem.[[CITE]] A natural numbers type can however be added to \stlc leading to a type theory that is ``equivalent'' to G\"odel's system T.
+Historically the addition of a natural numbers type with a recursion principle $\N$ was done by G\"odel in his \emph{``System T''} of Higher-Order recursion \cite{godel1958}. This is different than just having \emph{encoded} numbers in type theory. For example in \stlc we have \emph{Church numerals} \cite{Leivant:1990:DP:91556.91675, Sorensen}. It is possible to define the basic operations of arithmetic, including subtraction.
+
+Church-Encodings are what are known as impredicative encodings, whereby the terms of the types are the same as the desired one but the eliminators are not present. This is demonstrated for Church-encodings of the natural numbers by the fact that it is \emph{impossible} to define recursion over the natural numbers in \stlc \cite{Sorensen}.
+
+This isn't the case for \emph{untyped} lambda calculus however. It is well-known that untyped lambda calculus can have recursive definitions, see Example \ref{y_comb}. But they come at a cost, not every term in untyped lambda calculus is normalising. This corresponds to a computation which doesn't halt and is intimately related to the halting problem \cite{church1936, church-unsolvableproblemof-1936}. A natural numbers type can however be added to \stlc leading to a type theory that is ``equivalent'', in some sense, to G\"odel's system T. Though not all presentations are the same, for example comparing \cite{harper_2016} with no products and \cite{Sorensen} with products. So we are not too worried about our type theory being so different from G\"odels.
 
 We will also look at some other types such as sums and $0$ and eventually exhibit the properties of this type theory as a propositional logic, as the Curry-Howard correspondence suggests.
 
 \subsection{Natural numbers}
 
-We add natural numbers. This will be our first example of an \emph{inductive type}. We will call the corresponding type theory $\lambda_{\to \times \N}$ and note that it enjoys \emph{canonicity}. Meaning that not only do all terms \emph{normalise} but they normalise to a canonical form. This means if we have a function that computes a natural number, we are guaranteed to get a numeral (an iterated number of successors to zero). If we had some rules in our type theory that broke canonicity, we may get a term that type checks as a natural number but isn't judgmentally equal to one.
+We add natural numbers. This will be our first example of an \emph{inductive type}.
+
+\begin{defin}
+    The \emph{natural numbers type $\N$} is defined by the following rules. First we begin with the formation rule.
+    
+    \begin{prooftree}
+        \AxiomC{}
+        \RightLabel{($\N$-form)}
+        \UnaryInfC{$\Gamma \vdash \N \ \mathsf{type}$}
+    \end{prooftree}
+
+    We next introduce our two introduction rules. The term $0$ is of type $\N$, and given any $n : \N$, then $s(n) : \N$ also. We call $s : \N \to \N$ the \emph{sucessor function} and $s(n)$ is the \emph{sucessor} of $n$.
+
+    \begin{center}
+        \AxiomC{}
+        \RightLabel{($\N$-intro${}_1$)}
+        \UnaryInfC{$\Gamma \vdash 0 \Rightarrow \N$}
+        \DisplayProof
+            \hskip 1.5em
+        \AxiomC{$\Gamma \vdash n \Leftarrow \N$}
+        \RightLabel{($\N$-intro${}_2$)}
+        \UnaryInfC{$\Gamma \vdash s(n) \Rightarrow \N$}
+        \DisplayProof
+    \end{center}
+
+    Our elimination principle tells us how to build functions out of this type. This is our induction principle. The term $c : A$ corresponds to the value of the function at $0$. The term $f : \N \to A \to A$ takes in the previous $n : \N$, and the previous value $a$ from $A$, and gives the next value $f(n)(a): A$. 
+
+    \begin{prooftree}
+        \AxiomC{$\Gamma \vdash f \Leftarrow \N \to A \to A$}
+        \AxiomC{$\Gamma \vdash c \Leftarrow A$}
+        \RightLabel{($\N$-elim)}
+        \BinaryInfC{$\Gamma \vdash \indn (f, c) \Rightarrow \N \to A$}
+    \end{prooftree}
+    
+    Now we want these rules to compute how we intended them to. So we add computation rules for behviour at $0$.
+
+    \begin{prooftree}
+        \AxiomC{$\Gamma \vdash f \Leftarrow \N \to A \to A$}
+        \AxiomC{$\Gamma \vdash c \Leftarrow A$}
+        \RightLabel{($\N$-$\beta_1$)}
+        \BinaryInfC{$\Gamma \vdash \indn (f, c) (0) \equiv c : A$}
+    \end{prooftree}
+
+    And computation rules for behaviour at a sucessor.
+
+    \begin{prooftree}
+        \AxiomC{$\Gamma \vdash f \Leftarrow \N \to A \to A$}
+        \AxiomC{$\Gamma \vdash c \Leftarrow A$}
+        \AxiomC{$\Gamma \vdash n \Leftarrow \N$}
+        \RightLabel{($\N$-$\beta_2$)}
+        \TrinaryInfC{$\Gamma \vdash \indn (f, c) (s(n)) \equiv f(n)(\indn (f, c)(n)) : A$}
+    \end{prooftree}
+    
+    All rules can be found in Appendix \ref{nat_type}.
+\end{defin}
+
+\begin{remark}
+    What we have defined is a more powerful programming language than the STLC. In fact we can define many arithmetic functions on this, and most importantly, recursive functions. We won't however provide any examples, since we find this extremely tedious to show!
+\end{remark}
+
+\subsection{Empty type}
+
+\begin{defin}
+    The \emph{empty type} is defined by the following rules:
+    
+    \begin{center}
+        % Empty formation
+        \AxiomC{}
+        \RightLabel{($\mathbf{0}$-form)}
+        \UnaryInfC{$\Gamma \vdash \mathbf{0} \ \mathsf{type}$}
+        \DisplayProof
+            \hskip 1.5em
+        % Empty elimination
+        \AxiomC{$\Gamma \vdash A \ \mathsf{type}$}
+        \RightLabel{($\mathbf{0}$-elim)}
+        \UnaryInfC{$\Gamma \vdash \indz \Rightarrow \mathbf{0} \to A$}
+        \DisplayProof
+    \end{center}
+\end{defin}
+
+    The first is the formation rule ($\mathbf{0}$-form), simply asserting that the empty type exists.
+    Notice how there are no constructors. This is precisely because the empty type is, well, empty.
+    The second is the elimination rule, supposing we had a term $t : \mathbf{0}$, then we could inhabit any type $A$. For reference the rules are in Appendix \ref{empty_type}.
+    
+
+The empty type acts as our \emph{absurdity} in type theory. If we consider types $A$ as logical propositions, then the type $A \to \mathbf{0}$ can be considered \emph{not} $A$. For if we had a proof of $A$, we would have a proof of $\mathbf{0}$ which is \emph{absurd}.
+
+\begin{remark}
+    Notice that as a consequence, any type $\mathbf{0} \to A$ is inhabitated by a single term. In fact, if we had some sort of equality of types (judgmental equality is too strict), we could show that ``$\mathbf{0} \to A = \mathbf{1}$''. If we write $\mathbf{0} \to A$ in a more suggestive notation $A^{\mathbf{0}}$ then we can see what we mean.
+\end{remark}
 
 \subsection{Sum types}
 
-[[Sum types go by the name of unions in C, whereas product types correspond to structs.]]
+\begin{defin}
+    \emhp{Sum types} are given by the following collection of rules. A \emph{type theory with sum types} is understood to include these rules. These are summarised in Appendix \ref{sum_types}. 
+    We begin with the formation rule of the sum type. This is pretty typical, given two types $A$ and $B$, we have a sum type $A + B$.
+    % + formation
+    \begin{prooftree}
+        \AxiomC{$\Gamma \vdash A \ \mathsf{type}$}
+        \AxiomC{$\Gamma \vdash B \ \mathsf{type}$}
+        \RightLabel{($+$-form)}
+        \BinaryInfC{$\Gamma \vdash A + B \ \mathsf{type}$}
+    \end{prooftree}
 
-They are like disjoint unions of sets.
+    Terms of the sum type are where things get interesting. We see that terms either come as labelled terms of $A$ or labelled terms of $B$. The labelling allows for the determination of where the term came from, in from the left ($\inl$) or in from the right ($\inr$).
 
-Their induction principle is very simple, to build a function out of $A + B$ it suffices to give a function out of $A$ and another out of $B$.
+    % + intro 1
+    \begin{prooftree}
+        \AxiomC{$\Gamma \vdash a \Leftarrow A$}
+        \RightLabel{($+$-intro${}_1$)}
+        \UnaryInfC{$\Gamma \vdash \inl(a) \Rightarrow A + B$}
+    \end{prooftree}
+
+    % + intro 2
+    \begin{prooftree}
+        \AxiomC{$\Gamma \vdash b \Leftarrow B$}
+        \RightLabel{($+$-intro${}_2$)}
+        \UnaryInfC{$\Gamma \vdash \inr(b) \Rightarrow A + B$}
+    \end{prooftree}
+
+    Next our elimination rule specifies how to define functions coming out of the sum type $A + B$. Given functions $f : A \to C$ and functions $g : B \to C$, we can construct a function $\indp(f,g) : A + B \to C$.
+
+    % + elim
+    \begin{prooftree}
+        \AxiomC{$\Gamma \vdash f \Leftarrow A \to C$}
+        \AxiomC{$\Gamma \vdash g \Leftarrow B \to C$}
+        \RightLabel{($+$-elim)}
+        \BinaryInfC{$\Gamma \vdash \indp(f,g) \Rightarrow A + B$}
+    \end{prooftree}
+
+    And finally we need to make sure that this function computes as we expect it to. If a term $t : A + B$ is of the form $\inl(a)$, then applying $\indp(f, g)$ to $\inl(a)$ is the same as applying $f$ to $a$. If a term $t : A + B$ is of the from $\inr(b)$, then applying $\indp (f, g)$ to $\inr (b)$ is the same as applying $g$ to $b$.
+
+    % + comp 1
+    \begin{prooftree}
+        \AxiomC{$\Gamma \vdash a \Leftarrow A$}
+        \AxiomC{$\Gamma \vdash f \Leftarrow A \to C$}
+        \AxiomC{$\Gamma \vdash g \Leftarrow B \to C$}
+        \RightLabel{($+$-$\beta_1$)}
+        \TrinaryInfC{$\Gamma \vdash \indp(f, g)(\inl(a)) \equiv f(a) : C$}
+    \end{prooftree}
+
+    % + comp 2
+    \begin{prooftree}
+        \AxiomC{$\Gamma \vdash b \Leftarrow B$}
+        \AxiomC{$\Gamma \vdash f \Leftarrow A \to C$}
+        \AxiomC{$\Gamma \vdash g \Leftarrow B \to C$}
+        \RightLabel{($+$-$\beta_2$)}
+        \TrinaryInfC{$\Gamma \vdash \indp(f, g)(\inr(b)) \equiv g(b) : C$}
+    \end{prooftree}
+\end{defin}
+
+Sum types earn their name from how they interact with the unit type and the empty type. Clearly $A + \mathbf{0}$ is basically a version of $A$ where all the elements are labelled with $\inl$. If we had an internal notion of equality, we could show that ``$A + \mathbf{0} = A$''. An even more rich interaction occurs with the unit type $\mathbf{1}$. Consider the type $\mathbf{1} + \mathbf{1}$. It has two elements, $\inl(*)$ and $\inr(*)$, as we can see the labels are very handy. This can be considered as the definition of a \emph{two element type}. It quickly generalises to all finite types, typically denoted $\mathbf{Fin}_n$ or $\mathbf{n}$ for some natural number $n$.
+The elimination principle for such a type would essentially say: to construct $\mathbf{n} \to A$, we must pick $n$ terms of the type $A$.
+
+Of course, there are differences such as $(\mathbf{1} + \mathbf{1}) + \mathbf{1}$ and $\mathbf{1} + (\mathbf{1} + \mathbf{1})$, however these can be removed, or more rather, shown to be irrelevant, when there is an internal notion of equality. In that sense ``$(\mathbf{1} + \mathbf{1}) + \mathbf{1} = \mathbf{1} + (\mathbf{1} + \mathbf{1})$''.
+
+\begin{remark}
+    In programming languages such as C, one could roughly say that the ``types'' of C correspond to regular types. In that way \emph{structs}, which allow programmers to pair data structures together, can be thought of as product types. Then sum types would correspond to what are known as \emph{unions}. Intuitively, these are overlapping data structures. We must be careful not to take this analogy too far however since C is missing many properties we would generally expect from a type theory.
+\end{remark}
+
+\begin{remark}
+    For mathematicans, sum types are simply ``disjoint unions'' of types. If we pretended that types were sets then this would correspond exactly. The notation for sum types arises from the categorical semantics, where sums are modelled by coproducts (categorical versions of disjoint unions) \cite{LambekJ1986Itho}. 
+\end{remark}
+
+\subsection{Properties of the extended lambda calculus}
+
+All of the normalisation properties can be extended to include the reductions defined in the extended lambda calculus. Most importantly this means System T is strongly normalising, every computation terminates after finitely many steps.
+We have recursive functions which is something we could not do in the plain simply typed lambda calculus, however we are no where near as powerful as the \emph{untyped} lambda calculus. It is possible to generalise to \emph{inductive types} of all sorts, leading to well-founded tree types.
+
+It is possible to extend languages further such that they break strong normalisation. This may not seem like an ideal thing to do but it is in fact very useful from a programming point of view. There is a theorem called the \emph{Blum Size Theorem (BST)} which states that, given any blow-up factor, say $2^{2^n}$, there is a total function (a function that can be defined in system T) such that the shortest program in T, is larger than the shortest program in PCF (the extended versiom of T that is not strongly normalising) by this factor! \cite{harper_2016}.
+
+So we have seen that features can be added to the simply typed lambda calculus, with many of them preserving desirable properties, but sometimes in order to get practical outcomes, we might need to give up some nice properties. This is a common theme in the study of programming semantics, and is rarely considered in the mathematical considerations of simply typed lambda calculus, from what we have observed.
+
 
 
