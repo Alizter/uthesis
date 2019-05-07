@@ -64,8 +64,7 @@ First we define what we mean by a binary relation being \emph{compatible} with t
 \end{remark}
 
 \begin{remark}
-[[CLEAN THIS UP]]
-    The reader may ask what relations have to do with normalisation, but it is a formalism that we have chosen. This is definitely not the only way to prove properties like Church-Rosser. The main reason we have chosen this method is for its simplicity. In fact earlier we discussed the dynamics of languages, this is exactly that. There are many ways to go about dynamics including transition systems and equational dynamics. Our approach corresponds to the more classical and simple transition systems approach. It can be shown that this is equivalent to equational dynamics in that a reduction step will be justified by application of rules from STLC.
+    The reader may ask what relations have to do with normalisation, but it is a formalism that we have chosen. This is definitely not the only way to prove properties like Church-Rosser. The main reason we have chosen this method is for its simplicity. In fact earlier we discussed the dynamics of languages, this is exactly that. There are many ways to go about dynamics including transition systems and equational dynamics. Our approach corresponds to the more classical and simple transition systems approach. It can be shown that this is equivalent to equational dynamics in that a reduction step will be justified by application of rules from STLC. Uses of relations like this are more generally known as \emph{abstract rewriting systems} \cite{barendregt1984lambda, BarendregtHenk2013Lcwt}.
 \end{remark}
 
 We will demonstrate our last remark by considering the following relation:
@@ -209,11 +208,11 @@ Now we define what we mean by $\beta$-reduction and $\beta$-normal form.
 
 \begin{remark}
     Observe that these are very similar to our $\beta$ rules, in fact they are exactly those. So the question may arise: why haven't we defined $\beta$-reduction using the rules that we already have? The answer is that we could but we would have a much harder time, the rules also take into account typing information but we are explicitly not worried about that since we will show later $\beta$-reduction doesn't change a typed terms type. It is somewhat simpler and clearer to focus purely on terms. We will later justify calling this $\beta$-reduction.
-    Such dynamics falls under what is known as \emph{equational dynamics}. This would require us to have a suitable way of dealing with judgemental equality, which we feel would obstruct the inner workings of the result.[[DROP REFERENCE TO EARLIER SECTION]]
+    Such dynamics falls under what is known as \emph{equational dynamics}. This would require us to have a suitable way of dealing with judgemental equality, which we feel would obstruct the inner workings of the result.
 \end{remark}
 
 % Define beta normal form
-\begin{defin}
+\begin{defin}\label{normal_form}
     A term $M$ is said to be in \emph{$\beta$-normal form} if it is in normal form with respect to $\to_\beta$.
 \end{defin}
 

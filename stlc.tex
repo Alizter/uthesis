@@ -14,7 +14,7 @@ We begin by discussing the syntax of our type theory. We will start by specifyin
 
 We now specify the operators that we defined in definition \ref{op}. In remark \ref{opdata} we discussed the data needed to give an operator, therefore we will present all our operators in the following table.
 
-\begin{defin}
+\begin{defin}\label{terms_types}
     The operators in the syntax of simply typed lambda calculus are given by the following table:
     \begin{center}
         \begin{tabular}{ c|c|c|c|c|c|c }
@@ -41,7 +41,7 @@ We now specify the operators that we defined in definition \ref{op}. In remark \
     Note that we have no variables. This is because if we set the definition of abt up correctly we don't need any, but terms can have sub-terms (sub-trees of the abt) which have variables. The sets $\mathrm{Term}$ and $\mathrm{Type}$ become \emph{all} the types and terms we ought to be able to write down from scratch.
 \end{remark}
 
-We now need to define judgements about our syntax and write down the rules to write them down. [[Make a note about substitution because afik we haven't defined it properly yet]]. 
+We now need to define judgements about our syntax and write down the rules to write them down.
 
 \subsection{Judgements}
 
@@ -116,13 +116,15 @@ Structural rules will dictate how our judgements interact with each other, how d
     
     % Exchange
     \begin{prooftree}
-        [[TODO FINISH]]
+        \AxiomC{$\Gamma , x : A , y : B \vdash \mathcal{J}$}
+        \RightLabel{(exg)}
+        \UnaryInfC{$\Gamma , y : B, x : A \vdash \mathcal{J}$}
     \end{prooftree}
 
 \end{defin}
 
 \begin{remark}
-    We noted these rules would appear in Remark \ref{structural_remark}. We also noted that these rules are admissible.
+    We noted these rules would appear in Remark \ref{structural_remark}. We also noted that these rules are admissible. Or at least we expect them to be.
 \end{remark}
 
 \begin{lemma}
@@ -130,7 +132,7 @@ Structural rules will dictate how our judgements interact with each other, how d
 \end{lemma}
 
 \begin{proof}
-    Though we didn't really specify it that way, the judgement forms can be thought of as operators. That was we can think of a derivability judgement $\Gamma \vdash \mathcal{J}$ as an abt itself. We didn't do it this way since it would be confusing which abt we are talking about. However we will note that in an implementation of a type theory on a computer, having a data structure such as an abt will be indispensable for designing and reasoning about type theories. In that light, a judgement form ought to be part of the syntax. On top of this, substitution is admissible simply because it is a property of the syntax (Definition \ref{subst}).
+    Though we didn't really specify it that way, the judgement forms can be thought of as operators. That was we can think of a derivability judgement $\Gamma \vdash \mathcal{J}$ as an abt itself. We didn't do it this way since it would be confusing which abt we are talking about. However we will note that in an implementation of a type theory on a computer, having a data structure such as an abt will be indispensable for designing and reasoning about type theories. In that light, a judgement form ought to be part of the syntax. On top of this, substitution is admissible simply because it is a property of the syntax (Definition \ref{subst}). We could not finish the rest of the proof, but we can refer readers to \cite{Sorensen} and \cite{harper_2016}.
 \end{proof}
 
 \begin{defin}
@@ -249,7 +251,7 @@ First we begin with the structural rules for the judgement form $- \equiv -\ \ma
 \subsection{Type formers}
 What we have constructed thus far is essentially an ``empty type theory''. What we have included which other authors typically gloss over is a clean way of constructing a type checking algorithm: bidirectional type checking and an account of judgemental equality. We now study what are known as type formers, typically when we wish to add a new type to a type theory we need to think about a collection of rules. These can roughly be sorted into 5 kinds of rules:
 
-\begin{itemize}
+\begin{itemize}\label{typing_rules}
     \item Formation rules - How can I construct my type?
     \item Introduction rules - Which terms synthesise this type?
     \item Elimination rules - How can terms of this type be used?
@@ -261,7 +263,7 @@ We make a note that although we will be providing all the rules, the congruence 
 
 Building on top of our ``empty type theory'' we introduce $\to$ the function type former:
 
-\begin{defin}
+\begin{defin}\label{function_type}
 
     Our formation rules tell us how to construct arrow types from other types:
     
@@ -348,9 +350,9 @@ Building on top of our ``empty type theory'' we introduce $\to$ the function typ
 
 We define the product type as follows.
 
-\begin{defin}[Product type]
+\begin{defin}\label{product_type}
     
-    Given two types, we have their product type:
+    Given two types, we have their \emhp{product type}:
     
     % Product formation
     \begin{prooftree}
@@ -360,7 +362,7 @@ We define the product type as follows.
         \BinaryInfC{$\Gamma \vdash A \times B \ \mathsf{type}$}
     \end{prooftree}
     
-    We define ordered pairs as taking a term of each type:
+    We define \emph{ordered pairs} as taking a term of each type:
     
     % Product introduction
     \begin{prooftree}
@@ -370,7 +372,7 @@ We define the product type as follows.
         \BinaryInfC{$\Gamma \vdash (a, b) \Rightarrow A \times B$}
     \end{prooftree}
     
-    We give two eliminators for pairs, the first and second elements:
+    We give two eliminators for pairs, the \emph{first and second elements}:
     
     % Product eliminators
     \begin{center}
@@ -432,7 +434,7 @@ We define the product type as follows.
 
 We will also need to add a unit type. This will be the simplest type, with only one term.
 
-\begin{defin}[Unit type]
+\begin{defin}\label{unit_type}
     We begin with the formation rules, essentially saying that the unit type exists.
 
     % Unit formation
@@ -459,7 +461,7 @@ We will also need to add a unit type. This will be the simplest type, with only 
 \subsection{Inversion lemmas}
 Having listed all these rules, we need \emph{Inversion lemmas} detailing how different judgements can \emph{only} come from a set of given judgements. This is a crucial analysis if we wish to construct a type checking algorithm. An inversion lemma for a type theory is typically very difficult to state, and extremely tedious to prove. But nonetheless is essential if we want to induct over terms. These are also known as \emph{Generation lemmas} \cite{Sorensen, harper_2016}.
 
-Luckily we set up syntax in such a way that we only need induct over the syntax. So we pick a syntactic form and the inversion lemma will tell us exactly how we can arrive at that conclusion. Let us list all term syntax we can create in STLC. We will write them in Backus-Naur form (BNF) [CITATION] which is a common and clear way to write inductive generators:
+Luckily we set up syntax in such a way that we only need induct over the syntax. So we pick a syntactic form and the inversion lemma will tell us exactly how we can arrive at that conclusion. Let us list all term syntax we can create in STLC. We will write them in Backus-Naur form (BNF) \cite{McCracken:2003:BF:1074100.1074155} which is a common and clear way to write inductive generators:
 
 $$
     \mathrm{Term} ::= x \mid \lambda x . a \mid (a, b) \mid a b \mid c

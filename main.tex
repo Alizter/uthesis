@@ -152,7 +152,21 @@
 \newpage
 
 \begin{abstract}
-    
+    The goal of this dissertation is to give an introduction to the formal study of lambda calculus and type theory. We begin by analysing the intuitive notion of \emph{syntax}, highlighting the many subtleties associated with it. We discuss possible solutions to these issues, but ultimately remark that it is very difficult to be certain of correctness. We will however give a notion of syntax which is ``correct enough'' for our purposes.
+
+The next section is to discuss the formality of \emph{judgements}. This is a concept oft overlooked in the study of type theory. We will give a careful and detailed account of derivability and admissibility. We will also remark on inconsistencies of the treatment of certain concepts.
+
+This will lead us into studying the \emph{simply type lambda calculus} (STLC), in some ways one of the simplest (functional) programming languages. We will give syntax, judgements and rules governing its semantics. After which, we will prove meta properties about our type theory and discuss the notion of \emph{type checking}.
+
+We will then analyse the dynamics of the STLC. There is a long history of normalisation results we wish to briefly sketch. We will set up some machinery to prove some of these results. Finally we will discuss notions of canonicity and what these results mean for the design of programming languages.
+
+Next there will be several examples of terms to be type checked. This will show the intricacies that go into designing a type checker. We will see that typing makes lambda calculus much weaker, in that many terms from the untyped lambda calculus cannot be typed. It is precisely these terms which gave the computational power of the untyped lambda calculus to begin with.
+
+We will sketch some modifications to the simply typed lambda calculus that will give us certain desired features. We will show how these can be designed and discuss their normalisation results too.
+
+Finally we will give a detailed account of the ideas that went in to, what is now known as the \emph{Curry-Howard} correspondence. This is a very deep package of ideas with far reaching consequences, of which we will try to make account of.
+
+Our closing remarks will be about future directions in type theory, questions that need to be answered and future of programming language design.
 \end{abstract}
 \newpage
 
@@ -160,7 +174,7 @@
 \newpage
 
 \section*{Acknowledgements}
-I would like to thank my advisor John Power for his guidance and support. For teaching me how to be a mathematician, how to think carefully and how to do category theory.
+I would like to thank my advisor John Power for his guidance and support. For teaching me how to be a mathematician, how to think carefully and how to do category theory correctly. I think my parents for being very patient and supportive of me whilst writing this dissertation.
 
 \newpage
 
@@ -190,6 +204,9 @@ I would like to thank my advisor John Power for his guidance and support. For te
 
 % History and implications of curry howard
 \input{curry.tex}
+
+% Conclusion
+\input{conc.tex}
 
 \newpage
 \bibliographystyle{plain} 

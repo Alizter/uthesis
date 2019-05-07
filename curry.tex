@@ -97,52 +97,59 @@ Proving such a statement would go something like this: Suppose what we are consi
 If $A$ and $B$ were \emph{propositions}, then it would be agreed that we have proven $A \implies B$. It's as if we have taken a proof of $A$ and turned it into a proof of $B$. We have types that do exactly that: Function types!
 So our proof of $A \to B$ is really just a function $\lambda x . y$ that takes in a proof $x : A$ and gives a proof $y : B$.
 
-Of course implication isn't what logic is all about, a natural question to ask is what conjunction (the fancy word for ``and'') corresponds to. Proving that ``\emph{the sky is blue}'' and ``\emph{the grass is green}'', in a way, requires \emph{two} proofs, one corresponding to each proposition. Let $A$ be the type denoting that the sky is blue and $B$ be the type denoting that the grass is green. Then $A \times B$, the product type, is the type that both these ``propositions'' hold. How do we construct a term of the product type? Well we need to give a pair $(a, b)$, which consists of a term $a : A$ and a term $b : B$. Or in other words, to give a proof of $A \times B$ we need to give a proof of $a$ and a proof of $B$. We will later look at other logical connectives. [[TODO reference other logical connectives]].
+Of course implication isn't what logic is all about, a natural question to ask is what conjunction (the fancy word for ``and'') corresponds to. Proving that ``\emph{the sky is blue}'' and ``\emph{the grass is green}'', in a way, requires \emph{two} proofs, one corresponding to each proposition. Let $A$ be the type denoting that the sky is blue and $B$ be the type denoting that the grass is green. Then $A \times B$, the product type, is the type that both these ``propositions'' hold. How do we construct a term of the product type? Well we need to give a pair $(a, b)$, which consists of a term $a : A$ and a term $b : B$. Or in other words, to give a proof of $A \times B$ we need to give a proof of $a$ and a proof of $B$. For a longer list see Table \ref{tab1}.
 
 Curiously, Curry had noticed something similar in \cite[footnote 28]{10.2307/2266302}, though his motivations were far less bovinal: \say{Note the similarity of the postulates for $F$ and those for $P$. If in any of the former postulates we change $F$ to $P$ and drop the combinator we have the corresponding postulate for $P$.}
 Here $P$ is the combinator for implication and $F$ is a ``functionality'' combinator, whereby $F A B f$ essentially means $f : A \to B$.
 There is evidence to suggest that this idea wasn't new to Curry. Hindley \cite{hindley_1997} points out that a remark on page 588 of \cite{10.2307/86796} indicates this. Another hint is that the properties of implication (denoted $\supset$) are named PB, PC, PW and PK, after the combinators B, C, W and K.
 
-The correspondence was made precise (in typed combinatory logic) by Curry and Feys in \cite[Chapter 9]{curry1958combinatory}. There are two theorems proved in this chapter, under the title of ``F-P transformation'' (the notation from earlier): Theorem 1 states that inhabited types are provable; Theorem 2 states that the converse.
+The correspondence was made precise (in typed combinatory logic) by Curry and Feys in \cite[Chapter 9]{curry1958combinatory}. There are two theorems proved in this chapter, under the title of ``F-P transformation'' (the notation from earlier): Theorem 1 states that inhabited types are provable; Theorem 2 states that the converse. It was a famous ``privately circulated'' paper of Howard \cite{howard1980formulae} that made the links between cut-elimination and ($\beta$-)normalisation.
 
-We note that other authors had also independently noted a link between proofs and combinators \cite{meredith1963}. 
+Such a correspondence was great for type theory since now normalisation of terms could be proven in the world of logic.
 
-\subsection{Gentzen's cut-elimination}
+It should be noted that Curry and Howard share most of the credit for this work, yet De Bruijn, independently formulated a statement about a correspondence between proofs and objects. He was, furthermore, one of the first to make practical use of it. He develped the ``mathematical language'' Automath \cite{DEBRUIJN1994141}. 
+
+\begin{remark}
+    We note that other authors had also independently noted a link between proofs and combinators \cite{meredith1963}. 
+\end{remark} 
+
+\begin{table}
+  \centering
+    \begin{tabular}{r|r}
+        Logic & $\lambda$-calculus \\
+        \hline  
+        Logical formula & Type (Def. \ref{terms_types}) \\
+        Propositional variable & Type variable (Def. \ref{terms_types}) \\
+        Logical connective & Type former (Def. \ref{typing_rules}) \\
+        Implication & Function type (Def. \ref{function_type}) \\
+        Conjunction (and) & Product type (Def. \ref{product_type}) \\
+        Disjunction (or) & Sum type (Def. \ref{sum_type}) \\
+        Absurdity (false) & Empty type (Def. \ref{empty_def}) \\
+        Tautology (truth) & Unit type (Def. \ref{unit_type}) \\
+        Proof & Term (Def. \ref{terms_types}) \\
+        Assumption & Term variable (Def. \ref{terms_types}) \\
+        Introduction & Constructor (Def. \ref{typing_rules}) \\
+        Elimination & Destructor (Def. \ref{typing_rules}) \\
+        Proof detour & Redex (Def. \ref{beta_eta_reduction}) \\
+        Cut elimination & Reduction (Def. \ref{beta_eta_reduction}) \\
+        Normal proof & Normal form (Def. \ref{normal_form}) \\
+        Provability & Inhabitation   
+    \end{tabular}
+    \caption{Here is a table sumarising the depth of the correspondence. The table explains the terminology for eliminators/destructors, introductors/constructors.}
+    \label{tab1}
+\end{table}
+
+\begin{remark}
+    We note that some authors like to call this an \emph{isomorphsim} but it is not entire clear what a \emph{morphism} is between a logic and a type theory.
+\end{remark}
 
 
 
 
-\subsection{The correspondence is dynamic}
 
 
 
 
 
-
-[Overview of the full nature of the observation, much deeper than a simple correspondence since logic is in some sense ``very correct'' and programming constructs corresponding to these must therefore also be ``very correct''.]
-
-\subsection{First-order logic}
-
-
-\begin{quotation}
-    Figaro shaves all men of Seville who do not shave themselves.
-    But he does not shave anyone who shaves himself.
-    Therefore Figaro is not a man of Seville.
-\end{quotation}
-
-%%%
-\subsection{Predicates [CHANGE] as types?}
-
-[Talk about predicate quantifiers $\forall, \exists$ and what a ``dependent type ought to do'']
-
-%%%
-\subsection{Dependent types}
-
-
-[Perhaps expand on the simply typed section]
-
-[talk about pi and sigma types
-
-[talk about ``dependent contexts'']
 
 
