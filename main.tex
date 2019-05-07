@@ -1,6 +1,6 @@
-%\documentclass[varwidth]{article}
 \documentclass{article}
 
+\include{DissertationDefs}    %% These are the includes required for the doc 
 
 \usepackage[english]{babel}
 \usepackage[utf8]{inputenc}
@@ -29,7 +29,7 @@
 \usepackage{amsthm}
 \usepackage{stmaryrd}
 \usepackage[hidelinks]{hyperref}
-\usepackage{lscape}
+\usepackage{pdflscape}
 
 \usepackage[framemethod=tikz]{mdframed}
 %\usepackage{tcolorbox}
@@ -92,18 +92,73 @@
 \newcommand{\stlct}{\lambda_{\to \times \N}}
 \newcommand{\dtt}{\lambda\Pi_{\times}}
 
-%\title{Introduction to dependent type theory}
-%\title{Simply typed lambda calculus and the Curry-Howard correspondance} 
-%\author{Ali Caglayan}
+%% Multicol bib
+\begin{comment}
+\usepackage{multicol}
+
+\makeatletter
+\renewenvironment{thebibliography}[1]
+     {\begin{multicols}{2}[\section*{\refname}]%
+      \@mkboth{\MakeUppercase\refname}{\MakeUppercase\refname}%
+      \list{\@biblabel{\@arabic\c@enumiv}}%
+           {\settowidth\labelwidth{\@biblabel{#1}}%
+            \leftmargin\labelwidth
+            \advance\leftmargin\labelsep
+            \@openbib@code
+            \usecounter{enumiv}%
+            \let\p@enumiv\@empty
+            \renewcommand\theenumiv{\@arabic\c@enumiv}}%
+      \sloppy
+      \clubpenalty4000
+      \@clubpenalty \clubpenalty
+      \widowpenalty4000%
+      \sfcode`\.\@m}
+     {\def\@noitemerr
+       {\@latex@warning{Empty `thebibliography' environment}}%
+      \endlist\end{multicols}}
+\makeatother
+\end{comment}
+
+\title{Simply typed lambda calculus and the Curry-Howard correspondence}
+\author{Ali Caglayan}
+\date{Bachelor of Science in Computer Science and Mathematics with Honours\\The University of Bath\\May 2019}
+
 
 %\showoutput
 \begin{document}
 
 %\maketitle
-\input{title.tex}
+%\input{title.tex}
+\setcounter{page}{0}
+\pagenumbering{roman}
 
 
+\maketitle
+\newpage
+
+
+% Set this to the number of years consultation prohibition, or 0 if no limit
+\consultation{0}
+\newpage
+
+\declaration{Simply typed lambda calculus and the Curry-Howard correspondence}{Ali Caglayan}
+\newpage
+
+{\abstract
+Your abstract should appear here.  An abstract is a short
+paragraph describing the aims of the project, what was
+achieved and what contributions it has made.
+}
+\newpage
 \tableofcontents
+\newpage
+
+\chapter*{Acknowledgements}
+Add any acknowledgements here.
+\newpage
+
+\setcounter{page}{1}
+\pagenumbering{arabic}
 
 % Introduction and direction of thesis
 \input{intro.tex}
@@ -132,14 +187,15 @@
 	\input{rules_stlc.tex}	
     \begin{landscape}
     	\section{Examples}
-        \subsection{Identity function} \input{ex1.tex} \label{ex1}
+        %\subsection{Identity function} \input{ex1.tex} \label{ex1}
         \subsection{Function application \texorpdfstring{$\lambda x . \lambda y . x y$}{}} \input{ex2.tex} \label{ex2}
-        \newpage \subsection{Function composition \texorpdfstring{$\lambda x . \lambda y . \lambda z . x ( y z)$}{}} \input{ex7.tex} \label{ex7}        
-        \newpage \subsection{Currying \texorpdfstring{$\lambda x . \lambda y . \lambda z . x (y, z)$}{}} \input{ex8.tex} \label{ex8}
-        \newpage \subsection{Uncurry} \input{ex9.tex} \label{ex9}
+        \newpage\subsection{Function composition \texorpdfstring{$\lambda x . \lambda y . \lambda z . x ( y z)$}{}} \input{ex7.tex} \label{ex7}        
+        \newpage\subsection{Currying \texorpdfstring{$\lambda x . \lambda y . \lambda z . x (y, z)$}{}} \input{ex8.tex} \label{ex8}
+        \newpage\subsection{Uncurry} \input{ex9.tex} \label{ex9}
     \end{landscape}
 \end{appendices}
 
+\newpage
 
 \bibliographystyle{plain} 
 \bibliography{uthesis}

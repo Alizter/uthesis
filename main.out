@@ -39,31 +39,32 @@
 \BOOKMARK [2][-]{subsection.6.10}{Swap }{section.6}% 39
 \BOOKMARK [2][-]{subsection.6.11}{Swap-Swap}{section.6}% 40
 \BOOKMARK [1][-]{section.7}{Curry-Howard correspondence}{}% 41
-\BOOKMARK [2][-]{subsection.7.1}{Mathematical logic}{section.7}% 42
-\BOOKMARK [2][-]{subsection.7.2}{-calculus}{section.7}% 43
-\BOOKMARK [2][-]{subsection.7.3}{Recursive functions}{section.7}% 44
-\BOOKMARK [2][-]{subsection.7.4}{Turing machines}{section.7}% 45
-\BOOKMARK [2][-]{subsection.7.5}{The problem with -calculus as a logic}{section.7}% 46
-\BOOKMARK [2][-]{subsection.7.6}{Types to the rescue}{section.7}% 47
-\BOOKMARK [2][-]{subsection.7.7}{Types in the design of programming languages}{section.7}% 48
-\BOOKMARK [2][-]{subsection.7.8}{The theory of proof a la Gentzen}{section.7}% 49
-\BOOKMARK [2][-]{subsection.7.9}{Curry and Howard}{section.7}% 50
-\BOOKMARK [2][-]{subsection.7.10}{Propositions as types}{section.7}% 51
-\BOOKMARK [2][-]{subsection.7.11}{Predicates [CHANGE] as types?}{section.7}% 52
-\BOOKMARK [2][-]{subsection.7.12}{Dependent types}{section.7}% 53
-\BOOKMARK [1][-]{section*.4}{Appendices}{}% 54
-\BOOKMARK [1][-]{Appendix.1.A}{Simply typed lambda calculus }{}% 55
-\BOOKMARK [2][-]{subsection.1.A.1}{Syntax}{Appendix.1.A}% 56
-\BOOKMARK [2][-]{subsection.1.A.2}{Judgements}{Appendix.1.A}% 57
-\BOOKMARK [2][-]{subsection.1.A.3}{Structural rules}{Appendix.1.A}% 58
-\BOOKMARK [2][-]{subsection.1.A.4}{Equality rules}{Appendix.1.A}% 59
-\BOOKMARK [2][-]{subsection.1.A.5}{Function type}{Appendix.1.A}% 60
-\BOOKMARK [2][-]{subsection.1.A.6}{Product type}{Appendix.1.A}% 61
-\BOOKMARK [2][-]{subsection.1.A.7}{Unit type}{Appendix.1.A}% 62
-\BOOKMARK [1][-]{Appendix.1.B}{Examples}{}% 63
-\BOOKMARK [2][-]{subsection.1.B.1}{Identity function}{Appendix.1.B}% 64
-\BOOKMARK [2][-]{subsection.1.B.2}{Function application }{Appendix.1.B}% 65
-\BOOKMARK [2][-]{subsection.1.B.3}{Function composition }{Appendix.1.B}% 66
-\BOOKMARK [2][-]{subsection.1.B.4}{Currying }{Appendix.1.B}% 67
-\BOOKMARK [2][-]{subsection.1.B.5}{Uncurry}{Appendix.1.B}% 68
-\BOOKMARK [1][-]{section.8}{Bibliography}{}% 69
+\BOOKMARK [2][-]{subsection.7.1}{Introduction}{section.7}% 42
+\BOOKMARK [2][-]{subsection.7.2}{Mathematical logic}{section.7}% 43
+\BOOKMARK [2][-]{subsection.7.3}{-calculus}{section.7}% 44
+\BOOKMARK [2][-]{subsection.7.4}{Recursive functions}{section.7}% 45
+\BOOKMARK [2][-]{subsection.7.5}{Turing machines}{section.7}% 46
+\BOOKMARK [2][-]{subsection.7.6}{The problem with -calculus as a logic}{section.7}% 47
+\BOOKMARK [2][-]{subsection.7.7}{Types to the rescue}{section.7}% 48
+\BOOKMARK [2][-]{subsection.7.8}{Types in the design of programming languages}{section.7}% 49
+\BOOKMARK [2][-]{subsection.7.9}{Propositions as types}{section.7}% 50
+\BOOKMARK [2][-]{subsection.7.10}{Gentzen's cut-elimination}{section.7}% 51
+\BOOKMARK [2][-]{subsection.7.11}{The correspondence is dynamic}{section.7}% 52
+\BOOKMARK [2][-]{subsection.7.12}{First-order logic}{section.7}% 53
+\BOOKMARK [2][-]{subsection.7.13}{Predicates [CHANGE] as types?}{section.7}% 54
+\BOOKMARK [2][-]{subsection.7.14}{Dependent types}{section.7}% 55
+\BOOKMARK [1][-]{section*.6}{Appendices}{}% 56
+\BOOKMARK [1][-]{Appendix.1.A}{Simply typed lambda calculus }{}% 57
+\BOOKMARK [2][-]{subsection.1.A.1}{Syntax}{Appendix.1.A}% 58
+\BOOKMARK [2][-]{subsection.1.A.2}{Judgements}{Appendix.1.A}% 59
+\BOOKMARK [2][-]{subsection.1.A.3}{Structural rules}{Appendix.1.A}% 60
+\BOOKMARK [2][-]{subsection.1.A.4}{Equality rules}{Appendix.1.A}% 61
+\BOOKMARK [2][-]{subsection.1.A.5}{Function type}{Appendix.1.A}% 62
+\BOOKMARK [2][-]{subsection.1.A.6}{Product type}{Appendix.1.A}% 63
+\BOOKMARK [2][-]{subsection.1.A.7}{Unit type}{Appendix.1.A}% 64
+\BOOKMARK [1][-]{Appendix.1.B}{Examples}{}% 65
+\BOOKMARK [2][-]{subsection.1.B.1}{Function application }{Appendix.1.B}% 66
+\BOOKMARK [2][-]{subsection.1.B.2}{Function composition }{Appendix.1.B}% 67
+\BOOKMARK [2][-]{subsection.1.B.3}{Currying }{Appendix.1.B}% 68
+\BOOKMARK [2][-]{subsection.1.B.4}{Uncurry}{Appendix.1.B}% 69
+\BOOKMARK [1][-]{section.8}{Bibliography}{}% 70

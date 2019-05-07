@@ -10,13 +10,13 @@ When designing the type checking algorithm we made a point not to invoke any com
 
 Computational rules, are our basic steps of computation. In the late 1930s, Alan Turing had a model of what it meant to be \emph{effectively calculable}, now known as a Turing Machine \cite{turing1936a}. Critically he included an appendix which outlined how Church's untyped lambda calculus was equivalent to his notion of effective calculability. We will discuss the historical nature of this further in chapter \ref{logic_chapter}.
 
-One important question in computer science is knowing whether or not a computation will halt, known as the \emph{Halting problem}. It can in fact be shown that Turing machines, and by extension untyped lambda calculus, cannot decide their own halting problem. This stems from the fact that these gadgets are ``\emph{too good}'' at computation. It is closely related to G\"odel's analysis of the power of arithmetic. \cite{}
+One important question in computer science is knowing whether or not a computation will halt, known as the \emph{Halting problem}. It can in fact be shown that Turing machines, and by extension untyped lambda calculus, cannot decide their own halting problem. This stems from the fact that these gadgets are ``\emph{too good}'' at computation. It is closely related to G\"odel's analysis of the power of arithmetic. \cite{} [[TODO CITATION]]
 
 The main goal of this chapter will be to show that the STLC, defined in the previous chapter, has computations that \emph{always} terminate. This is known as \emph{strong normalisation}. This immediately highlights some of the weaknesses of the STLC, however we will later discuss what is missing and how this can be fixed. The technical term for this is that STLC is \emph{not} Turing-complete. \cite{} We will also see that there are \emph{untyped} lambda terms that cannot be \emph{typed}.
 
 It can be observed that there is not a unique way to compute something, i.e. run the program. What is important is that the result is unique. Such a property is known as the Church-Rosser property. We will show that Church-Rosser property holds for $\beta$-, $\eta$- and $\beta\eta$-reductions. 
 
-Finally we will discuss the issue of canonicity and modifications to the STLC, and what they mean with respect to these computational properties.
+
 
 Guiding references for this chapter are \cite{Sorensen} and \cite{BarendregtHenk2013Lcwt}.
 

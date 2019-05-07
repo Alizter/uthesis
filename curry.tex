@@ -1,5 +1,14 @@
 \section{Curry-Howard correspondence}
 
+\subsection{Introduction}
+
+In this section we outline a detailed history of what is known as the Curry-Howard correspondence. This is an important thing to consider since there are many powerful ideas that get uncovered in this story. They will shape the future of thought on the subject, so it is worthwhile to understand what was motivating mathematicians and computer scientists at the time.
+
+Many of these ideas were developed before the comprehension of the modern idea of a computer! So in a way it is quite remarkable that these ideas were even considered. Hence we will discuss their original motivations.
+
+This story will develop our ideas of what needs to be added to the simply typed lambda calculus going forward. How these ideas will behave with what we have studied, and finally what the future of the subject looks like.x
+
+
 %%%
 \subsection{Mathematical logic}\label{logic_chapter}
 
@@ -76,27 +85,50 @@ Being typed had some immediate consequences, especially on the ideas of $\lambda
 %%%
 \subsection{Types in the design of programming languages}
 
-
-
-%%%
-\subsection{The theory of proof a la Gentzen}
-
-[Go into the history of the theory of proof e.g. Gentzen's work; take notice of natural deduction]
-
-%%%
-\subsection{Curry and Howard}
-
-[Curry makes an observation that Gentzen's natural deduction corresponds to simply typed $\lambda$-calculus, Howard takes this further and defines it formally, eventually predicting a notion of dependent type.
+[[TODO]]
 
 %%%
 \subsection{Propositions as types}
 
 We have previously discussed a condensed form of the two judgements $a \Leftarrow A$ and $a \Rightarrow A$, which we will denote $a : A$. This is in fact the judgement considered without bidirectional type checking, and the one found in most literature on the subject. We had our own reasons for choosing this set up but now we want to discuss how types and propositions are related, hence we will only be mentioning $a : A$.
 
-The basic idea of the propositions as types is to consider types as propositional formulas, and terms as proof of those propositions. Suppose I had a type $\mathrm{TheSkyIsBlue}$. Then terms of this type would correspond to evidence or proofs that the sky is indeed blue. Type formers can then be seen as logical connectives. Suppose an animal is a cow
+The basic idea of the propositions as types is to consider types as propositional formulas, and terms as proof of those propositions. Suppose I had a type $\mathrm{TheSkyIsBlue}$. Then terms of this type would correspond to evidence or proofs that the sky is indeed blue. Type formers can then be seen as logical connectives. Suppose $A$ is the type ``Is a Cow''. Terms of $A$ are proofs that what ever we are considering, it \emph{is a cow}. Now suppose there is a type $B$ called ``Goes moo''. Terms of this type are proofs that what ever we are considering, \emph{goes moo}. Say we want to prove the statement: ``If it is a cow, then it goes moo''.
+Proving such a statement would go something like this: Suppose what we are considering is a cow, through this series of logical steps we arrive at the conclusion that it goes moo.
+If $A$ and $B$ were \emph{propositions}, then it would be agreed that we have proven $A \implies B$. It's as if we have taken a proof of $A$ and turned it into a proof of $B$. We have types that do exactly that: Function types!
+So our proof of $A \to B$ is really just a function $\lambda x . y$ that takes in a proof $x : A$ and gives a proof $y : B$.
+
+Of course implication isn't what logic is all about, a natural question to ask is what conjunction (the fancy word for ``and'') corresponds to. Proving that ``\emph{the sky is blue}'' and ``\emph{the grass is green}'', in a way, requires \emph{two} proofs, one corresponding to each proposition. Let $A$ be the type denoting that the sky is blue and $B$ be the type denoting that the grass is green. Then $A \times B$, the product type, is the type that both these ``propositions'' hold. How do we construct a term of the product type? Well we need to give a pair $(a, b)$, which consists of a term $a : A$ and a term $b : B$. Or in other words, to give a proof of $A \times B$ we need to give a proof of $a$ and a proof of $B$. We will later look at other logical connectives. [[TODO reference other logical connectives]].
+
+Curiously, Curry had noticed something similar in \cite[footnote 28]{10.2307/2266302}, though his motivations were far less bovinal: \say{Note the similarity of the postulates for $F$ and those for $P$. If in any of the former postulates we change $F$ to $P$ and drop the combinator we have the corresponding postulate for $P$.}
+Here $P$ is the combinator for implication and $F$ is a ``functionality'' combinator, whereby $F A B f$ essentially means $f : A \to B$.
+There is evidence to suggest that this idea wasn't new to Curry. Hindley \cite{hindley_1997} points out that a remark on page 588 of \cite{10.2307/86796} indicates this. Another hint is that the properties of implication (denoted $\supset$) are named PB, PC, PW and PK, after the combinators B, C, W and K.
+
+The correspondence was made precise (in typed combinatory logic) by Curry and Feys in \cite[Chapter 9]{curry1958combinatory}. There are two theorems proved in this chapter, under the title of ``F-P transformation'' (the notation from earlier): Theorem 1 states that inhabitated types are provable; Theorem 2 states that the converse.
+
+We note that other authors had also independently noted a link between proofs and combinators \cite{meredith1963}. 
+
+\subsection{Gentzen's cut-elimination}
+
+
+
+
+\subsection{The correspondence is dynamic}
+
+
+
+
 
 
 [Overview of the full nature of the observation, much deeper than a simple correspondence since logic is in some sense ``very correct'' and programming constructs corresponding to these must therefore also be ``very correct''.]
+
+\subsection{First-order logic}
+
+
+\begin{quotation}
+    Figaro shaves all men of Seville who do not shave themselves.
+    But he does not shave anyone who shaves himself.
+    Therefore Figaro is not a man of Seville.
+\end{quotation}
 
 %%%
 \subsection{Predicates [CHANGE] as types?}
