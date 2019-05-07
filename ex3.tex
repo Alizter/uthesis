@@ -1,0 +1,35 @@
+\begin{prooftree}
+        \AxiomC{$\Gamma \vdash t \Leftarrow A \times B$}
+        \LeftLabel{($\times$-elim${}_1$)}
+        \UnaryInfC{$\Gamma \vdash \fst(t) \Rightarrow A$}
+        \LeftLabel{(cswitch)}
+        \UnaryInfC{$\Gamma \vdash \fst(t) \Leftarrow A$}
+        
+        \AxiomC{$\Gamma \vdash t \Leftarrow A \times B$}
+        \RightLabel{($\times$-elim${}_2$)}
+        \UnaryInfC{$\Gamma \vdash \snd(t) \Rightarrow B$}
+        \RightLabel{(cswitch)}
+        \UnaryInfC{$\Gamma \vdash \snd(t) \Leftarrow B$}
+        
+        \LeftLabel{($\times$-$\beta_1$)}
+        \BinaryInfC{$\Gamma \vdash \fst(\fst(t), \snd(t)) \equiv \fst(t) : A \times B$}
+        
+        \AxiomC{$\Gamma \vdash t \Leftarrow A \times B$}
+        \LeftLabel{($\times$-elim${}_1$)}
+        \UnaryInfC{$\Gamma \vdash \fst(t) \Rightarrow A$}
+        \LeftLabel{(cswitch)}
+        \UnaryInfC{$\Gamma \vdash \fst(t) \Leftarrow A$}
+        
+        \AxiomC{$\Gamma \vdash t \Leftarrow A \times B$}
+        \RightLabel{($\times$-elim${}_2$)}
+        \UnaryInfC{$\Gamma \vdash \snd(t) \Rightarrow B$}
+        \RightLabel{(cswitch)}
+        \UnaryInfC{$\Gamma \vdash \snd(t) \Leftarrow B$}
+        
+        \RightLabel{($\times$-$\beta_2$)}
+        \BinaryInfC{$\Gamma \vdash \snd(\fst(t), \snd(t)) \equiv \snd(t) : A \times B$}
+        
+        \LeftLabel{($\times$-$\eta$)}
+        \BinaryInfC{$\Gamma \vdash (\fst(t), \snd(t))\equiv t : A \times B$}
+        
+    \end{prooftree}

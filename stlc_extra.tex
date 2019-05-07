@@ -14,7 +14,7 @@ We will also look at some other types such as sums and $0$ and eventually exhibi
 
 We add natural numbers. This will be our first example of an \emph{inductive type}.
 
-\begin{defin}
+\begin{defin}\label{nat_def}
     The \emph{natural numbers type $\N$} is defined by the following rules. First we begin with the formation rule.
     
     \begin{prooftree}
@@ -185,5 +185,8 @@ It is possible to extend languages further such that they break strong normalisa
 
 So we have seen that features can be added to the simply typed lambda calculus, with many of them preserving desirable properties, but sometimes in order to get practical outcomes, we might need to give up some nice properties. This is a common theme in the study of programming semantics, and is rarely considered in the mathematical considerations of simply typed lambda calculus, from what we have observed.
 
+\begin{remark}
+    Finally we remark about the style of the rules presented here. We have purposefully not included the congruence rules since these can be readily derived at this point. The congruence rules for $\N$ for example get very long and messy.
+\end{remark}
 
 

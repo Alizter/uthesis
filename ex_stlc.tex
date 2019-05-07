@@ -271,6 +271,10 @@ We will now show that composing curry with uncurry gives us the identity. Unfort
     Simply take the $\beta \eta$-normal form and compare terms. Since $\beta \eta$-reduction is strongly normalising, we see that equality of terms in simply typed lambda calculus is in fact decidable! [[LINK BACK TO NORMALISATION HERE]]
 \end{remark}
 
+\begin{remark}
+     We note that we have not formally defined what it means to have a canonical form, but we can simply claim that canonicity holds for our simply typed lambda calculus.
+\end{remark}
+
 \subsection{Swap \texorpdfstring{$\lambda t . (\snd(t), \fst(t))$}{}}
 
 This example demonstrates a simple operation that manipulates a data structure. We will later show that composing this function with itself is the identity.

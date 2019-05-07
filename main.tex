@@ -48,6 +48,8 @@
 % Ommiting this because it looks terrible
 %\bibliographystyle{bath.bst}
 
+
+
 % Theorems, definitions etc.
 \theoremstyle{definition}
 \newtheorem{defi}{Definition}[subsection]
@@ -124,7 +126,7 @@
 \makeatother
 \end{comment}
 
-\title{Simply typed lambda calculus and the Curry-Howard correspondence}
+\title{Simply Typed Lambda Calculus and the Curry-Howard Correspondence}
 \author{Ali Caglayan}
 \date{Bachelor of Science in Computer Science and Mathematics with Honours\\The University of Bath\\May 2019}
 
@@ -146,20 +148,20 @@
 \consultation{0}
 \newpage
 
-\declaration{Simply typed lambda calculus and the Curry-Howard correspondence}{Ali Caglayan}
+\declaration{Simply Typed Lambda Calculus and the Curry-Howard Correspondence}{Ali Caglayan}
 \newpage
 
-{\abstract
-Your abstract should appear here.  An abstract is a short
-paragraph describing the aims of the project, what was
-achieved and what contributions it has made.
-}
+\begin{abstract}
+    
+\end{abstract}
 \newpage
+
 \tableofcontents
 \newpage
 
-\chapter*{Acknowledgements}
-Add any acknowledgements here.
+\section*{Acknowledgements}
+I would like to thank my advisor John Power for his guidance and support. For teaching me how to be a mathematician, how to think carefully and how to do category theory.
+
 \newpage
 
 \setcounter{page}{1}
@@ -189,24 +191,26 @@ Add any acknowledgements here.
 % History and implications of curry howard
 \input{curry.tex}
 
+\newpage
+\bibliographystyle{plain} 
+\bibliography{uthesis}
 
+%Fixes toc numbering for appendix
+\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
 \newpage
 \begin{appendices}
 	\input{rules_stlc.tex}	
     \begin{landscape}
     	\section{Examples}
-        %\subsection{Identity function} \input{ex1.tex} \label{ex1}
+        \subsection{\texorpdfstring{$\eta$}{}-rule} \input{ex3.tex} \label{ex3}
         \subsection{Function application \texorpdfstring{$\lambda x . \lambda y . x y$}{}} \input{ex2.tex} \label{ex2}
         \newpage\subsection{Function composition \texorpdfstring{$\lambda x . \lambda y . \lambda z . x ( y z)$}{}} \input{ex7.tex} \label{ex7}        
         \newpage\subsection{Currying \texorpdfstring{$\lambda x . \lambda y . \lambda z . x (y, z)$}{}} \input{ex8.tex} \label{ex8}
         \newpage\subsection{Uncurry} \input{ex9.tex} \label{ex9}
+        
     \end{landscape}
 \end{appendices}
 
-\newpage
-
-\bibliographystyle{plain} 
-\bibliography{uthesis}
 
 
 \end{document}

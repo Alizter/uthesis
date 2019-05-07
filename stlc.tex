@@ -65,18 +65,21 @@ We begin with our basic judgements.
 \end{defin}
 
 \begin{remark}
-    Since these are \emph{basic judgements} we would typically never write them on their own like this. For this we will need to 
+    Since these are \emph{basic judgements} we would typically never write them on their own like this. Typically we are interested in the derivability judgement $\Gamma \vdash \mathcal{J}$. 
 \end{remark}
 
 %
 % add associativity
 %
-[[TODO: Clean up this whole paragraph(s)]]
-We begin with our basic judgements. Of which there will be 5. Our STLC will have bidirectional type checking, in that we will distinguish between the direction of type checking. There are several advantages of this and historically the two main systems called STLC are Curry's and Church's which simply differ in the direction of type checking. By having both directions and a sort of ``mode-switching rule'' we have far greater control and ease when describing type checking properties. We will also need to have a notion of \emph{judgemental equality} since we wish to do some computation. There are variations of this theme discussed in the statics chapter that allow us to have transition systems instead but we will use an equational style since transition systems can be derived from this. This also has the advantage of STLC becoming what is known as an ``equational theory''. This will be a useful feature for when we want to derive categorical semantics. 
+%[[TODO: Clean up this whole paragraph(s)]]
+%We begin with our basic judgements. Of which there will be 5. Our STLC will have bidirectional type checking, in that we will distinguish between the direction of type checking. There are several advantages of this and historically the two main systems called STLC are Curry's and Church's which simply differ in the direction of type checking. By having both directions and a sort of ``mode-switching rule'' we have far greater control and ease when describing type checking properties. We will also need to have a notion of \emph{judgemental equality} since we wish to do some computation. There are variations of this theme discussed in the statics chapter that allow us to have transition systems instead but we will use an equational style since transition systems can be derived from this. This also has the advantage of STLC becoming what is known as an ``equational theory''. This will be a useful feature for when we want to derive categorical semantics. 
 
-A context is a list of basic judgements. Our basic judgements are $x : A$. [[No it is not fix this]]
 
-There are 5 judgements that we have:
+\begin{defin}\label{context_def}
+    A context is a list of variables, with an associated type. Elements of the list are written $x : A$ where $x$ is a variable, and $A$ is its type. Typically a context is denoted by a capital greek letter $\Gamma$, $\Delta$, etc.
+\end{defin}
+
+We can now list the five derivability jugdements that we have:
 
 \begin{itemize}
     \item $\Gamma \vdash A\ \mathsf{type}$ - ``$A$ is a type in context $\Gamma$''.
@@ -137,9 +140,6 @@ Structural rules will dictate how our judgements interact with each other, how d
     Though we didn't really specify it that way, the judgement forms can be thought of as operators. That was we can think of a derivability judgement $\Gamma \vdash \mathcal{J}$ as an abt itself. We didn't do it this way since it would be confusing which abt we are talking about. However we will note that in an implementation of a type theory on a computer, having a data structure such as an abt will be indispensable for designing and reasoning about type theories. In that light, a judgement form ought to be part of the syntax. On top of this, substitution is admissible simply because it is a property of the syntax (Definition \ref{subst}).
 \end{proof}
 
-
-Other structural rules: weakening, contraction and substitution are all admissible. [[What does it mean for a rule to be admissible? We have defined this previously but we need to carefully state these facts, and prove them too!]]
-
 \begin{defin}
     One of the features of bidirectional type checking is that we can switch the mode we are in. This is expressed as the mode switching rule:
 
@@ -153,9 +153,9 @@ Other structural rules: weakening, contraction and substitution are all admissib
 \end{defin}
 
 \begin{remark}
-    This rule has been specially set up in that it will be the \emph{only way} to derive $\Gamma \vdash T \Leftarrow B$. These are the kinds of properties we would like our syntax to have. A careful analysis will be done under the name of \emph{inversion lemma}. [[Link to inversion lemma?]]
+    This rule has been specially set up in that it will be the \emph{only way} to derive $\Gamma \vdash T \Leftarrow B$. These are the kinds of properties we would like our syntax to have. A careful analysis will be done under the guise of the \emph{inversion lemma} (\ref{}).
 
-    In a unidirectional type system, the judgements $\Gamma \vdash T \Rightarrow A$ and $\Gamma \vdash T \Leftarrow B$ are collapsed into one: $\Gamma \vdash T : A$. And now the mode-switching rule may have a more familiar form:
+    In a unidirectional type system, the judgements $\Gamma \vdash T \Rightarrow A$ and $\Gamma \vdash T \Leftarrow B$ are collapsed into one judgement: $\Gamma \vdash T : A$. And now the mode-switching rule may have a more familiar form:
 
     \begin{prooftree}
         \AxiomC{$\Gamma \vdash t : A$}
@@ -163,7 +163,7 @@ Other structural rules: weakening, contraction and substitution are all admissib
         \BinaryInfC{$\Gamma \vdash t : B$}
     \end{prooftree}
 
-    Which shows that it is actually a rule about substituting along a judgemental equality! But this is a problem since a type checking algorithm will have to decide when to stop doing this. This is one of the big advantages that bidirectional type checking has over unidirectional type checking. The type checking algorithm will be simpler! [[TODO: Clean up and discuss type checking in more detail]]
+    Which shows that it is actually a rule about substituting along a judgemental equality! But this is a problem since a type checking algorithm will have to decide when to stop doing this. This is one of the big advantages that bidirectional type checking has over unidirectional type checking. The type checking algorithm will be simpler! \cite{COQUAND1996167} We sketch a type checking algorithm later in Theorem \ref{type_checking}.
 \end{remark}
 
 \begin{remark}
@@ -346,7 +346,7 @@ Building on top of our ``empty type theory'' we introduce $\to$ the function typ
 \end{defin}
 
 \begin{remark}
-    Notice that we don't ensure that types compute the same way. This is because the computation rules will not be used in the type checking process and are therefore irrelevant to the inversion lemmas. Later we will prove that ``fully reduced'' computations are in fact equal. This is known as the Church-Rosser theorem.
+    Notice that we don't ensure that types compute the same way. This is because the computation rules will not be used in the type checking process and are therefore irrelevant to the inversion lemmas. Later we will prove that ``fully reduced'' computations are in fact equal. This is known as the Church-Rosser theorem (Theorem \ref{beta_eta_CR}).
 \end{remark}
 
 We define the product type as follows.
@@ -422,13 +422,14 @@ We define the product type as follows.
 \end{remark}
 
 \begin{remark}
-    Our presentation of $\eta$-reduction is unconventional. The traditional $\eta$
+    Our presentation of $\eta$-reduction is unconventional. The traditional $\eta$:
     \begin{prooftree}
         \AxiomC{$\Gamma \vdash t \Leftarrow A \times B$}
         \UnaryInfC{$\Gamma \vdash (\fst(t),\snd(t))\equiv t$}
     \end{prooftree}
-    Is in fact admissible by observing the following proof tree:
-    [[Include admissibility tree]]
+    It is in fact admissible by observing the following proof tree in Appendix \ref{ex3}.   
+    
+    
     We choose our presentation because it more clearly display what $\eta$ really means and why it is there.
 \end{remark}
 
@@ -528,7 +529,7 @@ Firstly there are the problems of checking whether a given judgement is true:
 
 We would ideally wish for there to be an algorithm that will determine the truth of such a statement. Such an algorithm would render the problem of type checking in the STLC \emph{decidable}.
 
-\begin{theorem}
+\begin{theorem}\label{type_checking}
     There is an algorithm that can decide the truth of the statement $\Gamma \vdash a \Leftarrow A$ in STLC.
 \end{theorem}
 
@@ -548,7 +549,19 @@ Perhaps a more common, and practical problem is that of \emph{type inference}. G
     As before, we give only a sketch. For demonstrations see Examples \ref{identity}, \ref{fun_app}, \ref{mockingbird}, \ref{ayeaye}. Instead of using (cswitch) we will use (switch). This means we will have to provide it with some sort of judgemental equality of types. We make an educated guess for this by looking at the syntax of the term. If it is a lambda term, then it is only possible to choose a function type, if it is a pair, then a product type etc. Finally we will eventually accumulate many assumptions about types. The trick now is to see if these equations are trivial. If we instead get a non-trivial typing equation such as $A \equiv A \to B$, we say that the term cannot be typed. Otherwise, we can substitute back through and get the type we started with. The reason we disallow $A \equiv A \to B$ is that there is no way to get such an equality at the level of syntax. In that sense it is non-trivial.
 \end{proof}
 
+And finally the problem of determing a judgement such as $\Gamma \vdash a \equiv b : A$. We can use a property of our type theory called \emph{canonicity}, this says that any term of a type, when reduced into $\beta \eta$-normal form (see Definition \ref{beta_eta_reduction}), will only be constructed from constructors associated to that type. We cannot invest too much attention on this detail, as it is a very subtle property, not to mention, very essential for any programming language.
 
+If for example, a term was found to have type $\N$ (see Definition \ref{nat_def}). We would expect it to be of the form $0$ or $s(n)$ of some $n : \N$. This is not obvious, especially when terms that don't compute are included. For examples of terms that don't compute simply pick a type, and drop the computation rules. Observe that reduction will get stuck on these terms.
+
+How this relates to equality of terms is as follows.
+
+\begin{theorem}
+    There is an algorithm that can decide the truth of $\Gamma \vdash a \equiv b : A$.
+\end{theorem}
+
+\begin{proof}
+    By Canonicity, every term has a canonical form. Simply $\beta \eta$-reducing both sides should yield to a reflexive derivation, if the two are equal.
+\end{proof}
 
 
 
