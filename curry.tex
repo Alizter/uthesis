@@ -83,9 +83,8 @@ The first presentation of a simple theory of types was given in Church's influen
 Being typed had some immediate consequences, especially on the ideas of $\lambda$-calculus as a notion of computation. We saw in Example \ref{y_comb}, certain computational properties of the untyped lambda calculus, such as recursion are lost. What we are left with is a strictly weaker programming language. But one that is at least consistent as a system of logic.
 
 %%%
-\subsection{Types in the design of programming languages}
+%\subsection{Types in the design of programming languages}
 
-[[TODO]]
 
 %%%
 \subsection{Propositions as types}
@@ -102,16 +101,6 @@ Of course implication isn't what logic is all about, a natural question to ask i
 Curiously, Curry had noticed something similar in \cite[footnote 28]{10.2307/2266302}, though his motivations were far less bovinal: \say{Note the similarity of the postulates for $F$ and those for $P$. If in any of the former postulates we change $F$ to $P$ and drop the combinator we have the corresponding postulate for $P$.}
 Here $P$ is the combinator for implication and $F$ is a ``functionality'' combinator, whereby $F A B f$ essentially means $f : A \to B$.
 There is evidence to suggest that this idea wasn't new to Curry. Hindley \cite{hindley_1997} points out that a remark on page 588 of \cite{10.2307/86796} indicates this. Another hint is that the properties of implication (denoted $\supset$) are named PB, PC, PW and PK, after the combinators B, C, W and K.
-
-The correspondence was made precise (in typed combinatory logic) by Curry and Feys in \cite[Chapter 9]{curry1958combinatory}. There are two theorems proved in this chapter, under the title of ``F-P transformation'' (the notation from earlier): Theorem 1 states that inhabited types are provable; Theorem 2 states that the converse. It was a famous ``privately circulated'' paper of Howard \cite{howard1980formulae} that made the links between cut-elimination and ($\beta$-)normalisation.
-
-Such a correspondence was great for type theory since now normalisation of terms could be proven in the world of logic.
-
-It should be noted that Curry and Howard share most of the credit for this work, yet De Bruijn, independently formulated a statement about a correspondence between proofs and objects. He was, furthermore, one of the first to make practical use of it. He develped the ``mathematical language'' Automath \cite{DEBRUIJN1994141}. 
-
-\begin{remark}
-    We note that other authors had also independently noted a link between proofs and combinators \cite{meredith1963}. 
-\end{remark} 
 
 \begin{table}
   \centering
@@ -138,6 +127,16 @@ It should be noted that Curry and Howard share most of the credit for this work,
     \caption{Here is a table sumarising the depth of the correspondence. The table explains the terminology for eliminators/destructors, introductors/constructors.}
     \label{tab1}
 \end{table}
+
+The correspondence was made precise (in typed combinatory logic) by Curry and Feys in \cite[Chapter 9]{curry1958combinatory}. There are two theorems proved in this chapter, under the title of ``F-P transformation'' (the notation from earlier): Theorem 1 states that inhabited types are provable; Theorem 2 states that the converse. It was a famous ``privately circulated'' paper of Howard \cite{howard1980formulae} that made the links between cut-elimination and ($\beta$-)normalisation.
+
+Such a correspondence was great for type theory since now normalisation of terms could be proven in the world of logic.
+
+It should be noted that Curry and Howard share most of the credit for this work, yet De Bruijn, independently formulated a statement about a correspondence between proofs and objects. He was, furthermore, one of the first to make practical use of it. He develped the ``mathematical language'' Automath \cite{DEBRUIJN1994141}. 
+
+\begin{remark}
+    We note that other authors had also independently noted a link between proofs and combinators \cite{meredith1963}. 
+\end{remark} 
 
 \begin{remark}
     We note that some authors like to call this an \emph{isomorphsim} but it is not entire clear what a \emph{morphism} is between a logic and a type theory.
