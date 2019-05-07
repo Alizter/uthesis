@@ -1,64 +1,6 @@
-%Simply typed lambda calculus (STLC) has been well documented and studied by type theorists and mathematicians, and it's features have been used by many programming languages [NEED REFERENCE].
-
-%In \cite{BarendregtHenk2013Lcwt} it is noted that \say{Research monographs on dependent and inductive types are lacking.} This will essentially be one of the goals of this thesis, to provide a guide for mathematicians and computer scientists about the use of dependent type theory. As this document is written there is no single account of all approaches to \i{dependent} type theory.
-
-%Awodey \cite{2014arXiv1406.3219A} made an observation that Dybjer's \cite{dybjer1996} categories with families (CwF) is a presheaf category with a representable natural transformation (it's fibers are representable). He then proceeds to show conditions needed to model a dependent type theory with $\Pi$, $\Sigma$ and $\mathrm{Id}$ types.
-
-
-%This thesis will have three main goals.
-
-%\begin{enumitem}
-%	\item To present a dependent type theory
-%	\item To model the semantics of such a type theory using categorical methods
-%	\item To discuss the applications to mathematics and computer science (proof assistants, programming languages and foundations)
-%\end{enumitem}
-
-%Finally we may also discuss recent developments of something called "Homotopy type theory" and how that fits into the general picture.
-
-%Roughly a \textit{type system} is a set of loosely organised rules outlining how ``atomic sentences'' called \textit{judgements} can be derived from each other in a given context. A \textit{context} can simply be thought of as a list of terms. 
-
-%The aim of this thesis is to present to two sorts of audience, the utility of dependent type theory. The audiences that I have in mind are computer scientists, roughly individuals who wish to write good code, and mathematicians, roughly individuals who wish to write good proofs.
-
-%These will be our main aims however we do also wish to develop the machinery formally.
-
-%\section{Propositions as types}
-
-%There is a rich interplay between programming and logic known as the Curry-Howard correspondance or propositions as types. 
-
-
-
-
-
-%\section{What is type theory}
-
-%Type theory is the study of types systems. That is a system that orginizes data manipulated by programs into types. This has been a very useful concept in computer science. It has allowed the writing of programs taht a more 
-
-%\subsection{Lambda calculus}
-%\subsection{Modelling type theory}
-%\section{What is dependent type theory?}
-%\subsection{What are dependent types?}
-%\subsection{Motivation for computer scientists}
-%\subsection{Motivation for mathematicians}
-%\subsection{Category theory}
-%\subsection{Categorical logic}
-%\subsection{Future directions}
-
-\begin{comment}
 \section{Introduction}
 
-The goal of this thesis is to introduce dependent types to the undergraduate reader. We set out 
-
-The goal of this dissertation is to learn how to mathematically design a programming language. 
-
-
-The aim of this thesis is to introduce the notion of dependent types to an undergraduate reader. The main idea of dependent types is very simple, yet deceptively subtle however, since modelling such a formalism is quite tricky. This is evidenced by the fact that there is a lot of disagreement in type theory what has or hasn't been proven. This however is a familiar story in mathematics and is usually remedied by trying to understand what has been done better. Usually with the help of a new perspective. 
-
-Dependent types however, are not only of interest to mathematicians but also programmers. Dependent type theory (much like simply typed lambda calculus) is very much a programming language allowing the expression of ideas previously too difficult to express. This is very much facilitated by its deep connection to predicate logic.
-\end{comment}
-
-\section{Introduction}
-
-The goal of this dissertation is to give an introduction to the formal study of lambda calculus and type theory. We begin by analysing the intuitive notion of \emph{syntax}, highlighting the many subtleties associated with it. We discuss possible solutions to these issues, but ultimately remark that it is very difficult to be certain of correctness. We will however give a notion of syntax which is correct enough for our purposes.
+The goal of this dissertation is to give an introduction to the formal study of lambda calculus and type theory. We begin by analysing the intuitive notion of \emph{syntax}, highlighting the many subtleties associated with it. We discuss possible solutions to these issues, but ultimately remark that it is very difficult to be certain of correctness. We will however give a notion of syntax which is ``correct enough'' for our purposes.
 
 The next section is to discuss the formality of \emph{judgements}. This is a concept oft overlooked in the study of type theory. We will give a careful and detailed account of derivability and admissibility. We will also remark on inconsistencies of the treatment of certain concepts.
 
@@ -68,40 +10,9 @@ We will then analyse the dynamics of the STLC. There is a long history of normal
 
 Next there will be several examples of terms to be type checked. This will show the intricacies that go into designing a type checker. We will see that typing makes lambda calculus much weaker, in that many terms from the untyped lambda calculus cannot be typed. It is precisely these terms which gave the computational power of the untyped lambda calculus to begin with.
 
-The next section will be a detailed account of the ideas that went in to, what is now known as the \emph{Curry-Howard} correspondence. This is a very deep package of ideas with far reaching consequences, of which we will try to make account of.
+We will sketch some modifications to the simply typed lambda calculus that will give us certain desired features. We will show how these can be designed and discuss their normalisation results too.
 
-Finally we will sketch some modifications to the simply typed lambda calculus that will give us certain desired features. We will show how these can be designed and discuss their normalisation results too.
-
-[[TODO CLEAN UP]]
-
-We will use the knowledge gained from a study of Curry-Howard to design new types and data structures for our STLC, and turn it into a more powerful programming language, i.e. one that can support recursion. We make a note about encodings of natural numbers in the plain STLC, and why they are insufficient to really be called natural numbers.
-
-Finally we will sketch a dependent type theory with $\Pi$ and $\Sigma$ types. We will not prove any formal properties of this type theory but using our previous work we will sketch how one might go about doing so. We will take this time to introduce the workings of dependent types and discuss their advantages over other type theory features.
+Finally we will give a detailed account of the ideas that went in to, what is now known as the \emph{Curry-Howard} correspondence. This is a very deep package of ideas with far reaching consequences, of which we will try to make account of.
 
 Our closing remarks will be about future directions in type theory, questions that need to be answered and future of programming language design.
-
-
-
-
-
-%We will introduce and study several type theories starting with the simply typed lambda calculus and ending with dependent type theory, with an outlook towards future work and current applications. 
-
-%Dependent types have been around for a while. [[Introduction with citation]]. The fact that they haven't been used widely in programming and mathematics suggests that their exposition is in dire need of attention. This is one of the goals this dissertation aims to achieve. We also note that for type theorists, categorical semantics can be daunting and obscure. For mathematicians, computer scientific ideas seem out of reach. 
-
-
-%\begin{itemize}
-%\item a[Begin with history and implications of curry Howard]
-%\item a[outline the ``what they should do'' of dependent types]
-%\item a[start to rigoursly model syntax and talk about how bad a job most authors do]
-%\item a[small section about classical inductive definitions]
-%\item a[small section on why categorical semantics]
-%\item a[model simply typed lambda calculus with categorical semantics]
-%\item a[show natural extensions of the idea and why contexts break when dependnet]
-%\item a[outline different approches to solving these problems]
-%\item a[discuss Awodey's natural models]
-%\item a[finally talk about future directions for type theory]
-%\item a[maybe some mention on applications to programming (generalising various constructs, polymorphism, GA data types)]
-%\item a[equality, inductive types, [[[[[maybe a tinsy bit of homotopy type theory]]]]]]
-%\end{itemize}
-
 

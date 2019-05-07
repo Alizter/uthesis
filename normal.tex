@@ -10,13 +10,11 @@ When designing the type checking algorithm we made a point not to invoke any com
 
 Computational rules, are our basic steps of computation. In the late 1930s, Alan Turing had a model of what it meant to be \emph{effectively calculable}, now known as a Turing Machine \cite{turing1936a}. Critically he included an appendix which outlined how Church's untyped lambda calculus was equivalent to his notion of effective calculability. We will discuss the historical nature of this further in chapter \ref{logic_chapter}.
 
-One important question in computer science is knowing whether or not a computation will halt, known as the \emph{Halting problem}. It can in fact be shown that Turing machines, and by extension untyped lambda calculus, cannot decide their own halting problem. This stems from the fact that these gadgets are ``\emph{too good}'' at computation. It is closely related to G\"odel's analysis of the power of arithmetic. \cite{} [[TODO CITATION]]
+One important question in computer science is knowing whether or not a computation will halt, known as the \emph{Halting problem}. It can in fact be shown that Turing machines, and by extension untyped lambda calculus, cannot decide their own halting problem. This stems from the fact that these gadgets are ``\emph{too good}'' at computation. It is closely related to G\"odel's analysis of the power of arithmetic \cite{GlossarWiki:Goedel:1931, godel1958}.
 
 The main goal of this chapter will be to show that the STLC, defined in the previous chapter, has computations that \emph{always} terminate. This is known as \emph{strong normalisation}. This immediately highlights some of the weaknesses of the STLC, however we will later discuss what is missing and how this can be fixed. The technical term for this is that STLC is \emph{not} Turing-complete. \cite{} We will also see that there are \emph{untyped} lambda terms that cannot be \emph{typed}.
 
 It can be observed that there is not a unique way to compute something, i.e. run the program. What is important is that the result is unique. Such a property is known as the Church-Rosser property. We will show that Church-Rosser property holds for $\beta$-, $\eta$- and $\beta\eta$-reductions. 
-
-
 
 Guiding references for this chapter are \cite{Sorensen} and \cite{BarendregtHenk2013Lcwt}.
 
@@ -895,118 +893,5 @@ Now we can show that $\beta\eta$-reduction is weakly Church-Rosser.
     $\beta\eta$-reduction is strongly normalising by Lemma \ref{beta_eta_SN} and weakly Church-Rosser by Lemma \ref{beta_eta_WCR}. Hence by Newman's Lemma (\ref{newman}) we have that $\beta\eta$-reduction is Church-Rosser for typed terms. 
 \end{proof}
 
-\begin{comment}
+The best reference for these arguments is \cite{barendregt1984lambda}. There have been a few papers after which many of the arguments have been vastly simplified notably \cite{TakahashiM1989PRIL}. However to our knowledge there is no single account of many of these results.
 
-%%
-%% Canonicity
-%%
-
-\subsection{Canonicity}
-
-\begin{defin}
-    A term $\Gamma \vdash t \Leftarrow A$ is said to be in \emph{canonical form} if syntactically it is only built from variables in $\Gamma$ and constructors of the type $A$.
-\end{defin}
-
-\begin{remark}
-    A more precise way to say this is perhaps that the derivation tree of $\Gamma \vdash t \Leftarrow A$ only consists of structural rules and introduction rules corresponding to $A$.
-\end{remark}
-
-From this we see some immediate consequences.
-
-\begin{lemma}
-    If a term $\Gamma \vdash t \Leftarrow A$ is in canonical form then it is necessarily in $\beta \eta$-normal form.
-\end{lemma}
-
-\begin{proof}
-    If it was not in $\beta \eta$-normal form then it would contain some redex which would mean that the derivation of $\Gamma \vdash t \Leftarrow A$ uses ($\to$-intro). Hence $t$ cannot be in canonical form.
-\end{proof}
-
-However it is not so obvious that the converse is true:
-
-\begin{lemma}
-    If a term $\Gamma \vdash t \Leftarrow A$ is in $\beta \eta$-normal form, then it is in canonical form.
-\end{lemma}
-
-\begin{proof}
-    [[TODO]]
-\end{proof}
-
-
-
-\end{comment}
-
-
-
-\begin{comment}
-%% beta eta reduction 
-We next wish to show that $\beta$-normal forms occur if and only if $\beta \eta$-normal forms occur.
-
-\begin{lemma}\label{beta_SN_beta_eta_SN}
-    A term $t$ have a $\beta$-normal form if and only if it has a $\beta \eta$-normal form.
-\end{lemma}
-
-\begin{proof}
-    A similar proof can be found in \cite[Corollary 15.1.5]{barendregt1984lambda}, this would of course have to be modified to accommodate for product types.
-\end{proof}
-
-\begin{remark}
-    In particular this means that $\to_{\beta}$ being strongly normalising implies that $\to_{\beta \eta}$ is strongly normalising.
-\end{remark}
-
-% beta eta reduction is strongly normalising
-\begin{cor}
-    $\beta \eta$-reduction is strongly normalising.
-\end{cor}
-
-\begin{proof}
-    By Lemma \ref{beta_SN} and Lemma \ref{beta_SN_beta_eta_SN}.
-\end{proof}
-
-
-\subsection{Closing remarks}
-
-The best reference for these arguments is \cite{barendregt1984lambda}. There have been a few papers after which many of the arguments have been vastly simplified notably \cite{TakahashiM1989PRIL}. However to our knowledge there is no single account of many of these results. A possible future direction is via the use of \emph{categorical semantics}, which associate each ``type theory'' to an appropriately structured category. Typically these only model the \emph{statics} of the type theory, but there are attempts in the literature to realise the reductions as 2-cells in a \emph{bicategory}. Then a property such as Church-Rosser would be about the existence of pushouts in the Hom-category. 
-
-\subsection{Canonicity}
-
-\begin{defin}
-    A term $\Gamma \vdash t \Leftarrow A$ is said to be in \emph{canonical form} if syntactically it is only built from variables in $\Gamma$ and constructors of the type $A$.
-\end{defin}
-
-\begin{remark}
-    A more precise way to say this is perhaps that the derivation tree of $\Gamma \vdash t \Leftarrow A$ only consists of structural rules and introduction rules corresponding to $A$.
-\end{remark}
-
-From this we see some immediate consequences.
-
-\begin{lemma}
-    If a term $\Gamma \vdash t \Leftarrow A$ is in canonical form then it is necessarily in $\beta \eta$-normal form.
-\end{lemma}
-
-\begin{proof}
-    If it was not in $\beta \eta$-normal form then it would contain some redex which would mean that the derivation of $\Gamma \vdash t \Leftarrow A$ uses $($\to$-intro)$. Hence $t$ cannot be in canonical form.
-\end{proof}
-
-However it is not so obvious that the converse is true:
-
-\begin{lemma}
-    If a term $\Gamma \vdash t \Leftarrow A$ is in $\beta \eta$-normal form, then it is in canonical form.
-\end{lemma}
-
-\begin{proof}
-    
-\end{proof}
-
-
-
-
-
-
-
-
-
-
-Canonicity is a property of a type theory that ensures that a given term of a type $\Gamma \vdash t \Leftarrow T$ has a \emph{canonical form}, in that $t$ is only made up of variables from $\Gamma$ and constructors of $T$. Such a property would guarantee that 
-
-[[These two concepts are very related, we should find some way to talk about it, including Church-Rosser]]
-\end{comment}

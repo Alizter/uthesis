@@ -68,13 +68,6 @@ We begin with our basic judgements.
     Since these are \emph{basic judgements} we would typically never write them on their own like this. Typically we are interested in the derivability judgement $\Gamma \vdash \mathcal{J}$. 
 \end{remark}
 
-%
-% add associativity
-%
-%[[TODO: Clean up this whole paragraph(s)]]
-%We begin with our basic judgements. Of which there will be 5. Our STLC will have bidirectional type checking, in that we will distinguish between the direction of type checking. There are several advantages of this and historically the two main systems called STLC are Curry's and Church's which simply differ in the direction of type checking. By having both directions and a sort of ``mode-switching rule'' we have far greater control and ease when describing type checking properties. We will also need to have a notion of \emph{judgemental equality} since we wish to do some computation. There are variations of this theme discussed in the statics chapter that allow us to have transition systems instead but we will use an equational style since transition systems can be derived from this. This also has the advantage of STLC becoming what is known as an ``equational theory''. This will be a useful feature for when we want to derive categorical semantics. 
-
-
 \begin{defin}\label{context_def}
     A context is a list of variables, with an associated type. Elements of the list are written $x : A$ where $x$ is a variable, and $A$ is its type. Typically a context is denoted by a capital greek letter $\Gamma$, $\Delta$, etc.
 \end{defin}
@@ -280,6 +273,8 @@ Building on top of our ``empty type theory'' we introduce $\to$ the function typ
         \BinaryInfC{$\Gamma \vdash A \to B \ \mathsf{type}$}
     \end{prooftree}
 
+    We note that $\to$ is right-associative, in that $A \to B \to C = A \to (B \to C)$.
+
     Our introduction rule tells us how to construct terms of our type. This is also known as $\lambda$-abstraction:
 
     % -> introduction
@@ -298,8 +293,10 @@ Building on top of our ``empty type theory'' we introduce $\to$ the function typ
         \RightLabel{($\to$-elim)}
         \BinaryInfC{$\Gamma \vdash M N \Rightarrow B$}
     \end{prooftree}
+    
+    We note that application is left-associative, in that $A B C = (A B)C$.
 
-    And finally we have computation rules which tell us how to compute our terms. We will later prove results about normalisation of the lambda calculus. We start with $\beta$-reduction which tells us how applied functions compute:
+    Finally we have computation rules which tell us how to compute our terms. We will later prove results about normalisation of the lambda calculus. We start with $\beta$-reduction which tells us how applied functions compute:
 
     % -> beta
     \begin{prooftree}

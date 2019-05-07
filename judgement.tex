@@ -260,12 +260,13 @@ Now that we have induction on our inductive definitions we can prove some result
 
 Finally we can say our four rules correspond to Peano arithmetic!
 
-[[Now talk about how classically Peano arithmetic requires many more axioms, we only have four rules and the notion of induction!]]
-[[Talk about what we have proven about Peano arithmetic is actually a meta statement, a statement in the metalanguage, later we will have richer logics where we can prove things like this internally]].
+\begin{remark}
+    Classical presentations of Peano arithmetic contain many more axioms to formulate. We can already see how this inductive approach is cleaner and more compact than classical sporadic presentations \cite{GlossarWiki:Goedel:1931}.
+\end{remark}
 
-[[References include Aczel 1977 who provides a thorough account of inductive definitions and judgement based logic is inspired by Martin-L\"of's logic of judgements 1983, 1987]]
-
-[[Talk about iterated and simultaneous inductive definitions]]
+\begin{remark}
+    The statements that we have proven about Peano arithmetic is technically considered a \emph{meta statement}, since the truth value of a judgement such as $a = b$ occurs in the logic we set everything up in. When we consider richer systems of judgements, we may be able to prove meta statements, internally.
+\end{remark}
 
 \subsection{Hypothetical judgements}
 
@@ -427,16 +428,5 @@ Our inductive definitions give us a rich and expressive way to define and use ru
     The second rule is known as \emph{weakening}, this states that ``having knowledge of an extra variable does not effect what you know''. Finally the third would correspond to ``being able to forget an assumption, if you know you can derive it''. In the case of the simply typed lambda calculus, which will study later, we will see that such structural rules are admissible. 
 \end{remark}
 
-\subsection{General judgements}
-
-[[Talk about generic judgements and parametric judgements]]
-
-
-
-
-
-
-
-
-
+The idea of logical judgements builds on the work of Per Martin-L\"of \cite{martin1996meanings, martin1984intuitionistic}.
 

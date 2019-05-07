@@ -2,27 +2,7 @@
 
 \subsection{Introduction}
 
-[[TODO cleanup]]
-
-We will follow the structure of syntax outlined in Harper \cite{harper_2016}. There are several reasons for this. 
-
-Firstly, for example in Barendregt et. al. \cite{BarendregtHenk2013Lcwt} we have notions of substitution left to the reader under the assumption that they can be fixed. Generally Barendregt's style is like this and even when there is much formalism, it is done in a way that we find peculiar.
-
-In Crole's book \cite{CroleRoyL1993Cft}, syntax is derived from an \textit{algebraic signature} which comes directly from categorical semantics. We want to give an independent view of type theory. The syntax only has types as well, meaning that only terms can be posed in this syntax. Operations on types themselves would have to be handled separately. This will also make it difficult to work with \textit{bound variables}.
-
-In Lambek and Scott's book \cite{LambekJ1986Itho}, very little attention is given to syntax and categorical semantics and deriving type theory from categories for study is in the forefront of their focus.
-
-In Jacob's book \cite{JacobsCLTT}, we again have much reliance on categorical machinery. A variant of algebraic signature called a \mathit{many-typed signature} is given, which has its roots in mathematical logic. Here it is discussed that classically in logic the idea of a sort and a type were synonymous, and they go onto preferring to call them types. This still has the problems identified before as terms and types being treated separately, when it comes to syntax.
-
-In Barendregt's older book \cite{barendregt1984lambda}, there are models of the syntax of (untyped) lambda calculus, using Scott topologies on complete lattices. We acknowledge that this is a working model of the lambda calculus but we believe it to be overly complex for the task at hand. It introduces a lot of mostly irrelevant mathematics for studying the lambda calculus. And we doubt very much that these models will hold up to much modification of the calculus. Typing seems impossible.
-
-In S{\o}rensen and Urzyczyn's book \cite{Sorensen} a more classical unstructured approach to syntax is taken. This is very similar to the approaches that Church, Curry and de Brujin gave early on. The difficulty with this approach is that it is very hard to prove things about the syntax. There are many exceptional cases to be weary of (for example if a variable is bound etc.). It can also mean that the syntax is vulnerable to mistakes. We acknowledge it's correctness in this case, however we prefer to use a safer approach.
-
-We will finally look at one more point of view, that of mathematical logic. We look at Troelstra and Schwichtenberg's book \cite{troelstra_schwichtenberg_2000} which studies proof theory. This is essentially the previous style but done to a greater extent, for they use that kind of handling of syntax to argue about more general logics. As before, we do not choose this approach.
-
-We have seen books from either end of the spectrum, on one hand Barendregt's type theoretic camp, and on the other, the more categorical logically oriented camp. We have argued that the categorical logically oriented texts do not do a good job of explaining and defining syntax, their only interest is in their categories. The type theoretic texts also seem to be on mathematically shaky ground, sometimes much is left to the reader and finer details are overlooked.
-
-Harper's seems more sturdy and correct in our opinion. Harper doesn't concern himself with abstraction for the sake of abstraction but rather when it will benefit the way of thinking about something. The framework for working with syntax also seems ideal to work with, when it comes to adding features to a theory (be it a type theory or otherwise).
+Syntax is a difficult and subtle concept to get right. There is usually a difficult tradeoff between simplicity, readability and correctness. It is very rare that an approach to syntax can give room to all three. We follow an approach to syntax outlined by Harper in \cite{harper_2016}. 
 
 \subsection{Abstract binding trees}
 
@@ -60,7 +40,13 @@ Harper's seems more sturdy and correct in our opinion. Harper doesn't concern hi
 \end{defin}
 
 \begin{remark}\label{opdata}
-    [[TODO op data]]
+    To specify an operator, it suffices to give the following data:
+    \begin{itemize}
+        \item A list of variables of various sort.
+        \item A list of arguments of various sort.
+        \item Binding relations between the two.
+        \item The sort of the operator.
+    \end{itemize}
 \end{remark}
 
 % Variables
@@ -206,4 +192,30 @@ We quickly sketch some routine proofs showing $\alpha$-equivalence is in fact an
 \begin{remark}
     It should be noted that although badly formed sentences are avoided, it doesn't stop one from writing it down erroneously. To the human eye, it may even look valid. This is a situation in which using a \emph{proof assistant} would be a huge benefit. In this way writing down sentences that don't make sense simply wouldn't be a valid statement, and would be rejected by the program.
 \end{remark}
+
+\subsection{Reasoning behind approach to syntax}
+
+It is common for many (especially popular) type theory papers to start with an almost apology about syntax. Stating how to date, there is no clear solution. It is almost equally common for solutions to be presented, only to later have flaws discovered, or that the entire system is just too overly convoluted.
+
+A common approach is to sacrifice readability, and instead focus on correctness and simplicity, \emph{de Brujin indicies} \cite{DEBRUIJN1972381} fit these criteria. Bound variables are written as elements of an infinite set, enumerated by the syntactic depth of the variables occurrence. When forming new syntax care has to be taken to shift the enumeration along correctly. The disadvantages of this approach is the fact that it is almost impossible to read with the human eye. Considering only practical implementations however, de Brujin indicies provide a workable background mechanism for syntax, used internally for the representation of syntax in langauges. Variable names can then be seen as syntactic sugar that can be preprocessed.
+
+Authors such as Barendregt have written hoardes of material on the working of lambda calculus, but to our knowledge do this under the assumption that ``there ought to be a way to do syntax correctly, as long as we are cautious, we can do this naively without problem''. For example in Barendregt et. al. \cite{BarendregtHenk2013Lcwt} we have notions of substitution left to the reader under the assumption that they can be fixed. In Barendregt's older book \cite{barendregt1984lambda}, there are models of the syntax of (untyped) lambda calculus. This has the classic approach of ``be aware of variable-capture and substitution''. This is unfortunately not an easy idea to convey to a computer.
+
+In Crole's book \cite{CroleRoyL1993Cft}, syntax is derived from an \textit{algebraic signature} which comes directly from categorical semantics. We want to give an independent view of type theory. The syntax only has types as well, meaning that only terms can be posed in this syntax. Operations on types themselves would have to be handled separately. This will also make it difficult to work with \textit{bound variables}. Not only that but issues of $\alpha$-equivalence predate type theory. In fact, Church's combinatory logic \cite{church1932} was an early attempt to avoid the use of variables in classical logic. Precisly because of these issues. We will see later that these two avoidances are much the same, under the lens of the Curry-Howard correspondence. 
+
+In Lambek and Scott's book \cite{LambekJ1986Itho}, very little attention is given to syntax and categorical semantics and deriving type theory from categories for study is in the forefront of their focus. This is fine but still begs the question, ``If everybody thinks syntax is somehow fixable, why hasn't anybody fixed it?''.
+
+In Jacob's book \cite{JacobsCLTT}, we again have much reliance on categorical machinery. A variant of algebraic signature called a \mathit{many-typed signature} is given, which has its roots in mathematical logic. Here it is discussed that classically in logic the idea of a sort and a type were synonymous, and they go onto preferring to call them types. This still has the problems identified before as terms and types being treated separately, when it comes to syntax.
+
+In S{\o}rensen and Urzyczyn's book \cite{Sorensen} a more classical unstructured approach to syntax is taken. This is very similar to the approaches that Church, Curry and de Brujin gave early on. The difficulty with this approach is that it is very hard to prove things about the syntax. There are many exceptional cases to be weary of (for example if a variable is bound etc.). It can also mean that the syntax is vulnerable to mistakes. We acknowledge it's correctness in this case, however we prefer to use a safer approach.
+
+We will finally look at one more point of view, that of mathematical logic. We look at Troelstra and Schwichtenberg's book \cite{troelstra_schwichtenberg_2000} which studies proof theory. This is essentially the previous style but done to a greater extent, for they use that kind of handling of syntax to argue about more general logics. As before, we do not choose this approach.
+
+We have seen books from either end of the spectrum, on one hand Barendregt's type theoretic camp, and on the other, the more categorical logically oriented camp. We have argued that the categorical logically oriented texts do not do a good job of explaining and defining syntax, their only interest is in their categories. The type theoretic texts also seem to be on mathematically shaky ground, sometimes much is left to the reader and finer details are overlooked.
+
+Harper's seems more sturdy and correct in our opinion. We do note however that it isn't perfect. Our approach to $\alpha$-equivalence is to simply take equivalence classes and pretend everything works. For the standard of mathematical rigor, this is not an acceptable state of affairs.
+
+
+
+
 
